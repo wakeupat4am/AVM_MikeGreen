@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+overall_test_set,ALL,robust lightgbm global,price,26381,3339957263.965357,13270042764.632687,45.42124641108494,22.656088427701533,25.07865509268034,45.411470376407266,21.01500070735465,50.19900686099844,49.800993139001555

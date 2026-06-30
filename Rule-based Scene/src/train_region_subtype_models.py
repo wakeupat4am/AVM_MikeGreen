@@ -1,0 +1,429 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Dict, List, Tuple
+
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+from common import (
+    EVAL_DIR,
+    RANDOM_STATE,
+    build_lgbm_pipeline,
+    evaluate_custom_levels,
+    global_features,
+    list_metric_columns,
+    load_processed_train_test,
+    metric_row,
+    save_level_outputs,
+    save_predictions,
+    standard_group_definitions,
+    subtype_features,
+)
+from outlier_handling import prepare_outlier_artifacts
+from train_robust_lightgbm import BASE_PARAMS, LEAKAGE_COLUMNS
+
+
+MODEL_DIR = EVAL_DIR / "improvements" / "region_subtype_models"
+MIN_REGION_ROWS = 500
+MIN_REGION_SUBTYPE_ROWS = 2000
+REGION_COL = "addr_last_1"
+SUBTYPE_COL = "property_subtype"
+
+
+def non_leakage_global_features(df: pd.DataFrame) -> Tuple[List[str], List[str]]:
+    numeric, categorical = global_features(df)
+    return (
+        [col for col in numeric if col not in LEAKAGE_COLUMNS and not col.startswith("pred_")],
+        [col for col in categorical if col not in LEAKAGE_COLUMNS and not col.startswith("pred_")],
+    )
+
+
+def non_leakage_subtype_features(df: pd.DataFrame) -> Dict[str, Dict[str, List[str]]]:
+    feature_map = subtype_features(df)
+    cleaned = {}
+    for subtype, feature_dict in feature_map.items():
+        cleaned[subtype] = {
+            "numeric": [col for col in feature_dict["numeric"] if col not in LEAKAGE_COLUMNS and not col.startswith("pred_")],
+            "categorical": [col for col in feature_dict["categorical"] if col not in LEAKAGE_COLUMNS and not col.startswith("pred_")],
+        }
+    return cleaned
+
+
+def load_robust_params() -> Dict:
+    config_path = EVAL_DIR / "improvements" / "robust_lightgbm" / "config.json"
+    if config_path.exists():
+        return json.loads(config_path.read_text(encoding="utf-8"))["best_params"]
+    params = BASE_PARAMS.copy()
+    params["objective"] = "regression_l1"
+    return params
+
+
+def fit_model(train_df: pd.DataFrame, numeric_features: List[str], categorical_features: List[str], params: Dict):
+    feature_cols = numeric_features + categorical_features
+    model = build_lgbm_pipeline(numeric_features, categorical_features, params)
+    model.fit(
+        train_df[feature_cols],
+        train_df["log_price"],
+        model__sample_weight=train_df["sample_weight"].values,
+    )
+    return model, feature_cols
+
+
+def predict_with_model(model, df: pd.DataFrame, feature_cols: List[str]) -> np.ndarray:
+    return np.expm1(model.predict(df[feature_cols]))
+
+
+def median_ape_for_slice(df_eval: pd.DataFrame, pred_col: str, mask: pd.Series) -> float:
+    subset = df_eval.loc[mask]
+    metrics = metric_row(subset["price_vnd"], subset[pred_col])
+    return float(metrics["Median_APE"]) if pd.notna(metrics["Median_APE"]) else np.inf
+
+
+def train_family_models(train_df: pd.DataFrame, val_df: pd.DataFrame, params: Dict):
+    global_num, global_cat = non_leakage_global_features(train_df)
+    subtype_feature_map = non_leakage_subtype_features(train_df)
+
+    global_model, global_cols = fit_model(train_df, global_num, global_cat, params)
+    val_df["pred_price_vnd_global"] = predict_with_model(global_model, val_df, global_cols)
+
+    region_models = {}
+    val_df["pred_price_vnd_region"] = np.nan
+    for region, region_train in train_df.groupby(REGION_COL):
+        if len(region_train) < MIN_REGION_ROWS:
+            continue
+        region_model, region_cols = fit_model(region_train, global_num, global_cat, params)
+        region_models[region] = {"model": region_model, "feature_cols": region_cols, "rows": len(region_train)}
+        region_mask = val_df[REGION_COL] == region
+        if region_mask.any():
+            val_df.loc[region_mask, "pred_price_vnd_region"] = predict_with_model(region_model, val_df.loc[region_mask], region_cols)
+
+    subtype_models = {}
+    val_df["pred_price_vnd_subtype"] = np.nan
+    for subtype, subtype_train in train_df.groupby(SUBTYPE_COL):
+        if len(subtype_train) < MIN_REGION_ROWS:
+            continue
+        feature_dict = subtype_feature_map.get(subtype, {"numeric": global_num, "categorical": global_cat})
+        subtype_model, subtype_cols = fit_model(subtype_train, feature_dict["numeric"], feature_dict["categorical"], params)
+        subtype_models[subtype] = {"model": subtype_model, "feature_cols": subtype_cols, "rows": len(subtype_train)}
+        subtype_mask = val_df[SUBTYPE_COL] == subtype
+        if subtype_mask.any():
+            val_df.loc[subtype_mask, "pred_price_vnd_subtype"] = predict_with_model(subtype_model, val_df.loc[subtype_mask], subtype_cols)
+
+    region_subtype_models = {}
+    val_df["pred_price_vnd_region_subtype"] = np.nan
+    group_sizes = train_df.groupby([REGION_COL, SUBTYPE_COL]).size().rename("train_rows").reset_index()
+    for row in group_sizes.itertuples(index=False):
+        if row.train_rows < MIN_REGION_SUBTYPE_ROWS:
+            continue
+        mask = (train_df[REGION_COL] == row.addr_last_1) & (train_df[SUBTYPE_COL] == row.property_subtype)
+        group_train = train_df.loc[mask]
+        feature_dict = subtype_feature_map.get(row.property_subtype, {"numeric": global_num, "categorical": global_cat})
+        group_model, group_cols = fit_model(group_train, feature_dict["numeric"], feature_dict["categorical"], params)
+        region_subtype_models[(row.addr_last_1, row.property_subtype)] = {
+            "model": group_model,
+            "feature_cols": group_cols,
+            "rows": int(row.train_rows),
+        }
+        val_mask = (val_df[REGION_COL] == row.addr_last_1) & (val_df[SUBTYPE_COL] == row.property_subtype)
+        if val_mask.any():
+            val_df.loc[val_mask, "pred_price_vnd_region_subtype"] = predict_with_model(group_model, val_df.loc[val_mask], group_cols)
+
+    return {
+        "global": {"model": global_model, "feature_cols": global_cols},
+        "region": region_models,
+        "subtype": subtype_models,
+        "region_subtype": region_subtype_models,
+        "validation_predictions": val_df,
+        "train_group_sizes": group_sizes,
+    }
+
+
+def choose_policy(validation_predictions: pd.DataFrame, train_group_sizes: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    keys = validation_predictions[[REGION_COL, SUBTYPE_COL]].drop_duplicates()
+    group_size_lookup = {
+        (row.addr_last_1, row.property_subtype): int(row.train_rows)
+        for row in train_group_sizes.itertuples(index=False)
+    }
+
+    for row in keys.itertuples(index=False):
+        region = row.addr_last_1
+        subtype = row.property_subtype
+        mask = (validation_predictions[REGION_COL] == region) & (validation_predictions[SUBTYPE_COL] == subtype)
+        train_rows = group_size_lookup.get((region, subtype), 0)
+
+        candidate_scores = {"global": median_ape_for_slice(validation_predictions, "pred_price_vnd_global", mask)}
+
+        if validation_predictions.loc[mask, "pred_price_vnd_region"].notna().any():
+            candidate_scores["region"] = median_ape_for_slice(validation_predictions, "pred_price_vnd_region", mask)
+        if validation_predictions.loc[mask, "pred_price_vnd_subtype"].notna().any():
+            candidate_scores["subtype"] = median_ape_for_slice(validation_predictions, "pred_price_vnd_subtype", mask)
+        if validation_predictions.loc[mask, "pred_price_vnd_region_subtype"].notna().any():
+            candidate_scores["region_subtype"] = median_ape_for_slice(validation_predictions, "pred_price_vnd_region_subtype", mask)
+
+        if train_rows < MIN_REGION_ROWS:
+            chosen_model = "global"
+            fallback_model = "global"
+        elif train_rows < MIN_REGION_SUBTYPE_ROWS:
+            fallback_model = "region" if "region" in candidate_scores else "global"
+            chosen_model = fallback_model
+            if "subtype" in candidate_scores and candidate_scores["subtype"] < candidate_scores[chosen_model]:
+                chosen_model = "subtype"
+        else:
+            fallback_model = "region" if "region" in candidate_scores else "global"
+            chosen_model = fallback_model
+            if "subtype" in candidate_scores and candidate_scores["subtype"] < candidate_scores[chosen_model]:
+                chosen_model = "subtype"
+            if "region_subtype" in candidate_scores and candidate_scores["region_subtype"] < candidate_scores[chosen_model]:
+                chosen_model = "region_subtype"
+
+        rows.append(
+            {
+                REGION_COL: region,
+                SUBTYPE_COL: subtype,
+                "train_rows": train_rows,
+                "fallback_model": fallback_model,
+                "chosen_model": chosen_model,
+                "global_median_ape": candidate_scores.get("global"),
+                "region_median_ape": candidate_scores.get("region"),
+                "subtype_median_ape": candidate_scores.get("subtype"),
+                "region_subtype_median_ape": candidate_scores.get("region_subtype"),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def retrain_and_predict(train_df: pd.DataFrame, test_df: pd.DataFrame, params: Dict, routing_policy: pd.DataFrame) -> pd.DataFrame:
+    train_artifacts = prepare_outlier_artifacts(train_df, {"test": test_df})
+    tr = train_artifacts.train_df
+    te = train_artifacts.other_dfs["test"].copy()
+    global_num, global_cat = non_leakage_global_features(tr)
+    subtype_feature_map = non_leakage_subtype_features(tr)
+
+    global_model, global_cols = fit_model(tr, global_num, global_cat, params)
+    te["pred_price_vnd_global"] = predict_with_model(global_model, te, global_cols)
+
+    te["pred_price_vnd_region"] = np.nan
+    region_models = {}
+    for region, region_train in tr.groupby(REGION_COL):
+        if len(region_train) < MIN_REGION_ROWS:
+            continue
+        region_model, region_cols = fit_model(region_train, global_num, global_cat, params)
+        region_models[region] = {"model": region_model, "feature_cols": region_cols}
+        region_mask = te[REGION_COL] == region
+        if region_mask.any():
+            te.loc[region_mask, "pred_price_vnd_region"] = predict_with_model(region_model, te.loc[region_mask], region_cols)
+
+    te["pred_price_vnd_subtype"] = np.nan
+    subtype_models = {}
+    for subtype, subtype_train in tr.groupby(SUBTYPE_COL):
+        if len(subtype_train) < MIN_REGION_ROWS:
+            continue
+        feature_dict = subtype_feature_map.get(subtype, {"numeric": global_num, "categorical": global_cat})
+        subtype_model, subtype_cols = fit_model(subtype_train, feature_dict["numeric"], feature_dict["categorical"], params)
+        subtype_models[subtype] = {"model": subtype_model, "feature_cols": subtype_cols}
+        subtype_mask = te[SUBTYPE_COL] == subtype
+        if subtype_mask.any():
+            te.loc[subtype_mask, "pred_price_vnd_subtype"] = predict_with_model(subtype_model, te.loc[subtype_mask], subtype_cols)
+
+    te["pred_price_vnd_region_subtype"] = np.nan
+    for row in routing_policy.itertuples(index=False):
+        if row.train_rows < MIN_REGION_SUBTYPE_ROWS:
+            continue
+        mask = (tr[REGION_COL] == row.addr_last_1) & (tr[SUBTYPE_COL] == row.property_subtype)
+        group_train = tr.loc[mask]
+        feature_dict = subtype_feature_map.get(row.property_subtype, {"numeric": global_num, "categorical": global_cat})
+        group_model, group_cols = fit_model(group_train, feature_dict["numeric"], feature_dict["categorical"], params)
+        test_mask = (te[REGION_COL] == row.addr_last_1) & (te[SUBTYPE_COL] == row.property_subtype)
+        if test_mask.any():
+            te.loc[test_mask, "pred_price_vnd_region_subtype"] = predict_with_model(group_model, te.loc[test_mask], group_cols)
+
+    policy_lookup = routing_policy.set_index([REGION_COL, SUBTYPE_COL])["chosen_model"].to_dict()
+    te["selected_model"] = te.apply(
+        lambda row: policy_lookup.get((row[REGION_COL], row[SUBTYPE_COL]), "global"),
+        axis=1,
+    )
+    te["pred_price_vnd_hybrid"] = te["pred_price_vnd_global"]
+    te.loc[te["selected_model"] == "region", "pred_price_vnd_hybrid"] = te.loc[te["selected_model"] == "region", "pred_price_vnd_region"].fillna(
+        te.loc[te["selected_model"] == "region", "pred_price_vnd_global"]
+    )
+    te.loc[te["selected_model"] == "subtype", "pred_price_vnd_hybrid"] = te.loc[te["selected_model"] == "subtype", "pred_price_vnd_subtype"].fillna(
+        te.loc[te["selected_model"] == "subtype", "pred_price_vnd_global"]
+    )
+    te.loc[te["selected_model"] == "region_subtype", "pred_price_vnd_hybrid"] = te.loc[
+        te["selected_model"] == "region_subtype", "pred_price_vnd_region_subtype"
+    ].fillna(te.loc[te["selected_model"] == "region_subtype", "pred_price_vnd_region"]).fillna(
+        te.loc[te["selected_model"] == "region_subtype", "pred_price_vnd_global"]
+    )
+    return te
+
+
+def evaluate_family(df_eval: pd.DataFrame, pred_col: str, model_name: str, out_dir: Path) -> pd.DataFrame:
+    levels = evaluate_custom_levels(
+        df_eval=df_eval,
+        actual_col="price_vnd",
+        pred_col=pred_col,
+        model_name=model_name,
+        target_name="price",
+        group_definitions=standard_group_definitions(df_eval),
+    )
+    save_level_outputs(levels, out_dir)
+    return pd.concat(levels.values(), ignore_index=True)
+
+
+def baseline_summary_frame() -> pd.DataFrame:
+    baseline_path = EVAL_DIR / "lightgbm" / "all_metrics.csv"
+    if not baseline_path.exists():
+        return pd.DataFrame()
+    baseline = pd.read_csv(baseline_path)
+    return baseline[(baseline["target"] == "price") & (baseline["model"] == "lightgbm global")].copy()
+
+
+def create_final_comparison(
+    robust_metrics: pd.DataFrame,
+    family_metrics: pd.DataFrame,
+    routing_policy: pd.DataFrame,
+) -> pd.DataFrame:
+    rows = []
+    baseline = baseline_summary_frame()
+    if not baseline.empty:
+        base_row = baseline[baseline["level"] == "overall_test_set"].iloc[0]
+        rows.append({"experiment": "current_baseline", "model": "lightgbm global", **{metric: base_row[metric] for metric in list_metric_columns()}})
+
+    robust_row = robust_metrics[robust_metrics["level"] == "overall_test_set"].iloc[0]
+    rows.append({"experiment": "robust_lightgbm", "model": "robust lightgbm global", **{metric: robust_row[metric] for metric in list_metric_columns()}})
+
+    for model_name in ["region model", "subtype model", "region subtype model", "hybrid fallback"]:
+        subset = family_metrics[(family_metrics["level"] == "overall_test_set") & (family_metrics["model"] == model_name)]
+        if subset.empty:
+            continue
+        row = subset.iloc[0]
+        rows.append({"experiment": model_name.replace(" ", "_"), "model": model_name, **{metric: row[metric] for metric in list_metric_columns()}})
+
+    comparison = pd.DataFrame(rows)
+    comparison["routing_groups"] = np.nan
+    if not routing_policy.empty:
+        comparison.loc[comparison["model"] == "hybrid fallback", "routing_groups"] = len(routing_policy)
+    return comparison
+
+
+def write_report(comparison: pd.DataFrame, family_metrics: pd.DataFrame, out_path: Path):
+    best_row = comparison.sort_values(["Median_APE", "HitRate_20_pct"], ascending=[True, False]).iloc[0]
+    subtype_improvements = family_metrics[
+        (family_metrics["level"] == "by_subtype") & (family_metrics["model"].isin(["global model", "hybrid fallback"]))
+    ].pivot(index="group", columns="model", values="Median_APE")
+    improved_subtypes = []
+    if {"global model", "hybrid fallback"}.issubset(subtype_improvements.columns):
+        improved_subtypes = subtype_improvements[subtype_improvements["hybrid fallback"] < subtype_improvements["global model"]].index.tolist()
+
+    region_improvements = family_metrics[
+        (family_metrics["level"] == "by_region") & (family_metrics["model"].isin(["global model", "hybrid fallback"]))
+    ].pivot(index="group", columns="model", values="Median_APE")
+    improved_regions = []
+    if {"global model", "hybrid fallback"}.issubset(region_improvements.columns):
+        improved_regions = region_improvements[region_improvements["hybrid fallback"] < region_improvements["global model"]].index.tolist()
+
+    lines = [
+        "# Improvement Results",
+        "",
+        "## What Changed",
+        "",
+        "- Added train-only local quantile outlier handling based on `price_per_m2` with leakage-safe fallback hierarchy.",
+        "- Added robust LightGBM objective comparison with weighted training on `log_price`.",
+        "- Added region, subtype, and region-subtype LightGBM families plus validation-based hybrid routing.",
+        "- Expanded evaluation to subtype, region, price band, area band, source, and outlier band.",
+        "",
+        "## Best Overall Model",
+        "",
+        f"- Best overall on current run: `{best_row['model']}` with Median_APE `{best_row['Median_APE']:.2f}` and HitRate_20_pct `{best_row['HitRate_20_pct']:.2f}`.",
+        "",
+        "## Improvement Readout",
+        "",
+        f"- Hybrid improved subtypes: {', '.join(improved_subtypes[:10]) if improved_subtypes else 'none on this run'}.",
+        f"- Hybrid improved regions: {', '.join(improved_regions[:10]) if improved_regions else 'none on this run'}.",
+        f"- Hybrid vs current baseline Median_APE delta: {comparison.set_index('model').loc['hybrid fallback', 'Median_APE'] - comparison.set_index('model').loc['lightgbm global', 'Median_APE']:.2f} points."
+        if {"hybrid fallback", "lightgbm global"}.issubset(set(comparison["model"]))
+        else "- Hybrid vs current baseline could not be computed because one result is missing.",
+        "",
+        "## Interpretation",
+        "",
+        "- If hybrid beats the global baseline, the next production step is to keep the global model as the safe default and route only the groups where local validation proves a gain.",
+        "- If a subtype or region does not improve on validation, it should stay on the parent model to avoid overfitting noisy local segments.",
+    ]
+    out_path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def main():
+    MODEL_DIR.mkdir(parents=True, exist_ok=True)
+    train_df, test_df = load_processed_train_test()
+    params = load_robust_params()
+
+    train_split, val_split = train_test_split(
+        train_df,
+        test_size=0.2,
+        random_state=RANDOM_STATE,
+        stratify=train_df[SUBTYPE_COL],
+    )
+    artifacts = prepare_outlier_artifacts(train_split, {"validation": val_split})
+    tr_enriched = artifacts.train_df
+    val_enriched = artifacts.other_dfs["validation"]
+
+    family = train_family_models(tr_enriched, val_enriched.copy(), params)
+    routing_policy = choose_policy(family["validation_predictions"], family["train_group_sizes"])
+    routing_policy.to_csv(MODEL_DIR / "routing_policy.csv", index=False)
+
+    test_pred = retrain_and_predict(train_df, test_df, params, routing_policy)
+    family_metrics = []
+    family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_global", "global model", MODEL_DIR / "price" / "global_model"))
+    if test_pred["pred_price_vnd_region"].notna().any():
+        family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_region", "region model", MODEL_DIR / "price" / "region_model"))
+    if test_pred["pred_price_vnd_subtype"].notna().any():
+        family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_subtype", "subtype model", MODEL_DIR / "price" / "subtype_model"))
+    if test_pred["pred_price_vnd_region_subtype"].notna().any():
+        family_metrics.append(
+            evaluate_family(test_pred, "pred_price_vnd_region_subtype", "region subtype model", MODEL_DIR / "price" / "region_subtype_model")
+        )
+    family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_hybrid", "hybrid fallback", MODEL_DIR / "price" / "hybrid_fallback"))
+    family_metrics_df = pd.concat(family_metrics, ignore_index=True)
+    family_metrics_df.to_csv(MODEL_DIR / "all_metrics.csv", index=False)
+
+    save_predictions(
+        test_pred[
+            [
+                col
+                for col in [
+                    "id",
+                    "title",
+                    REGION_COL,
+                    SUBTYPE_COL,
+                    "source",
+                    "price_vnd",
+                    "price_per_m2",
+                    "local_ppm2_band",
+                    "sample_weight",
+                    "selected_model",
+                    "pred_price_vnd_global",
+                    "pred_price_vnd_region",
+                    "pred_price_vnd_subtype",
+                    "pred_price_vnd_region_subtype",
+                    "pred_price_vnd_hybrid",
+                ]
+                if col in test_pred.columns
+            ]
+        ],
+        MODEL_DIR / "predictions.csv",
+    )
+
+    robust_metrics_path = EVAL_DIR / "improvements" / "robust_lightgbm" / "all_metrics.csv"
+    robust_metrics = pd.read_csv(robust_metrics_path) if robust_metrics_path.exists() else pd.DataFrame()
+    comparison = create_final_comparison(robust_metrics, family_metrics_df, routing_policy)
+    comparison.to_csv(EVAL_DIR / "improvements" / "final_comparison.csv", index=False)
+    write_report(comparison, family_metrics_df, EVAL_DIR / "improvements" / "IMPROVEMENT_RESULTS.md")
+    print("Saved region/subtype model results to", MODEL_DIR)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+by_dispersion_type,high_dispersion_group,current hybrid fallback,price,26381,3130861706.263962,12818354467.378197,42.20767645286623,20.07053987340727,28.755543762556385,49.87680527652477,18.908565094353868,49.38781698950002,50.612183010499976

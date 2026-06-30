@@ -763,6 +763,42 @@ def evaluate_levels(df_eval: pd.DataFrame, actual_col: str, pred_col: str, model
     return outputs
 
 
+def evaluate_custom_levels(
+    df_eval: pd.DataFrame,
+    actual_col: str,
+    pred_col: str,
+    model_name: str,
+    target_name: str,
+    group_definitions: Dict[str, pd.Series],
+) -> Dict[str, pd.DataFrame]:
+    outputs: Dict[str, pd.DataFrame] = {}
+    outputs["overall_test_set"] = pd.DataFrame(
+        [{"level": "overall_test_set", "group": "ALL", "model": model_name, "target": target_name, **metric_row(df_eval[actual_col], df_eval[pred_col])}]
+    )
+
+    for level_name, series in group_definitions.items():
+        level_rows = []
+        filled = series.fillna("missing")
+        for value, idx in filled.groupby(filled).groups.items():
+            subset = df_eval.loc[idx]
+            level_rows.append({"level": level_name, "group": value, "model": model_name, "target": target_name, **metric_row(subset[actual_col], subset[pred_col])})
+        outputs[level_name] = pd.DataFrame(level_rows)
+    return outputs
+
+
+def standard_group_definitions(df_eval: pd.DataFrame) -> Dict[str, pd.Series]:
+    groups = {
+        "by_subtype": df_eval["property_subtype"],
+        "by_region": df_eval["addr_last_1"],
+        "by_price_range": build_range_labels(df_eval["price_vnd"], prefix="price_range"),
+        "by_area_range": build_range_labels(df_eval["area_m2"], prefix="area_range"),
+        "by_source": df_eval["source"],
+    }
+    if "local_ppm2_band" in df_eval.columns:
+        groups["by_outlier_band"] = df_eval["local_ppm2_band"]
+    return groups
+
+
 def pick_best_metric(metrics_df: pd.DataFrame) -> Tuple[float, float]:
     row = metrics_df.iloc[0]
     return float(row["Median_APE"]), float(row["HitRate_20_pct"])
