@@ -1,0 +1,37 @@
+.DS_Store
+**/.DS_Store
+
+# Local caches
+.cache/
+Rule-based Scene/.cache/
+
+# Python / notebook noise
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Raw and processed data are reproducible and too large for git
+Rule-based Scene/data/raw/*
+Rule-based Scene/data/processed/*
+!Rule-based Scene/data/README.md
+
+# Generated evaluation artifacts
+Rule-based Scene/Evaluation/baseline/
+Rule-based Scene/Evaluation/ridge/
+Rule-based Scene/Evaluation/lightgbm/
+Rule-based Scene/Evaluation/combined/
+!Rule-based Scene/Evaluation/README.md
+
+# Generated visualization files
+Rule-based Scene/Visualizations/visualizations/*
+!Rule-based Scene/Visualizations/visualizations/README.md
+
+# Legacy artifacts from earlier iterations
+archive/
+outputs/
+AVM_FINAL_RESULTS.md
+AVM_RESULTS_INTERPRETATION.md
+AVM_Nha_Tho_Cu_Optimized_LightGBM.ipynb
+avm_notebook.ipynb
+build_avm_notebook.py
+example.md
