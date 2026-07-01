@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -31,22 +32,28 @@ MIN_REGION_ROWS = 500
 MIN_REGION_SUBTYPE_ROWS = 2000
 REGION_COL = "addr_last_1"
 SUBTYPE_COL = "property_subtype"
+NUM_FLOORS_BUNDLE = {"num_floors", "floor_area_m2", "floors_x_area", "floors_x_frontage", "floors_x_business"}
 
 
-def non_leakage_global_features(df: pd.DataFrame) -> Tuple[List[str], List[str]]:
+def non_leakage_global_features(df: pd.DataFrame, exclude_num_floors_bundle: bool = False) -> Tuple[List[str], List[str]]:
     numeric, categorical = global_features(df)
+    numeric = [col for col in numeric if not (exclude_num_floors_bundle and col in NUM_FLOORS_BUNDLE)]
     return (
         [col for col in numeric if col not in LEAKAGE_COLUMNS and not col.startswith("pred_")],
         [col for col in categorical if col not in LEAKAGE_COLUMNS and not col.startswith("pred_")],
     )
 
 
-def non_leakage_subtype_features(df: pd.DataFrame) -> Dict[str, Dict[str, List[str]]]:
+def non_leakage_subtype_features(df: pd.DataFrame, exclude_num_floors_bundle: bool = False) -> Dict[str, Dict[str, List[str]]]:
     feature_map = subtype_features(df)
     cleaned = {}
     for subtype, feature_dict in feature_map.items():
         cleaned[subtype] = {
-            "numeric": [col for col in feature_dict["numeric"] if col not in LEAKAGE_COLUMNS and not col.startswith("pred_")],
+            "numeric": [
+                col
+                for col in feature_dict["numeric"]
+                if col not in LEAKAGE_COLUMNS and not col.startswith("pred_") and not (exclude_num_floors_bundle and col in NUM_FLOORS_BUNDLE)
+            ],
             "categorical": [col for col in feature_dict["categorical"] if col not in LEAKAGE_COLUMNS and not col.startswith("pred_")],
         }
     return cleaned
@@ -82,9 +89,9 @@ def median_ape_for_slice(df_eval: pd.DataFrame, pred_col: str, mask: pd.Series) 
     return float(metrics["Median_APE"]) if pd.notna(metrics["Median_APE"]) else np.inf
 
 
-def train_family_models(train_df: pd.DataFrame, val_df: pd.DataFrame, params: Dict):
-    global_num, global_cat = non_leakage_global_features(train_df)
-    subtype_feature_map = non_leakage_subtype_features(train_df)
+def train_family_models(train_df: pd.DataFrame, val_df: pd.DataFrame, params: Dict, exclude_num_floors_bundle: bool = False):
+    global_num, global_cat = non_leakage_global_features(train_df, exclude_num_floors_bundle=exclude_num_floors_bundle)
+    subtype_feature_map = non_leakage_subtype_features(train_df, exclude_num_floors_bundle=exclude_num_floors_bundle)
 
     global_model, global_cols = fit_model(train_df, global_num, global_cat, params)
     val_df["pred_price_vnd_global"] = predict_with_model(global_model, val_df, global_cols)
@@ -196,12 +203,18 @@ def choose_policy(validation_predictions: pd.DataFrame, train_group_sizes: pd.Da
     return pd.DataFrame(rows)
 
 
-def retrain_and_predict(train_df: pd.DataFrame, test_df: pd.DataFrame, params: Dict, routing_policy: pd.DataFrame) -> pd.DataFrame:
+def retrain_and_predict(
+    train_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    params: Dict,
+    routing_policy: pd.DataFrame,
+    exclude_num_floors_bundle: bool = False,
+) -> pd.DataFrame:
     train_artifacts = prepare_outlier_artifacts(train_df, {"test": test_df})
     tr = train_artifacts.train_df
     te = train_artifacts.other_dfs["test"].copy()
-    global_num, global_cat = non_leakage_global_features(tr)
-    subtype_feature_map = non_leakage_subtype_features(tr)
+    global_num, global_cat = non_leakage_global_features(tr, exclude_num_floors_bundle=exclude_num_floors_bundle)
+    subtype_feature_map = non_leakage_subtype_features(tr, exclude_num_floors_bundle=exclude_num_floors_bundle)
 
     global_model, global_cols = fit_model(tr, global_num, global_cat, params)
     te["pred_price_vnd_global"] = predict_with_model(global_model, te, global_cols)
@@ -356,8 +369,17 @@ def write_report(comparison: pd.DataFrame, family_metrics: pd.DataFrame, out_pat
     out_path.write_text("\n".join(lines), encoding="utf-8")
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-suffix", type=str, default="")
+    parser.add_argument("--exclude-num-floors-bundle", action="store_true")
+    return parser.parse_args()
+
+
 def main():
-    MODEL_DIR.mkdir(parents=True, exist_ok=True)
+    args = parse_args()
+    output_dir = MODEL_DIR if not args.output_suffix else MODEL_DIR.parent / f"{MODEL_DIR.name}_{args.output_suffix}"
+    output_dir.mkdir(parents=True, exist_ok=True)
     train_df, test_df = load_processed_train_test()
     params = load_robust_params()
 
@@ -371,24 +393,24 @@ def main():
     tr_enriched = artifacts.train_df
     val_enriched = artifacts.other_dfs["validation"]
 
-    family = train_family_models(tr_enriched, val_enriched.copy(), params)
+    family = train_family_models(tr_enriched, val_enriched.copy(), params, exclude_num_floors_bundle=args.exclude_num_floors_bundle)
     routing_policy = choose_policy(family["validation_predictions"], family["train_group_sizes"])
-    routing_policy.to_csv(MODEL_DIR / "routing_policy.csv", index=False)
+    routing_policy.to_csv(output_dir / "routing_policy.csv", index=False)
 
-    test_pred = retrain_and_predict(train_df, test_df, params, routing_policy)
+    test_pred = retrain_and_predict(train_df, test_df, params, routing_policy, exclude_num_floors_bundle=args.exclude_num_floors_bundle)
     family_metrics = []
-    family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_global", "global model", MODEL_DIR / "price" / "global_model"))
+    family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_global", "global model", output_dir / "price" / "global_model"))
     if test_pred["pred_price_vnd_region"].notna().any():
-        family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_region", "region model", MODEL_DIR / "price" / "region_model"))
+        family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_region", "region model", output_dir / "price" / "region_model"))
     if test_pred["pred_price_vnd_subtype"].notna().any():
-        family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_subtype", "subtype model", MODEL_DIR / "price" / "subtype_model"))
+        family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_subtype", "subtype model", output_dir / "price" / "subtype_model"))
     if test_pred["pred_price_vnd_region_subtype"].notna().any():
         family_metrics.append(
-            evaluate_family(test_pred, "pred_price_vnd_region_subtype", "region subtype model", MODEL_DIR / "price" / "region_subtype_model")
+            evaluate_family(test_pred, "pred_price_vnd_region_subtype", "region subtype model", output_dir / "price" / "region_subtype_model")
         )
-    family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_hybrid", "hybrid fallback", MODEL_DIR / "price" / "hybrid_fallback"))
+    family_metrics.append(evaluate_family(test_pred, "pred_price_vnd_hybrid", "hybrid fallback", output_dir / "price" / "hybrid_fallback"))
     family_metrics_df = pd.concat(family_metrics, ignore_index=True)
-    family_metrics_df.to_csv(MODEL_DIR / "all_metrics.csv", index=False)
+    family_metrics_df.to_csv(output_dir / "all_metrics.csv", index=False)
 
     save_predictions(
         test_pred[
@@ -414,15 +436,26 @@ def main():
                 if col in test_pred.columns
             ]
         ],
-        MODEL_DIR / "predictions.csv",
+        output_dir / "predictions.csv",
     )
 
     robust_metrics_path = EVAL_DIR / "improvements" / "robust_lightgbm" / "all_metrics.csv"
     robust_metrics = pd.read_csv(robust_metrics_path) if robust_metrics_path.exists() else pd.DataFrame()
     comparison = create_final_comparison(robust_metrics, family_metrics_df, routing_policy)
-    comparison.to_csv(EVAL_DIR / "improvements" / "final_comparison.csv", index=False)
-    write_report(comparison, family_metrics_df, EVAL_DIR / "improvements" / "IMPROVEMENT_RESULTS.md")
-    print("Saved region/subtype model results to", MODEL_DIR)
+    comparison.to_csv(output_dir / "final_comparison.csv", index=False)
+    write_report(comparison, family_metrics_df, output_dir / "IMPROVEMENT_RESULTS.md")
+    (output_dir / "config.json").write_text(
+        json.dumps(
+            {
+                "exclude_num_floors_bundle": args.exclude_num_floors_bundle,
+                "num_floors_bundle": sorted(NUM_FLOORS_BUNDLE),
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    print("Saved region/subtype model results to", output_dir)
 
 
 if __name__ == "__main__":

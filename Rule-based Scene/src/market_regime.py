@@ -49,6 +49,7 @@ REGIME_NUMERIC_FEATURES = [
     "is_new_house_text",
     "is_renovated_text",
 ]
+NUM_FLOORS_BUNDLE = {"num_floors", "floor_area_m2"}
 REGIME_CATEGORICAL_FEATURES = [
     "legal",
     "door_direction",
@@ -70,8 +71,12 @@ class RegimeArtifacts:
     thresholds: Dict[str, float]
 
 
-def regime_feature_columns(df: pd.DataFrame) -> Tuple[List[str], List[str]]:
-    numeric = [col for col in REGIME_NUMERIC_FEATURES if col in df.columns and col not in LEAKAGE_COLUMNS]
+def regime_feature_columns(df: pd.DataFrame, exclude_num_floors_bundle: bool = False) -> Tuple[List[str], List[str]]:
+    numeric = [
+        col
+        for col in REGIME_NUMERIC_FEATURES
+        if col in df.columns and col not in LEAKAGE_COLUMNS and not (exclude_num_floors_bundle and col in NUM_FLOORS_BUNDLE)
+    ]
     categorical = [col for col in REGIME_CATEGORICAL_FEATURES if col in df.columns and col not in LEAKAGE_COLUMNS]
     return numeric, categorical
 
@@ -263,8 +268,8 @@ def classifier_metrics(y_true: pd.Series, prob_df: pd.DataFrame) -> Dict[str, fl
     }
 
 
-def train_regime_classifier(train_df: pd.DataFrame):
-    numeric_features, categorical_features = regime_feature_columns(train_df)
+def train_regime_classifier(train_df: pd.DataFrame, exclude_num_floors_bundle: bool = False):
+    numeric_features, categorical_features = regime_feature_columns(train_df, exclude_num_floors_bundle=exclude_num_floors_bundle)
     feature_cols = numeric_features + categorical_features
     model = build_regime_classifier_pipeline(numeric_features, categorical_features)
     model.fit(train_df[feature_cols], train_df["true_regime_label"])

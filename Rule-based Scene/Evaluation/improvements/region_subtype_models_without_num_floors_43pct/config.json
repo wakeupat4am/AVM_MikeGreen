@@ -1,0 +1,10 @@
+{
+  "exclude_num_floors_bundle": true,
+  "num_floors_bundle": [
+    "floor_area_m2",
+    "floors_x_area",
+    "floors_x_business",
+    "floors_x_frontage",
+    "num_floors"
+  ]
+}

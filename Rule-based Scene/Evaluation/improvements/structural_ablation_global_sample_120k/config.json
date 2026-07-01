@@ -1,0 +1,5 @@
+{
+  "train_rows": 120000,
+  "test_rows": 30000,
+  "note": "Global robust LightGBM ablation on sampled data. Compare structural bundles against base_without_structural."
+}

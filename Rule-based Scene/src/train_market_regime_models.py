@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -32,9 +33,9 @@ from market_regime import (
     predict_regime_probabilities,
 )
 from train_region_subtype_models import (
-    MODEL_DIR as HYBRID_MODEL_DIR,
     choose_policy,
     load_robust_params,
+    retrain_and_predict,
     train_family_models,
 )
 from train_region_subtype_models import fit_model, non_leakage_global_features
@@ -138,30 +139,21 @@ def build_final_comparison(current_hybrid_metrics: pd.DataFrame, hard_metrics: p
     return pd.DataFrame(rows)
 
 
-def fit_base_hybrid_for_validation(train_df: pd.DataFrame, validation_df: pd.DataFrame, params: Dict):
-    family = train_family_models(train_df, validation_df.copy(), params)
+def fit_base_hybrid_for_validation(
+    train_df: pd.DataFrame,
+    validation_df: pd.DataFrame,
+    params: Dict,
+    exclude_num_floors_bundle: bool = False,
+):
+    family = train_family_models(
+        train_df,
+        validation_df.copy(),
+        params,
+        exclude_num_floors_bundle=exclude_num_floors_bundle,
+    )
     routing_policy = choose_policy(family["validation_predictions"], family["train_group_sizes"])
     val_with_hybrid = build_validation_hybrid_predictions(family["validation_predictions"], routing_policy)
     return val_with_hybrid, routing_policy
-
-
-def load_existing_hybrid_test_predictions() -> pd.DataFrame:
-    path = HYBRID_MODEL_DIR / "predictions.csv"
-    df = pd.read_csv(path)
-    keep_cols = [
-        col
-        for col in [
-            "id",
-            "pred_price_vnd_hybrid",
-            "pred_price_vnd_global",
-            "pred_price_vnd_region",
-            "pred_price_vnd_subtype",
-            "pred_price_vnd_region_subtype",
-            "selected_model",
-        ]
-        if col in df.columns
-    ]
-    return df[keep_cols].copy()
 
 
 def write_report(
@@ -211,8 +203,17 @@ def write_report(
     out_path.write_text("\n".join(lines), encoding="utf-8")
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-suffix", type=str, default="")
+    parser.add_argument("--exclude-num-floors-bundle", action="store_true")
+    return parser.parse_args()
+
+
 def main():
-    MODEL_DIR.mkdir(parents=True, exist_ok=True)
+    args = parse_args()
+    output_dir = MODEL_DIR if not args.output_suffix else MODEL_DIR.parent / f"{MODEL_DIR.name}_{args.output_suffix}"
+    output_dir.mkdir(parents=True, exist_ok=True)
     train_df, test_df = load_processed_train_test()
     params = load_robust_params()
 
@@ -224,10 +225,13 @@ def main():
     )
 
     best_thresholds, threshold_tuning_df = choose_thresholds(regime_train_df, regime_val_df)
-    threshold_tuning_df.to_csv(MODEL_DIR / "threshold_tuning.csv", index=False)
+    threshold_tuning_df.to_csv(output_dir / "threshold_tuning.csv", index=False)
 
     validation_artifacts = fit_regime_artifacts(regime_train_df, {"validation": regime_val_df}, best_thresholds)
-    validation_classifier, validation_feature_cols = train_regime_classifier(validation_artifacts.train_df)
+    validation_classifier, validation_feature_cols = train_regime_classifier(
+        validation_artifacts.train_df,
+        exclude_num_floors_bundle=args.exclude_num_floors_bundle,
+    )
     val_probs = predict_regime_probabilities(validation_classifier, validation_artifacts.other_dfs["validation"], validation_feature_cols)
     validation_df = append_probabilities(validation_artifacts.other_dfs["validation"], val_probs)
     val_prob_for_metrics = val_probs.copy()
@@ -246,16 +250,52 @@ def main():
         ),
     }
 
-    val_with_hybrid, validation_routing_policy = fit_base_hybrid_for_validation(validation_artifacts.train_df, validation_df.copy(), params)
+    val_with_hybrid, validation_routing_policy = fit_base_hybrid_for_validation(
+        validation_artifacts.train_df,
+        validation_df.copy(),
+        params,
+        exclude_num_floors_bundle=args.exclude_num_floors_bundle,
+    )
     val_with_hybrid["base_pred_log_price"] = np.log1p(val_with_hybrid["pred_price_vnd_hybrid"])
     adjustment_model, adjustment_feature_cols = train_adjustment_model(val_with_hybrid)
 
     full_artifacts = fit_regime_artifacts(train_df, {"test": test_df}, best_thresholds)
-    full_classifier, full_feature_cols = train_regime_classifier(full_artifacts.train_df)
+    full_classifier, full_feature_cols = train_regime_classifier(
+        full_artifacts.train_df,
+        exclude_num_floors_bundle=args.exclude_num_floors_bundle,
+    )
     test_probs = predict_regime_probabilities(full_classifier, full_artifacts.other_dfs["test"], full_feature_cols)
     test_regime_df = append_probabilities(full_artifacts.other_dfs["test"], test_probs)
 
-    hybrid_saved = load_existing_hybrid_test_predictions()
+    family_full = train_family_models(
+        validation_artifacts.train_df,
+        validation_df.copy(),
+        params,
+        exclude_num_floors_bundle=args.exclude_num_floors_bundle,
+    )
+    full_routing_policy = choose_policy(family_full["validation_predictions"], family_full["train_group_sizes"])
+    test_hybrid_pred = retrain_and_predict(
+        train_df,
+        test_df,
+        params,
+        full_routing_policy,
+        exclude_num_floors_bundle=args.exclude_num_floors_bundle,
+    )
+    hybrid_saved = test_hybrid_pred[
+        [
+            col
+            for col in [
+                "id",
+                "pred_price_vnd_hybrid",
+                "pred_price_vnd_global",
+                "pred_price_vnd_region",
+                "pred_price_vnd_subtype",
+                "pred_price_vnd_region_subtype",
+                "selected_model",
+            ]
+            if col in test_hybrid_pred.columns
+        ]
+    ].copy()
     test_hybrid_df = test_regime_df.merge(hybrid_saved, on="id", how="left")
     test_hybrid_df["base_pred_log_price"] = np.log1p(test_hybrid_df["pred_price_vnd_hybrid"])
 
@@ -288,24 +328,24 @@ def main():
             )
         ),
     }
-    pd.DataFrame([classifier_val_metrics]).to_csv(MODEL_DIR / "classifier_validation_metrics.csv", index=False)
-    pd.DataFrame([classifier_test_metrics]).to_csv(MODEL_DIR / "classifier_test_metrics.csv", index=False)
+    pd.DataFrame([classifier_val_metrics]).to_csv(output_dir / "classifier_validation_metrics.csv", index=False)
+    pd.DataFrame([classifier_test_metrics]).to_csv(output_dir / "classifier_test_metrics.csv", index=False)
 
-    current_hybrid_metrics = evaluate_prediction(hard_test_df, "pred_price_vnd_hybrid", "current hybrid fallback", MODEL_DIR / "price" / "current_hybrid_fallback")
-    hard_metrics = evaluate_prediction(hard_test_df, "pred_price_vnd_hard_regime", "hard regime routing", MODEL_DIR / "price" / "hard_regime_routing")
+    current_hybrid_metrics = evaluate_prediction(hard_test_df, "pred_price_vnd_hybrid", "current hybrid fallback", output_dir / "price" / "current_hybrid_fallback")
+    hard_metrics = evaluate_prediction(hard_test_df, "pred_price_vnd_hard_regime", "hard regime routing", output_dir / "price" / "hard_regime_routing")
     soft_metrics = evaluate_prediction(
         hard_test_df,
         "pred_price_vnd_probability_adjustment",
         "probability adjustment",
-        MODEL_DIR / "price" / "probability_adjustment",
+        output_dir / "price" / "probability_adjustment",
     )
-    trimmed_metrics = evaluate_prediction(hard_test_df, "pred_price_vnd_trimmed_hybrid", "trimmed hybrid local", MODEL_DIR / "price" / "trimmed_hybrid_local")
+    trimmed_metrics = evaluate_prediction(hard_test_df, "pred_price_vnd_trimmed_hybrid", "trimmed hybrid local", output_dir / "price" / "trimmed_hybrid_local")
 
     all_metrics = pd.concat([current_hybrid_metrics, hard_metrics, soft_metrics, trimmed_metrics], ignore_index=True)
-    all_metrics.to_csv(MODEL_DIR / "all_metrics.csv", index=False)
+    all_metrics.to_csv(output_dir / "all_metrics.csv", index=False)
 
     comparison_df = build_final_comparison(current_hybrid_metrics, hard_metrics, soft_metrics, trimmed_metrics)
-    comparison_df.to_csv(MODEL_DIR / "final_comparison.csv", index=False)
+    comparison_df.to_csv(output_dir / "final_comparison.csv", index=False)
 
     save_predictions(
         hard_test_df[
@@ -336,17 +376,28 @@ def main():
                 if col in hard_test_df.columns
             ]
         ],
-        MODEL_DIR / "predictions.csv",
+        output_dir / "predictions.csv",
     )
 
     group_rows = []
     for group_name, group_df in training_sets.items():
         group_rows.append({"training_group": group_name, "rows": len(group_df)})
-    pd.DataFrame(group_rows).to_csv(MODEL_DIR / "training_group_sizes.csv", index=False)
-    (MODEL_DIR / "config.json").write_text(json.dumps({"best_thresholds": best_thresholds, "regime_classes": REGIME_CLASSES}, ensure_ascii=False, indent=2), encoding="utf-8")
+    pd.DataFrame(group_rows).to_csv(output_dir / "training_group_sizes.csv", index=False)
+    (output_dir / "config.json").write_text(
+        json.dumps(
+            {
+                "best_thresholds": best_thresholds,
+                "regime_classes": REGIME_CLASSES,
+                "exclude_num_floors_bundle": args.exclude_num_floors_bundle,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
-    write_report(comparison_df, threshold_tuning_df, classifier_val_metrics, classifier_test_metrics, MODEL_DIR / "MARKET_REGIME_RESULTS.md")
-    print("Saved market regime layer results to", MODEL_DIR)
+    write_report(comparison_df, threshold_tuning_df, classifier_val_metrics, classifier_test_metrics, output_dir / "MARKET_REGIME_RESULTS.md")
+    print("Saved market regime layer results to", output_dir)
 
 
 if __name__ == "__main__":
