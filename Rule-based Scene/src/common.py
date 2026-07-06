@@ -3,6 +3,9 @@ from __future__ import annotations
 import json
 import math
 import re
+
+from extract_from_text import extract_features_from_text
+from difflib import get_close_matches
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
@@ -63,14 +66,206 @@ TOWNHOUSE_PROJECT = ["liền kề", "lien ke", "khu đô thị", "khu do thi", "
 FRONTAGE = ["mặt tiền", "mat tien", "mặt phố", "mat pho", "mặt đường", "mat duong", "mt ", "mt."]
 ALLEY = ["hẻm", "hem", "ngõ", "ngo", "kiệt", "kiet"]
 NORMAL_HOUSE = ["nhà thổ cư", "nha tho cu", "thổ cư", "tho cu", "nhà riêng", "nha rieng", "nhà phố", "nha pho"]
+HOUSE_TEXT_SIGNAL = [
+    "bán nhà",
+    "ban nha",
+    "nhà ",
+    "nha ",
+    "tấm",
+    "tam",
+    "lầu",
+    "lau",
+    "trệt",
+    "tret",
+    "phòng ngủ",
+    "phong ngu",
+    "pn",
+    "wc",
+    "sổ hồng hoàn công",
+    "so hong hoan cong",
+    "hoàn công",
+    "hoan cong",
+    "đang cho thuê",
+    "dang cho thue",
+]
 BUSINESS = ["kinh doanh", "kd", "cho thuê", "cho thue", "dòng tiền", "dong tien", "buôn bán", "mở shop", "mo shop"]
 CAR_ACCESS = ["ô tô", "oto", "xe hơi", "xe hoi", "ôtô", "xe tải", "xe tai"]
 CORNER = ["góc", "goc", "2 mặt tiền", "hai mặt tiền", "lô góc", "lo goc"]
+GENERAL_LANDED_HOUSE = [
+    "căn góc",
+    "can goc",
+    "thổ cư",
+    "tho cu",
+    "nhà",
+    "nha",
+    "bán nhà",
+    "ban nha",
+]
 LEGAL = ["sổ đỏ", "so do", "sổ hồng", "so hong", "pháp lý", "phap ly", "hoàn công", "hoan cong"]
 NEW_HOUSE = ["nhà mới", "nha moi", "mới xây", "moi xay", "xây mới", "xay moi"]
 RENOVATED = ["mới sửa", "moi sua", "đã sửa", "da sua", "renovated", "nâng cấp", "nang cap"]
 PROJECT = ["dự án", "du an", "compound", "khu dân cư", "khu dan cu", "phân khu", "phan khu"]
 URBAN = ["khu đô thị", "khu do thi", "đô thị", "do thi", "cityland", "vinhomes", "phú mỹ hưng", "phu my hung"]
+
+PROVINCE_ALIAS_MAP = {
+    "hồ chí minh": ["hồ chí minh", "ho chi minh", "tp.hcm", "tphcm", "tp hồ chí minh", "tp. hồ chí minh", "sài gòn", "sai gon", "hcm"],
+    "hà nội": ["hà nội", "ha noi", "hn", "hà nội"],
+    "đà nẵng": ["đà nẵng", "da nang", "tp. đà nẵng", "tp.đà nẵng", "thành phố đà nẵng"],
+    "hải phòng": ["hải phòng", "hai phong", "tp. hải phòng", "tp.hải phòng", "thành phố hải phòng"],
+    "cần thơ": ["cần thơ", "can tho", "tp. cần thơ", "tp.cần thơ", "thành phố cần thơ"],
+    "bà rịa vũng tàu": ["bà rịa vũng tàu", "ba ria vung tau", "bà rịa - vũng tàu"],
+    "đồng nai": ["đồng nai", "dong nai", "đồng nai."],
+    "bình dương": ["bình dương", "binh duong", "bình dương."],
+    "khánh hòa": ["khánh hòa", "khanh hoa", "khánh hòa."],
+    "long an": ["long an"],
+    "đắk lắk": ["đắk lắk", "dak lak", "đăk lăk"],
+    "huế": ["huế", "hue", "thừa thiên huế", "thua thien hue"],
+    "lâm đồng": ["lâm đồng", "lam dong"],
+    "bắc ninh": ["bắc ninh", "bac ninh"],
+    "quảng nam": ["quảng nam", "quang nam"],
+    "bình thuận": ["bình thuận", "binh thuan"],
+    "quảng ninh": ["quảng ninh", "quang ninh"],
+    "tây ninh": ["tây ninh", "tay ninh"],
+    "thanh hóa": ["thanh hóa", "thanh hoa", "thanh hóa."],
+    "bình định": ["bình định", "binh dinh"],
+    "nam định": ["nam định", "nam dinh"],
+    "thái bình": ["thái bình", "thai binh"],
+    "nghệ an": ["nghệ an", "nghe an"],
+    "hải dương": ["hải dương", "hai duong"],
+    "vĩnh phúc": ["vĩnh phúc", "vinh phuc"],
+    "hòa bình": ["hòa bình", "hoa binh"],
+    "tiền giang": ["tiền giang", "tien giang"],
+    "phú yên": ["phú yên", "phu yen"],
+    "bình phước": ["bình phước", "binh phuoc"],
+    "kiên giang": ["kiên giang", "kien giang"],
+    "trà vinh": ["trà vinh", "tra vinh"],
+    "hưng yên": ["hưng yên", "hung yen"],
+    "hà nam": ["hà nam", "ha nam"],
+    "bắc giang": ["bắc giang", "bac giang"],
+    "ninh thuận": ["ninh thuận", "ninh thuan"],
+    "quảng ngãi": ["quảng ngãi", "quang ngai"],
+    "bến tre": ["bến tre", "ben tre"],
+    "phú thọ": ["phú thọ", "phu tho"],
+    "gia lai": ["gia lai"],
+    "an giang": ["an giang"],
+    "thái nguyên": ["thái nguyên", "thai nguyen"],
+    "lào cai": ["lào cai", "lao cai"],
+    "quảng trị": ["quảng trị", "quang tri"],
+    "đồng tháp": ["đồng tháp", "dong thap"],
+    "hậu giang": ["hậu giang", "hau giang"],
+    "vĩnh long": ["vĩnh long", "vinh long"],
+    "ninh bình": ["ninh bình", "ninh binh"],
+    "quảng bình": ["quảng bình", "quang binh"],
+    "kon tum": ["kon tum", "kontum"],
+    "sóc trăng": ["sóc trăng", "soc trang"],
+    "sơn la": ["sơn la", "son la"],
+    "yên bái": ["yên bái", "yen bai"],
+    "hà tĩnh": ["hà tĩnh", "ha tinh"],
+    "đắk nông": ["đắk nông", "dak nong", "đăk nông"],
+    "lạng sơn": ["lạng sơn", "lang son"],
+    "cà mau": ["cà mau", "ca mau"],
+    "tuyên quang": ["tuyên quang", "tuyen quang"],
+    "bạc liêu": ["bạc liêu", "bac lieu"],
+}
+
+DISTRICT_EXACT_ALIAS_MAP = {
+    "biên hòa": "thành phố biên hòa",
+    "nha trang": "thành phố nha trang",
+    "vũng tàu": "thành phố vũng tàu",
+    "dĩ an": "thành phố dĩ an",
+    "thuận an": "thành phố thuận an",
+    "thủ dầu một": "thành phố thủ dầu một",
+    "hạ long": "thành phố hạ long",
+    "hội an": "thành phố hội an",
+    "hải dương": "thành phố hải dương",
+    "nam định": "thành phố nam định",
+    "quy nhơn": "thành phố quy nhơn",
+    "đà lạt": "thành phố đà lạt",
+    "vinh": "thành phố vinh",
+    "hải châu": "quận hải châu",
+    "thanh khê": "quận thanh khê",
+    "sơn trà": "quận sơn trà",
+    "lê chân": "quận lê chân",
+    "hải an": "quận hải an",
+    "ngô quyền": "quận ngô quyền",
+    "ninh kiều": "quận ninh kiều",
+    "thủy nguyên": "huyện thủy nguyên",
+    "đức hòa": "huyện đức hòa",
+    "an dương": "huyện an dương",
+    "nhơn trạch": "huyện nhơn trạch",
+    "trảng bom": "huyện trảng bom",
+    "vĩnh cửu": "huyện vĩnh cửu",
+    "bến lức": "huyện bến lức",
+    # Tone variants: hoà → hòa (modern Vietnamese standard; confirmed same district, same province)
+    "huyện đức hoà": "huyện đức hòa",
+    "thành phố thanh hoá": "thành phố thanh hóa",
+    "thành phố tuy hoà": "thành phố tuy hòa",
+    "huyện hoà vang": "huyện hòa vang",
+    "thành phố hoà bình": "thành phố hòa bình",
+    "thị xã ninh hoà": "thị xã ninh hòa",
+    "huyện đông hoà": "huyện đông hòa",
+    "huyện hiệp hoà": "huyện hiệp hòa",
+    "huyện hoà thành": "huyện hòa thành",
+    # Tone variants: thuỷ → thủy
+    "quận bình thuỷ": "quận bình thủy",
+    "thị xã hương thuỷ": "thị xã hương thủy",
+    "huyện lạc thuỷ": "huyện lạc thủy",
+    # Tone variants: thuỵ → thụy
+    "huyện kiến thuỵ": "huyện kiến thụy",
+    "huyện thái thuỵ": "huyện thái thụy",
+    # đăk → đắk (Tây Nguyên spelling variant; confirmed same district, same province)
+    "huyện đăk hà": "huyện đắk hà",
+    "huyện đăk đoa": "huyện đắk đoa",
+}
+
+MALFORMED_LOCATION_HINTS = [
+    "bán nhà",
+    "giá ",
+    "liên hệ",
+    "địa chỉ",
+    "liền kề",
+    "đường ",
+    "đ.",
+    "phố ",
+    "ngõ ",
+    "khu đô thị",
+    "quận ",
+    "huyện ",
+    "phường ",
+    "xã ",
+]
+
+MISSING_LIKE_TOKENS = {
+    "",
+    "-",
+    "--",
+    "---",
+    "_",
+    "n/a",
+    "na",
+    "nan",
+    "none",
+    "null",
+    "unknown",
+    "missing",
+    "không rõ",
+    "chưa rõ",
+    "chua ro",
+}
+
+PROJECT_LIKE_PATTERN = re.compile(
+    r"\b(vinhomes|novaworld|waterpoint|aqua city|centa|sun casa|khu đô thị|khu do thi|kđt|kdt|dự án|du an|compound)\b",
+    flags=re.IGNORECASE,
+)
+LISTING_NOISE_PATTERN = re.compile(
+    r"\b(bán nhà|ban nha|bán đất|ban dat|liên hệ|lien he|giá|gia re|giá rẻ|vị trí đẹp|vi tri dep)\b|^địa chỉ\s*:",
+    flags=re.IGNORECASE,
+)
+ADMIN_PREFIX_PATTERN = re.compile(r"^(phường|xã|quận|huyện|thành phố|thị xã|thị trấn)\s", flags=re.IGNORECASE)
+STREET_PREFIX_PATTERN = re.compile(
+    r"^(đường|phố|ngõ|hẻm|kiệt|ấp|thôn|khu phố|khu dân cư|quốc lộ|tỉnh lộ|hương lộ|đại lộ)\s",
+    flags=re.IGNORECASE,
+)
 
 
 GLOBAL_NUMERIC_FEATURES = [
@@ -104,9 +299,27 @@ GLOBAL_NUMERIC_FEATURES = [
     "floors_x_business",
     "car_access_x_road_width",
     "area_x_frontage",
+    "location_quality_score",
+    "address_missing_count",
+    "structural_missing_count",
+    "num_floors_missing",
+    "floor_area_m2_missing",
+    "frontage_m_missing",
+    "road_width_m_missing",
+    "width_m_missing",
+    "length_m_missing",
+    "addr_last_2_missing",
+    "addr_last_3_missing",
+    "street_proxy_missing",
+    "broad_subtype_flag",
+    "source_thocu_flag",
+    "source_verified_flag",
+    "source_sm_flag",
 ]
 GLOBAL_CATEGORICAL_FEATURES = [
     "property_subtype",
+    "property_subtype_refined",
+    "subtype_price_segment",
     "addr_last_1",
     "addr_last_2",
     "addr_last_3",
@@ -114,6 +327,8 @@ GLOBAL_CATEGORICAL_FEATURES = [
     "legal",
     "door_direction",
     "source",
+    "source_family",
+    "source_quality_tier",
     "project_name",
 ]
 
@@ -260,6 +475,34 @@ SUBTYPE_FEATURE_MAP = {
         "categorical": ["addr_last_1", "addr_last_2", "addr_last_3", "street_proxy", "legal", "source", "project_name"],
     },
 }
+
+COMMON_SUBTYPE_NUMERIC_FEATURES = [
+    "location_quality_score",
+    "address_missing_count",
+    "structural_missing_count",
+    "num_floors_missing",
+    "floor_area_m2_missing",
+    "frontage_m_missing",
+    "road_width_m_missing",
+    "width_m_missing",
+    "length_m_missing",
+    "addr_last_2_missing",
+    "addr_last_3_missing",
+    "street_proxy_missing",
+    "broad_subtype_flag",
+    "source_thocu_flag",
+    "source_verified_flag",
+    "source_sm_flag",
+]
+COMMON_SUBTYPE_CATEGORICAL_FEATURES = [
+    "property_subtype_refined",
+    "subtype_price_segment",
+    "source_family",
+    "source_quality_tier",
+]
+for _feature_dict in SUBTYPE_FEATURE_MAP.values():
+    _feature_dict["numeric"] = list(dict.fromkeys(_feature_dict["numeric"] + COMMON_SUBTYPE_NUMERIC_FEATURES))
+    _feature_dict["categorical"] = list(dict.fromkeys(_feature_dict["categorical"] + COMMON_SUBTYPE_CATEGORICAL_FEATURES))
 
 
 TARGET_DEFS = {
@@ -419,6 +662,410 @@ def address_part(address, idx_from_right):
     return "missing"
 
 
+def normalize_address_string(address: str) -> str:
+    text = normalize_text(address)
+    if not text:
+        return ""
+    text = re.sub(r"[;|]+", ",", text)
+    text = re.sub(r"\s+-\s+", ", ", text)
+    text = re.sub(r"\s*,\s*", ", ", text)
+    text = re.sub(r",\s*,+", ", ", text)
+    text = re.sub(r"\s+", " ", text).strip(" ,")
+    return text
+
+
+def split_address_segments(address: str) -> List[str]:
+    text = normalize_address_string(address)
+    if not text:
+        return []
+    segments = [compact_admin_text(part) for part in text.split(",") if compact_admin_text(part)]
+    deduped: List[str] = []
+    seen = set()
+    for segment in segments:
+        if segment not in seen:
+            deduped.append(segment)
+            seen.add(segment)
+    return deduped
+
+
+def extract_admin_phrase(segment: str, prefixes: Tuple[str, ...]) -> str:
+    if not segment:
+        return ""
+    prefix_pattern = "|".join(re.escape(prefix) for prefix in prefixes)
+    matches = re.findall(rf"\b(?:{prefix_pattern})\s+[^,]+", segment)
+    return compact_admin_text(matches[-1]) if matches else ""
+
+
+def is_likely_province_segment(segment: str) -> bool:
+    canonical = canonical_province_name(segment)
+    if canonical == "missing":
+        return False
+    expanded = expand_admin_abbreviations(segment)
+    return canonical == compact_admin_text(canonical) or canonical != expanded
+
+
+def is_likely_district_segment(segment: str) -> bool:
+    expanded = expand_admin_abbreviations(segment)
+    if re.search(r"^(quận|huyện|thành phố|thị xã)\s", expanded):
+        return True
+    return compact_admin_text(expanded) in DISTRICT_EXACT_ALIAS_MAP
+
+
+def sanitize_street_candidate(text: str) -> str:
+    if not text:
+        return "missing"
+    candidate = expand_street_abbreviations(text)
+    candidate = re.sub(
+        r"^(bán nhà riêng|bán nhà mặt phố|bán nhà mặt tiền|bán nhà biệt thự|bán nhà|bán đất|liền kề tại|liền kề|nhà riêng tại|nhà mặt phố tại)\s+",
+        "",
+        candidate,
+    )
+    candidate = compact_admin_text(candidate)
+    if not candidate or candidate == "-":
+        return "missing"
+    if candidate in {"riêng", "bán nhà", "bán đất", "mặt phố", "mặt tiền", "liền kề", "biệt thự"}:
+        return "missing"
+    has_street_prefix = re.search(r"^(đường|phố|ngõ|hẻm|kiệt|ấp|thôn|khu phố|khu dân cư)\s", candidate) is not None
+    if not has_street_prefix and re.search(r"\b(bán|nhà|riêng|đất|liền kề|biệt thự|mặt phố|mặt tiền)\b", candidate):
+        return "missing"
+    if re.search(r"^(phường|xã|quận|huyện|thành phố|thị xã|thị trấn)\s", candidate):
+        return "missing"
+    if len(candidate) > 80:
+        return "missing"
+    return candidate
+
+
+def extract_street_candidate(segment: str) -> str:
+    if not segment:
+        return "missing"
+    segment = expand_street_abbreviations(segment)
+    street_match = re.search(r"\b(đường|phố|ngõ|hẻm|kiệt|ấp|thôn|khu phố|khu dân cư)\s+[^,]+", segment)
+    if street_match:
+        candidate = street_match.group(0)
+    else:
+        split_match = re.split(r"\b(phường|xã|quận|huyện|thành phố|thị xã|thị trấn)\b", segment, maxsplit=1)
+        candidate = split_match[0] if split_match else segment
+    return sanitize_street_candidate(candidate)
+
+
+def parse_address_components(address: str) -> Dict[str, str]:
+    segments = split_address_segments(address)
+    if not segments:
+        return {
+            "street_proxy_raw": "missing",
+            "addr_last_3_raw": "missing",
+            "addr_last_2_raw": "missing",
+            "addr_last_1_raw": "missing",
+        }
+
+    province_raw = "missing"
+    province_idx = None
+    for idx in range(len(segments) - 1, -1, -1):
+        if is_likely_province_segment(segments[idx]):
+            province_raw = segments[idx]
+            province_idx = idx
+            break
+
+    search_segments = segments if province_idx is None else segments[:province_idx]
+
+    ward_raw = "missing"
+    district_raw = "missing"
+    street_raw = "missing"
+
+    district_candidates: List[str] = []
+    for segment in search_segments:
+        expanded = expand_admin_abbreviations(segment)
+        if ward_raw == "missing":
+            ward_phrase = extract_admin_phrase(expanded, ("phường", "xã", "thị trấn"))
+            if ward_phrase:
+                ward_raw = ward_phrase
+
+        if is_likely_district_segment(segment):
+            district_phrase = extract_admin_phrase(expanded, ("quận", "huyện", "thành phố", "thị xã"))
+            district_candidates.append(district_phrase or compact_admin_text(expanded))
+
+        if street_raw == "missing":
+            street_candidate = extract_street_candidate(segment)
+            if street_candidate != "missing":
+                street_raw = street_candidate
+
+    if district_candidates:
+        district_raw = district_candidates[0]
+
+    if street_raw != "missing":
+        expanded_street = expand_street_abbreviations(street_raw)
+        if ward_raw != "missing" and ward_raw in expanded_street:
+            street_raw = sanitize_street_candidate(expanded_street.split(ward_raw, 1)[0])
+        if district_raw != "missing" and district_raw in expanded_street:
+            street_raw = sanitize_street_candidate(expanded_street.split(district_raw, 1)[0])
+
+    return {
+        "street_proxy_raw": street_raw if street_raw else "missing",
+        "addr_last_3_raw": ward_raw if ward_raw else "missing",
+        "addr_last_2_raw": district_raw if district_raw else "missing",
+        "addr_last_1_raw": province_raw if province_raw else "missing",
+    }
+
+
+def extract_province_from_text(text: str) -> str:
+    normalized = normalize_text(text)
+    for canonical, aliases in PROVINCE_ALIAS_MAP.items():
+        for alias in aliases:
+            if re.search(rf"\b{re.escape(normalize_text(alias))}\b", normalized):
+                return canonical
+    return "missing"
+
+
+def extract_district_from_text(text: str) -> str:
+    normalized = expand_admin_abbreviations(normalize_text(text))
+    candidates = re.findall(r"\b(?:quận|huyện|thành phố|thị xã)\s+[^,.;|\n]{1,45}", normalized)
+    for candidate in reversed(candidates):
+        district = canonical_district_name(candidate)
+        if district != "missing":
+            return district
+    return "missing"
+
+
+def extract_ward_from_text(text: str) -> str:
+    normalized = expand_admin_abbreviations(normalize_text(text))
+    candidates = re.findall(r"\b(?:phường|xã|thị trấn)\s+[^,.;|\n]{1,45}", normalized)
+    for candidate in reversed(candidates):
+        ward = canonical_ward_name(candidate)
+        if ward != "missing":
+            return ward
+    return "missing"
+
+
+def extract_street_from_text(text: str) -> str:
+    normalized = expand_street_abbreviations(normalize_text(text))
+    candidates = re.findall(
+        r"\b(?:đường|phố|ngõ|hẻm|kiệt|quốc lộ|tỉnh lộ|hương lộ|đại lộ)\s+[^,.;|\n]{1,55}",
+        normalized,
+    )
+    for candidate in candidates:
+        street = canonical_street_proxy(candidate)
+        if street != "missing":
+            return street
+    return "missing"
+
+
+def fill_missing_location_from_text(df: pd.DataFrame) -> pd.DataFrame:
+    """Fill missing canonical address parts from title/description/address text without overriding clean values."""
+    df = df.copy()
+    source_text = df.get("all_text_lower", pd.Series("", index=df.index)).fillna("").astype(str)
+
+    if "addr_last_1" in df.columns:
+        mask = df["addr_last_1"].eq("missing")
+        if mask.any():
+            extracted = source_text[mask].map(extract_province_from_text)
+            df.loc[mask & extracted.ne("missing"), "addr_last_1"] = extracted[extracted.ne("missing")]
+
+    if "addr_last_2" in df.columns:
+        mask = df["addr_last_2"].eq("missing")
+        if mask.any():
+            extracted = source_text[mask].map(extract_district_from_text)
+            df.loc[mask & extracted.ne("missing"), "addr_last_2"] = extracted[extracted.ne("missing")]
+
+    if "addr_last_3" in df.columns:
+        mask = df["addr_last_3"].eq("missing")
+        if mask.any():
+            extracted = source_text[mask].map(extract_ward_from_text)
+            df.loc[mask & extracted.ne("missing"), "addr_last_3"] = extracted[extracted.ne("missing")]
+
+    if "street_proxy" in df.columns:
+        mask = df["street_proxy"].eq("missing")
+        if mask.any():
+            extracted = source_text[mask].map(extract_street_from_text)
+            df.loc[mask & extracted.ne("missing"), "street_proxy"] = extracted[extracted.ne("missing")]
+
+    return df
+
+
+def compact_admin_text(value: str) -> str:
+    text = normalize_text(value)
+    text = re.sub(r"[;|]+", ",", text)
+    text = re.sub(r"\s*\.\s*", ".", text)
+    text = re.sub(r"\s+", " ", text).strip(" -_,.")
+    return text
+
+
+def normalize_missing_token(value: str) -> str:
+    text = compact_admin_text(value)
+    if text in MISSING_LIKE_TOKENS:
+        return "missing"
+    return text
+
+
+def strip_known_noise_prefixes(text: str) -> str:
+    out = compact_admin_text(text)
+    out = re.sub(r"^địa chỉ\s*:\s*", "", out)
+    out = re.sub(r"^(xã|phường)\s+(phường|xã)\s+", r"\2 ", out)
+    out = re.sub(r"^(?:tại|tp)\s+", "", out)
+    return compact_admin_text(out)
+
+
+def truncate_at_secondary_location_noise(text: str) -> str:
+    out = compact_admin_text(text)
+    out = re.split(r"\s*[,:;]\s*", out, maxsplit=1)[0]
+    out = re.sub(r"\.(?=(đường|ngõ|hẻm|kiệt|ấp|thôn|khu phố|quốc lộ|tỉnh lộ|hương lộ|đại lộ|khu đô thị|khu do thi|dự án|du an)\b)", " ", out)
+    out = re.sub(
+        r"\s+(?:đường|ngõ|hẻm|kiệt|ấp|thôn|khu phố|quốc lộ|tỉnh lộ|hương lộ|đại lộ|khu đô thị|khu do thi|dự án|du an)\s+.*$",
+        "",
+        out,
+        flags=re.IGNORECASE,
+    )
+    return compact_admin_text(out)
+
+
+def has_malformed_location_shape(text: str) -> bool:
+    if not text or text == "missing":
+        return False
+    if len(text) > 50:
+        return True
+    if ":" in text:
+        return True
+    return any(hint in text for hint in MALFORMED_LOCATION_HINTS)
+
+
+def expand_admin_abbreviations(text: str) -> str:
+    if not text:
+        return text
+    text = normalize_missing_token(text)
+    if text == "missing":
+        return text
+    substitutions = [
+        (r"\btp\.\s*", "thành phố "),
+        (r"\btp\s+", "thành phố "),
+        (r"\bq\.\s*", "quận "),
+        (r"\bq\s+", "quận "),
+        (r"\bh\.\s*", "huyện "),
+        (r"\bh\s+", "huyện "),
+        (r"\bp\.\s*", "phường "),
+        (r"\bp\s+", "phường "),
+        (r"\bx\.\s*", "xã "),
+        (r"\bx\s+", "xã "),
+        (r"\btx\.\s*", "thị xã "),
+        (r"\btt\.\s*", "thị trấn "),
+    ]
+    out = text
+    for pattern, repl in substitutions:
+        out = re.sub(pattern, repl, out)
+    return compact_admin_text(out)
+
+
+def expand_street_abbreviations(text: str) -> str:
+    if not text:
+        return text
+    out = normalize_missing_token(text)
+    if out == "missing":
+        return out
+    substitutions = [
+        (r"^đ\.\s*", "đường "),
+        (r"^duong\s+", "đường "),
+        (r"^dg\.\s*", "đường "),
+        (r"^ng\.\s*", "ngõ "),
+        (r"^kp\.\s*", "khu phố "),
+        (r"^kdc\.\s*", "khu dân cư "),
+        (r"^kđt\.\s*", "khu đô thị "),
+        (r"^kdt\.\s*", "khu đô thị "),
+        (r"^tt\.\s*", "thị trấn "),
+    ]
+    for pattern, repl in substitutions:
+        out = re.sub(pattern, repl, out)
+    return compact_admin_text(out)
+
+
+def canonical_province_name(value: str) -> str:
+    text = strip_known_noise_prefixes(value)
+    text = normalize_missing_token(text)
+    if text == "missing":
+        return "missing"
+    text_no_punct = text.replace(".", " ")
+    text_no_punct = re.sub(r"\s+", " ", text_no_punct).strip()
+
+    alias_lookup = {}
+    for canonical, aliases in PROVINCE_ALIAS_MAP.items():
+        for alias in aliases:
+            alias_lookup[compact_admin_text(alias).replace(".", " ")] = canonical
+
+    if text_no_punct in alias_lookup:
+        return alias_lookup[text_no_punct]
+
+    for alias, canonical in alias_lookup.items():
+        if alias and alias in text_no_punct:
+            return canonical
+
+    matches = get_close_matches(text_no_punct, list(alias_lookup.keys()), n=1, cutoff=0.92)
+    if matches:
+        return alias_lookup[matches[0]]
+
+    if has_malformed_location_shape(text_no_punct):
+        return "missing"
+    if ADMIN_PREFIX_PATTERN.search(text_no_punct):
+        return "missing"
+    return text_no_punct
+
+
+def canonical_district_name(value: str) -> str:
+    text = strip_known_noise_prefixes(value)
+    text = expand_admin_abbreviations(text)
+    text = truncate_at_secondary_location_noise(text)
+    text = normalize_missing_token(text)
+    if text == "missing":
+        return "missing"
+    if canonical_province_name(text) != "missing":
+        return "missing"
+    if has_malformed_location_shape(text) and not re.match(r"^(quận|huyện|thành phố|thị xã|thị trấn)\s", text):
+        return "missing"
+    text = re.sub(r"\s*-\s*(quận|huyện|thành phố|thị xã)\s+.*$", "", text).strip(" -_,.")
+    # Truncate if a street keyword appears after the district name (e.g. "quận hải châu đường X").
+    # "phố" is excluded: "thành phố X" would be corrupted to "thành" if bare "phố" matched.
+    text = re.sub(r"\s+(?:đường|ngõ|hẻm|kiệt|khu phố)\s+.*$", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"\bbiên hoà\b", "biên hòa", text)
+    if text in DISTRICT_EXACT_ALIAS_MAP:
+        text = DISTRICT_EXACT_ALIAS_MAP[text]
+    else:
+        alias_matches = get_close_matches(text, list(DISTRICT_EXACT_ALIAS_MAP.keys()), n=1, cutoff=0.94)
+        if alias_matches:
+            text = DISTRICT_EXACT_ALIAS_MAP[alias_matches[0]]
+    return compact_admin_text(text)
+
+
+def canonical_ward_name(value: str) -> str:
+    text = strip_known_noise_prefixes(value)
+    text = expand_admin_abbreviations(text)
+    text = truncate_at_secondary_location_noise(text)
+    text = normalize_missing_token(text)
+    if text == "missing":
+        return "missing"
+    if has_malformed_location_shape(text) and not re.match(r"^(phường|xã|thị trấn)\s", text):
+        return "missing"
+    if canonical_province_name(text) != "missing":
+        return "missing"
+    if text == "-":
+        return "missing"
+    return compact_admin_text(text)
+
+
+def canonical_street_proxy(value: str) -> str:
+    text = strip_known_noise_prefixes(value)
+    text = expand_admin_abbreviations(text)
+    text = sanitize_street_candidate(text)
+    if not text or text == "missing":
+        return "missing"
+    if ADMIN_PREFIX_PATTERN.search(text):
+        return "missing"
+    if LISTING_NOISE_PATTERN.search(text):
+        return "missing"
+    if PROJECT_LIKE_PATTERN.search(text):
+        return "missing"
+    if canonical_province_name(text) != "missing":
+        return "missing"
+    if len(text) > 80:
+        return "missing"
+    return text
+
+
 def first_existing(df: pd.DataFrame, candidates: List[str]):
     for col in candidates:
         if col in df.columns:
@@ -426,13 +1073,128 @@ def first_existing(df: pd.DataFrame, candidates: List[str]):
     return None
 
 
+def canonicalize_series_with_cache(series: pd.Series, fn) -> pd.Series:
+    filled = series.fillna("missing").astype(str)
+    unique_values = pd.Index(filled.unique())
+    mapping = {value: fn(value) for value in unique_values}
+    return filled.map(mapping)
+
+
 def create_interaction(df: pd.DataFrame, target_col: str, left_col: str, right_col: str):
     if left_col in df.columns and right_col in df.columns:
         left = pd.to_numeric(df[left_col], errors="coerce")
         right = pd.to_numeric(df[right_col], errors="coerce")
-        df[target_col] = left * right
+        product = left * right
+        if target_col in df.columns:
+            df[target_col] = pd.to_numeric(df[target_col], errors="coerce").combine_first(product)
+        else:
+            df[target_col] = product
     else:
-        df[target_col] = np.nan
+        if target_col not in df.columns:
+            df[target_col] = np.nan
+
+
+def canonical_source_family(value: str) -> str:
+    text = normalize_text(value)
+    text = re.sub(r"https?://", "", text)
+    text = re.sub(r"www\.", "", text)
+    text = text.split("/")[0].strip()
+    text = text.replace("[", "").replace("]", "").replace("(", "").replace(")", "")
+    if not text or text in MISSING_LIKE_TOKENS:
+        return "missing"
+    for suffix in ["_thocu_sm", "_verified"]:
+        text = text.replace(suffix, "")
+    known = [
+        "batdongsan.com.vn",
+        "bds68.com.vn",
+        "alonhadat.com.vn",
+        "mogi.vn",
+        "muaban.net",
+        "123nhadatviet.com",
+        "dothi.net",
+        "bds123.vn",
+        "homedy.com",
+        "nhadat.cafeland.vn",
+        "chotot.com",
+    ]
+    for domain in known:
+        if domain in text:
+            return domain
+    return text[:60]
+
+
+def add_source_features(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    source = df.get("source", pd.Series("missing", index=df.index)).fillna("missing").astype(str)
+    normalized = source.map(normalize_text)
+    df["source_family"] = source.map(canonical_source_family)
+    df["source_thocu_flag"] = normalized.str.contains("thocu", na=False).astype(int)
+    df["source_sm_flag"] = normalized.str.contains("_sm| thocu sm|sm$", regex=True, na=False).astype(int)
+    df["source_verified_flag"] = normalized.str.contains("verified", na=False).astype(int)
+    df["source_quality_tier"] = np.select(
+        [
+            df["source_verified_flag"].eq(1),
+            df["source_family"].isin(["batdongsan.com.vn", "alonhadat.com.vn", "bds68.com.vn"]),
+            df["source_thocu_flag"].eq(1),
+        ],
+        ["verified", "major_portal", "thocu_source"],
+        default="other_source",
+    )
+    return df
+
+
+def add_missing_quality_features(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    numeric_missing_cols = ["num_floors", "floor_area_m2", "frontage_m", "road_width_m", "width_m", "length_m"]
+    address_missing_cols = ["addr_last_2", "addr_last_3", "street_proxy"]
+    for col in numeric_missing_cols:
+        if col in df.columns:
+            df[f"{col}_missing"] = pd.to_numeric(df[col], errors="coerce").isna().astype(int)
+    for col in address_missing_cols:
+        if col in df.columns:
+            normalized = df[col].fillna("missing").astype(str).map(normalize_text)
+            df[f"{col}_missing"] = normalized.isin(MISSING_LIKE_TOKENS).astype(int)
+
+    numeric_flags = [f"{col}_missing" for col in numeric_missing_cols if f"{col}_missing" in df.columns]
+    address_flags = [f"{col}_missing" for col in address_missing_cols if f"{col}_missing" in df.columns]
+    df["structural_missing_count"] = df[numeric_flags].sum(axis=1) if numeric_flags else 0
+    df["address_missing_count"] = df[address_flags].sum(axis=1) if address_flags else 0
+    df["location_quality_score"] = 3 - df["address_missing_count"]
+    return df
+
+
+def add_refined_subtype_features(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    subtype = df.get("property_subtype", pd.Series("unknown", index=df.index)).fillna("unknown").astype(str)
+    refined = subtype.copy()
+
+    road_width = pd.to_numeric(df.get("road_width_m", pd.Series(np.nan, index=df.index)), errors="coerce")
+    frontage = pd.to_numeric(df.get("frontage_m", pd.Series(np.nan, index=df.index)), errors="coerce")
+    floors = pd.to_numeric(df.get("num_floors", pd.Series(np.nan, index=df.index)), errors="coerce")
+    area = pd.to_numeric(df.get("area_m2", pd.Series(np.nan, index=df.index)), errors="coerce")
+    is_business = pd.to_numeric(df.get("is_business_text", pd.Series(0, index=df.index)), errors="coerce").fillna(0)
+    is_car = pd.to_numeric(df.get("is_car_access_text", pd.Series(0, index=df.index)), errors="coerce").fillna(0)
+    is_project = pd.to_numeric(df.get("is_project_text", pd.Series(0, index=df.index)), errors="coerce").fillna(0)
+
+    refined.loc[subtype.eq("frontage_house") & ((road_width >= 10) | (frontage >= 7))] = "frontage_house_wide_road"
+    refined.loc[subtype.eq("frontage_house") & is_business.eq(1)] = "frontage_house_business"
+    refined.loc[subtype.eq("normal_house") & is_car.eq(1)] = "normal_house_car_access"
+    refined.loc[subtype.eq("normal_house") & floors.ge(4)] = "normal_house_many_floors"
+    refined.loc[subtype.eq("townhouse_project") & is_project.eq(1)] = "townhouse_project_confirmed"
+    refined.loc[subtype.eq("townhouse_project") & area.ge(120)] = "townhouse_project_large_area"
+
+    df["property_subtype_refined"] = refined
+    df["broad_subtype_flag"] = subtype.isin(["frontage_house", "normal_house", "townhouse_project"]).astype(int)
+    df["subtype_price_segment"] = np.select(
+        [
+            subtype.isin(["villa", "shophouse"]),
+            subtype.isin(["frontage_house", "alley_frontage_house"]) | refined.str.contains("business|wide_road", regex=True, na=False),
+            subtype.isin(["normal_house", "alley_house"]),
+        ],
+        ["premium_like", "street_commercial_like", "standard_residential_like"],
+        default="project_or_other_like",
+    )
+    return df
 
 
 def load_raw_data(raw_csv: Path | None = None) -> pd.DataFrame:
@@ -466,6 +1228,9 @@ def preprocess_raw_data(df_raw: pd.DataFrame) -> pd.DataFrame:
             df[new_col] = df[raw_col].apply(lambda x: clean_measurement(x, min_val=lo, max_val=hi))
         else:
             df[new_col] = np.nan
+    df["floor_area_m2"] = np.nan
+
+    df, _text_fill_counts = extract_features_from_text(df)
 
     legal_col = first_existing(df, ["legal", "legal_status", "juridical"])
     df["legal"] = df[legal_col].fillna("missing").astype(str) if legal_col else "missing"
@@ -475,11 +1240,19 @@ def preprocess_raw_data(df_raw: pd.DataFrame) -> pd.DataFrame:
     df["project_name"] = df[project_col].fillna("missing").astype(str) if project_col else "missing"
     address_col = first_existing(df, ["address", "full_address", "location", "street"])
     df["address"] = df[address_col].fillna("").astype(str) if address_col else ""
+    df = add_source_features(df)
 
-    df["addr_last_1"] = df["address"].apply(lambda x: address_part(x, 1))
-    df["addr_last_2"] = df["address"].apply(lambda x: address_part(x, 2))
-    df["addr_last_3"] = df["address"].apply(lambda x: address_part(x, 3))
-    df["street_proxy"] = df["address"].apply(lambda x: address_part(x, 4))
+    parsed_address = df["address"].apply(parse_address_components).apply(pd.Series)
+    df["addr_last_1_raw"] = parsed_address["addr_last_1_raw"]
+    df["addr_last_2_raw"] = parsed_address["addr_last_2_raw"]
+    df["addr_last_3_raw"] = parsed_address["addr_last_3_raw"]
+    df["street_proxy_raw"] = parsed_address["street_proxy_raw"]
+
+    df["addr_last_1"] = canonicalize_series_with_cache(df["addr_last_1_raw"], canonical_province_name)
+    df["addr_last_2"] = canonicalize_series_with_cache(df["addr_last_2_raw"], canonical_district_name)
+    df["addr_last_3"] = canonicalize_series_with_cache(df["addr_last_3_raw"], canonical_ward_name)
+    df["street_proxy"] = canonicalize_series_with_cache(df["street_proxy_raw"], canonical_street_proxy)
+    df = fill_missing_location_from_text(df)
 
     for date_col in ["updated_at", "post_date", "created_at", "date"]:
         if date_col in df.columns:
@@ -502,50 +1275,10 @@ def preprocess_raw_data(df_raw: pd.DataFrame) -> pd.DataFrame:
     else:
         df = df.drop_duplicates()
 
-    text_series = df["all_text_lower"].fillna("")
-    exclude_apartment = series_has_any(text_series, EXCLUDE_APARTMENT)
-    exclude_land_only = series_has_any(text_series, EXCLUDE_LAND_ONLY)
-    exclude_commercial_only = series_has_any(text_series, EXCLUDE_COMMERCIAL_ONLY)
-    villa_flag = series_has_any(text_series, VILLA)
-    shophouse_flag = series_has_any(text_series, SHOPHOUSE)
-    townhouse_project_flag = series_has_any(text_series, TOWNHOUSE_PROJECT)
-    frontage_flag = series_has_any(text_series, FRONTAGE)
-    alley_flag = series_has_any(text_series, ALLEY)
-    normal_house_flag = series_has_any(text_series, NORMAL_HOUSE) | text_series.str.contains("thocu|tho_cu", regex=True, na=False)
+    df = add_recency_weight(df)
 
-    commercial_only_flag = exclude_commercial_only & ~(normal_house_flag | villa_flag | shophouse_flag | townhouse_project_flag)
-    df["property_subtype"] = np.select(
-        [
-            exclude_apartment,
-            exclude_land_only,
-            commercial_only_flag,
-            villa_flag,
-            shophouse_flag,
-            townhouse_project_flag,
-            alley_flag & frontage_flag,
-            frontage_flag,
-            alley_flag,
-            normal_house_flag,
-        ],
-        [
-            "exclude_apartment",
-            "exclude_land_only",
-            "exclude_commercial_only",
-            "villa",
-            "shophouse",
-            "townhouse_project",
-            "alley_frontage_house",
-            "frontage_house",
-            "alley_house",
-            "normal_house",
-        ],
-        default="unknown",
-    )
-    df["property_group"] = np.where(
-        df["property_subtype"].isin(list(SUBTYPE_FEATURE_MAP.keys())),
-        "landed_residential_house",
-        "out_of_scope",
-    )
+    df = apply_property_classification(df)
+    text_series = df["all_text_lower"].fillna("")
 
     signal_map = {
         "is_frontage_text": FRONTAGE,
@@ -562,6 +1295,7 @@ def preprocess_raw_data(df_raw: pd.DataFrame) -> pd.DataFrame:
     }
     for feature_name, keywords in signal_map.items():
         df[feature_name] = series_has_any(text_series, keywords).astype(int)
+    df = add_refined_subtype_features(df)
 
     df["text_len"] = df["all_text_lower"].str.len()
     df["word_count"] = df["all_text_lower"].str.split().apply(len)
@@ -578,7 +1312,172 @@ def preprocess_raw_data(df_raw: pd.DataFrame) -> pd.DataFrame:
     create_interaction(df, "corner_x_frontage", "is_corner_text", "frontage_m")
     create_interaction(df, "business_x_road_width", "is_business_text", "road_width_m")
     create_interaction(df, "project_x_area", "is_project_text", "area_m2")
+    df = add_missing_quality_features(df)
 
+    return df
+
+
+def apply_property_classification(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    text_series = df["all_text_lower"].fillna("")
+    apartment_signal = series_has_any(text_series, EXCLUDE_APARTMENT)
+    land_only_signal = series_has_any(text_series, EXCLUDE_LAND_ONLY)
+    exclude_commercial_only = series_has_any(text_series, EXCLUDE_COMMERCIAL_ONLY)
+    villa_flag = series_has_any(text_series, VILLA)
+    shophouse_flag = series_has_any(text_series, SHOPHOUSE)
+    townhouse_project_flag = series_has_any(text_series, TOWNHOUSE_PROJECT)
+    frontage_flag = series_has_any(text_series, FRONTAGE)
+    alley_flag = series_has_any(text_series, ALLEY)
+    normal_house_flag = series_has_any(text_series, NORMAL_HOUSE) | text_series.str.contains("thocu|tho_cu", regex=True, na=False)
+    corner_house_flag = series_has_any(text_series, CORNER)
+    general_landed_house_flag = series_has_any(text_series, GENERAL_LANDED_HOUSE)
+    house_text_signal = series_has_any(text_series, HOUSE_TEXT_SIGNAL)
+    structural_house_signal = pd.Series(False, index=df.index)
+    for col in ["num_floors", "bedrooms", "bathrooms"]:
+        if col in df.columns:
+            structural_house_signal = structural_house_signal | pd.to_numeric(df[col], errors="coerce").fillna(0).gt(0)
+    if "floor_area_m2" in df.columns:
+        structural_house_signal = structural_house_signal | pd.to_numeric(df["floor_area_m2"], errors="coerce").fillna(0).gt(0)
+
+    strong_house_signal = (
+        normal_house_flag
+        | general_landed_house_flag
+        | house_text_signal
+        | frontage_flag
+        | alley_flag
+        | corner_house_flag
+        | villa_flag
+        | shophouse_flag
+        | townhouse_project_flag
+        | structural_house_signal
+    )
+    exclude_apartment = apartment_signal & ~strong_house_signal
+    exclude_land_only = land_only_signal & ~strong_house_signal
+    base_house_flag = strong_house_signal & ~(exclude_apartment | exclude_land_only)
+
+    commercial_only_flag = exclude_commercial_only & ~(base_house_flag | villa_flag | shophouse_flag | townhouse_project_flag)
+    landed_residential_general_flag = base_house_flag & ~commercial_only_flag
+
+    df["property_subtype"] = np.select(
+        [
+            exclude_apartment,
+            exclude_land_only,
+            commercial_only_flag,
+            villa_flag,
+            shophouse_flag,
+            townhouse_project_flag,
+            alley_flag & frontage_flag,
+            frontage_flag,
+            alley_flag,
+            base_house_flag,
+        ],
+        [
+            "exclude_apartment",
+            "exclude_land_only",
+            "exclude_commercial_only",
+            "villa",
+            "shophouse",
+            "townhouse_project",
+            "alley_frontage_house",
+            "frontage_house",
+            "alley_house",
+            "normal_house",
+        ],
+        default="unknown",
+    )
+    df["general_property_type"] = np.select(
+        [
+            exclude_apartment,
+            exclude_land_only,
+            commercial_only_flag,
+            landed_residential_general_flag,
+        ],
+        [
+            "apartment",
+            "land_only",
+            "commercial_only",
+            "landed_residential_house",
+        ],
+        default="unknown",
+    )
+    df["is_landed_residential_house"] = landed_residential_general_flag.astype(int)
+    df["property_group"] = np.where(
+        df["property_subtype"].isin(list(SUBTYPE_FEATURE_MAP.keys())),
+        "landed_residential_house",
+        "out_of_scope",
+    )
+    return df
+
+
+RECENCY_WEIGHT_MAP: Dict[int, float] = {2025: 1.0, 2024: 0.8, 2023: 0.5, 2022: 0.4, 2021: 0.3}
+
+
+def _best_listing_date(df: pd.DataFrame) -> pd.Series:
+    """Return the best available date per row: updated_at > post_date > NaT."""
+    best = pd.Series(pd.NaT, index=df.index, dtype="datetime64[ns]")
+    for col in ["updated_at_parsed", "post_date_parsed"]:
+        if col in df.columns:
+            parsed = pd.to_datetime(df[col], errors="coerce")
+            best = best.combine_first(parsed)
+    return best
+
+
+def remove_near_duplicates(
+    df: pd.DataFrame,
+    area_bucket_size: float = 3.0,
+    price_bucket_size: float = 200_000_000,
+) -> Tuple[pd.DataFrame, int]:
+    """
+    Remove re-listed properties: same normalized address + similar area + similar price.
+    Only applied where district, area_m2, and price_vnd are all known.
+    Within each duplicate group keeps the most recent listing; ties broken by row position.
+    """
+    required = ["addr_last_2", "area_m2", "price_vnd", "addr_last_1", "addr_last_3", "street_proxy"]
+    if not all(c in df.columns for c in required):
+        return df, 0
+
+    can_dedup = (
+        df["addr_last_2"].notna()
+        & (df["addr_last_2"] != "missing")
+        & df["area_m2"].notna()
+        & df["price_vnd"].notna()
+    )
+    candidates = df.loc[can_dedup].copy()
+    no_dedup_rows = df.loc[~can_dedup]
+
+    if candidates.empty:
+        return df, 0
+
+    area_bucket = (candidates["area_m2"] / area_bucket_size).round() * area_bucket_size
+    price_bucket = (candidates["price_vnd"] / price_bucket_size).round() * price_bucket_size
+    addr_key = (
+        candidates["addr_last_1"].fillna("") + "|"
+        + candidates["addr_last_2"].fillna("") + "|"
+        + candidates["addr_last_3"].fillna("") + "|"
+        + candidates["street_proxy"].fillna("")
+    )
+    candidates["_dedup_key"] = addr_key + "|" + area_bucket.astype(str) + "|" + price_bucket.astype(str)
+    candidates["_best_date"] = _best_listing_date(candidates)
+    candidates["_pos"] = range(len(candidates))  # positional tiebreaker
+
+    candidates_sorted = candidates.sort_values(
+        ["_dedup_key", "_best_date", "_pos"],
+        ascending=[True, False, False],
+        na_position="last",
+    )
+    kept = candidates_sorted.drop_duplicates(subset=["_dedup_key"], keep="first")
+    kept = kept.drop(columns=["_dedup_key", "_best_date", "_pos"])
+
+    n_removed = len(candidates) - len(kept)
+    result = pd.concat([kept, no_dedup_rows]).sort_index()
+    return result, int(n_removed)
+
+
+def add_recency_weight(df: pd.DataFrame) -> pd.DataFrame:
+    """Add recency_weight column based on listing year: 1.0 for 2025, 0.8 for 2024, 0.5 for undated."""
+    best_date = _best_listing_date(df)
+    df = df.copy()
+    df["recency_weight"] = best_date.dt.year.map(RECENCY_WEIGHT_MAP).fillna(0.5)
     return df
 
 
@@ -617,6 +1516,7 @@ def make_split(df_model: pd.DataFrame) -> SplitData:
 
 def save_processed_data(df_clean: pd.DataFrame, df_model: pd.DataFrame, split_data: SplitData):
     df_clean.to_parquet(PROCESSED_DATA_DIR / "full_cleaned_dataset.parquet", index=False)
+    df_clean.to_csv(PROCESSED_DATA_DIR / "full_cleaned_dataset.csv.gz", index=False, compression="gzip")
     df_model.to_parquet(PROCESSED_DATA_DIR / "landed_residential_house_modeling_dataset.parquet", index=False)
     split_data.train_df.to_parquet(PROCESSED_DATA_DIR / "train_dataset.parquet", index=False)
     split_data.test_df.to_parquet(PROCESSED_DATA_DIR / "test_dataset.parquet", index=False)
@@ -631,10 +1531,15 @@ def save_processed_data(df_clean: pd.DataFrame, df_model: pd.DataFrame, split_da
     (PROCESSED_DATA_DIR / "metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def load_processed_train_test() -> Tuple[pd.DataFrame, pd.DataFrame]:
-    train_df = pd.read_parquet(PROCESSED_DATA_DIR / "train_dataset.parquet")
-    test_df = pd.read_parquet(PROCESSED_DATA_DIR / "test_dataset.parquet")
-    return train_df, test_df
+def load_processed_train_test(data_path: str | Path | None = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    if data_path is None:
+        train_df = pd.read_parquet(PROCESSED_DATA_DIR / "train_dataset.parquet")
+        test_df = pd.read_parquet(PROCESSED_DATA_DIR / "test_dataset.parquet")
+        return train_df, test_df
+
+    df_model = pd.read_parquet(data_path)
+    split_data = make_split(df_model)
+    return split_data.train_df, split_data.test_df
 
 
 def filter_existing_features(df: pd.DataFrame, numeric_features: List[str], categorical_features: List[str]) -> Tuple[List[str], List[str]]:
@@ -701,6 +1606,18 @@ def build_lgbm_pipeline(numeric_features: List[str], categorical_features: List[
     return Pipeline(steps=[("preprocess", preprocess), ("model", model)])
 
 
+def trimmed_mean(values: np.ndarray, proportion: float) -> float:
+    """Mean after dropping `proportion` of the mass from each tail. Leakage-free,
+    no scipy dependency. Falls back to the plain mean when trimming empties the array."""
+    v = np.sort(np.asarray(values, dtype=float))
+    n = len(v)
+    if n == 0:
+        return float("nan")
+    k = int(np.floor(n * proportion))
+    core = v[k : n - k] if n - 2 * k > 0 else v
+    return float(np.mean(core))
+
+
 def metric_row(y_true, y_pred) -> Dict[str, float]:
     y_true = np.asarray(y_true, dtype=float)
     y_pred = np.asarray(y_pred, dtype=float)
@@ -717,6 +1634,8 @@ def metric_row(y_true, y_pred) -> Dict[str, float]:
             "HitRate_10_pct": np.nan,
             "HitRate_20_pct": np.nan,
             "Bias_pct": np.nan,
+            "Median_Bias_pct": np.nan,
+            "Bias_pct_trimmed10": np.nan,
             "OvervaluationRate_pct": np.nan,
             "UndervaluationRate_pct": np.nan,
         }
@@ -732,6 +1651,11 @@ def metric_row(y_true, y_pred) -> Dict[str, float]:
         "HitRate_10_pct": np.mean(ape <= 0.10) * 100,
         "HitRate_20_pct": np.mean(ape <= 0.20) * 100,
         "Bias_pct": np.mean(pe) * 100,
+        # Robust bias views: the raw mean Bias_pct is a mean-of-ratios dominated by a
+        # right tail of underpriced/mislabeled listings. The median and 10%-trimmed
+        # mean show whether the model itself is centered (they should sit near 0).
+        "Median_Bias_pct": np.median(pe) * 100,
+        "Bias_pct_trimmed10": trimmed_mean(pe, 0.10) * 100,
         "OvervaluationRate_pct": np.mean(pe > 0) * 100,
         "UndervaluationRate_pct": np.mean(pe < 0) * 100,
     }
@@ -896,4 +1820,4 @@ def summarize_model_selection(global_metrics: pd.DataFrame, subtype_metrics: pd.
 
 
 def list_metric_columns() -> List[str]:
-    return ["MAE", "RMSE", "MAPE", "Median_APE", "HitRate_10_pct", "HitRate_20_pct", "Bias_pct", "OvervaluationRate_pct", "UndervaluationRate_pct"]
+    return ["MAE", "RMSE", "MAPE", "Median_APE", "HitRate_10_pct", "HitRate_20_pct", "Bias_pct", "Median_Bias_pct", "Bias_pct_trimmed10", "OvervaluationRate_pct", "UndervaluationRate_pct"]

@@ -373,6 +373,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-suffix", type=str, default="")
     parser.add_argument("--exclude-num-floors-bundle", action="store_true")
+    parser.add_argument("--data-path", type=str, default=None)
     return parser.parse_args()
 
 
@@ -380,7 +381,7 @@ def main():
     args = parse_args()
     output_dir = MODEL_DIR if not args.output_suffix else MODEL_DIR.parent / f"{MODEL_DIR.name}_{args.output_suffix}"
     output_dir.mkdir(parents=True, exist_ok=True)
-    train_df, test_df = load_processed_train_test()
+    train_df, test_df = load_processed_train_test(args.data_path)
     params = load_robust_params()
 
     train_split, val_split = train_test_split(
@@ -449,6 +450,7 @@ def main():
             {
                 "exclude_num_floors_bundle": args.exclude_num_floors_bundle,
                 "num_floors_bundle": sorted(NUM_FLOORS_BUNDLE),
+                "data_path": args.data_path,
             },
             ensure_ascii=False,
             indent=2,
