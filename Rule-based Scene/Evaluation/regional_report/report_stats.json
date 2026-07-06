@@ -1,0 +1,13 @@
+{
+  "n_test": 140874,
+  "n_regions": 94,
+  "n_regions_reported": 48,
+  "overall_median_ape": 14.84,
+  "overall_hit20": 59.45,
+  "overall_mape": 34.52,
+  "in_band_share": 76.7,
+  "in_band_medape": 10.91,
+  "out_band_medape": 40.04,
+  "err_extreme_share": 29.2,
+  "normal_extreme_share": 5.1
+}

@@ -1,0 +1,7 @@
+feature,normal_median,error_median
+Area (m2),90.0,118.0
+Price / m2,53278688.525,22800000.0
+Floors,3.0,3.0
+Interval width (rel),0.78,1.361
+Price/m2 percentile,0.532,0.217
+Extreme price/m2 share (%),5.1,29.2

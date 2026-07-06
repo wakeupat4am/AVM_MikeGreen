@@ -1,0 +1,4 @@
+tier,n,share_pct,Median_APE,HitRate_20_pct,in_band_coverage_pct
+A_auto,56350,40.0,9.55,74.98,76.5
+B_review,56349,40.0,17.64,54.32,78.4
+C_flag,28175,20.0,28.85,38.65,73.8
