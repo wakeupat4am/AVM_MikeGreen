@@ -36,6 +36,7 @@ from common import (
     RANDOM_STATE,
     build_lgbm_pipeline,
     evaluate_custom_levels,
+    is_commercial_listing,
     list_metric_columns,
     load_processed_train_test,
     metric_row,
@@ -243,7 +244,35 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-suffix", type=str, default="")
     parser.add_argument("--data-path", type=str, default=None)
+    # Training-data cleaning flags. They filter the TRAIN split only; the test set is left
+    # untouched so runs with different cleaning stay comparable on identical test rows.
+    parser.add_argument("--min-ppm2", type=float, default=None,
+                        help="Drop training rows with price_per_m2 below this (VND).")
+    parser.add_argument("--drop-suspicious", action="store_true",
+                        help="Drop training rows flagged in data/suspicious_numeric_price_rows.csv.gz.")
+    parser.add_argument("--drop-commercial", action="store_true",
+                        help="Drop hotel/office/commercial listings (common.is_commercial_listing).")
     return parser.parse_args()
+
+
+def apply_train_cleaning(train_df: pd.DataFrame, min_ppm2: float | None, drop_suspicious: bool,
+                         drop_commercial: bool = False) -> pd.DataFrame:
+    n0 = len(train_df)
+    if drop_suspicious:
+        sus_path = EVAL_DIR.parent / "data" / "suspicious_numeric_price_rows.csv.gz"
+        sus_ids = set(pd.read_csv(sus_path)["id"])
+        train_df = train_df[~train_df["id"].isin(sus_ids)]
+        print(f"drop-suspicious: removed {n0 - len(train_df)} training rows")
+    if drop_commercial:
+        n1 = len(train_df)
+        train_df = train_df[~is_commercial_listing(train_df)]
+        print(f"drop-commercial: removed {n1 - len(train_df)} training rows")
+    if min_ppm2 is not None:
+        n1 = len(train_df)
+        train_df = train_df[train_df["price_per_m2"] >= min_ppm2]
+        print(f"min-ppm2 {min_ppm2:.0f}: removed {n1 - len(train_df)} training rows")
+    print(f"training rows: {n0} -> {len(train_df)}")
+    return train_df
 
 
 def main():
@@ -252,6 +281,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     train_df, test_df = load_processed_train_test(args.data_path)
+    train_df = apply_train_cleaning(train_df, args.min_ppm2, args.drop_suspicious, args.drop_commercial)
     params = load_robust_params()
 
     # Validation split for routing policy + shrinkage-K tuning.
@@ -313,6 +343,10 @@ def main():
             "quantile_low": QUANTILE_LOW,
             "quantile_high": QUANTILE_HIGH,
             "data_path": args.data_path,
+            "min_ppm2": args.min_ppm2,
+            "drop_suspicious": args.drop_suspicious,
+            "drop_commercial": args.drop_commercial,
+            "train_rows_after_cleaning": int(len(train_df)),
             "interval_coverage": coverage,
         }, ensure_ascii=False, indent=2),
         encoding="utf-8",

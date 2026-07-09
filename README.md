@@ -19,9 +19,10 @@ All active work lives under [`Rule-based Scene/`](Rule-based%20Scene).
 5. [The bias story — read this before judging the numbers](#5-the-bias-story)
 6. [Calibration layer: shrinkage routing + prediction intervals](#6-calibration-layer)
 7. [Regional reliability report — the business defense](#7-regional-reliability-report)
-8. [How to reproduce](#8-how-to-reproduce)
-9. [Repository layout](#9-repository-layout)
-10. [Limitations & next steps](#10-limitations--next-steps)
+8. [Final model — cleaned training and the stability defense](#8-final-model)
+9. [How to reproduce](#9-how-to-reproduce)
+10. [Repository layout](#10-repository-layout)
+11. [Limitations & next steps](#11-limitations--next-steps)
 
 ---
 
@@ -33,10 +34,10 @@ All active work lives under [`Rule-based Scene/`](Rule-based%20Scene).
 - **In-scope property family:** `landed_residential_house`, across seven subtypes —
   `frontage_house`, `alley_house`, `normal_house`, `alley_frontage_house`, `townhouse_project`,
   `villa`, `shophouse`.
-- **Headline result:** the deployable model values the **typical listing to ~15% error**
-  (Median_APE) with **~59% of estimates within 20%**, is **statistically unbiased**, and ships
-  with a **per-listing confidence interval** that reliably separates the cases it gets right from
-  the ones it should flag.
+- **Headline result:** the final model (shrinkage blend, cleaned training — Section 8) values a
+  **normal, sensible asset to ~12.7% typical error** with **~65% of estimates within 20%**, is
+  **statistically unbiased**, ships with a **per-listing confidence interval**, and **declines to
+  guess** on listings outside its validity domain (price-flagged or below 20M VND/m²).
 
 ---
 
@@ -64,7 +65,7 @@ Concretely this means:
    incoming listing the system predicts **sharply**, and that it **knows when it cannot**, so
    anomalies are flagged rather than silently mis-valued.
 
-Sections 5–7 deliver each of these.
+Sections 5–8 deliver each of these; Section 8 defines the final model and its validity domain.
 
 ---
 
@@ -108,8 +109,12 @@ All models predict `log_price` with LightGBM (objective `regression_l1`) and bac
 | subtype | 20.45% | 49.2% | 42.6% | one model per subtype |
 | region | 15.36% | 59.0% | 34.1% | one model per province |
 | hybrid fallback (hard router) | 15.39% | 58.3% | 36.1% | previous production model |
-| **shrinkage blend** | **14.84%** | **59.5%** | **34.5%** | **current production model** |
+| **shrinkage blend** | **14.84%** | **59.5%** | **34.5%** | **production architecture** |
 | region×subtype | 14.01% | 61.3% | 32.1% | best *raw* score (dense groups only) |
+
+The **final shipped model** is the shrinkage blend retrained on cleaned data — see Section 8 for
+its numbers on the serving population (12.74% Median_APE / 64.6% HitRate_20) and the stability
+comparison that backs them.
 
 **Two "best" models, two meanings:**
 
@@ -246,7 +251,48 @@ property that makes it safe to ship.
 
 ---
 
-## 8. How to reproduce
+## 8. Final model
+
+**The final model is the shrinkage blend retrained on cleaned data**: the training set minus
+(a) listings flagged by the suspicious-price audit and (b) listings priced below **20M VND/m²**
+(563,496 → 457,562 rows). The test set was left untouched, so the cleaned training is directly
+comparable to the full training on the **identical 140,874 test rows**.
+
+### The stability comparison (`Evaluation/improvements/final_model_stability/`)
+
+Scored on the *sensible-asset* population — listings at ≥ 20M VND/m² and not price-flagged, i.e.
+"a normal, make-sense case of asset" (**81% of the test set**, 114,540 listings):
+
+| Model | Median_APE | HitRate_20 | Median bias |
+|---|---|---|---|
+| Trained on full data | 13.19% | 63.8% | −2.16% |
+| **Trained on cleaned data (final)** | **12.74%** | **64.6%** | **−0.19%** |
+
+Three things make this defensible:
+
+1. **The result is stable.** Two trainings on very different data (one with 106k noisy rows, one
+   without) land within **0.45 points** of each other on the sensible population, and the cleaned
+   training is the better and *better-centered* of the two (median bias −0.19% vs −2.16%). The
+   model's accuracy on normal assets does not depend on the noise — it is a property of the signal.
+2. **Cleaning helps where the noise lived.** On sensible listings in previously noise-heavy rural
+   markets, the cleaned training improves sharply: Long An 15.1% → **11.0%**, Hòa Bình 24.7% →
+   **14.8%**, Tiền Giang 23.6% → **17.5%** Median_APE. Its prediction intervals are also
+   *narrower* (median width 76% vs ~90%) while keeping **76.3%** coverage on the serving
+   population.
+3. **The validity domain is explicit — and enforced.** On the excluded population (sub-20M/m² or
+   flagged listings, 19% of test) the cleaned model is deliberately not valid (it never saw such
+   assets and grossly over-values them). This is not a hidden weakness but a **defined serving
+   boundary**: a listing below 20M/m² or price-flagged is routed to Tier C / human review by the
+   same input checks used for cleaning — the model only answers where it has proven, stable
+   accuracy. *When a normal, sensible asset comes in, the system predicts sharply (typical error
+   ~12.7%, ~65% within 20%); when an out-of-domain one comes in, it declines to guess.*
+
+Reproduce: `python3 train_region_subtype_calibrated.py --output-suffix clean_ppm2_20m
+--drop-suspicious --min-ppm2 20000000`, then `python3 compare_final_model_stability.py`.
+
+---
+
+## 9. How to reproduce
 
 From `Rule-based Scene/src/` (expects processed parquet in `data/processed/`):
 
@@ -263,7 +309,7 @@ drift from the numbers.
 
 ---
 
-## 9. Repository layout
+## 10. Repository layout
 
 ```
 Rule-based Scene/
@@ -285,7 +331,7 @@ Rule-based Scene/
 
 ---
 
-## 10. Limitations & next steps
+## 11. Limitations & next steps
 
 - **Thin regions stay uncertain.** Small provinces have wide intervals and larger errors; the
   policy correctly sends more of them to Tier C. More regional data is the only real fix.

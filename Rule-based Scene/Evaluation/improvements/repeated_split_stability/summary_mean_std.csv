@@ -1,0 +1,8 @@
+metric,mean,std,min,max
+served_Median_APE,12.573,0.05,12.526,12.643
+served_HitRate_20,65.159,0.197,65.071,65.511
+served_HitRate_10,43.138,0.093,42.991,43.245
+served_MAPE,20.978,0.061,20.904,21.043
+served_Median_Bias,-0.016,0.022,-0.04,0.019
+all_Median_APE,18.091,0.076,17.997,18.205
+all_HitRate_20,52.78,0.15,52.624,53.023

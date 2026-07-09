@@ -1606,6 +1606,29 @@ def build_lgbm_pipeline(numeric_features: List[str], categorical_features: List[
     return Pipeline(steps=[("preprocess", preprocess), ("model", model)])
 
 
+def is_commercial_listing(df: pd.DataFrame) -> pd.Series:
+    """Flag hotel / office / commercial listings that carry residential subtypes but follow a
+    different pricing logic (revenue, room count, star rating — none of which are in the feature
+    set). Requires a commercial keyword AND commercial scale, so an ordinary house that merely
+    mentions a nearby hotel is not caught. These are out of scope for the residential AVM and are
+    excluded from training / routed to review at inference. Price is used for the training-time
+    filter; an inference-time variant would drop the price clause (price is the unknown)."""
+    if "all_text_lower" in df.columns:
+        txt = df["all_text_lower"].fillna("")
+    else:
+        txt = (df.get("title", pd.Series("", index=df.index)).fillna("").astype(str) + " "
+               + df.get("description", pd.Series("", index=df.index)).fillna("").astype(str)).str.lower()
+    hotel = txt.str.contains(r"khách sạn|khach san| hotel|resort", regex=True, na=False)
+    office = txt.str.contains(
+        r"tòa nhà văn phòng|toà nhà văn phòng|văn phòng cho thuê|cao ốc|office building|to[àa] building",
+        regex=True, na=False)
+    floors = pd.to_numeric(df.get("num_floors"), errors="coerce")
+    area = pd.to_numeric(df.get("area_m2"), errors="coerce")
+    price = pd.to_numeric(df.get("price_vnd"), errors="coerce")
+    scale = (floors >= 6) | (area >= 250) | (price >= 20e9)
+    return (hotel & scale.fillna(False)) | office
+
+
 def trimmed_mean(values: np.ndarray, proportion: float) -> float:
     """Mean after dropping `proportion` of the mass from each tail. Leakage-free,
     no scipy dependency. Falls back to the plain mean when trimming empties the array."""

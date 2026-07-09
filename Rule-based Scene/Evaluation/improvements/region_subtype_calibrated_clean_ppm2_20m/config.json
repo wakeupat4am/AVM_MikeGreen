@@ -1,0 +1,23 @@
+{
+  "shrink_k": 250.0,
+  "shrink_k_candidates": [
+    250,
+    500,
+    1000,
+    2000,
+    4000,
+    8000
+  ],
+  "quantile_low": 0.1,
+  "quantile_high": 0.9,
+  "data_path": null,
+  "min_ppm2": 20000000.0,
+  "drop_suspicious": true,
+  "train_rows_after_cleaning": 457562,
+  "interval_coverage": {
+    "target_coverage_pct": 80.0,
+    "empirical_coverage_pct": 62.11082243707142,
+    "median_rel_width_pct": 79.85320645969011,
+    "count": 140874
+  }
+}

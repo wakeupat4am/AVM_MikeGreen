@@ -35,3 +35,19 @@ AVM_Nha_Tho_Cu_Optimized_LightGBM.ipynb
 avm_notebook.ipynb
 build_avm_notebook.py
 example.md
+
+# CatBoost temp training logs
+catboost_info/
+**/catboost_info/
+
+# LaTeX aux files
+*.aux
+*.toc
+*.out
+AVM_Report.log
+
+# Archived legacy files (recoverable, kept out of git)
+_archive/
+
+# Large regenerable model artifacts (rebuild via build_final_scorer.py)
+Rule-based Scene/models/

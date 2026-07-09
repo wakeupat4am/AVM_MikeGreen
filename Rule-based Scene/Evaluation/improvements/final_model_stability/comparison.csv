@@ -1,0 +1,7 @@
+test_slice,model,n,Median_APE,HitRate_20_pct,HitRate_10_pct,MAPE,Median_Bias_pct
+all listings,full-trained,140874,14.84,59.45,38.61,34.52,-0.25
+all listings,clean-trained,140874,18.03,52.83,34.8,89.82,3.96
+"sensible (ppm2>=20M, not suspicious)",full-trained,114540,13.19,63.8,41.72,20.96,-2.16
+"sensible (ppm2>=20M, not suspicious)",clean-trained,114540,12.74,64.63,42.71,21.16,-0.19
+below-20M / suspicious (excluded pop.),full-trained,26334,28.0,40.57,25.06,93.49,20.48
+below-20M / suspicious (excluded pop.),clean-trained,26334,188.17,1.5,0.4,388.45,188.17

@@ -1,0 +1,7 @@
+test_slice,model,n,Median_APE,HitRate_20_pct,HitRate_10_pct,MAPE,MAE_billion,Median_Bias_pct
+residential sensible (served population),A: commercial-in,110469,12.56,65.16,43.15,20.92,2.217,-0.06
+residential sensible (served population),B: commercial-excluded,110469,12.58,65.26,43.05,20.82,2.265,-0.2
+"commercial (out of scope, for reference)",A: commercial-in,4513,22.95,45.67,27.85,75.96,16.008,-5.47
+"commercial (out of scope, for reference)",B: commercial-excluded,4513,36.06,29.96,15.44,78.67,22.174,-19.4
+all test rows,A: commercial-in,140874,18.03,52.83,34.8,89.82,3.304,3.96
+all test rows,B: commercial-excluded,140874,18.31,52.44,34.33,87.37,3.473,3.62
