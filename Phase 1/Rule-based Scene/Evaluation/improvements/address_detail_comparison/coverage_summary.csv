@@ -1,0 +1,3 @@
+model,group_definition,eligible_groups,used_groups_with_test_rows,test_rows_using_granular_model,test_rows_total,granular_coverage_pct
+addr1_plus_subtype,addr_last_1 + property_subtype,49,49,20527,26381,77.80978734695425
+addr1_addr2_plus_subtype,addr_last_1 + addr_last_2 + property_subtype,39,39,10784,26381,40.87790455251886

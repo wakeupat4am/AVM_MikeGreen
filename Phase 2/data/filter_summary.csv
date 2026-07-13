@@ -1,0 +1,4 @@
+step,rows_after,rows_removed
+raw,11252,0
+dedup by property_id (SOLD>latest),10506,746
+drop non-positive price / area<=10,10493,13

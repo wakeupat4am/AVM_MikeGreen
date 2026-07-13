@@ -1,0 +1,24 @@
+experiment,model,Median_APE_after,HitRate_20_after,HitRate_10_after,MAPE_after,Median_APE_before,HitRate_20_before,Δ_Median_APE,Δ_HitRate_20
+region_subtype_models,region subtype model,12.7602,64.0922,42.9839,31.4654,12.6861,64.1382,0.0741,-0.046
+region_subtype_models,region model,14.5067,60.862,38.6774,34.525,14.4401,60.9612,0.0666,-0.0992
+region_subtype_models,hybrid fallback,14.63,59.8267,39.1832,36.7544,14.578,59.7862,0.052,0.0405
+market_regime_layer,current hybrid fallback,14.63,59.8267,39.1832,36.7544,14.578,59.7862,0.052,0.0405
+market_regime_layer,probability adjustment,15.4003,59.1855,35.9509,35.9842,15.4066,59.1528,-0.0063,0.0327
+lightgbm,lightgbm subtype,18.5322,52.8548,29.9961,36.5993,18.561,52.8019,-0.0288,0.0529
+region_subtype_models,subtype model,18.7492,52.2057,31.3799,41.3051,18.7247,52.2507,0.0245,-0.045
+address_combo,addr1_plus_subtype,19.7408,50.4151,29.9647,41.7242,19.7408,50.4151,0.0,0.0
+lightgbm,lightgbm global,20.2258,49.5865,26.9944,38.1125,20.2574,49.4853,-0.0316,0.1012
+robust_lightgbm,robust lightgbm global,20.3287,49.3807,28.0621,42.7084,20.3736,49.2884,-0.0449,0.0923
+region_subtype_models,global model,20.3287,49.3807,28.0621,42.7084,20.3736,49.2884,-0.0449,0.0923
+market_regime_layer,trimmed hybrid local,20.9464,48.3602,27.4478,46.4793,20.9379,48.385,0.0085,-0.0248
+address_combo,addr2_plus_subtype,20.949,48.5236,28.5092,43.3176,20.949,48.5236,0.0,0.0
+address_combo,addr1_plus_addr2_plus_subtype,21.7735,47.0983,27.6563,44.8518,21.7735,47.0983,0.0,0.0
+address_combo,addr3_plus_subtype,22.9113,45.2712,25.2341,44.8992,22.9113,45.2712,0.0,0.0
+address_combo,addr1_plus_addr3_plus_subtype,23.9421,43.4821,24.0097,46.7478,23.9421,43.4821,0.0,0.0
+address_combo,addr2_plus_addr3_plus_subtype,23.9431,43.4555,23.968,46.738,23.9431,43.4555,0.0,0.0
+address_combo,addr1_plus_addr2_plus_addr3_plus_subtype,23.9462,43.4366,23.9528,46.7551,23.9462,43.4366,0.0,0.0
+market_regime_layer,hard regime routing,26.7784,40.7988,23.2503,65.1825,26.7593,40.7977,0.0191,0.0011
+ridge,ridge subtype,26.8932,39.2012,20.7414,54.0459,26.903,39.1956,-0.0098,0.0056
+ridge,ridge global,28.3903,36.5956,18.9616,52.2703,28.3956,36.5844,-0.0053,0.0112
+baseline,baseline subtype,33.0488,32.6343,17.0884,69.2581,33.0468,32.6478,0.002,-0.0135
+baseline,baseline global,33.0525,32.6343,17.0906,69.3112,33.0526,32.6422,-0.0001,-0.0079

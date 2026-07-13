@@ -1,0 +1,6 @@
+training_group,rows
+low_tail_group,24822
+normal_group,312587
+high_tail_group,18127
+stable_normal_group,0
+trimmed_local_group,312587

@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+overall_test_set,ALL,draft price-band hard route,price,140874,2802262120.6789284,11335306229.683455,43.526590606424556,16.78515755490684,36.470888879424166,55.01441004017775,20.32575614237951,48.21045757201471,51.78954242798529

@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+overall_test_set,ALL,draft price-band soft route,price,140874,2635631357.788508,11274143259.474222,37.23247515095236,18.4289434447713,31.30953902068515,52.877039056177864,13.631884880884277,46.25196984539376,53.74803015460624

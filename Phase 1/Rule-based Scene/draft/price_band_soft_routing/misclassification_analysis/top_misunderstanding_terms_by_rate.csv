@@ -1,0 +1,515 @@
+true_band,predicted_band,feature,value,true_band_feature_rows,misclassified_rows,misclassified_rate_pct
+mid_2b_10_5b,lt_2b,addr_last_3,xã thạnh phú,169,142,84.02366863905326
+mid_2b_10_5b,lt_2b,addr_last_3,xã long trạch,112,85,75.89285714285714
+mid_2b_10_5b,lt_2b,addr_last_2,huyện cần đước,176,131,74.43181818181817
+mid_2b_10_5b,lt_2b,addr_last_2,huyện vĩnh cửu,283,205,72.43816254416961
+mid_2b_10_5b,lt_2b,addr_last_3,xã lộc an,115,83,72.17391304347827
+mid_2b_10_5b,lt_2b,addr_last_3,xã tân bình,152,107,70.39473684210526
+mid_2b_10_5b,lt_2b,addr_last_2,thị xã bến cát,232,160,68.96551724137932
+mid_2b_10_5b,lt_2b,addr_last_3,phường thới hòa,162,104,64.19753086419753
+mid_2b_10_5b,lt_2b,addr_last_3,xã mỹ hạnh bắc,103,66,64.07766990291263
+mid_2b_10_5b,lt_2b,source,bds123_thocu_sm,125,80,64.0
+mid_2b_10_5b,lt_2b,addr_last_3,xã mỹ hạnh nam,166,106,63.85542168674698
+mid_2b_10_5b,lt_2b,addr_last_2,huyện long điền,111,69,62.16216216216216
+mid_2b_10_5b,lt_2b,addr_last_1,bắc giang,293,171,58.36177474402731
+mid_2b_10_5b,lt_2b,addr_last_2,huyện long thành,212,121,57.07547169811321
+mid_2b_10_5b,lt_2b,addr_last_2,thị xã la gi,111,63,56.75675675675676
+mid_2b_10_5b,lt_2b,addr_last_2,huyện kiến thụy,100,56,56.00000000000001
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố hội an,253,140,55.33596837944664
+mid_2b_10_5b,lt_2b,addr_last_1,tây ninh,239,132,55.23012552301255
+mid_2b_10_5b,lt_2b,addr_last_1,bình phước,117,64,54.700854700854705
+mid_2b_10_5b,lt_2b,addr_last_2,huyện đức hòa,606,331,54.62046204620462
+mid_2b_10_5b,lt_2b,addr_last_1,tiền giang,224,119,53.125
+mid_2b_10_5b,lt_2b,street_proxy,đường huỳnh văn nghệ,394,209,53.045685279187815
+mid_2b_10_5b,lt_2b,addr_last_1,hòa bình,437,229,52.40274599542334
+mid_2b_10_5b,lt_2b,addr_last_2,huyện nhơn trạch,301,156,51.82724252491694
+mid_2b_10_5b,lt_2b,addr_last_2,huyện trảng bom,211,108,51.18483412322274
+mid_2b_10_5b,lt_2b,street_proxy,đường liên thôn,133,67,50.37593984962406
+mid_2b_10_5b,lt_2b,addr_last_2,huyện bến lức,305,151,49.50819672131148
+mid_2b_10_5b,lt_2b,source,cafeland_thocu_sm,618,302,48.86731391585761
+mid_2b_10_5b,lt_2b,addr_last_2,huyện đất đỏ,338,164,48.5207100591716
+mid_2b_10_5b,lt_2b,addr_last_1,long an,2751,1320,47.98255179934569
+mid_2b_10_5b,lt_2b,addr_last_1,trà vinh,135,64,47.40740740740741
+mid_2b_10_5b,lt_2b,addr_last_2,huyện lương sơn,226,106,46.90265486725664
+lt_2b,mid_2b_10_5b,addr_last_2,quận thanh khê,123,56,45.52845528455284
+mid_2b_10_5b,lt_2b,addr_last_1,thái nguyên,154,70,45.45454545454545
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố tân uyên,213,96,45.07042253521127
+lt_2b,mid_2b_10_5b,addr_last_1,đà nẵng,444,194,43.69369369369369
+mid_2b_10_5b,lt_2b,addr_last_3,phường hùng thắng,131,56,42.74809160305343
+mid_2b_10_5b,lt_2b,addr_last_1,phú thọ,155,66,42.58064516129032
+mid_2b_10_5b,lt_2b,street_proxy,đường đồng khởi,568,233,41.021126760563384
+mid_2b_10_5b,lt_2b,source,muaban_thocu_sm,213,87,40.845070422535215
+mid_2b_10_5b,lt_2b,addr_last_3,phường bửu long,559,228,40.7871198568873
+mid_2b_10_5b,lt_2b,addr_last_2,thị xã từ sơn,193,78,40.41450777202073
+mid_2b_10_5b,lt_2b,street_proxy,đường quốc lộ 1a,156,63,40.38461538461539
+mid_2b_10_5b,lt_2b,addr_last_3,phường lái thiêu,199,80,40.20100502512563
+mid_2b_10_5b,lt_2b,addr_last_2,huyện cần giuộc,430,172,40.0
+lt_2b,mid_2b_10_5b,addr_last_2,thành phố thủ dầu một,240,96,40.0
+mid_2b_10_5b,lt_2b,addr_last_2,thị xã hương thủy,137,54,39.416058394160586
+mid_2b_10_5b,lt_2b,addr_last_3,thị trấn phước hải,191,75,39.26701570680628
+mid_2b_10_5b,lt_2b,source,homedy_thocu_sm,105,41,39.04761904761905
+mid_2b_10_5b,lt_2b,addr_last_1,thái bình,529,195,36.86200378071834
+mid_2b_10_5b,lt_2b,addr_last_3,xã phước đồng,143,52,36.36363636363637
+mid_2b_10_5b,lt_2b,addr_last_1,gia lai,113,41,36.283185840707965
+mid_2b_10_5b,lt_2b,addr_last_1,quảng ngãi,123,44,35.77235772357724
+mid_2b_10_5b,lt_2b,addr_last_3,phường trảng dài,698,249,35.673352435530084
+mid_2b_10_5b,lt_2b,source,batdongsan_thocu_sm,6071,2148,35.38132103442596
+mid_2b_10_5b,gt_10_5b,street_proxy,đường huỳnh tấn phát,120,42,35.0
+mid_2b_10_5b,lt_2b,addr_last_1,nam định,330,115,34.84848484848485
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận đống đa,139,48,34.53237410071942
+mid_2b_10_5b,lt_2b,addr_last_1,hà nam,282,97,34.39716312056738
+mid_2b_10_5b,lt_2b,addr_last_2,huyện nhà bè,123,42,34.146341463414636
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 6,233,78,33.47639484978541
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố tân an,175,58,33.14285714285714
+mid_2b_10_5b,lt_2b,addr_last_1,quảng ninh,759,248,32.674571805006586
+mid_2b_10_5b,lt_2b,addr_last_2,huyện hóc môn,141,46,32.62411347517731
+mid_2b_10_5b,lt_2b,addr_last_3,xã cư êbur,135,44,32.592592592592595
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố tuy hòa,149,48,32.21476510067114
+lt_2b,mid_2b_10_5b,addr_last_2,quận ninh kiều,112,36,32.142857142857146
+mid_2b_10_5b,lt_2b,source,123nhadatviet_thocu_sm,2826,902,31.91790516631281
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận hà đông,107,34,31.775700934579437
+mid_2b_10_5b,gt_10_5b,addr_last_1,kiên giang,287,91,31.70731707317073
+mid_2b_10_5b,lt_2b,addr_last_3,thị trấn hậu nghĩa,221,70,31.674208144796378
+mid_2b_10_5b,lt_2b,addr_last_2,huyện điện bàn,208,65,31.25
+mid_2b_10_5b,lt_2b,addr_last_1,thanh hóa,527,164,31.11954459203036
+mid_2b_10_5b,lt_2b,source,bds68_thocu_sm,6879,2109,30.658525948539033
+mid_2b_10_5b,lt_2b,addr_last_2,huyện thủy nguyên,390,119,30.512820512820515
+lt_2b,mid_2b_10_5b,addr_last_3,phường an bình,131,39,29.770992366412212
+mid_2b_10_5b,lt_2b,addr_last_1,hưng yên,300,89,29.666666666666668
+mid_2b_10_5b,lt_2b,addr_last_1,kiên giang,287,85,29.61672473867596
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố bảo lộc,156,46,29.48717948717949
+mid_2b_10_5b,gt_10_5b,property_subtype,villa,5544,1614,29.11255411255411
+mid_2b_10_5b,lt_2b,addr_last_1,an giang,117,34,29.059829059829063
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận hoàng mai,130,37,28.46153846153846
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố thủ đức,303,86,28.38283828382838
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường võ cường,118,33,27.966101694915253
+lt_2b,mid_2b_10_5b,addr_last_2,thành phố dĩ an,352,98,27.84090909090909
+mid_2b_10_5b,lt_2b,addr_last_3,phường điện ngọc,270,75,27.77777777777778
+mid_2b_10_5b,lt_2b,addr_last_1,bình thuận,767,212,27.640156453715775
+mid_2b_10_5b,gt_10_5b,street_proxy,đường nguyễn văn thoại,134,37,27.611940298507463
+mid_2b_10_5b,gt_10_5b,addr_last_1,lào cai,113,31,27.43362831858407
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường phước tiến,113,31,27.43362831858407
+lt_2b,mid_2b_10_5b,addr_last_2,thành phố nha trang,395,108,27.341772151898738
+lt_2b,mid_2b_10_5b,addr_last_2,thành phố buôn ma thuột,264,72,27.27272727272727
+mid_2b_10_5b,lt_2b,addr_last_2,huyện hòa vang,110,30,27.27272727272727
+lt_2b,mid_2b_10_5b,addr_last_1,hồ chí minh,1133,308,27.18446601941747
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường phước mỹ,657,178,27.09284627092846
+mid_2b_10_5b,gt_10_5b,street_proxy,đường lê hữu trác,137,37,27.00729927007299
+mid_2b_10_5b,gt_10_5b,street_proxy,đường trần phú,323,87,26.93498452012384
+mid_2b_10_5b,lt_2b,addr_last_3,phường lam hạ,112,30,26.785714285714285
+mid_2b_10_5b,lt_2b,street_proxy,đường nguyễn văn cừ,288,77,26.73611111111111
+mid_2b_10_5b,lt_2b,property_subtype,townhouse_project,7617,2034,26.70342654588421
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận hai bà trưng,139,37,26.618705035971225
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường phước tân,211,56,26.540284360189577
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 10,374,99,26.47058823529412
+mid_2b_10_5b,lt_2b,addr_last_1,nghệ an,485,128,26.39175257731959
+mid_2b_10_5b,gt_10_5b,addr_last_1,phú yên,252,66,26.190476190476193
+mid_2b_10_5b,lt_2b,addr_last_1,phú yên,252,66,26.190476190476193
+mid_2b_10_5b,lt_2b,addr_last_1,đồng nai,8104,2112,26.061204343534055
+mid_2b_10_5b,lt_2b,source,nhadat.cafeland.vn,339,88,25.958702064896755
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường mỹ an,1266,328,25.908372827804104
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố đà lạt,599,155,25.87646076794658
+mid_2b_10_5b,gt_10_5b,addr_last_1,hà nội,1596,412,25.81453634085213
+mid_2b_10_5b,lt_2b,addr_last_3,missing,3594,927,25.79298831385643
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố hạ long,307,79,25.732899022801305
+mid_2b_10_5b,lt_2b,addr_last_2,quận bình thủy,191,49,25.654450261780102
+lt_2b,mid_2b_10_5b,source,muaban.net,748,191,25.534759358288778
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 1,145,37,25.517241379310345
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố phủ lý,156,39,25.0
+mid_2b_10_5b,gt_10_5b,addr_last_1,quảng nam,953,236,24.763903462749212
+lt_2b,mid_2b_10_5b,source,mogi.vn,572,141,24.65034965034965
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 7,334,82,24.550898203592812
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 1,381,93,24.409448818897637
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường thắng nhất,185,45,24.324324324324326
+mid_2b_10_5b,lt_2b,addr_last_3,phường an hòa,207,50,24.154589371980677
+mid_2b_10_5b,lt_2b,street_proxy,đường lý thái tổ,174,42,24.13793103448276
+mid_2b_10_5b,lt_2b,addr_last_1,bắc ninh,1262,303,24.009508716323296
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 12,450,108,24.0
+mid_2b_10_5b,lt_2b,addr_last_1,quảng nam,953,228,23.92444910807975
+mid_2b_10_5b,gt_10_5b,street_proxy,đường ngô quyền,310,74,23.870967741935484
+mid_2b_10_5b,gt_10_5b,street_proxy,đường lạc long quân,184,43,23.369565217391305
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận tân bình,754,176,23.342175066312997
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 8,240,56,23.333333333333332
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường an hòa,207,48,23.18840579710145
+lt_2b,mid_2b_10_5b,addr_last_2,thành phố thuận an,360,83,23.055555555555557
+mid_2b_10_5b,lt_2b,addr_last_1,bình định,505,116,22.970297029702973
+mid_2b_10_5b,lt_2b,street_proxy,missing,25997,5950,22.887256221871755
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 13,309,70,22.653721682847895
+mid_2b_10_5b,gt_10_5b,source,dothi.net,1006,227,22.564612326043736
+mid_2b_10_5b,gt_10_5b,source,muaban.net,5053,1140,22.560854937660796
+mid_2b_10_5b,lt_2b,addr_last_3,phường tân phong,594,134,22.55892255892256
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 14,395,89,22.531645569620252
+mid_2b_10_5b,lt_2b,addr_last_2,missing,20245,4552,22.48456408989874
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận dương kinh,147,33,22.448979591836736
+mid_2b_10_5b,lt_2b,addr_last_1,ninh thuận,221,49,22.171945701357465
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 15,316,70,22.151898734177212
+mid_2b_10_5b,gt_10_5b,street_proxy,đường tô hiến thành,163,36,22.085889570552148
+mid_2b_10_5b,gt_10_5b,addr_last_1,bình thuận,767,169,22.033898305084744
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố phan thiết,405,89,21.975308641975307
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố thủy nguyên,142,31,21.830985915492956
+mid_2b_10_5b,lt_2b,addr_last_3,xã vĩnh thạnh,142,31,21.830985915492956
+mid_2b_10_5b,lt_2b,addr_last_1,hải dương,474,102,21.518987341772153
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận tân phú,717,154,21.478382147838214
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố vinh,323,69,21.36222910216718
+lt_2b,mid_2b_10_5b,addr_last_3,phường tân phong,150,32,21.333333333333336
+mid_2b_10_5b,lt_2b,addr_last_3,xã vĩnh ngọc,258,55,21.31782945736434
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường tân lập,255,54,21.176470588235293
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận ninh kiều,911,192,21.07574094401756
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận sơn trà,3540,742,20.960451977401128
+mid_2b_10_5b,gt_10_5b,addr_last_1,lâm đồng,1171,244,20.836891545687447
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường an hải tây,332,69,20.783132530120483
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường thọ quang,285,59,20.70175438596491
+lt_2b,mid_2b_10_5b,addr_last_1,đắk lắk,382,79,20.680628272251308
+lt_2b,mid_2b_10_5b,source,alonhadat.com.vn,1370,283,20.656934306569344
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 3,292,60,20.54794520547945
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 11,219,45,20.54794520547945
+mid_2b_10_5b,lt_2b,addr_last_2,thị xã dĩ an,239,49,20.502092050209207
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 11,493,101,20.486815415821503
+lt_2b,mid_2b_10_5b,source,homedy.com,323,66,20.43343653250774
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 8,578,118,20.415224913494807
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường nại hiên đông,343,70,20.40816326530612
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 2,638,130,20.37617554858934
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 6,449,90,20.044543429844097
+gt_10_5b,mid_2b_10_5b,source,batdongsan.com.vn,804,161,20.024875621890548
+mid_2b_10_5b,lt_2b,source,alonhadat_thocu_sm,7017,1405,20.02280176713695
+mid_2b_10_5b,gt_10_5b,street_proxy,đường nguyễn đình chiểu,195,39,20.0
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường an hải bắc,996,198,19.879518072289155
+gt_10_5b,mid_2b_10_5b,addr_last_2,thành phố thủ dầu một,161,32,19.875776397515526
+lt_2b,mid_2b_10_5b,addr_last_1,cần thơ,439,87,19.81776765375854
+mid_2b_10_5b,lt_2b,addr_last_3,phường hùng vương,278,55,19.784172661870503
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận ngũ hành sơn,2388,468,19.597989949748744
+mid_2b_10_5b,lt_2b,addr_last_3,phường an đông,184,36,19.565217391304348
+mid_2b_10_5b,lt_2b,addr_last_2,huyện an dương,467,90,19.271948608137045
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố bảo lộc,156,30,19.230769230769234
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố hạ long,307,59,19.218241042345277
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 5,615,118,19.1869918699187
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường mân thái,428,82,19.158878504672895
+mid_2b_10_5b,gt_10_5b,property_subtype,frontage_house,24360,4666,19.154351395730707
+mid_2b_10_5b,gt_10_5b,addr_last_1,hồ chí minh,8804,1671,18.980009086778736
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 9,522,99,18.96551724137931
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 4,702,132,18.803418803418804
+mid_2b_10_5b,gt_10_5b,addr_last_1,nghệ an,485,91,18.762886597938145
+mid_2b_10_5b,lt_2b,addr_last_3,phường lộc thọ,161,30,18.633540372670808
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường tân an,307,57,18.566775244299674
+mid_2b_10_5b,lt_2b,property_subtype,normal_house,24431,4536,18.566575252752653
+mid_2b_10_5b,lt_2b,addr_last_3,phường phú hòa,264,48,18.181818181818183
+lt_2b,mid_2b_10_5b,property_subtype,villa,820,149,18.17073170731707
+mid_2b_10_5b,lt_2b,street_proxy,đường nguyễn khuyến,205,37,18.048780487804876
+lt_2b,mid_2b_10_5b,addr_last_1,khánh hòa,881,159,18.047673098751417
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 10,600,108,18.0
+mid_2b_10_5b,gt_10_5b,addr_last_1,tây ninh,239,43,17.99163179916318
+mid_2b_10_5b,gt_10_5b,street_proxy,đường võ nguyên giáp,185,33,17.83783783783784
+mid_2b_10_5b,lt_2b,street_proxy,đường võ nguyên giáp,185,33,17.83783783783784
+gt_10_5b,mid_2b_10_5b,property_subtype,alley_house,1392,248,17.81609195402299
+mid_2b_10_5b,lt_2b,source,homedy.com,1086,193,17.771639042357272
+mid_2b_10_5b,gt_10_5b,source,mogi.vn,4515,802,17.763012181616833
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố vũng tàu,2372,419,17.66441821247892
+mid_2b_10_5b,gt_10_5b,addr_last_1,vĩnh phúc,499,88,17.635270541082164
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố biên hòa,5401,943,17.459729679688945
+mid_2b_10_5b,lt_2b,addr_last_1,vĩnh phúc,499,87,17.43486973947896
+mid_2b_10_5b,gt_10_5b,source,cafeland_thocu_sm,618,106,17.15210355987055
+mid_2b_10_5b,gt_10_5b,street_proxy,đường trần hưng đạo,315,54,17.142857142857142
+mid_2b_10_5b,lt_2b,addr_last_3,xã long hậu,364,62,17.032967032967033
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố vĩnh yên,289,49,16.955017301038062
+mid_2b_10_5b,lt_2b,addr_last_3,phường quang trung,195,33,16.923076923076923
+mid_2b_10_5b,gt_10_5b,addr_last_1,quảng ninh,759,128,16.86429512516469
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường thạch thang,184,31,16.847826086956523
+lt_2b,mid_2b_10_5b,addr_last_3,phường trảng dài,333,56,16.816816816816818
+mid_2b_10_5b,gt_10_5b,source,nhadat.cafeland.vn,339,57,16.8141592920354
+lt_2b,mid_2b_10_5b,addr_last_3,phường tân đông hiệp,232,39,16.810344827586206
+mid_2b_10_5b,lt_2b,addr_last_2,quận kiến an,256,43,16.796875
+mid_2b_10_5b,lt_2b,addr_last_3,phường vĩnh phú,316,53,16.77215189873418
+mid_2b_10_5b,gt_10_5b,street_proxy,đường nguyễn văn cừ,288,48,16.666666666666664
+lt_2b,mid_2b_10_5b,source,batdongsan.com.vn,1962,326,16.615698267074414
+lt_2b,mid_2b_10_5b,addr_last_2,thành phố biên hòa,1443,239,16.562716562716563
+mid_2b_10_5b,lt_2b,addr_last_1,huế,1731,286,16.522241478913923
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 7,643,106,16.485225505443236
+lt_2b,mid_2b_10_5b,addr_last_1,bình dương,2851,469,16.45036829182743
+mid_2b_10_5b,gt_10_5b,addr_last_3,missing,3594,590,16.416249304396217
+gt_10_5b,mid_2b_10_5b,source,bds123.vn,264,43,16.28787878787879
+gt_10_5b,mid_2b_10_5b,addr_last_1,huế,333,54,16.216216216216218
+mid_2b_10_5b,lt_2b,addr_last_3,phường phú lợi,216,35,16.203703703703702
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận bình tân,934,150,16.059957173447536
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường xuân hà,206,33,16.019417475728158
+mid_2b_10_5b,gt_10_5b,addr_last_1,ninh thuận,221,35,15.837104072398189
+lt_2b,mid_2b_10_5b,source,bds68.com.vn,3187,503,15.782867900847192
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận phú nhuận,540,85,15.74074074074074
+mid_2b_10_5b,gt_10_5b,addr_last_1,hưng yên,300,47,15.666666666666668
+mid_2b_10_5b,lt_2b,addr_last_3,phường bình hòa,415,65,15.66265060240964
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 9 (thành phố thủ đức),230,36,15.65217391304348
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố quy nhơn,417,65,15.587529976019184
+mid_2b_10_5b,gt_10_5b,street_proxy,đường hoàng hoa thám,199,31,15.57788944723618
+mid_2b_10_5b,lt_2b,addr_last_3,phường tân biên,246,38,15.447154471544716
+gt_10_5b,mid_2b_10_5b,property_subtype,shophouse,506,78,15.41501976284585
+gt_10_5b,mid_2b_10_5b,addr_last_1,bình dương,859,132,15.366705471478465
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận bình thạnh,925,142,15.35135135135135
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường an hải đông,706,108,15.29745042492918
+mid_2b_10_5b,lt_2b,street_proxy,phố nha trang,242,37,15.289256198347106
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận thủ đức (thành phố thủ đức),203,31,15.270935960591132
+mid_2b_10_5b,lt_2b,addr_last_1,bình dương,9953,1516,15.231588465789208
+lt_2b,mid_2b_10_5b,property_subtype,alley_house,3388,516,15.230224321133411
+lt_2b,mid_2b_10_5b,addr_last_2,quận lê chân,207,31,14.975845410628018
+mid_2b_10_5b,gt_10_5b,addr_last_1,bà rịa vũng tàu,3900,584,14.974358974358976
+mid_2b_10_5b,lt_2b,addr_last_1,lâm đồng,1171,175,14.944491887275833
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố vinh,323,48,14.860681114551085
+gt_10_5b,mid_2b_10_5b,addr_last_1,long an,298,44,14.76510067114094
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường phước hòa,217,32,14.746543778801843
+mid_2b_10_5b,gt_10_5b,property_subtype,shophouse,1644,240,14.5985401459854
+mid_2b_10_5b,gt_10_5b,addr_last_1,bắc ninh,1262,184,14.580031695721075
+mid_2b_10_5b,lt_2b,addr_last_3,phường hòa phú,299,43,14.381270903010032
+gt_10_5b,mid_2b_10_5b,property_subtype,townhouse_project,1314,188,14.30745814307458
+lt_2b,mid_2b_10_5b,addr_last_3,phường bửu long,274,39,14.233576642335766
+lt_2b,mid_2b_10_5b,source,123nhadatviet.com,1566,222,14.17624521072797
+mid_2b_10_5b,gt_10_5b,addr_last_2,huyện thủy nguyên,390,55,14.102564102564102
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố thủ dầu một,1293,181,13.9984532095901
+gt_10_5b,mid_2b_10_5b,addr_last_1,bắc ninh,452,63,13.938053097345133
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường thống nhất,359,50,13.92757660167131
+mid_2b_10_5b,gt_10_5b,street_proxy,đường hùng vương,461,64,13.882863340563992
+mid_2b_10_5b,lt_2b,street_proxy,đường hùng vương,461,64,13.882863340563992
+mid_2b_10_5b,lt_2b,addr_last_1,cần thơ,2285,317,13.87308533916849
+gt_10_5b,mid_2b_10_5b,addr_last_1,đắk lắk,311,43,13.826366559485532
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận gò vấp,1000,138,13.8
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận 12,631,87,13.787638668779714
+mid_2b_10_5b,lt_2b,source,batdongsan.com.vn,9136,1259,13.780647985989493
+mid_2b_10_5b,gt_10_5b,street_proxy,đường điện biên phủ,357,49,13.725490196078432
+gt_10_5b,mid_2b_10_5b,addr_last_2,thành phố buôn ma thuột,299,41,13.712374581939798
+gt_10_5b,mid_2b_10_5b,addr_last_1,đồng nai,1338,182,13.602391629297458
+mid_2b_10_5b,lt_2b,addr_last_3,phường 6,449,61,13.585746102449887
+mid_2b_10_5b,lt_2b,property_subtype,shophouse,1644,221,13.442822384428224
+mid_2b_10_5b,gt_10_5b,street_proxy,đường nguyễn văn linh,261,35,13.409961685823754
+mid_2b_10_5b,gt_10_5b,addr_last_1,thanh hóa,527,70,13.282732447817835
+mid_2b_10_5b,gt_10_5b,source,bds123.vn,686,91,13.26530612244898
+gt_10_5b,mid_2b_10_5b,addr_last_2,missing,3780,500,13.227513227513226
+lt_2b,mid_2b_10_5b,property_subtype,shophouse,350,46,13.142857142857142
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường an khánh,382,50,13.089005235602096
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường 3,587,76,12.947189097103918
+mid_2b_10_5b,lt_2b,addr_last_1,bà rịa vũng tàu,3900,504,12.923076923076923
+gt_10_5b,mid_2b_10_5b,property_subtype,normal_house,3870,498,12.868217054263567
+mid_2b_10_5b,lt_2b,street_proxy,đường bùi hữu nghĩa,415,53,12.771084337349398
+mid_2b_10_5b,lt_2b,street_proxy,đường trần phú,323,41,12.693498452012385
+mid_2b_10_5b,gt_10_5b,addr_last_1,cần thơ,2285,290,12.691466083150983
+mid_2b_10_5b,gt_10_5b,source,bds68_thocu_sm,6879,872,12.67626108445995
+mid_2b_10_5b,lt_2b,addr_last_2,quận 3,292,37,12.67123287671233
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường hòa hải,396,50,12.626262626262626
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường hòa cường bắc,1003,126,12.562313060817548
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường thanh khê tây,295,37,12.54237288135593
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố thủ đức,303,38,12.54125412541254
+gt_10_5b,mid_2b_10_5b,addr_last_2,thành phố biên hòa,911,114,12.513721185510429
+mid_2b_10_5b,lt_2b,addr_last_3,phường bửu hòa,480,60,12.5
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận kiến an,256,32,12.5
+gt_10_5b,mid_2b_10_5b,addr_last_2,thành phố dĩ an,283,35,12.36749116607774
+mid_2b_10_5b,lt_2b,addr_last_2,quận an dương,243,30,12.34567901234568
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận hải châu,3654,450,12.31527093596059
+lt_2b,mid_2b_10_5b,street_proxy,đường huỳnh văn nghệ,253,31,12.25296442687747
+mid_2b_10_5b,gt_10_5b,source,batdongsan_thocu_sm,6071,741,12.205567451820128
+mid_2b_10_5b,lt_2b,addr_last_1,đắk lắk,1535,187,12.182410423452769
+gt_10_5b,mid_2b_10_5b,source,123nhadatviet.com,1538,187,12.158647594278284
+mid_2b_10_5b,gt_10_5b,street_proxy,đường nguyễn thị minh khai,256,31,12.109375
+mid_2b_10_5b,gt_10_5b,street_proxy,đường võ thị sáu,265,32,12.075471698113208
+lt_2b,mid_2b_10_5b,addr_last_1,lâm đồng,260,31,11.923076923076923
+mid_2b_10_5b,lt_2b,street_proxy,đường nguyễn văn linh,261,31,11.877394636015326
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường hòa cường nam,842,100,11.87648456057007
+lt_2b,mid_2b_10_5b,property_subtype,alley_frontage_house,1965,232,11.806615776081426
+lt_2b,mid_2b_10_5b,addr_last_1,huế,502,59,11.752988047808763
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố nha trang,3854,444,11.52049818370524
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận phú nhuận,322,37,11.490683229813664
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường khuê mỹ,786,90,11.450381679389311
+mid_2b_10_5b,lt_2b,street_proxy,đường trần hưng đạo,315,36,11.428571428571429
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường phước long,580,66,11.379310344827587
+mid_2b_10_5b,gt_10_5b,street_proxy,missing,25997,2958,11.378235950301958
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường hòa thuận tây,283,32,11.307420494699649
+mid_2b_10_5b,gt_10_5b,addr_last_1,đà nẵng,19391,2191,11.299056263214894
+mid_2b_10_5b,lt_2b,addr_last_1,hải phòng,9616,1086,11.293677204658902
+gt_10_5b,mid_2b_10_5b,source,123nhadatviet_thocu_sm,746,84,11.26005361930295
+mid_2b_10_5b,lt_2b,property_subtype,alley_frontage_house,9119,1023,11.218335343787697
+mid_2b_10_5b,gt_10_5b,source,alonhadat_thocu_sm,7017,786,11.201368106028218
+mid_2b_10_5b,gt_10_5b,addr_last_1,hải dương,474,53,11.181434599156118
+mid_2b_10_5b,lt_2b,property_subtype,frontage_house,24360,2713,11.137110016420362
+mid_2b_10_5b,lt_2b,addr_last_2,quận 7,334,37,11.077844311377245
+mid_2b_10_5b,gt_10_5b,source,bds68.com.vn,19048,2106,11.056278874422512
+mid_2b_10_5b,lt_2b,property_subtype,alley_house,15136,1672,11.046511627906977
+mid_2b_10_5b,lt_2b,addr_last_3,phường phú mỹ,373,41,10.991957104557642
+lt_2b,mid_2b_10_5b,addr_last_1,bà rịa vũng tàu,766,84,10.966057441253264
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường tân hiệp,468,51,10.897435897435898
+mid_2b_10_5b,gt_10_5b,source,alonhadat.com.vn,15026,1637,10.894449620657529
+mid_2b_10_5b,gt_10_5b,street_proxy,đường ngô gia tự,322,35,10.869565217391305
+mid_2b_10_5b,lt_2b,addr_last_3,phường thống nhất,359,39,10.86350974930362
+mid_2b_10_5b,lt_2b,addr_last_3,phường hiệp thành,341,37,10.850439882697946
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường kênh dương,286,31,10.839160839160838
+mid_2b_10_5b,lt_2b,addr_last_3,phường 1,381,41,10.761154855643044
+mid_2b_10_5b,lt_2b,addr_last_3,phường 3,587,63,10.732538330494036
+mid_2b_10_5b,lt_2b,addr_last_3,phường 5,615,66,10.731707317073171
+lt_2b,mid_2b_10_5b,property_subtype,frontage_house,5091,546,10.724808485562756
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận thanh khê,545,58,10.642201834862384
+mid_2b_10_5b,gt_10_5b,addr_last_1,hà nam,282,30,10.638297872340424
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận lê chân,500,53,10.6
+mid_2b_10_5b,lt_2b,addr_last_1,khánh hòa,5362,566,10.555762775083924
+mid_2b_10_5b,gt_10_5b,addr_last_1,hòa bình,437,46,10.526315789473683
+mid_2b_10_5b,lt_2b,addr_last_3,phường thuận giao,335,35,10.44776119402985
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố buôn ma thuột,1438,149,10.361613351877608
+mid_2b_10_5b,gt_10_5b,addr_last_2,huyện nhơn trạch,301,31,10.299003322259136
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận gò vấp,312,32,10.256410256410255
+mid_2b_10_5b,lt_2b,source,123nhadatviet.com,7934,804,10.133602218300982
+lt_2b,mid_2b_10_5b,addr_last_1,quảng ninh,412,41,9.951456310679612
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố thuận an,1926,191,9.916926272066458
+mid_2b_10_5b,gt_10_5b,property_subtype,alley_frontage_house,9119,901,9.880469349709395
+mid_2b_10_5b,gt_10_5b,addr_last_1,khánh hòa,5362,525,9.7911227154047
+mid_2b_10_5b,lt_2b,addr_last_3,phường dĩ an,664,65,9.789156626506024
+mid_2b_10_5b,gt_10_5b,street_proxy,đường trần cao vân,359,35,9.749303621169917
+gt_10_5b,mid_2b_10_5b,street_proxy,missing,7243,705,9.733535827695707
+mid_2b_10_5b,lt_2b,addr_last_3,phường an bình,761,74,9.724047306176084
+mid_2b_10_5b,lt_2b,source,bds68.com.vn,19048,1842,9.670306593868125
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường phú mỹ,373,36,9.6514745308311
+gt_10_5b,mid_2b_10_5b,source,batdongsan_thocu_sm,1659,160,9.64436407474382
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố quy nhơn,417,40,9.59232613908873
+mid_2b_10_5b,gt_10_5b,addr_last_1,đắk lắk,1535,147,9.57654723127036
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận bình thạnh,481,46,9.563409563409564
+mid_2b_10_5b,lt_2b,street_proxy,đường nguyễn tri phương,387,37,9.560723514211883
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố buôn ma thuột,1438,137,9.52712100139082
+mid_2b_10_5b,lt_2b,addr_last_2,quận hồng bàng,1124,107,9.519572953736654
+lt_2b,mid_2b_10_5b,addr_last_1,bắc ninh,347,33,9.510086455331413
+mid_2b_10_5b,gt_10_5b,street_proxy,đường hoàng diệu,337,32,9.495548961424332
+mid_2b_10_5b,gt_10_5b,source,123nhadatviet_thocu_sm,2826,266,9.412597310686484
+gt_10_5b,mid_2b_10_5b,source,bds68_thocu_sm,2008,189,9.412350597609562
+gt_10_5b,mid_2b_10_5b,addr_last_1,quảng ninh,394,37,9.390862944162436
+mid_2b_10_5b,gt_10_5b,addr_last_1,bình định,505,47,9.306930693069306
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận lê chân,2268,211,9.303350970017636
+lt_2b,mid_2b_10_5b,addr_last_1,hải phòng,2368,218,9.20608108108108
+lt_2b,mid_2b_10_5b,addr_last_1,đồng nai,3536,323,9.134615384615383
+mid_2b_10_5b,gt_10_5b,street_proxy,đường lê hồng phong,792,71,8.964646464646464
+gt_10_5b,mid_2b_10_5b,property_subtype,alley_frontage_house,2590,230,8.880308880308881
+mid_2b_10_5b,lt_2b,source,muaban.net,5053,446,8.826439738769048
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường an khê,477,42,8.80503144654088
+mid_2b_10_5b,gt_10_5b,addr_last_2,missing,20245,1781,8.797233884909854
+mid_2b_10_5b,lt_2b,addr_last_3,xã an đồng,365,32,8.767123287671232
+lt_2b,mid_2b_10_5b,property_subtype,normal_house,9763,848,8.685854757758886
+mid_2b_10_5b,lt_2b,source,bds123.vn,686,59,8.60058309037901
+mid_2b_10_5b,lt_2b,addr_last_3,phường hóa an,443,38,8.577878103837472
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường an bình,761,65,8.541392904073588
+mid_2b_10_5b,gt_10_5b,source,123nhadatviet.com,7934,676,8.52029241240232
+mid_2b_10_5b,gt_10_5b,addr_last_1,huế,1731,147,8.492201039861353
+mid_2b_10_5b,lt_2b,property_subtype,villa,5544,469,8.45959595959596
+mid_2b_10_5b,gt_10_5b,street_proxy,đường đồng khởi,568,48,8.450704225352112
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường dư hàng kênh,416,35,8.413461538461538
+gt_10_5b,mid_2b_10_5b,addr_last_1,hải phòng,1968,165,8.384146341463415
+mid_2b_10_5b,gt_10_5b,addr_last_1,hải phòng,9616,805,8.371464226289516
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường đằng hải,414,34,8.212560386473431
+mid_2b_10_5b,lt_2b,addr_last_3,phường 2,638,52,8.150470219435736
+mid_2b_10_5b,lt_2b,addr_last_3,phường tân hiệp,468,38,8.11965811965812
+lt_2b,mid_2b_10_5b,addr_last_3,missing,1431,116,8.106219426974144
+mid_2b_10_5b,lt_2b,addr_last_3,phường đông hòa,934,75,8.029978586723768
+mid_2b_10_5b,lt_2b,addr_last_2,quận ninh kiều,911,73,8.01317233809001
+lt_2b,mid_2b_10_5b,addr_last_2,missing,8045,643,7.992541951522685
+lt_2b,mid_2b_10_5b,addr_last_1,quảng nam,480,38,7.916666666666666
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố phan thiết,405,32,7.901234567901234
+gt_10_5b,mid_2b_10_5b,addr_last_1,khánh hòa,1791,141,7.872696817420436
+mid_2b_10_5b,gt_10_5b,property_subtype,townhouse_project,7617,598,7.850859918603124
+gt_10_5b,mid_2b_10_5b,addr_last_1,lâm đồng,744,58,7.795698924731183
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận ngô quyền,949,72,7.586933614330875
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận thanh khê,2758,207,7.505438723712836
+lt_2b,mid_2b_10_5b,street_proxy,missing,11908,887,7.448773933490091
+mid_2b_10_5b,lt_2b,addr_last_3,phường 4,702,52,7.4074074074074066
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận tân bình,596,44,7.38255033557047
+gt_10_5b,mid_2b_10_5b,source,bds68.com.vn,6492,472,7.270486752926679
+gt_10_5b,mid_2b_10_5b,source,alonhadat_thocu_sm,2038,148,7.262021589793916
+gt_10_5b,mid_2b_10_5b,addr_last_3,phường 4,415,30,7.228915662650602
+gt_10_5b,mid_2b_10_5b,source,mogi.vn,2345,169,7.206823027718551
+mid_2b_10_5b,gt_10_5b,addr_last_1,thái bình,529,38,7.183364839319471
+mid_2b_10_5b,gt_10_5b,addr_last_1,đồng nai,8104,575,7.095261599210266
+mid_2b_10_5b,lt_2b,addr_last_3,phường tân bình,510,36,7.0588235294117645
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường phước hải,764,53,6.9371727748691105
+gt_10_5b,mid_2b_10_5b,source,alonhadat.com.vn,4989,345,6.915213469633192
+lt_2b,mid_2b_10_5b,source,alonhadat_thocu_sm,3358,232,6.908874329958309
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố nha trang,3854,265,6.8759730150493
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường vĩnh hòa,626,43,6.869009584664537
+gt_10_5b,mid_2b_10_5b,addr_last_2,thành phố nha trang,1605,110,6.853582554517133
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố biên hòa,5401,370,6.850583225328642
+gt_10_5b,mid_2b_10_5b,addr_last_3,missing,1636,112,6.845965770171149
+gt_10_5b,mid_2b_10_5b,addr_last_1,đà nẵng,6952,475,6.8325661680092065
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận cái răng,732,50,6.830601092896176
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận hải an,1166,79,6.775300171526586
+mid_2b_10_5b,lt_2b,addr_last_3,phường sở dầu,653,44,6.738131699846861
+lt_2b,gt_10_5b,source,muaban.net,748,50,6.684491978609626
+mid_2b_10_5b,lt_2b,addr_last_1,hồ chí minh,8804,588,6.67878237164925
+gt_10_5b,mid_2b_10_5b,addr_last_1,hồ chí minh,4967,331,6.663982283068251
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố thủ dầu một,1293,85,6.573859242072699
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường dĩ an,664,43,6.475903614457831
+mid_2b_10_5b,lt_2b,addr_last_3,phường an phú,681,44,6.4610866372980915
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận hải châu,1689,107,6.335109532267615
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường an phú,681,43,6.31424375917768
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường vĩnh niệm,709,44,6.205923836389281
+gt_10_5b,mid_2b_10_5b,property_subtype,frontage_house,13302,825,6.202074875958503
+gt_10_5b,mid_2b_10_5b,addr_last_1,hà nội,1686,102,6.049822064056939
+mid_2b_10_5b,lt_2b,addr_last_2,quận 12,631,38,6.022187004754358
+gt_10_5b,mid_2b_10_5b,addr_last_1,cần thơ,790,47,5.949367088607595
+mid_2b_10_5b,gt_10_5b,property_subtype,normal_house,24431,1442,5.90233719454791
+mid_2b_10_5b,lt_2b,addr_last_3,phường tân đông hiệp,1195,70,5.857740585774058
+lt_2b,mid_2b_10_5b,source,bds68_thocu_sm,4321,250,5.785697755149271
+gt_10_5b,lt_2b,source,batdongsan_thocu_sm,1659,95,5.726341169379144
+lt_2b,mid_2b_10_5b,property_subtype,townhouse_project,3974,227,5.712128837443382
+mid_2b_10_5b,gt_10_5b,street_proxy,đường nguyễn ái quốc,656,37,5.640243902439025
+mid_2b_10_5b,gt_10_5b,addr_last_1,long an,2751,153,5.561613958560523
+gt_10_5b,mid_2b_10_5b,source,muaban.net,3373,187,5.5440260895345395
+gt_10_5b,mid_2b_10_5b,addr_last_3,phường an hải bắc,547,30,5.484460694698354
+mid_2b_10_5b,lt_2b,addr_last_2,thành phố dĩ an,2646,141,5.328798185941043
+mid_2b_10_5b,gt_10_5b,source,homedy.com,1086,57,5.248618784530387
+gt_10_5b,mid_2b_10_5b,addr_last_3,phường 2,766,40,5.221932114882506
+mid_2b_10_5b,lt_2b,addr_last_3,phường bình chuẩn,766,40,5.221932114882506
+gt_10_5b,mid_2b_10_5b,addr_last_2,thành phố đà lạt,621,32,5.152979066022544
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường tân phong,594,30,5.05050505050505
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường đằng lâm,635,32,5.039370078740157
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường trảng dài,698,35,5.014326647564469
+lt_2b,gt_10_5b,property_subtype,villa,820,41,5.0
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận sơn trà,2007,100,4.9825610363726955
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận hồng bàng,1124,55,4.893238434163702
+gt_10_5b,mid_2b_10_5b,addr_last_2,quận ngũ hành sơn,1814,88,4.851157662624035
+mid_2b_10_5b,lt_2b,addr_last_3,phường 7,643,31,4.821150855365474
+gt_10_5b,mid_2b_10_5b,source,dothi.net,947,43,4.540654699049631
+mid_2b_10_5b,lt_2b,source,mogi.vn,4515,203,4.496124031007752
+gt_10_5b,mid_2b_10_5b,addr_last_3,phường mỹ an,1559,70,4.490057729313662
+gt_10_5b,mid_2b_10_5b,addr_last_1,bà rịa vũng tàu,2207,99,4.485727231536022
+mid_2b_10_5b,lt_2b,street_proxy,đường lê hồng phong,792,35,4.41919191919192
+gt_10_5b,lt_2b,property_subtype,townhouse_project,1314,58,4.41400304414003
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường khuê trung,871,38,4.3628013777267505
+gt_10_5b,lt_2b,source,123nhadatviet_thocu_sm,746,32,4.289544235924933
+mid_2b_10_5b,gt_10_5b,source,batdongsan.com.vn,9136,387,4.2359894921190895
+lt_2b,mid_2b_10_5b,source,batdongsan_thocu_sm,3833,161,4.2003652491521
+mid_2b_10_5b,lt_2b,addr_last_2,quận lê chân,2268,95,4.188712522045855
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận cẩm lệ,2502,104,4.156674660271783
+mid_2b_10_5b,lt_2b,source,alonhadat.com.vn,15026,623,4.146146679089578
+mid_2b_10_5b,gt_10_5b,addr_last_3,phường hòa xuân,1033,42,4.065827686350436
+gt_10_5b,mid_2b_10_5b,property_subtype,villa,4698,190,4.044274159216688
+mid_2b_10_5b,gt_10_5b,addr_last_1,bình dương,9953,399,4.008841555309957
+gt_10_5b,mid_2b_10_5b,addr_last_3,phường phước mỹ,797,31,3.889585947302384
+gt_10_5b,lt_2b,addr_last_2,missing,3780,145,3.835978835978836
+mid_2b_10_5b,lt_2b,addr_last_2,quận ngô quyền,949,36,3.7934668071654376
+mid_2b_10_5b,gt_10_5b,property_subtype,alley_house,15136,572,3.77906976744186
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố dĩ an,2646,98,3.7037037037037033
+mid_2b_10_5b,lt_2b,addr_last_1,hà nội,1596,59,3.696741854636591
+mid_2b_10_5b,gt_10_5b,addr_last_2,thành phố thuận an,1926,64,3.322949117341641
+mid_2b_10_5b,lt_2b,source,dothi.net,1006,33,3.2803180914512926
+mid_2b_10_5b,lt_2b,addr_last_2,quận bình thạnh,925,30,3.243243243243243
+gt_10_5b,mid_2b_10_5b,addr_last_2,thành phố vũng tàu,1848,59,3.1926406926406927
+lt_2b,mid_2b_10_5b,addr_last_1,long an,3447,110,3.191180736872643
+lt_2b,mid_2b_10_5b,source,123nhadatviet_thocu_sm,2499,79,3.1612645058023205
+mid_2b_10_5b,gt_10_5b,addr_last_2,quận liên chiểu,2089,63,3.0157970320727623
+lt_2b,gt_10_5b,addr_last_1,hồ chí minh,1133,34,3.000882612533098
+gt_10_5b,lt_2b,property_subtype,normal_house,3870,116,2.9974160206718348
+gt_10_5b,lt_2b,addr_last_1,đồng nai,1338,38,2.8400597907324365
+mid_2b_10_5b,lt_2b,addr_last_2,quận hải an,1166,33,2.8301886792452833
+gt_10_5b,lt_2b,source,alonhadat_thocu_sm,2038,55,2.6987242394504416
+gt_10_5b,lt_2b,source,bds68_thocu_sm,2008,52,2.589641434262948
+lt_2b,gt_10_5b,addr_last_3,missing,1431,35,2.4458420684835778
+gt_10_5b,lt_2b,street_proxy,missing,7243,168,2.31948087808919
+lt_2b,gt_10_5b,property_subtype,frontage_house,5091,117,2.2981732469063054
+gt_10_5b,lt_2b,addr_last_3,missing,1636,34,2.078239608801956
+mid_2b_10_5b,lt_2b,addr_last_2,quận thanh khê,2758,56,2.030456852791878
+lt_2b,gt_10_5b,source,batdongsan_thocu_sm,3833,54,1.4088181581007044
+lt_2b,gt_10_5b,addr_last_2,missing,8045,96,1.1932877563704165
+mid_2b_10_5b,lt_2b,addr_last_1,đà nẵng,19391,220,1.1345469547728328
+lt_2b,gt_10_5b,source,bds68_thocu_sm,4321,44,1.0182828049062718
+mid_2b_10_5b,lt_2b,addr_last_2,quận hải châu,3654,36,0.9852216748768472
+lt_2b,gt_10_5b,street_proxy,missing,11908,106,0.8901578770574403
+gt_10_5b,lt_2b,property_subtype,frontage_house,13302,110,0.826943316794467
+lt_2b,gt_10_5b,property_subtype,townhouse_project,3974,32,0.8052340211373931
+lt_2b,gt_10_5b,property_subtype,normal_house,9763,59,0.6043224418723753

@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+overall_test_set,ALL,hard regime routing,price,88885,4316144652.744257,14741912043.897688,65.18252261632716,26.778446835526378,23.250267199189963,40.79878494684143,36.20566963264476,50.77009619170839,49.22990380829162

@@ -1,0 +1,16 @@
+{
+  "split_method": "stratified_random",
+  "clean_rows": 793889,
+  "model_rows": 433613,
+  "train_rows": 346890,
+  "test_rows": 86723,
+  "subtypes": {
+    "frontage_house": 122839,
+    "alley_house": 65495,
+    "normal_house": 55617,
+    "alley_frontage_house": 39474,
+    "villa": 29610,
+    "townhouse_project": 28258,
+    "shophouse": 5597
+  }
+}

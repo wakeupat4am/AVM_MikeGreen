@@ -1,0 +1,154 @@
+{
+  "validation_accuracy": 0.7991481810115351,
+  "test_accuracy": 0.8001334525888383,
+  "validation_confusion_matrix": [
+    [
+      17991,
+      2083,
+      249
+    ],
+    [
+      10187,
+      52064,
+      8051
+    ],
+    [
+      266,
+      1800,
+      20009
+    ]
+  ],
+  "test_confusion_matrix": [
+    [
+      22501,
+      2564,
+      286
+    ],
+    [
+      12668,
+      65150,
+      10033
+    ],
+    [
+      348,
+      2257,
+      25067
+    ]
+  ],
+  "validation_report": {
+    "gt_10_5b": {
+      "precision": 0.7068070225016779,
+      "recall": 0.9064099660249151,
+      "f1-score": 0.794260082565894,
+      "support": 22075.0
+    },
+    "lt_2b": {
+      "precision": 0.6325059766558853,
+      "recall": 0.8852531614427004,
+      "f1-score": 0.7378350113806468,
+      "support": 20323.0
+    },
+    "mid_2b_10_5b": {
+      "precision": 0.9305950274366811,
+      "recall": 0.7405763705157749,
+      "f1-score": 0.8247827705565984,
+      "support": 70302.0
+    },
+    "accuracy": 0.7991481810115351,
+    "macro avg": {
+      "precision": 0.756636008864748,
+      "recall": 0.8440798326611301,
+      "f1-score": 0.7856259548343797,
+      "support": 112700.0
+    },
+    "weighted avg": {
+      "precision": 0.8330068820244512,
+      "recall": 0.7991481810115351,
+      "f1-score": 0.8031250274587487,
+      "support": 112700.0
+    }
+  },
+  "test_report": {
+    "gt_10_5b": {
+      "precision": 0.7083874978805177,
+      "recall": 0.9058615206707141,
+      "f1-score": 0.7950458308224174,
+      "support": 27672.0
+    },
+    "lt_2b": {
+      "precision": 0.6335276064982965,
+      "recall": 0.8875783992741904,
+      "f1-score": 0.7393375829664192,
+      "support": 25351.0
+    },
+    "mid_2b_10_5b": {
+      "precision": 0.9311000271541067,
+      "recall": 0.7415965669144347,
+      "f1-score": 0.8256136660288173,
+      "support": 87851.0
+    },
+    "accuracy": 0.8001334525888383,
+    "macro avg": {
+      "precision": 0.7576717105109737,
+      "recall": 0.8450121622864465,
+      "f1-score": 0.7866656932725512,
+      "support": 140874.0
+    },
+    "weighted avg": {
+      "precision": 0.833802729241758,
+      "recall": 0.8001334525888383,
+      "f1-score": 0.8040833757158684,
+      "support": 140874.0
+    }
+  },
+  "classifier_features": [
+    "area_m2",
+    "num_floors",
+    "floor_area_m2",
+    "frontage_m",
+    "road_width_m",
+    "width_m",
+    "length_m",
+    "bedrooms",
+    "bathrooms",
+    "is_frontage_text",
+    "is_alley_text",
+    "is_business_text",
+    "is_car_access_text",
+    "is_corner_text",
+    "is_villa_text",
+    "has_legal_text",
+    "is_new_house_text",
+    "is_renovated_text",
+    "is_project_text",
+    "is_urban_area_text",
+    "text_len",
+    "word_count",
+    "listing_year",
+    "listing_month",
+    "floors_x_area",
+    "frontage_x_road_width",
+    "floors_x_frontage",
+    "floors_x_business",
+    "car_access_x_road_width",
+    "area_x_frontage",
+    "num_floors_missing",
+    "floor_area_m2_missing",
+    "frontage_m_missing",
+    "road_width_m_missing",
+    "width_m_missing",
+    "length_m_missing",
+    "addr_last_2_missing",
+    "addr_last_3_missing",
+    "street_proxy_missing",
+    "property_subtype",
+    "addr_last_1",
+    "addr_last_2",
+    "addr_last_3",
+    "street_proxy",
+    "legal",
+    "door_direction",
+    "source",
+    "project_name"
+  ]
+}

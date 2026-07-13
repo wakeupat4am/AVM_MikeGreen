@@ -1,0 +1,26 @@
+{
+  "total_rows": 140874,
+  "misclassified_rows": 28156,
+  "misclassified_pct": 19.986654741116176,
+  "accuracy": 80.01334525888383,
+  "by_true_band": [
+    {
+      "price_band_id": "gt_10_5b",
+      "rows": 27672,
+      "correct_rows": 25067,
+      "accuracy_pct": 90.58615206707141
+    },
+    {
+      "price_band_id": "lt_2b",
+      "rows": 25351,
+      "correct_rows": 22501,
+      "accuracy_pct": 88.75783992741904
+    },
+    {
+      "price_band_id": "mid_2b_10_5b",
+      "rows": 87851,
+      "correct_rows": 65150,
+      "accuracy_pct": 74.15965669144346
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+feature,value,count,gt_10_5b_rate_pct
+property_subtype,villa,11062,42.469716145362504
+property_subtype,frontage_house,42753,31.11360606273244
+property_subtype,shophouse,2500,20.24
+property_subtype,alley_frontage_house,13674,18.94105601872166
+property_subtype,townhouse_project,12905,10.182099961255327
+property_subtype,normal_house,38064,10.167087011349306
+property_subtype,alley_house,19916,6.989355292227355
+addr_last_1,hà nội,3358,50.20845741512805
+addr_last_1,lâm đồng,2175,34.206896551724135
+addr_last_1,hồ chí minh,14904,33.32662372517445
+addr_last_1,bà rịa vũng tàu,6873,32.111159610068384
+addr_last_1,hưng yên,503,26.44135188866799
+addr_last_1,đà nẵng,26787,25.952887594728786
+addr_last_1,quảng ninh,1565,25.175718849840255
+addr_last_1,quảng nam,1896,24.41983122362869
+addr_last_1,vĩnh phúc,843,22.65717674970344
+addr_last_1,cần thơ,3514,22.481502561183834
+addr_last_1,khánh hòa,8034,22.29275578790142
+addr_last_1,bắc ninh,2061,21.93110140708394
+addr_last_2,quận 1,565,72.9203539823009
+addr_last_2,thành phố hội an,629,54.68998410174881
+addr_last_2,thành phố đà lạt,1240,50.08064516129033
+addr_last_2,quận 10,785,49.29936305732484
+addr_last_2,quận 3,606,47.194719471947195
+addr_last_2,thành phố vũng tàu,4271,43.26855537344884
+addr_last_2,quận ngũ hành sơn,4242,42.76284771334276
+addr_last_2,quận tân bình,1394,42.75466284074606
+addr_last_2,thành phố thủ đức,591,42.47038917089678
+addr_last_2,quận 7,669,41.25560538116592
+addr_last_2,quận sơn trà,5572,36.01938262742283
+addr_last_2,quận ninh kiều,1596,35.902255639097746
+addr_last_3,phường mỹ an,2827,55.14679872656526
+addr_last_3,phường phước mỹ,1460,54.58904109589041
+addr_last_3,phường 2,1499,51.100733822548364
+addr_last_3,phường 8,1057,41.62724692526017
+addr_last_3,phường an hải tây,572,41.43356643356643
+addr_last_3,phường 1,807,40.76827757125155
+addr_last_3,phường 12,837,40.74074074074074
+addr_last_3,phường 13,585,40.51282051282051
+addr_last_3,phường 14,693,38.38383838383838
+addr_last_3,phường an hải bắc,1547,35.358758888170655
+addr_last_3,phường 11,804,35.199004975124375
+addr_last_3,phường 3,1052,34.50570342205323
+street_proxy,đường trần hưng đạo,640,41.875
+street_proxy,đường trần phú,652,41.717791411042946
+street_proxy,đường lê hồng phong,1274,31.711145996860285
+street_proxy,đường điện biên phủ,533,28.142589118198874
+street_proxy,đường nguyễn văn cừ,605,26.942148760330582
+street_proxy,đường hùng vương,804,26.616915422885572
+street_proxy,đường nguyễn tri phương,559,20.03577817531306
+street_proxy,missing,45148,16.04279259324887
+street_proxy,đường đồng khởi,1021,12.830558276199804
+street_proxy,đường nguyễn ái quốc,783,9.323116219667945
+street_proxy,đường huỳnh văn nghệ,679,4.712812960235641
+street_proxy,đường bùi hữu nghĩa,623,2.4077046548956664
+legal,6,501,62.27544910179641
+legal,5,941,43.03931987247609
+legal,Sổ đỏ,1807,41.7819590481461
+legal,Sổ hồng,7883,33.43904604845871
+legal,1,532,29.887218045112785
+legal,4,1251,26.139088729016784
+legal,---,6299,23.84505477059851
+legal,Sổ hồng/ Sổ đỏ,26996,20.162246258704993
+legal,missing,67715,18.508454552167173
+legal,Giấy tờ hợp lệ,745,17.449664429530202
+legal,3,1584,15.656565656565657
+legal,Hợp đồng mua bán,1278,14.86697965571205
+door_direction,KXĐ,1632,46.93627450980392
+door_direction,Đông Nam,4586,22.743131269079807
+door_direction,Tây Nam,3439,21.285257342250656
+door_direction,Tây Bắc,3439,20.907240476882816
+door_direction,missing,67972,20.665862413935148
+door_direction,Đông,4902,20.012239902080783
+door_direction,Đông Bắc,3479,18.970968669157802
+door_direction,_,30868,18.24867176363872
+door_direction,Tây,3872,17.40702479338843
+door_direction,Nam,4871,16.46479162389653
+door_direction,Bắc,3898,15.033350436121088
+door_direction,Tây - Nam,1502,12.583222370173102
+source,dothi.net,1989,47.61186525892408
+source,muaban.net,9174,36.76695007630259
+source,mogi.vn,7432,31.552744886975244
+source,bds123.vn,1010,26.13861386138614
+source,alonhadat.com.vn,21385,23.329436520925885
+source,bds68.com.vn,28727,22.59894872419675
+source,alonhadat_thocu_sm,12413,16.41827116732458
+source,bds68_thocu_sm,13208,15.20290732889158
+source,batdongsan_thocu_sm,11563,14.347487676208596
+source,123nhadatviet.com,11038,13.93368363834028
+source,123nhadatviet_thocu_sm,6071,12.287926206555756
+source,cafeland_thocu_sm,1398,11.94563662374821
+project_name,missing,140874,19.643085310277268

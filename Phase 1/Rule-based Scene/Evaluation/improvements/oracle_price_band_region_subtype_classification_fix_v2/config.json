@@ -1,0 +1,23 @@
+{
+  "bands": [
+    {
+      "price_band_id": "lt_2b",
+      "price_band_label": "<2B",
+      "low": null,
+      "high": 2000000000
+    },
+    {
+      "price_band_id": "2b_to_10_5b",
+      "price_band_label": "2B-10.5B",
+      "low": 2000000000,
+      "high": 10500000000
+    },
+    {
+      "price_band_id": "gt_10_5b",
+      "price_band_label": ">10.5B",
+      "low": 10500000000,
+      "high": null
+    }
+  ],
+  "note": "Oracle experiment: true price is used to assign train/test rows to price bands."
+}

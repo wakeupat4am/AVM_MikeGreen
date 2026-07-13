@@ -1,0 +1,15 @@
+{
+  "input_path": "/Users/dienmayhaituyet/Documents/AVM/Rule-based Scene/draft/pre_retrain_feature_fixes/fixed_landed_residential_house_modeling_dataset.parquet",
+  "input_rows": 704370,
+  "clustered_rows": 704370,
+  "deduplicated_rows": 638287,
+  "removed_duplicate_rows": 66083,
+  "duplicate_clusters": 52237,
+  "rows_in_duplicate_clusters": 118320,
+  "conflicting_duplicate_clusters": 1559,
+  "rows_in_conflicting_duplicate_clusters": 4310,
+  "area_tolerance": 0.08,
+  "price_ratio_limit": 2.0,
+  "max_pairwise_block": 250,
+  "random_state": 42
+}

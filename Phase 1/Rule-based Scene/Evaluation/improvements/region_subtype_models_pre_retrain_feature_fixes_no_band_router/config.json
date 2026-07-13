@@ -1,0 +1,11 @@
+{
+  "exclude_num_floors_bundle": false,
+  "num_floors_bundle": [
+    "floor_area_m2",
+    "floors_x_area",
+    "floors_x_business",
+    "floors_x_frontage",
+    "num_floors"
+  ],
+  "data_path": "Rule-based Scene/draft/pre_retrain_feature_fixes/fixed_landed_residential_house_modeling_dataset.parquet"
+}

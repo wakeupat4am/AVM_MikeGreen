@@ -1,0 +1,24 @@
+experiment,model,Median_APE,HitRate_20_pct,HitRate_10_pct,MAPE
+baseline,baseline global,33.0526,32.6422,17.1019,69.2537
+baseline,baseline subtype,33.0468,32.6478,17.103,69.1965
+ridge,ridge global,28.3545,36.7812,19.0392,66.2362
+ridge,ridge subtype,26.9086,39.2766,20.7482,2562.098
+lightgbm,lightgbm global,20.8716,48.3051,26.1439,39.3962
+lightgbm,lightgbm subtype,19.2444,51.4373,28.9599,37.8984
+robust_lightgbm,robust lightgbm global,20.9091,48.4007,27.1283,43.7845
+region_subtype_models,global model,20.9091,48.4007,27.1283,43.7845
+region_subtype_models,hybrid fallback,15.4692,58.0964,37.7803,37.9221
+region_subtype_models,region model,15.1805,59.3033,37.3206,35.5303
+region_subtype_models,region subtype model,13.4915,62.4291,41.3669,32.7205
+region_subtype_models,subtype model,19.4372,51.0019,30.3167,42.7489
+market_regime_layer,current hybrid fallback,15.4692,58.0964,37.7803,37.9221
+market_regime_layer,hard regime routing,27.7031,39.7187,22.4909,66.7019
+market_regime_layer,probability adjustment,16.2196,57.3966,34.5986,37.0563
+market_regime_layer,trimmed hybrid local,21.592,47.3128,26.5759,47.9964
+address_combo,addr1_plus_addr2_plus_addr3_plus_subtype,23.9462,43.4366,23.9528,46.7551
+address_combo,addr1_plus_addr2_plus_subtype,21.7735,47.0983,27.6563,44.8518
+address_combo,addr1_plus_addr3_plus_subtype,23.9421,43.4821,24.0097,46.7478
+address_combo,addr1_plus_subtype,19.7408,50.4151,29.9647,41.7242
+address_combo,addr2_plus_addr3_plus_subtype,23.9431,43.4555,23.968,46.738
+address_combo,addr2_plus_subtype,20.949,48.5236,28.5092,43.3176
+address_combo,addr3_plus_subtype,22.9113,45.2712,25.2341,44.8992

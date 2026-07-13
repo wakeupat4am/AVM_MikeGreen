@@ -1,0 +1,133 @@
+feature,value,high_count,predicted_below_count,confused_rate_pct
+addr_last_1,long an,298,169,56.711409395973156
+addr_last_1,kiên giang,106,59,55.660377358490564
+source,cafeland_thocu_sm,167,89,53.293413173652695
+addr_last_1,thanh hóa,159,83,52.20125786163522
+property_subtype,shophouse,506,254,50.19762845849802
+addr_last_3,phường dĩ an,115,51,44.34782608695652
+addr_last_2,thành phố thủ dầu một,161,69,42.857142857142854
+addr_last_1,vĩnh phúc,191,80,41.8848167539267
+source,bds123.vn,264,107,40.53030303030303
+source,batdongsan_thocu_sm,1659,661,39.84327908378542
+addr_last_2,missing,3780,1496,39.576719576719576
+property_subtype,alley_house,1392,544,39.08045977011494
+addr_last_1,bình dương,859,329,38.30034924330617
+legal,Sổ đỏ/ Sổ hồng,1741,661,37.966685812751294
+property_subtype,townhouse_project,1314,491,37.36681887366819
+door_direction,Đông - Bắc,188,70,37.234042553191486
+door_direction,Đông - Nam,278,103,37.05035971223021
+legal,Sổ đỏ/ Sổ hồng.,112,41,36.607142857142854
+door_direction,Tây - Bắc,163,59,36.19631901840491
+addr_last_1,đắk lắk,311,112,36.01286173633441
+addr_last_1,bắc ninh,452,161,35.61946902654867
+source,batdongsan.com.vn,804,284,35.32338308457712
+addr_last_1,bình thuận,305,107,35.08196721311476
+legal,2,211,74,35.07109004739337
+addr_last_2,thành phố buôn ma thuột,299,104,34.78260869565217
+addr_last_1,huế,333,114,34.234234234234236
+addr_last_2,huyện thủy nguyên,126,43,34.12698412698413
+addr_last_1,đồng nai,1338,452,33.78176382660688
+legal,Hợp đồng mua bán,190,63,33.1578947368421
+addr_last_1,hưng yên,133,44,33.08270676691729
+property_subtype,normal_house,3870,1258,32.50645994832041
+legal,3,248,80,32.25806451612903
+addr_last_3,phường đông hòa,112,36,32.142857142857146
+street_proxy,đường phạm văn thuận,110,35,31.818181818181817
+addr_last_2,quận bình tân,241,76,31.535269709543567
+addr_last_2,thành phố dĩ an,283,89,31.448763250883395
+door_direction,Tây - Nam,189,59,31.216931216931215
+addr_last_1,bình định,138,43,31.15942028985507
+addr_last_2,thành phố thuận an,151,47,31.125827814569533
+addr_last_3,phường đằng lâm,117,36,30.76923076923077
+legal,4,327,100,30.58103975535168
+addr_last_1,nghệ an,177,54,30.508474576271187
+addr_last_3,phường tân phong,113,34,30.08849557522124
+source,123nhadatviet_thocu_sm,746,224,30.02680965147453
+addr_last_2,quận 12,111,33,29.72972972972973
+addr_last_3,phường 6,163,48,29.447852760736197
+source,bds68_thocu_sm,2008,585,29.133466135458168
+addr_last_3,phường võ cường,117,34,29.059829059829063
+addr_last_2,thành phố quy nhơn,124,35,28.225806451612907
+street_proxy,missing,7243,2041,28.178931382024025
+addr_last_3,phường tân mai,139,39,28.05755395683453
+street_proxy,đường lý thường kiệt,106,29,27.358490566037734
+addr_last_3,phường an hòa,100,27,27.0
+addr_last_1,hải phòng,1968,531,26.981707317073173
+addr_last_3,phường hòa thuận tây,152,41,26.973684210526315
+source,123nhadatviet.com,1538,414,26.918075422626785
+addr_last_2,thành phố biên hòa,911,244,26.783754116355652
+addr_last_2,quận cái răng,101,27,26.732673267326735
+addr_last_3,phường đông khê,135,36,26.666666666666668
+addr_last_3,phường an bình,114,30,26.31578947368421
+street_proxy,đường nguyễn tất thành,107,28,26.168224299065418
+addr_last_2,quận gò vấp,312,81,25.961538461538463
+addr_last_2,thành phố phan thiết,204,52,25.49019607843137
+property_subtype,alley_frontage_house,2590,660,25.482625482625483
+addr_last_2,quận phú nhuận,322,82,25.465838509316768
+addr_last_3,phường 15,159,40,25.157232704402517
+addr_last_2,quận 11,133,33,24.81203007518797
+door_direction,Tây,674,167,24.777448071216618
+addr_last_3,phường thống nhất,185,45,24.324324324324326
+addr_last_3,phường khuê mỹ,279,67,24.014336917562723
+addr_last_3,phường khuê trung,163,39,23.92638036809816
+source,alonhadat_thocu_sm,2038,487,23.895976447497546
+street_proxy,đường hùng vương,214,51,23.83177570093458
+addr_last_2,quận cẩm lệ,295,70,23.728813559322035
+door_direction,missing,14047,3326,23.677653591514204
+addr_last_3,phường thạc gián,115,27,23.47826086956522
+legal,5,405,95,23.456790123456788
+addr_last_2,quận liên chiểu,162,38,23.456790123456788
+addr_last_2,quận ngô quyền,330,77,23.333333333333332
+street_proxy,đường lê lợi,103,24,23.300970873786408
+addr_last_2,quận hải an,198,46,23.232323232323232
+legal,missing,12533,2911,23.226681560679804
+addr_last_1,quảng ninh,394,91,23.096446700507613
+door_direction,Bắc,586,135,23.037542662116042
+addr_last_2,quận thanh khê,545,125,22.93577981651376
+door_direction,Nam,802,183,22.81795511221945
+project_name,missing,27672,6246,22.571552471812662
+door_direction,_,5633,1266,22.474702645126932
+street_proxy,đường hoàng diệu,121,27,22.31404958677686
+addr_last_3,phường 11,283,63,22.261484098939928
+street_proxy,đường nguyễn văn cừ,163,36,22.085889570552148
+street_proxy,đường nguyễn hữu thọ,150,33,22.0
+street_proxy,đường võ nguyên giáp,129,28,21.705426356589147
+addr_last_3,phường vĩnh niệm,144,31,21.52777777777778
+addr_last_3,phường 14,266,57,21.428571428571427
+street_proxy,đường điện biên phủ,150,32,21.333333333333336
+addr_last_3,missing,1636,346,21.149144254278728
+door_direction,Đông Bắc,660,138,20.909090909090907
+legal,Giấy tờ hợp lệ,130,27,20.76923076923077
+street_proxy,đường lạc long quân,108,22,20.37037037037037
+legal,---,1502,304,20.239680426098534
+legal,Sổ đỏ,755,152,20.132450331125828
+door_direction,Đông,981,197,20.081549439347604
+street_proxy,đường trần phú,272,54,19.852941176470587
+street_proxy,đường đồng khởi,131,26,19.84732824427481
+source,mogi.vn,2345,465,19.82942430703625
+street_proxy,đường trần hưng đạo,268,53,19.776119402985074
+addr_last_1,hồ chí minh,4967,967,19.46849204751359
+street_proxy,đường ngô quyền,139,27,19.424460431654676
+legal,Sổ hồng,2636,503,19.081942336874054
+addr_last_1,lâm đồng,744,141,18.951612903225808
+source,bds68.com.vn,6492,1221,18.807763401109057
+source,muaban.net,3373,630,18.677734954046844
+street_proxy,đường võ thị sáu,180,33,18.333333333333332
+legal,Sổ hồng/ Sổ đỏ,5443,995,18.28036009553555
+street_proxy,đường châu thị vĩnh tế,115,21,18.26086956521739
+addr_last_1,quảng nam,463,84,18.142548596112313
+street_proxy,đường nguyễn tri phương,112,20,17.857142857142858
+addr_last_1,cần thơ,790,140,17.72151898734177
+property_subtype,frontage_house,13302,2353,17.68906931288528
+street_proxy,đường hoàng hoa thám,115,20,17.391304347826086
+door_direction,Tây Nam,732,126,17.21311475409836
+source,alonhadat.com.vn,4989,826,16.556424133092804
+door_direction,Đông Nam,1043,172,16.490891658676894
+legal,1,159,26,16.352201257861633
+addr_last_1,đà nẵng,6952,1133,16.297468354430382
+property_subtype,villa,4698,686,14.601958280119199
+door_direction,Tây Bắc,719,103,14.325452016689846
+source,dothi.net,947,102,10.770855332629356
+door_direction,KXĐ,766,79,10.313315926892951
+legal,6,312,32,10.256410256410255
+legal,7,118,12,10.16949152542373

@@ -1,0 +1,10 @@
+{
+  "high_rows": 27672,
+  "predicted_below_10_5b_rows": 6246,
+  "predicted_below_10_5b_pct": 22.571552471812662,
+  "under_20pct_rows": 11748,
+  "under_20pct_pct": 42.45446660884649,
+  "median_ape_high": 20.618335067843518,
+  "mape_high": 26.897647130226755,
+  "bias_high": -15.542726132539356
+}

@@ -1,2 +1,0 @@
-level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
-overall_test_set,ALL,probability adjustment,price,26381,3093760470.3253784,12788465544.729624,39.54323198419329,20.522220866866906,27.21655737083507,49.06561540502635,15.071223981350418,48.413631022326676,51.586368977673324

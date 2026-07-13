@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+overall_test_set,ALL,current hybrid fallback,price,88885,2480269973.7911186,10742634652.530277,35.53832367500317,15.620250541833345,35.61343308769759,58.841199302469484,16.44892372463101,50.07706587163189,49.92293412836812

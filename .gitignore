@@ -3,7 +3,7 @@
 
 # Local caches
 .cache/
-Rule-based Scene/.cache/
+Phase 1/Rule-based Scene/.cache/
 
 # Python / notebook noise
 __pycache__/
@@ -11,20 +11,20 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Raw and processed data are reproducible and too large for git
-Rule-based Scene/data/raw/*
-Rule-based Scene/data/processed/*
-!Rule-based Scene/data/README.md
+Phase 1/Rule-based Scene/data/raw/*
+Phase 1/Rule-based Scene/data/processed/*
+!Phase 1/Rule-based Scene/data/README.md
 
 # Generated evaluation artifacts
-Rule-based Scene/Evaluation/baseline/
-Rule-based Scene/Evaluation/ridge/
-Rule-based Scene/Evaluation/lightgbm/
-Rule-based Scene/Evaluation/combined/
-!Rule-based Scene/Evaluation/README.md
+Phase 1/Rule-based Scene/Evaluation/baseline/
+Phase 1/Rule-based Scene/Evaluation/ridge/
+Phase 1/Rule-based Scene/Evaluation/lightgbm/
+Phase 1/Rule-based Scene/Evaluation/combined/
+!Phase 1/Rule-based Scene/Evaluation/README.md
 
 # Generated visualization files
-Rule-based Scene/Visualizations/visualizations/*
-!Rule-based Scene/Visualizations/visualizations/README.md
+Phase 1/Rule-based Scene/Visualizations/visualizations/*
+!Phase 1/Rule-based Scene/Visualizations/visualizations/README.md
 
 # Legacy artifacts from earlier iterations
 archive/
@@ -50,4 +50,10 @@ AVM_Report.log
 _archive/
 
 # Large regenerable model artifacts (rebuild via build_final_scorer.py)
-Rule-based Scene/models/
+Phase 1/Rule-based Scene/models/
+
+# Large regenerable draft/experiment data artifacts (too large for git, reproducible)
+Phase 1/Rule-based Scene/draft/**/*.parquet
+Phase 1/Rule-based Scene/draft/**/*.csv.gz
+Phase 1/Rule-based Scene/draft/deduplication/cluster_summary.csv
+Phase 1/Rule-based Scene/draft/deduplication/clustered_all_rows.csv

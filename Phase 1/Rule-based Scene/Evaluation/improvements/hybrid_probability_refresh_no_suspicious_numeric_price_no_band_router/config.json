@@ -1,0 +1,22 @@
+{
+  "data_path": "Rule-based Scene/data/processed/no_suspicious_numeric_price/landed_residential_house_modeling_dataset.parquet",
+  "routing_policy": "Rule-based Scene/Evaluation/improvements/region_subtype_models_no_suspicious_numeric_price_no_band_router/routing_policy.csv",
+  "best_thresholds": {
+    "minimum_group_size": 1000.0,
+    "dispersion_ratio_min": 2.0,
+    "iqr_ratio_min": 1.3,
+    "dispersion_log_min": 0.55
+  },
+  "regime_classes": [
+    "low_tail",
+    "normal",
+    "high_tail",
+    "stable_normal"
+  ],
+  "regime_logloss_classes": [
+    "high_tail",
+    "low_tail",
+    "normal",
+    "stable_normal"
+  ]
+}

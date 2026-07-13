@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+overall_test_set,ALL,addr1_plus_addr2_plus_addr3_plus_subtype,price,26381,3565586757.630649,14548776550.116367,46.755109580815066,23.94621054785249,23.952844850460558,43.436564193927445,21.331948629318674,50.434024487320414,49.56597551267958

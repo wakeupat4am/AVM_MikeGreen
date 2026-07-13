@@ -1,0 +1,80 @@
+{
+  "bands": [
+    {
+      "price_band_id": "lt_2b",
+      "label": "<2B",
+      "low": null,
+      "high": 2000000000
+    },
+    {
+      "price_band_id": "mid_2b_10_5b",
+      "label": "2B-10.5B",
+      "low": 2000000000,
+      "high": 10500000000
+    },
+    {
+      "price_band_id": "gt_10_5b",
+      "label": ">10.5B",
+      "low": 10500000000,
+      "high": null
+    }
+  ],
+  "note": "Draft leakage-safe price-band routing. Classifier and residual correction use non-price features and predicted band probabilities; true price bands are used only for training labels/evaluation.",
+  "residual_features_numeric": [
+    "area_m2",
+    "num_floors",
+    "floor_area_m2",
+    "frontage_m",
+    "road_width_m",
+    "width_m",
+    "length_m",
+    "bedrooms",
+    "bathrooms",
+    "is_frontage_text",
+    "is_alley_text",
+    "is_business_text",
+    "is_car_access_text",
+    "is_corner_text",
+    "is_villa_text",
+    "has_legal_text",
+    "is_new_house_text",
+    "is_renovated_text",
+    "is_project_text",
+    "is_urban_area_text",
+    "text_len",
+    "word_count",
+    "listing_year",
+    "listing_month",
+    "floors_x_area",
+    "frontage_x_road_width",
+    "floors_x_frontage",
+    "floors_x_business",
+    "car_access_x_road_width",
+    "area_x_frontage",
+    "num_floors_missing",
+    "floor_area_m2_missing",
+    "frontage_m_missing",
+    "road_width_m_missing",
+    "width_m_missing",
+    "length_m_missing",
+    "addr_last_2_missing",
+    "addr_last_3_missing",
+    "street_proxy_missing",
+    "base_log_pred",
+    "prob_high_or_mid",
+    "prob_lt_2b",
+    "prob_mid_2b_10_5b",
+    "prob_gt_10_5b"
+  ],
+  "residual_features_categorical": [
+    "property_subtype",
+    "addr_last_1",
+    "addr_last_2",
+    "addr_last_3",
+    "street_proxy",
+    "legal",
+    "door_direction",
+    "source",
+    "project_name"
+  ]
+}

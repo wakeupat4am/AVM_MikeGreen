@@ -1,0 +1,7 @@
+run_label,price_band_id,price_band_label,train_rows,routing_groups,region_subtype_groups,region_groups,subtype_groups,global_groups
+dev_validation_models,lt_2b,<2B,81287,381,0,21,4,356
+dev_validation_models,mid_2b_10_5b,2B-10.5B,281210,420,15,55,3,347
+dev_validation_models,gt_10_5b,>10.5B,88299,309,5,20,2,282
+full_test_models,lt_2b,<2B,101610,389,3,26,3,357
+full_test_models,mid_2b_10_5b,2B-10.5B,351512,421,29,49,1,342
+full_test_models,gt_10_5b,>10.5B,110374,308,4,29,2,273

@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+overall_test_set,ALL,region subtype model,price,96522,2572217753.1305795,11673377566.523531,32.57538104964923,14.726983000974354,38.17782474461781,60.114792482542846,13.150097821111368,48.69770622241562,51.30229377758438

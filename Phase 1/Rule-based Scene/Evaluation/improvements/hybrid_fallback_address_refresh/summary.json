@@ -1,0 +1,16 @@
+{
+  "level": "overall_test_set",
+  "group": "ALL",
+  "model": "hybrid fallback",
+  "target": "price",
+  "count": 88885,
+  "MAE": 2599100970.8990903,
+  "RMSE": 11858023400.68858,
+  "MAPE": 37.44169997726504,
+  "Median_APE": 14.957431345817943,
+  "HitRate_10_pct": 38.4181807954098,
+  "HitRate_20_pct": 59.394723519153956,
+  "Bias_pct": 18.104546893839085,
+  "OvervaluationRate_pct": 49.51566631040108,
+  "UndervaluationRate_pct": 50.48433368959891
+}

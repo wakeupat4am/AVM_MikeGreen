@@ -1,0 +1,8 @@
+flag,rows,pct
+suspicious_numeric_price_any,8016,1.138
+under_500m_and_title_mentions_ty,6628,0.941
+under_500m_and_low_ppm2_under_5m,6558,0.931
+has_sequential_digit_run,91,0.0129
+contains_placeholder_sequence_12345,90,0.0128
+has_repeated_nonzero_digit_run,70,0.0099
+under_500m_many_unique_nonround_digits,5,0.0007

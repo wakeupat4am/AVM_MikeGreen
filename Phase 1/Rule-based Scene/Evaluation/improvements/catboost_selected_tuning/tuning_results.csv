@@ -1,0 +1,3 @@
+candidate,score,region_subtype_Median_APE,region_subtype_HitRate_20_pct,hybrid_Median_APE,hybrid_HitRate_20_pct,params_json
+cb_d7_lr003_l2_5_iter_800,34.41768660992909,14.893072579766098,61.99731903485255,19.52461403016299,50.849999999999994,"{""iterations"": 800, ""learning_rate"": 0.03, ""depth"": 7, ""loss_function"": ""MAE"", ""l2_leaf_reg"": 5.0, ""min_data_in_leaf"": 20, ""random_seed"": 42, ""thread_count"": -1, ""verbose"": 0}"
+cb_d6_lr003_l2_3_iter_600,35.459931910715774,15.013606447668181,61.32707774798928,20.446325463047593,49.31666666666666,"{""iterations"": 600, ""learning_rate"": 0.03, ""depth"": 6, ""loss_function"": ""MAE"", ""l2_leaf_reg"": 3.0, ""min_data_in_leaf"": 20, ""random_seed"": 42, ""thread_count"": -1, ""verbose"": 0}"

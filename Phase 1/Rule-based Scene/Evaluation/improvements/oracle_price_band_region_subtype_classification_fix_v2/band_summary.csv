@@ -1,0 +1,4 @@
+price_band_id,price_band_label,train_rows,test_rows,routing_groups,region_subtype_predicted_rows,region_subtype_coverage_pct
+lt_2b,<2B,101610,25351,389,8145,32.1289101021656
+2b_to_10_5b,2B-10.5B,351512,87851,421,62785,71.46759854754072
+gt_10_5b,>10.5B,110374,27672,308,13494,48.76409366869037

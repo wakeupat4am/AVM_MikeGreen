@@ -1,0 +1,753 @@
+match_id,role,district,ward,area_m2,floors,built,facade_m,ppm2_M,price_B,feat_dist,price_vs_available_pct
+1,AVAILABLE,Đống Đa,Quang Trung,52.3,5,2004,3.2,631.0,33.0,0.0,0.0
+1,REVOKED (similar),Đống Đa,Phương Mai,52.7,5,2005,4.0,319.0,16.8,0.44,-49.1
+1,SOLD (similar),Đống Đa,Trung Liệt,50.2,5,2010,2.8,165.0,8.3,0.88,-74.8
+2,AVAILABLE,Hai Bà Trưng,Minh Khai,53.0,1,2000,3.0,349.0,18.5,0.0,0.0
+2,REVOKED (similar),Hai Bà Trưng,Quỳnh Mai,52.4,1,2000,3.0,73.0,3.85,0.14,-79.2
+3,AVAILABLE,Bắc Từ Liêm,Phú Diễn,59.0,7,2021,3.5,364.0,21.5,0.0,0.0
+3,REVOKED (similar),Bắc Từ Liêm,Phú Diễn,45.0,7,2022,3.9,296.0,13.3,0.37,-38.1
+4,AVAILABLE,Đống Đa,Hàng Bột,34.1,4,2015,3.1,205.0,7.0,0.0,0.0
+4,REVOKED (similar),Đống Đa,Quốc Tử Giám,31.0,4,2015,3.1,160.0,4.95,0.13,-29.3
+4,SOLD (similar),Đống Đa,Thịnh Quang,35.5,4,2015,3.1,149.0,5.3,0.55,-24.3
+5,AVAILABLE,Hoàng Mai,Tương Mai,49.0,5,2010,5.0,202.0,9.9,0.0,0.0
+5,REVOKED (similar),Hoàng Mai,Thịnh Liệt,37.5,5,2010,5.1,105.0,3.95,0.37,-60.1
+5,SOLD (similar),Hoàng Mai,Tương Mai,31.0,4,2013,5.0,113.0,3.5,0.86,-64.6
+6,AVAILABLE,Hoài Đức,X. Kim Chung,96.5,9,2023,6.7,269.0,26.0,0.0,0.0
+6,REVOKED (similar),Hoài Đức,X. Kim Chung,85.8,8,2023,6.7,217.0,18.6,0.68,-28.5
+7,AVAILABLE,Thanh Xuân,Thanh Xuân Trung,74.1,3,2008,4.2,459.0,34.0,0.0,0.0
+7,REVOKED (similar),Thanh Xuân,Phương Liệt,64.7,3,2007,3.6,83.0,5.4,0.62,-84.1
+7,SOLD (similar),Thanh Xuân,Khương Mai,78.0,4,2010,3.9,240.0,18.7,0.98,-45.0
+8,AVAILABLE,Tây Hồ,Thụy Khuê,165.6,8,2023,9.5,236.0,39.0,0.0,0.0
+8,REVOKED (similar),Tây Hồ,Thụy Khuê,165.6,8,2022,6.2,202.0,33.5,1.63,-14.1
+9,AVAILABLE,Tây Hồ,Thụy Khuê,65.9,1,2010,5.9,387.0,25.5,0.0,0.0
+9,REVOKED (similar),Tây Hồ,Bưởi,55.0,1,2010,4.8,191.0,10.5,0.76,-58.8
+10,AVAILABLE,Đống Đa,Khương Thượng,32.0,2,2002,3.5,438.0,14.0,0.0,0.0
+10,REVOKED (similar),Đống Đa,Phương Mai,34.0,2,2003,3.5,353.0,12.0,0.3,-14.3
+10,SOLD (similar),Đống Đa,Trung Phụng,33.7,2,2005,3.8,92.0,3.1,0.58,-77.9
+11,AVAILABLE,Long Biên,Thạch Bàn,90.0,6,2023,4.9,400.0,36.0,0.0,0.0
+11,REVOKED (similar),Long Biên,Gia Thụy,90.0,6,2022,4.5,211.0,19.0,0.34,-47.2
+12,AVAILABLE,Hai Bà Trưng,Bạch Mai,35.0,6,2018,3.7,214.0,7.5,0.0,0.0
+12,REVOKED (similar),Hai Bà Trưng,Vĩnh Tuy,46.6,6,2019,3.9,504.0,23.5,0.32,213.3
+12,SOLD (similar),Hai Bà Trưng,Thanh Lương,31.0,5,2015,4.3,135.0,4.2,0.85,-44.0
+13,AVAILABLE,Tây Hồ,Bưởi,230.0,9,2021,12.9,478.0,110.0,0.0,0.0
+13,REVOKED (similar),Tây Hồ,Xuân La,257.0,6,2015,8.5,175.0,45.0,3.0,-59.1
+14,AVAILABLE,Đống Đa,Thịnh Quang,105.5,5,2018,4.4,360.0,38.0,0.0,0.0
+14,REVOKED (similar),Đống Đa,Trung Phụng,90.0,5,2020,3.4,92.0,8.3,1.04,-78.2
+15,AVAILABLE,Ba Đình,Điện Biên,57.0,4,2023,3.3,239.0,13.6,0.0,0.0
+15,REVOKED (similar),Ba Đình,Ngọc Hà,44.0,4,2023,3.4,127.0,5.6,0.5,-58.8
+16,AVAILABLE,Long Biên,Thạch Bàn,114.0,3,2006,4.0,60.0,6.8,0.0,0.0
+16,REVOKED (similar),Long Biên,Bồ Đề,102.0,3,2007,4.1,110.0,11.2,1.02,64.7
+17,AVAILABLE,Long Biên,Bồ Đề,61.0,1,2007,4.0,402.0,24.5,0.0,0.0
+17,REVOKED (similar),Long Biên,Phúc Đồng,59.0,1,2010,4.0,73.0,4.3,0.43,-82.4
+18,AVAILABLE,Long Biên,Việt Hưng,77.0,3,2015,5.2,273.0,21.0,0.0,0.0
+18,REVOKED (similar),Long Biên,Đức Giang,64.8,3,2015,4.3,61.0,3.95,0.56,-81.2
+19,AVAILABLE,Thanh Trì,X. Tân Triều,75.0,8,2024,6.1,327.0,24.5,0.0,0.0
+19,REVOKED (similar),Thanh Trì,X. Tân Triều,93.5,8,2024,6.5,230.0,21.5,0.44,-12.2
+20,AVAILABLE,Thanh Trì,X. Tân Triều,60.0,7,2023,4.5,245.0,14.7,0.0,0.0
+20,REVOKED (similar),Thanh Trì,X. Tân Triều,72.0,7,2023,4.8,193.0,13.9,0.39,-5.4
+21,AVAILABLE,Cầu Giấy,Quan Hoa,60.0,4,2015,5.1,633.0,38.0,0.0,0.0
+21,REVOKED (similar),Cầu Giấy,Quan Hoa,68.0,4,2015,4.4,121.0,8.2,0.39,-78.4
+21,SOLD (similar),Cầu Giấy,Quan Hoa,52.0,4,2017,4.0,227.0,11.8,0.61,-68.9
+22,AVAILABLE,Long Biên,Thượng Thanh,33.9,1,2015,4.0,236.0,8.0,0.0,0.0
+22,REVOKED (similar),Long Biên,Thượng Thanh,51.0,1,2019,3.9,73.0,3.7,0.68,-53.8
+22,SOLD (similar),Long Biên,Đức Giang,46.8,1,2018,3.0,91.0,4.25,0.87,-46.9
+23,AVAILABLE,Nam Từ Liêm,Mỹ Đình 2,84.7,8,2024,8.8,289.0,24.5,0.0,0.0
+23,REVOKED (similar),Nam Từ Liêm,Mỹ Đình 2,70.0,8,2023,9.1,197.0,13.8,0.37,-43.7
+24,AVAILABLE,Đống Đa,Văn Miếu,33.0,3,2012,3.3,545.0,18.0,0.0,0.0
+24,REVOKED (similar),Đống Đa,Trung Phụng,33.7,3,2011,3.6,95.0,3.2,0.34,-82.2
+24,SOLD (similar),Đống Đa,Văn Chương,28.0,3,2013,3.1,118.0,3.3,0.23,-81.7
+25,AVAILABLE,Long Biên,Cự Khối,63.9,4,2014,8.0,321.0,20.5,0.0,0.0
+25,REVOKED (similar),Long Biên,Sài Đồng,63.0,4,2012,6.4,238.0,15.0,1.09,-26.8
+25,SOLD (similar),Long Biên,Thạch Bàn,81.5,4,2015,7.4,184.0,15.0,0.62,-26.8
+26,AVAILABLE,Long Biên,Đức Giang,78.7,5,2021,4.5,330.0,26.0,0.0,0.0
+26,REVOKED (similar),Long Biên,Thượng Thanh,110.0,6,2019,6.0,180.0,19.8,2.25,-23.8
+27,AVAILABLE,Hai Bà Trưng,Thanh Nhàn,36.8,4,2020,5.1,231.0,8.5,0.0,0.0
+27,REVOKED (similar),Hai Bà Trưng,Thanh Lương,41.4,4,2019,5.8,133.0,5.5,0.43,-35.3
+27,SOLD (similar),Hai Bà Trưng,Quỳnh Lôi,35.0,4,2023,4.4,146.0,5.1,0.55,-40.0
+28,AVAILABLE,Tây Hồ,Quảng An,99.9,5,2015,4.5,350.0,35.0,0.0,0.0
+28,REVOKED (similar),Tây Hồ,Nhật Tân,74.6,5,2017,4.7,643.0,48.0,0.7,37.1
+29,AVAILABLE,Hoàn Kiếm,Chương Dương,167.8,4,2003,7.7,191.0,32.0,0.0,0.0
+29,REVOKED (similar),Hoàn Kiếm,Chương Dương,125.4,4,2011,7.0,143.0,17.9,1.69,-44.1
+30,AVAILABLE,Long Biên,Bồ Đề,230.0,4,2014,14.8,261.0,60.0,0.0,0.0
+30,REVOKED (similar),Long Biên,Sài Đồng,215.4,5,2015,12.7,196.0,42.2,1.36,-29.7
+31,AVAILABLE,Đống Đa,Láng Hạ,34.8,1,2010,6.3,216.0,7.5,0.0,0.0
+31,REVOKED (similar),Đống Đa,Ngã Tư Sở,52.0,1,2011,5.8,138.0,7.2,0.49,-4.0
+32,AVAILABLE,Đống Đa,Trung Liệt,63.8,4,2005,4.1,306.0,19.5,0.0,0.0
+32,REVOKED (similar),Đống Đa,Quang Trung,55.6,4,2005,4.1,212.0,11.8,0.23,-39.5
+32,SOLD (similar),Đống Đa,Hàng Bột,50.0,4,2007,2.8,55.0,2.75,0.85,-85.9
+33,AVAILABLE,Ba Đình,Ngọc Khánh,39.6,2,2005,3.0,328.0,13.0,0.0,0.0
+33,REVOKED (similar),Ba Đình,Ngọc Hà,40.0,2,2008,3.1,105.0,4.2,0.59,-67.7
+34,AVAILABLE,Hai Bà Trưng,Quỳnh Mai,59.0,3,2005,4.3,220.0,13.0,0.0,0.0
+34,REVOKED (similar),Hai Bà Trưng,Thanh Nhàn,62.3,3,2005,4.1,96.0,5.98,0.22,-54.0
+35,AVAILABLE,Hai Bà Trưng,Nguyễn Du,48.1,5,2015,4.4,385.0,18.5,0.0,0.0
+35,REVOKED (similar),Hai Bà Trưng,Trương Định,47.0,5,2015,5.1,153.0,7.2,0.3,-61.1
+35,SOLD (similar),Hai Bà Trưng,Thanh Lương,31.0,5,2015,4.3,135.0,4.2,0.87,-77.3
+36,AVAILABLE,Nam Từ Liêm,Mễ Trì,60.0,3,2008,4.5,433.0,26.0,0.0,0.0
+36,REVOKED (similar),Nam Từ Liêm,Đại Mỗ,78.2,4,2013,4.0,217.0,17.0,1.06,-34.6
+37,AVAILABLE,Đống Đa,Ô Chợ Dừa,41.7,7,2014,8.8,686.0,28.6,0.0,0.0
+37,REVOKED (similar),Đống Đa,Ô Chợ Dừa,52.3,6,2018,9.0,220.0,11.5,0.89,-59.8
+38,AVAILABLE,Đống Đa,Hàng Bột,125.0,3,2003,2.7,504.0,63.0,0.0,0.0
+38,REVOKED (similar),Đống Đa,Trung Liệt,88.8,3,2005,3.3,124.0,11.0,0.89,-82.5
+39,AVAILABLE,Ba Đình,Đội Cấn,34.6,5,2014,5.4,419.0,14.5,0.0,0.0
+39,REVOKED (similar),Ba Đình,Đội Cấn,38.0,5,2017,5.7,192.0,7.3,0.46,-49.7
+39,SOLD (similar),Ba Đình,Ngọc Hà,16.0,4,2010,5.0,200.0,3.2,0.96,-77.9
+40,AVAILABLE,Hoàn Kiếm,Hàng Gai,15.0,5,2010,3.0,330.0,4.95,0.0,0.0
+40,REVOKED (similar),Hoàn Kiếm,Hàng Bài,32.0,5,2010,3.7,288.0,9.2,0.5,85.9
+41,AVAILABLE,Hoàn Kiếm,Hàng Buồm,145.0,5,2005,3.3,652.0,94.5,0.0,0.0
+41,REVOKED (similar),Hoàn Kiếm,Đồng Xuân,97.6,6,2005,3.5,523.0,51.0,1.22,-46.0
+42,AVAILABLE,Hai Bà Trưng,Thanh Lương,59.9,3,2017,2.8,125.0,7.5,0.0,0.0
+42,REVOKED (similar),Hai Bà Trưng,Bạch Đằng,46.5,3,2018,3.3,125.0,5.8,0.41,-22.7
+43,AVAILABLE,Hai Bà Trưng,Thanh Nhàn,125.9,3,2005,10.9,214.0,27.0,0.0,0.0
+43,REVOKED (similar),Hai Bà Trưng,Bạch Mai,93.0,4,2012,10.7,124.0,11.5,1.38,-57.4
+44,AVAILABLE,Hoàn Kiếm,Hàng Bồ,76.0,3,1986,3.7,204.0,15.5,0.0,0.0
+44,REVOKED (similar),Hoàn Kiếm,Hàng Gai,63.8,4,1995,3.3,462.0,29.5,1.47,90.3
+45,AVAILABLE,Long Biên,Ngọc Lâm,75.1,3,2014,4.8,426.0,32.0,0.0,0.0
+45,REVOKED (similar),Long Biên,Ngọc Thụy,80.0,3,2016,4.0,104.0,8.3,0.54,-74.1
+45,SOLD (similar),Long Biên,Thượng Thanh,45.0,3,2010,4.5,78.0,3.5,0.91,-89.1
+46,AVAILABLE,Long Biên,Bồ Đề,164.0,5,2019,7.2,250.0,41.0,0.0,0.0
+46,REVOKED (similar),Long Biên,Long Biên,155.0,4,2018,6.1,111.0,17.2,0.95,-58.0
+47,AVAILABLE,Hoàng Mai,Giáp Bát,54.2,4,1999,3.4,341.0,18.5,0.0,0.0
+47,REVOKED (similar),Hoàng Mai,Định Công,64.5,4,2002,3.6,267.0,17.2,0.55,-7.0
+48,AVAILABLE,Hoàng Mai,Lĩnh Nam,54.0,1,2010,4.0,167.0,9.0,0.0,0.0
+48,REVOKED (similar),Hoàng Mai,Lĩnh Nam,56.0,1,2012,3.5,84.0,4.7,0.4,-47.8
+49,AVAILABLE,Long Biên,Ngọc Thụy,165.0,5,2019,6.8,169.0,27.9,0.0,0.0
+49,REVOKED (similar),Long Biên,Sài Đồng,130.9,4,2020,7.8,206.0,27.0,1.08,-3.2
+50,AVAILABLE,Thanh Xuân,Thanh Xuân Trung,64.2,3,2007,3.2,288.0,18.5,0.0,0.0
+50,REVOKED (similar),Thanh Xuân,Khương Đình,69.1,3,2009,3.3,224.0,15.5,0.36,-16.2
+50,SOLD (similar),Thanh Xuân,Khương Mai,78.0,4,2010,3.9,240.0,18.7,1.0,1.1
+51,AVAILABLE,Hoàng Mai,Hoàng Liệt,40.0,4,2012,3.5,212.0,8.5,0.0,0.0
+51,REVOKED (similar),Hoàng Mai,Đại Kim,32.0,4,2013,3.2,119.0,3.8,0.34,-55.3
+51,SOLD (similar),Hoàng Mai,Mai Động,28.0,4,2011,3.8,150.0,4.2,0.9,-50.6
+52,AVAILABLE,Tây Hồ,Bưởi,160.0,9,2022,2.2,322.0,51.5,0.0,0.0
+52,REVOKED (similar),Tây Hồ,Yên Phụ,167.4,8,2018,4.4,490.0,82.0,1.49,59.2
+53,AVAILABLE,Tây Hồ,Yên Phụ,68.0,8,2023,3.2,588.0,40.0,0.0,0.0
+53,REVOKED (similar),Tây Hồ,Bưởi,62.7,8,2021,3.0,180.0,11.3,0.68,-71.8
+54,AVAILABLE,Tây Hồ,Quảng An,56.0,3,2002,4.0,164.0,9.2,0.0,0.0
+54,REVOKED (similar),Tây Hồ,Tứ Liên,52.8,3,2000,5.1,136.0,7.2,0.61,-21.7
+55,AVAILABLE,Ba Đình,Ngọc Khánh,33.7,5,2012,4.0,282.0,9.5,0.0,0.0
+55,REVOKED (similar),Ba Đình,Giảng Võ,34.7,5,2010,3.9,130.0,4.5,0.29,-52.6
+55,SOLD (similar),Ba Đình,Ngọc Khánh,35.6,4,2008,3.2,157.0,5.6,0.92,-41.1
+56,AVAILABLE,Ba Đình,Cống Vị,43.1,3,2015,4.8,487.0,21.0,0.0,0.0
+56,REVOKED (similar),Ba Đình,Đội Cấn,56.0,3,2015,4.1,114.0,6.4,0.47,-69.5
+57,AVAILABLE,Đống Đa,Nam Đồng,111.4,5,2007,4.1,548.0,61.0,0.0,0.0
+57,REVOKED (similar),Đống Đa,Cát Linh,85.7,5,2006,3.8,432.0,37.0,0.74,-39.3
+58,AVAILABLE,Ba Đình,Vĩnh Phúc,90.0,2,2010,3.8,206.0,18.5,0.0,0.0
+58,REVOKED (similar),Ba Đình,Vĩnh Phúc,84.0,2,2009,3.7,190.0,16.0,0.21,-13.5
+59,AVAILABLE,Tây Hồ,Tứ Liên,110.0,1,2002,6.5,86.0,9.5,0.0,0.0
+59,REVOKED (similar),Tây Hồ,Bưởi,105.6,2,1999,6.7,114.0,12.0,1.01,26.3
+60,AVAILABLE,Thanh Xuân,Khương Trung,86.3,5,2010,5.3,348.0,30.0,0.0,0.0
+60,REVOKED (similar),Thanh Xuân,Khương Trung,94.3,5,2012,5.1,255.0,24.0,0.48,-20.0
+60,SOLD (similar),Thanh Xuân,Khương Mai,78.0,4,2010,3.9,240.0,18.7,0.97,-37.7
+61,AVAILABLE,Đống Đa,Láng Hạ,42.4,5,2010,3.9,283.0,12.0,0.0,0.0
+61,REVOKED (similar),Đống Đa,Thổ Quan,54.0,4,2012,3.8,137.0,7.4,0.91,-38.3
+62,AVAILABLE,Hai Bà Trưng,Lê Đại Hành,19.4,5,2022,3.0,613.0,11.9,0.0,0.0
+62,REVOKED (similar),Hai Bà Trưng,Cầu Dền,20.2,5,2023,3.1,173.0,3.5,0.17,-70.6
+62,SOLD (similar),Hai Bà Trưng,Thanh Nhàn,40.0,5,2023,3.3,99.0,3.95,0.49,-66.8
+63,AVAILABLE,Hoàn Kiếm,Hàng Buồm,68.3,4,2010,4.3,344.0,23.5,0.0,0.0
+63,REVOKED (similar),Hoàn Kiếm,Chương Dương,51.9,3,2010,5.1,301.0,15.6,0.85,-33.6
+64,AVAILABLE,Hoàng Mai,Định Công,77.5,4,2021,5.0,245.0,19.0,0.0,0.0
+64,REVOKED (similar),Hoàng Mai,Đại Kim,75.0,4,2019,5.0,307.0,23.0,0.32,21.1
+65,AVAILABLE,Long Biên,Bồ Đề,114.2,2,2020,5.1,394.0,45.0,0.0,0.0
+65,REVOKED (similar),Long Biên,Bồ Đề,118.7,3,2017,5.8,295.0,35.0,0.84,-22.2
+66,AVAILABLE,Hoàng Mai,Đại Kim,53.0,4,2016,3.9,415.0,22.0,0.0,0.0
+66,REVOKED (similar),Hoàng Mai,Đại Kim,54.0,4,2014,4.0,129.0,6.95,0.29,-68.4
+66,SOLD (similar),Hoàng Mai,Giáp Bát,87.0,4,2015,4.8,259.0,22.5,0.98,2.3
+67,AVAILABLE,Đống Đa,Thịnh Quang,53.8,5,2011,4.0,400.0,21.5,0.0,0.0
+67,REVOKED (similar),Đống Đa,Ngã Tư Sở,63.3,5,2010,4.0,177.0,11.2,0.27,-47.9
+67,SOLD (similar),Đống Đa,Thổ Quan,50.0,5,2012,4.0,194.0,9.7,0.41,-54.9
+68,AVAILABLE,Ba Đình,Vĩnh Phúc,60.0,4,2010,10.5,183.0,11.0,0.0,0.0
+68,REVOKED (similar),Ba Đình,Ngọc Hà,66.7,3,2010,10.0,71.0,4.75,0.81,-56.8
+69,AVAILABLE,Hoàng Mai,Định Công,95.5,2,2009,7.2,131.0,12.5,0.0,0.0
+69,REVOKED (similar),Hoàng Mai,Tân Mai,79.7,2,2008,7.9,88.0,7.0,0.55,-44.0
+70,AVAILABLE,Hoàng Mai,Tân Mai,58.4,3,2010,3.3,231.0,13.5,0.0,0.0
+70,REVOKED (similar),Hoàng Mai,Vĩnh Hưng,78.2,3,2010,4.0,130.0,10.2,0.8,-24.4
+71,AVAILABLE,Long Biên,Ngọc Thụy,177.0,3,2017,9.0,186.0,33.0,0.0,0.0
+71,REVOKED (similar),Long Biên,Việt Hưng,175.2,4,2014,9.8,180.0,31.5,1.26,-4.5
+72,AVAILABLE,Ba Đình,Đội Cấn,90.0,5,2015,5.0,389.0,35.0,0.0,0.0
+72,REVOKED (similar),Ba Đình,Ngọc Hà,91.7,5,2013,5.0,142.0,13.0,0.33,-62.9
+73,AVAILABLE,Hai Bà Trưng,Minh Khai,81.7,7,2016,5.9,294.0,24.0,0.0,0.0
+73,REVOKED (similar),Hai Bà Trưng,Trương Định,89.9,7,2020,6.0,172.0,15.5,0.65,-35.4
+74,AVAILABLE,Cầu Giấy,Nghĩa Đô,33.0,3,1998,2.8,394.0,13.0,0.0,0.0
+74,REVOKED (similar),Cầu Giấy,Quan Hoa,31.0,3,2000,3.4,113.0,3.5,0.48,-73.1
+75,AVAILABLE,Đống Đa,Quang Trung,36.0,3,2000,3.4,367.0,13.2,0.0,0.0
+75,REVOKED (similar),Đống Đa,Trung Liệt,49.2,3,2000,3.4,254.0,12.5,0.3,-5.3
+75,SOLD (similar),Đống Đa,Văn Chương,37.3,3,1998,3.5,113.0,4.2,0.44,-68.2
+76,AVAILABLE,Cầu Giấy,Yên Hòa,165.0,7,2016,9.0,179.0,29.6,0.0,0.0
+76,REVOKED (similar),Cầu Giấy,Trung Hòa,130.0,7,2021,7.8,277.0,36.0,1.26,21.6
+77,AVAILABLE,Tây Hồ,Quảng An,390.0,3,2000,10.5,115.0,45.0,0.0,0.0
+77,REVOKED (similar),Tây Hồ,Bưởi,297.6,2,2000,7.0,151.0,45.0,2.7,0.0
+78,AVAILABLE,Đống Đa,Thổ Quan,44.0,4,2014,9.0,511.0,22.5,0.0,0.0
+78,REVOKED (similar),Đống Đa,Phương Liên,38.3,4,2012,8.7,164.0,6.3,0.47,-72.0
+79,AVAILABLE,Long Biên,Phúc Lợi,383.0,7,2022,16.1,352.0,135.0,0.0,0.0
+79,REVOKED (similar),Long Biên,Phúc Lợi,364.0,5,2018,16.9,36.0,13.0,2.8,-90.4
+80,AVAILABLE,Hoàng Mai,Đại Kim,124.0,7,2023,7.0,242.0,30.0,0.0,0.0
+80,REVOKED (similar),Hoàng Mai,Định Công,106.0,8,2023,7.0,197.0,20.9,0.85,-30.3
+81,AVAILABLE,Long Biên,Bồ Đề,135.0,3,2012,11.6,296.0,40.0,0.0,0.0
+81,REVOKED (similar),Long Biên,Đức Giang,127.6,3,2016,12.1,313.0,40.0,1.31,0.0
+82,AVAILABLE,Long Biên,Long Biên,142.0,1,2022,11.7,380.0,54.0,0.0,0.0
+82,REVOKED (similar),Long Biên,Việt Hưng,175.0,1,2023,8.5,123.0,21.5,1.74,-60.2
+83,AVAILABLE,Nam Từ Liêm,Phương Canh,75.0,6,2020,3.7,347.0,26.0,0.0,0.0
+83,REVOKED (similar),Nam Từ Liêm,Mỹ Đình 2,80.0,5,2022,3.2,181.0,14.5,0.73,-44.2
+84,AVAILABLE,Thanh Trì,X. Tân Triều,388.0,9,2022,8.6,255.0,99.0,0.0,0.0
+84,REVOKED (similar),Thanh Trì,X. Tân Triều,132.0,8,2023,10.0,265.0,35.0,5.54,-64.6
+85,AVAILABLE,Thanh Xuân,Khương Trung,143.0,9,2018,4.3,350.0,50.0,0.0,0.0
+85,REVOKED (similar),Thanh Xuân,Phương Liệt,115.0,9,2020,5.0,234.0,26.9,0.84,-46.2
+86,AVAILABLE,Thanh Xuân,Khương Trung,109.4,9,2013,4.2,420.0,45.9,0.0,0.0
+86,REVOKED (similar),Thanh Xuân,Khương Mai,96.0,8,2017,4.9,359.0,34.5,0.96,-24.8
+87,AVAILABLE,Bắc Từ Liêm,Xuân Đỉnh,72.4,4,2019,4.6,345.0,25.0,0.0,0.0
+87,REVOKED (similar),Bắc Từ Liêm,Xuân Đỉnh,65.0,4,2018,4.1,146.0,9.5,0.47,-62.0
+88,AVAILABLE,Cầu Giấy,Yên Hòa,314.2,5,2019,13.3,414.0,130.0,0.0,0.0
+88,REVOKED (similar),Cầu Giấy,Dịch Vọng Hậu,236.0,3,2012,17.0,466.0,110.0,2.99,-15.4
+89,AVAILABLE,Long Biên,Thượng Thanh,70.0,1,2005,5.9,93.0,6.5,0.0,0.0
+89,REVOKED (similar),Long Biên,Đức Giang,76.6,1,2008,5.4,167.0,12.8,0.56,96.9
+90,AVAILABLE,Nam Từ Liêm,Tây Mỗ,345.0,3,2009,12.0,203.0,70.0,0.0,0.0
+90,REVOKED (similar),Nam Từ Liêm,Mễ Trì,215.3,4,2014,11.2,149.0,32.0,3.05,-54.3
+91,AVAILABLE,Gia Lâm,TT. Trâu Quỳ,95.0,1,2017,4.0,238.0,22.6,0.0,0.0
+91,REVOKED (similar),Gia Lâm,TT. Trâu Quỳ,80.0,2,2016,5.0,97.0,7.75,0.94,-65.7
+92,AVAILABLE,Tây Hồ,Nhật Tân,222.0,2,2010,6.0,257.0,57.0,0.0,0.0
+92,REVOKED (similar),Tây Hồ,Quảng An,232.6,1,2009,6.0,439.0,102.0,0.73,78.9
+93,AVAILABLE,Bắc Từ Liêm,Xuân Đỉnh,99.6,3,2009,4.5,251.0,25.0,0.0,0.0
+93,REVOKED (similar),Bắc Từ Liêm,Cổ Nhuế 1,74.0,3,2010,4.2,211.0,15.6,0.75,-37.6
+94,AVAILABLE,Cầu Giấy,Mai Dịch,64.0,3,1998,3.6,328.0,21.0,0.0,0.0
+94,REVOKED (similar),Cầu Giấy,Dịch Vọng,40.0,3,2000,4.0,205.0,8.2,0.72,-61.0
+95,AVAILABLE,Cầu Giấy,Quan Hoa,118.0,5,2012,12.5,331.0,39.0,0.0,0.0
+95,REVOKED (similar),Cầu Giấy,Quan Hoa,105.4,5,2015,9.8,148.0,15.6,1.37,-60.0
+96,AVAILABLE,Cầu Giấy,Trung Hòa,72.5,2,2010,3.0,193.0,14.0,0.0,0.0
+96,REVOKED (similar),Cầu Giấy,Trung Hòa,45.4,2,2010,3.6,162.0,7.35,0.69,-47.5
+97,AVAILABLE,Hoàng Mai,Mai Động,138.0,3,2010,7.5,152.0,21.0,0.0,0.0
+97,REVOKED (similar),Hoàng Mai,Thịnh Liệt,127.7,3,2015,7.6,114.0,14.5,0.83,-31.0
+97,SOLD (similar),Hoàng Mai,Yên Sở,112.0,3,2010,7.7,123.0,13.8,0.57,-34.3
+98,AVAILABLE,Đống Đa,Ô Chợ Dừa,61.1,2,2000,5.1,352.0,21.5,0.0,0.0
+98,REVOKED (similar),Đống Đa,Nam Đồng,61.9,2,1999,5.0,194.0,12.0,0.38,-44.2
+98,SOLD (similar),Đống Đa,Văn Chương,51.0,1,2000,4.2,72.0,3.65,0.83,-83.0
+99,AVAILABLE,Tây Hồ,Quảng An,50.0,5,2015,5.0,390.0,19.5,0.0,0.0
+99,REVOKED (similar),Tây Hồ,Quảng An,60.0,5,2015,5.4,467.0,28.0,0.31,43.6
+100,AVAILABLE,Nam Từ Liêm,Mỹ Đình 2,121.8,3,2005,5.1,250.0,30.5,0.0,0.0
+100,REVOKED (similar),Nam Từ Liêm,Mỹ Đình 1,81.7,3,2005,4.4,196.0,16.0,0.97,-47.5
+101,AVAILABLE,Ba Đình,Điện Biên,72.3,5,2017,6.5,374.0,27.0,0.0,0.0
+101,REVOKED (similar),Ba Đình,Ngọc Khánh,77.0,5,2019,6.8,175.0,13.5,0.5,-50.0
+102,AVAILABLE,Bắc Từ Liêm,Cổ Nhuế 2,51.0,2,2015,4.1,273.0,13.9,0.0,0.0
+102,REVOKED (similar),Bắc Từ Liêm,Xuân Đỉnh,47.9,2,2015,4.9,88.0,4.2,0.51,-69.8
+103,AVAILABLE,Tây Hồ,Quảng An,166.9,4,2005,9.7,180.0,30.0,0.0,0.0
+103,REVOKED (similar),Tây Hồ,Quảng An,145.0,2,2013,9.3,228.0,33.0,1.78,10.0
+104,AVAILABLE,Thanh Xuân,Khương Trung,62.0,4,2015,4.9,306.0,19.0,0.0,0.0
+104,REVOKED (similar),Thanh Xuân,Thượng Đình,75.0,4,2014,5.0,133.0,10.0,0.35,-47.4
+104,SOLD (similar),Thanh Xuân,Khương Đình,50.1,4,2016,5.3,149.0,7.45,0.56,-60.8
+105,AVAILABLE,Thanh Xuân,Nhân Chính,57.2,3,2014,4.0,108.0,6.2,0.0,0.0
+105,REVOKED (similar),Thanh Xuân,Thượng Đình,48.9,3,2015,4.4,115.0,5.6,0.3,-9.7
+105,SOLD (similar),Thanh Xuân,Khương Mai,78.0,4,2010,3.9,240.0,18.7,0.99,201.6
+106,AVAILABLE,Thanh Xuân,Phương Liệt,54.0,4,2011,3.9,369.0,19.9,0.0,0.0
+106,REVOKED (similar),Thanh Xuân,Khương Mai,62.5,4,2010,3.9,237.0,14.8,0.34,-25.6
+106,SOLD (similar),Thanh Xuân,Khương Mai,78.0,4,2010,3.9,240.0,18.7,0.69,-6.0
+107,AVAILABLE,Thanh Xuân,Thanh Xuân Trung,72.0,2,2000,3.6,514.0,37.0,0.0,0.0
+107,REVOKED (similar),Thanh Xuân,Thanh Xuân Trung,74.5,2,1998,4.3,185.0,13.8,0.45,-62.7
+108,AVAILABLE,Long Biên,Ngọc Lâm,110.0,6,2024,12.1,255.0,28.0,0.0,0.0
+108,REVOKED (similar),Long Biên,Bồ Đề,127.3,5,2021,11.8,228.0,29.0,1.55,3.6
+109,AVAILABLE,Hoàng Mai,Thịnh Liệt,96.4,5,2020,5.4,456.0,44.0,0.0,0.0
+109,REVOKED (similar),Hoàng Mai,Hoàng Văn Thụ,93.8,5,2019,5.0,199.0,18.7,0.26,-57.5
+109,SOLD (similar),Hoàng Mai,Hoàng Văn Thụ,62.3,5,2018,5.0,87.0,5.45,0.87,-87.6
+110,AVAILABLE,Đống Đa,Thịnh Quang,52.8,3,2008,0.7,246.0,13.0,0.0,0.0
+110,REVOKED (similar),Đống Đa,Ô Chợ Dừa,50.1,2,2008,1.2,90.0,4.5,0.75,-65.4
+111,AVAILABLE,Đống Đa,Khương Thượng,50.0,2,2005,2.9,250.0,12.5,0.0,0.0
+111,REVOKED (similar),Đống Đa,Phương Liên,63.9,2,2005,3.3,74.0,4.7,0.36,-62.4
+111,SOLD (similar),Đống Đa,Trung Phụng,33.7,2,2005,3.8,92.0,3.1,0.61,-75.2
+112,AVAILABLE,Ba Đình,Phúc Xá,110.0,3,2006,3.1,95.0,10.5,0.0,0.0
+112,REVOKED (similar),Ba Đình,Liễu Giai,94.0,3,2005,4.1,137.0,12.9,0.81,22.9
+113,AVAILABLE,Bắc Từ Liêm,Cổ Nhuế 1,53.6,4,2003,7.0,317.0,17.0,0.0,0.0
+113,REVOKED (similar),Bắc Từ Liêm,Cổ Nhuế 1,52.0,4,2010,6.4,100.0,5.2,1.06,-69.4
+114,AVAILABLE,Hai Bà Trưng,Phố Huế,67.8,5,2023,3.9,435.0,29.5,0.0,0.0
+114,REVOKED (similar),Hai Bà Trưng,Thanh Lương,68.2,5,2023,4.0,204.0,13.9,0.28,-52.9
+114,SOLD (similar),Hai Bà Trưng,Thanh Nhàn,40.0,5,2023,3.3,99.0,3.95,0.68,-86.6
+115,AVAILABLE,Hoàng Mai,Vĩnh Hưng,81.5,1,2019,4.6,196.0,16.0,0.0,0.0
+115,REVOKED (similar),Hoàng Mai,Giáp Bát,65.5,1,2018,3.8,86.0,5.65,0.61,-64.7
+116,AVAILABLE,Thanh Xuân,Khương Đình,46.2,5,2017,3.5,281.0,13.0,0.0,0.0
+116,REVOKED (similar),Thanh Xuân,Khương Đình,50.0,5,2018,3.6,118.0,5.9,0.18,-54.6
+116,SOLD (similar),Thanh Xuân,Khương Đình,33.0,4,2015,3.2,139.0,4.6,0.77,-64.6
+117,AVAILABLE,Hai Bà Trưng,Lê Đại Hành,67.2,3,2018,3.7,253.0,17.0,0.0,0.0
+117,REVOKED (similar),Hai Bà Trưng,Minh Khai,58.0,3,2018,3.6,109.0,6.3,0.6,-62.9
+117,SOLD (similar),Hai Bà Trưng,Vĩnh Tuy,49.7,3,2019,3.5,109.0,5.4,0.74,-68.2
+118,AVAILABLE,Tây Hồ,Bưởi,18.2,2,2000,2.9,357.0,6.5,0.0,0.0
+118,REVOKED (similar),Tây Hồ,Yên Phụ,34.0,1,1997,4.1,97.0,3.3,1.02,-49.2
+119,AVAILABLE,Nam Từ Liêm,Mỹ Đình 2,73.2,8,2022,4.8,301.0,22.0,0.0,0.0
+119,REVOKED (similar),Nam Từ Liêm,Mỹ Đình 2,71.0,8,2023,4.1,225.0,16.0,0.39,-27.3
+119,SOLD (similar),Nam Từ Liêm,Mỹ Đình 1,80.0,8,2023,5.9,512.0,41.0,0.6,86.4
+120,AVAILABLE,Hoàn Kiếm,Lý Thái Tổ,85.0,4,1999,1.0,259.0,22.0,0.0,0.0
+120,REVOKED (similar),Hoàn Kiếm,Hàng Gai,63.8,4,1995,3.3,462.0,29.5,1.3,34.1
+121,AVAILABLE,Đống Đa,Phương Liên,177.3,5,2023,4.8,282.0,50.0,0.0,0.0
+121,REVOKED (similar),Đống Đa,Trung Phụng,160.0,5,2023,4.6,46.0,7.35,0.45,-85.3
+122,AVAILABLE,Cầu Giấy,Nghĩa Tân,63.0,5,2006,3.5,794.0,50.0,0.0,0.0
+122,REVOKED (similar),Cầu Giấy,Quan Hoa,44.2,5,2007,3.7,301.0,13.3,0.55,-73.4
+123,AVAILABLE,Thanh Trì,X. Tân Triều,83.2,5,2018,6.9,165.0,13.7,0.0,0.0
+123,REVOKED (similar),Thanh Trì,X. Tân Triều,73.5,4,2015,6.1,124.0,9.15,0.88,-33.2
+124,AVAILABLE,Hai Bà Trưng,Nguyễn Du,130.0,3,1990,6.5,615.0,80.0,0.0,0.0
+124,REVOKED (similar),Hai Bà Trưng,Trương Định,116.1,2,1996,4.3,258.0,30.0,1.56,-62.5
+125,AVAILABLE,Đống Đa,Thịnh Quang,52.4,2,2000,3.3,239.0,12.5,0.0,0.0
+125,REVOKED (similar),Đống Đa,Thịnh Quang,58.0,2,2000,3.5,119.0,6.9,0.16,-44.8
+125,SOLD (similar),Đống Đa,Văn Chương,37.3,3,1998,3.5,113.0,4.2,0.93,-66.4
+126,AVAILABLE,Long Biên,Đức Giang,66.0,3,2010,2.5,235.0,15.5,0.0,0.0
+126,REVOKED (similar),Long Biên,Ngọc Thụy,51.1,3,2010,3.1,136.0,6.95,0.67,-55.2
+127,AVAILABLE,Hoàng Mai,Hoàng Văn Thụ,64.0,5,2023,3.7,234.0,15.0,0.0,0.0
+127,REVOKED (similar),Hoàng Mai,Hoàng Văn Thụ,59.0,5,2023,3.4,152.0,8.95,0.27,-40.3
+127,SOLD (similar),Hoàng Mai,Yên Sở,50.0,5,2024,4.3,140.0,7.0,0.73,-53.3
+128,AVAILABLE,Hoàng Mai,Tương Mai,55.4,5,2003,5.6,632.0,35.0,0.0,0.0
+128,REVOKED (similar),Hoàng Mai,Tương Mai,58.0,5,2005,4.2,86.0,5.0,1.05,-85.7
+129,AVAILABLE,Đống Đa,Kim Liên,47.2,4,2015,2.2,143.0,6.75,0.0,0.0
+129,REVOKED (similar),Đống Đa,Thổ Quan,39.7,4,2016,2.4,111.0,4.4,0.33,-34.8
+129,SOLD (similar),Đống Đa,Thịnh Quang,35.5,4,2015,3.1,149.0,5.3,0.59,-21.5
+130,AVAILABLE,Đống Đa,Nam Đồng,47.0,2,2010,5.3,181.0,8.5,0.0,0.0
+130,REVOKED (similar),Đống Đa,Ô Chợ Dừa,45.9,2,2010,4.9,94.0,4.3,0.31,-49.4
+131,AVAILABLE,Thanh Xuân,Khương Mai,49.4,5,2013,3.1,466.0,23.0,0.0,0.0
+131,REVOKED (similar),Thanh Xuân,Khương Mai,48.4,5,2015,3.4,211.0,10.2,0.37,-55.7
+131,SOLD (similar),Thanh Xuân,Phương Liệt,75.0,5,2014,3.5,264.0,19.8,0.65,-13.9
+132,AVAILABLE,Hai Bà Trưng,Quỳnh Mai,30.6,4,2015,6.5,556.0,17.0,0.0,0.0
+132,REVOKED (similar),Hai Bà Trưng,Bạch Đằng,21.0,4,2015,5.7,119.0,2.5,0.54,-85.3
+132,SOLD (similar),Hai Bà Trưng,Trương Định,22.3,5,2013,7.5,186.0,4.15,0.9,-75.6
+133,AVAILABLE,Hai Bà Trưng,Thanh Lương,38.0,5,2014,5.0,250.0,9.5,0.0,0.0
+133,REVOKED (similar),Hai Bà Trưng,Vĩnh Tuy,42.4,5,2013,4.9,252.0,10.7,0.29,12.6
+133,SOLD (similar),Hai Bà Trưng,Thanh Lương,31.0,5,2015,4.3,135.0,4.2,0.41,-55.8
+134,AVAILABLE,Gia Lâm,TT. Yên Viên,180.0,1,2016,5.0,37.0,6.6,0.0,0.0
+134,REVOKED (similar),Gia Lâm,TT. Yên Viên,108.0,3,2006,4.0,76.0,8.2,2.5,24.2
+135,AVAILABLE,Long Biên,Gia Thụy,61.0,4,2010,3.5,410.0,25.0,0.0,0.0
+135,REVOKED (similar),Long Biên,Ngọc Lâm,56.0,4,2012,3.4,86.0,4.8,0.41,-80.8
+135,SOLD (similar),Long Biên,Ngọc Lâm,93.9,4,2010,4.3,176.0,16.5,0.85,-34.0
+136,AVAILABLE,Nam Từ Liêm,Trung Văn,68.8,4,2010,5.0,414.0,28.5,0.0,0.0
+136,REVOKED (similar),Nam Từ Liêm,Trung Văn,53.0,4,2010,5.0,120.0,6.35,0.36,-77.7
+137,AVAILABLE,Hai Bà Trưng,Minh Khai,34.2,5,2022,4.8,541.0,18.5,0.0,0.0
+137,REVOKED (similar),Hai Bà Trưng,Minh Khai,30.2,5,2023,5.1,159.0,4.8,0.21,-74.1
+137,SOLD (similar),Hai Bà Trưng,Quỳnh Lôi,35.0,4,2023,4.4,146.0,5.1,0.7,-72.4
+138,AVAILABLE,Hoàng Mai,Hoàng Liệt,326.8,5,2023,24.0,168.0,55.0,0.0,0.0
+138,REVOKED (similar),Hoàng Mai,Hoàng Liệt,363.5,4,2018,30.0,426.0,155.0,3.28,181.8
+139,AVAILABLE,Hoàn Kiếm,Chương Dương,60.7,4,2018,3.6,127.0,7.7,0.0,0.0
+139,REVOKED (similar),Hoàn Kiếm,Cửa Đông,40.0,4,2018,3.0,225.0,9.0,0.61,16.9
+140,AVAILABLE,Hai Bà Trưng,Thanh Lương,82.6,3,2006,1.4,104.0,8.6,0.0,0.0
+140,REVOKED (similar),Hai Bà Trưng,Minh Khai,100.0,3,2005,2.0,110.0,11.0,0.57,27.9
+141,AVAILABLE,Đống Đa,Ô Chợ Dừa,93.9,2,2010,3.2,151.0,14.2,0.0,0.0
+141,REVOKED (similar),Đống Đa,Ngã Tư Sở,99.1,2,2009,2.9,182.0,18.0,0.63,26.8
+142,AVAILABLE,Đống Đa,Thịnh Quang,39.1,5,2023,6.5,220.0,8.6,0.0,0.0
+142,REVOKED (similar),Đống Đa,Thịnh Quang,39.1,5,2021,6.5,220.0,8.6,0.28,0.0
+142,SOLD (similar),Đống Đa,Láng Thượng,37.8,4,2022,5.6,180.0,6.8,0.97,-20.9
+143,AVAILABLE,Hoàng Mai,Giáp Bát,47.5,4,2020,4.2,566.0,26.9,0.0,0.0
+143,REVOKED (similar),Hoàng Mai,Tương Mai,44.2,4,2019,4.0,152.0,6.7,0.27,-75.1
+143,SOLD (similar),Hoàng Mai,Đại Kim,30.6,4,2023,5.0,126.0,3.85,0.82,-85.7
+144,AVAILABLE,Ba Đình,Thành Công,69.7,5,2018,5.5,430.0,30.0,0.0,0.0
+144,REVOKED (similar),Ba Đình,Cống Vị,65.1,5,2019,5.4,346.0,22.5,0.39,-25.0
+145,AVAILABLE,Hoàng Mai,Giáp Bát,83.6,4,2001,3.6,322.0,26.9,0.0,0.0
+145,REVOKED (similar),Hoàng Mai,Định Công,64.5,4,2002,3.6,267.0,17.2,0.46,-36.1
+146,AVAILABLE,Ba Đình,Giảng Võ,44.2,3,2010,2.3,192.0,8.5,0.0,0.0
+146,REVOKED (similar),Ba Đình,Liễu Giai,56.1,3,2010,2.0,106.0,5.95,0.4,-30.0
+146,SOLD (similar),Ba Đình,Ngọc Khánh,35.6,4,2008,3.2,157.0,5.6,0.85,-34.1
+147,AVAILABLE,Hoàng Mai,Thịnh Liệt,48.0,4,2017,3.5,292.0,14.0,0.0,0.0
+147,REVOKED (similar),Hoàng Mai,Thịnh Liệt,49.3,4,2017,3.7,115.0,5.65,0.13,-59.6
+147,SOLD (similar),Hoàng Mai,Vĩnh Hưng,32.4,4,2015,2.9,97.0,3.15,0.81,-77.5
+148,AVAILABLE,Ba Đình,Kim Mã,70.8,5,2003,3.9,254.0,18.0,0.0,0.0
+148,REVOKED (similar),Ba Đình,Ngọc Hà,73.5,5,2007,4.1,136.0,10.0,0.64,-44.4
+149,AVAILABLE,Ba Đình,Phúc Xá,74.1,3,2009,6.3,119.0,8.8,0.0,0.0
+149,REVOKED (similar),Ba Đình,Phúc Xá,83.0,4,2008,4.9,211.0,17.5,0.96,98.9
+150,AVAILABLE,Hoàng Mai,Vĩnh Hưng,21.5,4,2019,1.9,209.0,4.5,0.0,0.0
+150,REVOKED (similar),Hoàng Mai,Tân Mai,30.0,4,2018,2.9,120.0,3.6,0.54,-20.0
+150,SOLD (similar),Hoàng Mai,Vĩnh Hưng,33.4,5,2022,3.1,126.0,4.2,1.0,-6.7
+151,AVAILABLE,Gia Lâm,TT. Yên Viên,57.8,4,2018,4.0,130.0,7.5,0.0,0.0
+151,REVOKED (similar),Gia Lâm,X. Yên Viên,34.1,4,2017,4.4,106.0,3.6,0.56,-52.0
+152,AVAILABLE,Long Biên,Bồ Đề,42.6,7,2015,4.5,598.0,25.5,0.0,0.0
+152,REVOKED (similar),Long Biên,Thạch Bàn,46.6,6,2017,4.4,204.0,9.5,0.7,-62.7
+153,AVAILABLE,Tây Hồ,Quảng An,253.9,2,2018,15.8,197.0,50.0,0.0,0.0
+153,REVOKED (similar),Tây Hồ,Phú Thượng,252.0,4,2017,14.0,496.0,125.0,1.62,150.0
+154,AVAILABLE,Đống Đa,Quang Trung,106.6,5,2003,4.1,558.0,59.5,0.0,0.0
+154,REVOKED (similar),Đống Đa,Láng Hạ,90.0,5,2000,5.0,261.0,23.5,0.7,-60.5
+155,AVAILABLE,Tây Hồ,Bưởi,100.0,3,2023,6.0,132.0,13.2,0.0,0.0
+155,REVOKED (similar),Tây Hồ,Yên Phụ,85.0,4,2022,5.8,412.0,35.0,0.89,165.2
+156,AVAILABLE,Nam Từ Liêm,Cầu Diễn,140.0,3,2012,5.0,364.0,51.0,0.0,0.0
+156,REVOKED (similar),Nam Từ Liêm,Mỹ Đình 1,124.0,4,2010,4.2,282.0,35.0,0.96,-31.4
+157,AVAILABLE,Thanh Xuân,Khương Mai,122.0,5,2013,4.2,410.0,50.0,0.0,0.0
+157,REVOKED (similar),Thanh Xuân,Khương Trung,126.0,5,2015,5.2,230.0,29.0,0.56,-42.0
+158,AVAILABLE,Thanh Xuân,Phương Liệt,35.0,7,2020,3.4,800.0,28.0,0.0,0.0
+158,REVOKED (similar),Thanh Xuân,Khương Mai,45.4,7,2022,3.6,304.0,13.8,0.42,-50.7
+158,SOLD (similar),Thanh Xuân,Khương Trung,55.0,7,2018,4.3,342.0,18.8,0.79,-32.9
+159,AVAILABLE,Hai Bà Trưng,Thanh Nhàn,33.0,6,2017,5.0,491.0,16.2,0.0,0.0
+159,REVOKED (similar),Hai Bà Trưng,Trương Định,45.5,6,2017,5.2,215.0,9.8,0.37,-39.5
+159,SOLD (similar),Hai Bà Trưng,Thanh Lương,31.0,5,2015,4.3,135.0,4.2,0.79,-74.1
+160,AVAILABLE,Đống Đa,Ô Chợ Dừa,119.3,4,2010,4.8,637.0,76.0,0.0,0.0
+160,REVOKED (similar),Đống Đa,Trung Liệt,133.5,4,2010,6.1,225.0,30.0,0.73,-60.5
+161,AVAILABLE,Đống Đa,Láng Thượng,40.0,4,2015,4.4,375.0,15.0,0.0,0.0
+161,REVOKED (similar),Đống Đa,Láng Hạ,36.5,4,2015,4.4,133.0,4.85,0.2,-67.7
+161,SOLD (similar),Đống Đa,Thịnh Quang,32.0,4,2014,3.5,162.0,5.2,0.54,-65.3
+162,AVAILABLE,Hai Bà Trưng,Thanh Lương,70.0,1,2000,3.7,321.0,22.5,0.0,0.0
+162,REVOKED (similar),Hai Bà Trưng,Bạch Đằng,79.0,1,1999,4.0,241.0,19.0,0.3,-15.6
+163,AVAILABLE,Thanh Xuân,Khương Mai,74.9,9,2023,3.7,394.0,29.5,0.0,0.0
+163,REVOKED (similar),Thanh Xuân,Kim Giang,72.0,9,2023,4.7,764.0,55.0,0.55,86.4
+164,AVAILABLE,Ba Đình,Ngọc Khánh,42.8,5,2018,3.3,180.0,7.7,0.0,0.0
+164,REVOKED (similar),Ba Đình,Cống Vị,37.9,5,2019,3.2,161.0,6.1,0.26,-20.8
+164,SOLD (similar),Ba Đình,Vĩnh Phúc,33.0,5,2023,3.4,139.0,4.6,0.82,-40.3
+165,AVAILABLE,Thanh Xuân,Khương Mai,46.9,5,2015,3.0,320.0,15.0,0.0,0.0
+165,REVOKED (similar),Thanh Xuân,Khương Mai,39.3,5,2015,3.3,262.0,10.3,0.24,-31.3
+165,SOLD (similar),Thanh Xuân,Phương Liệt,75.0,5,2014,3.5,264.0,19.8,0.72,32.0
+166,AVAILABLE,Tây Hồ,Thụy Khuê,25.2,4,2005,4.1,714.0,18.0,0.0,0.0
+166,REVOKED (similar),Tây Hồ,Yên Phụ,33.0,4,2006,4.3,394.0,13.0,0.47,-27.8
+167,AVAILABLE,Hoàng Mai,Giáp Bát,90.3,4,2010,4.2,183.0,16.5,0.0,0.0
+167,REVOKED (similar),Hoàng Mai,Hoàng Văn Thụ,78.8,4,2010,4.3,76.0,6.0,0.47,-63.6
+167,SOLD (similar),Hoàng Mai,Định Công,67.0,4,2008,5.0,152.0,10.2,0.74,-38.2
+168,AVAILABLE,Hoàng Mai,Giáp Bát,65.0,7,2021,4.0,438.0,28.5,0.0,0.0
+168,REVOKED (similar),Hoàng Mai,Hoàng Văn Thụ,49.3,7,2024,5.0,254.0,12.5,0.72,-56.1
+168,SOLD (similar),Hoàng Mai,Tương Mai,42.1,7,2023,3.6,185.0,7.79,0.59,-72.7
+169,AVAILABLE,Hoàng Mai,Tương Mai,76.5,7,2024,10.0,216.0,16.5,0.0,0.0
+169,REVOKED (similar),Hoàng Mai,Hoàng Văn Thụ,84.4,7,2023,9.6,197.0,16.6,0.27,0.6
+170,AVAILABLE,Hoàng Mai,Hoàng Văn Thụ,70.7,4,2017,6.5,226.0,16.0,0.0,0.0
+170,REVOKED (similar),Hoàng Mai,Thịnh Liệt,52.0,4,2018,6.8,165.0,8.6,0.6,-46.2
+170,SOLD (similar),Hoàng Mai,Giáp Bát,87.0,4,2015,4.8,259.0,22.5,0.95,40.6
+171,AVAILABLE,Ba Đình,Ngọc Hà,58.2,7,2024,4.4,387.0,22.5,0.0,0.0
+171,REVOKED (similar),Ba Đình,Ngọc Hà,60.0,7,2024,5.0,300.0,18.0,0.29,-20.0
+172,AVAILABLE,Hà Đông,Mộ Lao,133.6,3,2016,8.4,344.0,46.0,0.0,0.0
+172,REVOKED (similar),Hà Đông,Văn Quán,148.0,3,2014,8.0,149.0,22.0,0.51,-52.2
+173,AVAILABLE,Thanh Xuân,Khương Mai,115.0,4,2021,4.7,478.0,55.0,0.0,0.0
+173,REVOKED (similar),Thanh Xuân,Khương Trung,108.1,4,2019,5.6,129.0,13.9,0.58,-74.7
+174,AVAILABLE,Tây Hồ,Xuân La,47.8,3,2012,4.2,230.0,11.0,0.0,0.0
+174,REVOKED (similar),Tây Hồ,Tứ Liên,66.2,3,2010,4.7,128.0,8.5,0.54,-22.7
+175,AVAILABLE,Ba Đình,Cống Vị,34.4,5,2015,3.3,326.0,11.2,0.0,0.0
+175,REVOKED (similar),Ba Đình,Cống Vị,30.0,5,2015,3.8,167.0,5.0,0.32,-55.4
+176,AVAILABLE,Ba Đình,Giảng Võ,117.4,7,2016,3.7,324.0,38.0,0.0,0.0
+176,REVOKED (similar),Ba Đình,Liễu Giai,100.0,7,2018,5.1,285.0,28.5,0.88,-25.0
+177,AVAILABLE,Ba Đình,Giảng Võ,47.6,3,2010,4.0,641.0,30.5,0.0,0.0
+177,REVOKED (similar),Ba Đình,Cống Vị,54.0,3,2010,3.7,104.0,5.6,0.41,-81.6
+177,SOLD (similar),Ba Đình,Liễu Giai,44.8,3,2009,4.6,413.0,18.5,0.56,-39.3
+178,AVAILABLE,Nam Từ Liêm,Đại Mỗ,220.0,5,2018,10.0,341.0,75.0,0.0,0.0
+178,REVOKED (similar),Nam Từ Liêm,Mễ Trì,215.3,4,2014,11.2,149.0,32.0,1.47,-57.3
+179,AVAILABLE,Long Biên,Phúc Lợi,38.1,3,2010,3.0,108.0,4.1,0.0,0.0
+179,REVOKED (similar),Long Biên,Ngọc Thụy,39.0,3,2009,3.4,190.0,7.4,0.24,80.5
+180,AVAILABLE,Long Biên,Ngọc Thụy,124.3,5,2020,5.1,115.0,14.25,0.0,0.0
+180,REVOKED (similar),Long Biên,Long Biên,82.0,5,2019,4.5,134.0,11.0,0.95,-22.8
+181,AVAILABLE,Long Biên,Ngọc Thụy,50.0,5,2020,5.7,285.0,14.25,0.0,0.0
+181,REVOKED (similar),Long Biên,Ngọc Thụy,47.4,5,2020,5.0,105.0,5.0,0.35,-64.9
+182,AVAILABLE,Hoàng Mai,Tương Mai,108.4,8,2024,5.0,273.0,29.6,0.0,0.0
+182,REVOKED (similar),Hoàng Mai,Giáp Bát,112.2,8,2021,5.0,236.0,26.5,0.43,-10.5
+183,AVAILABLE,Hai Bà Trưng,Thanh Lương,66.6,5,2024,5.3,203.0,13.5,0.0,0.0
+183,REVOKED (similar),Hai Bà Trưng,Minh Khai,61.0,5,2024,5.6,226.0,13.8,0.16,2.2
+183,SOLD (similar),Hai Bà Trưng,Trương Định,42.3,5,2024,4.5,210.0,8.9,0.64,-34.1
+184,AVAILABLE,Đống Đa,Láng Thượng,75.5,6,2013,6.4,291.0,22.0,0.0,0.0
+184,REVOKED (similar),Đống Đa,Láng Thượng,101.6,6,2012,6.0,492.0,50.0,0.6,127.3
+185,AVAILABLE,Hai Bà Trưng,Thanh Nhàn,38.3,5,2020,2.6,274.0,10.5,0.0,0.0
+185,REVOKED (similar),Hai Bà Trưng,Thanh Nhàn,33.0,5,2020,3.0,142.0,4.7,0.26,-55.2
+185,SOLD (similar),Hai Bà Trưng,Thanh Nhàn,40.0,5,2023,3.3,99.0,3.95,0.53,-62.4
+186,AVAILABLE,Hoàn Kiếm,Chương Dương,100.0,2,2005,6.2,160.0,16.0,0.0,0.0
+186,REVOKED (similar),Hoàn Kiếm,Hàng Bạc,100.7,1,2001,6.5,328.0,33.0,0.89,106.2
+187,AVAILABLE,Hoàng Mai,Lĩnh Nam,97.8,3,2018,4.5,204.0,20.0,0.0,0.0
+187,REVOKED (similar),Hoàng Mai,Lĩnh Nam,87.8,4,2015,4.5,177.0,15.5,0.85,-22.5
+188,AVAILABLE,Hoàng Mai,Thanh Trì,30.0,5,2025,3.8,197.0,5.9,0.0,0.0
+188,REVOKED (similar),Hoàng Mai,Thanh Trì,32.8,5,2024,3.8,98.0,3.2,0.27,-45.8
+188,SOLD (similar),Hoàng Mai,Vĩnh Hưng,41.5,5,2023,5.0,133.0,5.5,0.82,-6.8
+189,AVAILABLE,Hoàng Mai,Thanh Trì,30.0,5,2025,3.4,187.0,5.6,0.0,0.0
+189,REVOKED (similar),Hoàng Mai,Thanh Trì,36.3,5,2024,3.2,120.0,4.35,0.27,-22.3
+189,SOLD (similar),Hoàng Mai,Vĩnh Hưng,41.5,5,2023,5.0,133.0,5.5,0.96,-1.8
+190,AVAILABLE,Hoàng Mai,Thanh Trì,30.0,5,2025,4.0,187.0,5.6,0.0,0.0
+190,REVOKED (similar),Hoàng Mai,Thanh Trì,32.8,5,2024,3.8,98.0,3.2,0.29,-42.9
+190,SOLD (similar),Hoàng Mai,Vĩnh Hưng,41.5,5,2023,5.0,133.0,5.5,0.77,-1.8
+191,AVAILABLE,Ba Đình,Thành Công,160.0,7,2016,8.4,475.0,76.0,0.0,0.0
+191,REVOKED (similar),Ba Đình,Ngọc Khánh,109.5,7,2018,7.0,574.0,62.8,1.31,-17.4
+192,AVAILABLE,Nam Từ Liêm,Mễ Trì,68.0,7,2020,4.5,324.0,22.0,0.0,0.0
+192,REVOKED (similar),Nam Từ Liêm,Trung Văn,61.6,7,2022,4.5,153.0,9.4,0.32,-57.3
+193,AVAILABLE,Thanh Xuân,Nhân Chính,43.6,3,2015,4.0,172.0,7.5,0.0,0.0
+193,REVOKED (similar),Thanh Xuân,Thượng Đình,48.9,3,2015,4.4,119.0,5.8,0.24,-22.7
+193,SOLD (similar),Thanh Xuân,Khương Đình,33.0,4,2015,3.2,139.0,4.6,0.84,-38.7
+194,AVAILABLE,Đống Đa,Láng Thượng,89.8,5,2019,7.5,200.0,18.0,0.0,0.0
+194,REVOKED (similar),Đống Đa,Trung Liệt,62.7,5,2018,6.6,258.0,16.2,0.79,-10.0
+195,AVAILABLE,Hoàn Kiếm,Tràng Tiền,51.4,3,2011,8.1,253.0,13.0,0.0,0.0
+195,REVOKED (similar),Hoàn Kiếm,Phúc Tân,49.5,3,2010,5.2,178.0,8.8,1.42,-32.3
+196,AVAILABLE,Hai Bà Trưng,Phố Huế,26.0,4,1998,10.0,327.0,8.5,0.0,0.0
+196,REVOKED (similar),Hai Bà Trưng,Phạm Đình Hổ,31.0,3,2002,7.8,287.0,8.9,1.36,4.7
+197,AVAILABLE,Hoàng Mai,Thịnh Liệt,52.0,6,2024,4.1,279.0,14.5,0.0,0.0
+197,REVOKED (similar),Hoàng Mai,Thịnh Liệt,49.3,6,2023,4.0,213.0,10.5,0.17,-27.6
+197,SOLD (similar),Hoàng Mai,Yên Sở,50.0,5,2024,4.3,140.0,7.0,0.81,-51.7
+198,AVAILABLE,Bắc Từ Liêm,Đông Ngạc,80.0,3,2009,8.2,162.0,13.0,0.0,0.0
+198,REVOKED (similar),Bắc Từ Liêm,Đức Thắng,97.3,2,2009,5.5,82.0,8.0,1.46,-38.5
+199,AVAILABLE,Hà Đông,La Khê,47.9,2,2017,4.8,380.0,18.2,0.0,0.0
+199,REVOKED (similar),Hà Đông,Quang Trung,60.0,2,2018,5.0,267.0,16.0,0.31,-12.1
+200,AVAILABLE,Hai Bà Trưng,Vĩnh Tuy,60.0,5,2021,5.1,200.0,12.0,0.0,0.0
+200,REVOKED (similar),Hai Bà Trưng,Trương Định,50.5,5,2020,4.6,166.0,8.4,0.36,-30.0
+200,SOLD (similar),Hai Bà Trưng,Trương Định,42.3,5,2024,4.5,210.0,8.9,0.64,-25.8
+201,AVAILABLE,Thanh Xuân,Khương Đình,170.7,7,2021,7.1,226.0,38.5,0.0,0.0
+201,REVOKED (similar),Thanh Xuân,Khương Trung,122.7,7,2022,6.8,183.0,22.5,1.04,-41.6
+202,AVAILABLE,Đống Đa,Hàng Bột,65.0,2,2000,4.3,354.0,23.0,0.0,0.0
+202,REVOKED (similar),Đống Đa,Trung Phụng,64.0,2,2001,4.0,130.0,8.3,0.35,-63.9
+202,SOLD (similar),Đống Đa,Văn Chương,51.0,1,2000,4.2,72.0,3.65,0.71,-84.1
+203,AVAILABLE,Ba Đình,Vĩnh Phúc,58.3,4,2010,4.3,506.0,29.5,0.0,0.0
+203,REVOKED (similar),Ba Đình,Cống Vị,51.4,4,2010,4.0,119.0,6.1,0.21,-79.3
+203,SOLD (similar),Ba Đình,Ngọc Khánh,35.6,4,2008,3.2,157.0,5.6,0.81,-81.0
+204,AVAILABLE,Ba Đình,Đội Cấn,120.0,7,2016,1.4,375.0,45.0,0.0,0.0
+204,REVOKED (similar),Ba Đình,Trúc Bạch,100.9,6,2015,2.4,208.0,21.0,1.04,-53.3
+205,AVAILABLE,Thanh Xuân,Thanh Xuân Trung,66.3,6,2017,5.0,400.0,26.5,0.0,0.0
+205,REVOKED (similar),Thanh Xuân,Thanh Xuân Trung,70.8,6,2018,4.0,211.0,14.95,0.5,-43.6
+205,SOLD (similar),Thanh Xuân,Khương Trung,55.0,7,2018,4.3,342.0,18.8,0.81,-29.1
+206,AVAILABLE,Ba Đình,Đội Cấn,60.0,5,2018,3.7,417.0,25.0,0.0,0.0
+206,REVOKED (similar),Ba Đình,Cống Vị,66.0,5,2019,3.5,205.0,13.5,0.29,-46.0
+206,SOLD (similar),Ba Đình,Vĩnh Phúc,33.0,5,2023,3.4,139.0,4.6,0.95,-81.6
+207,AVAILABLE,Hai Bà Trưng,Lê Đại Hành,63.3,3,2003,4.7,403.0,25.5,0.0,0.0
+207,REVOKED (similar),Hai Bà Trưng,Đồng Tâm,71.7,3,2005,4.6,146.0,10.5,0.43,-58.8
+208,AVAILABLE,Nam Từ Liêm,Phú Đô,76.0,3,2009,5.0,243.0,18.5,0.0,0.0
+208,REVOKED (similar),Nam Từ Liêm,Mỹ Đình 1,63.0,3,2010,5.7,143.0,9.0,0.45,-51.4
+208,SOLD (similar),Nam Từ Liêm,Mỹ Đình 2,52.0,4,2010,4.7,119.0,6.2,0.87,-66.5
+209,AVAILABLE,Thanh Xuân,Hạ Đình,39.2,1,2010,3.5,508.0,19.9,0.0,0.0
+209,REVOKED (similar),Thanh Xuân,Khương Đình,33.5,1,2008,3.7,216.0,7.25,0.32,-63.6
+210,AVAILABLE,Tây Hồ,Thụy Khuê,202.5,1,2000,15.0,183.0,37.0,0.0,0.0
+210,REVOKED (similar),Tây Hồ,Xuân La,235.0,4,2012,15.0,336.0,79.0,2.73,113.5
+211,AVAILABLE,Tây Hồ,Xuân La,134.7,2,2006,4.2,61.0,8.2,0.0,0.0
+211,REVOKED (similar),Tây Hồ,Bưởi,113.7,3,2005,5.0,185.0,21.0,0.89,156.1
+212,AVAILABLE,Đống Đa,Phương Liên,48.7,6,2012,4.5,329.0,16.0,0.0,0.0
+212,REVOKED (similar),Đống Đa,Khương Thượng,39.3,6,2010,4.2,148.0,5.8,0.51,-63.7
+212,SOLD (similar),Đống Đa,Thổ Quan,50.0,5,2012,4.0,194.0,9.7,0.74,-39.4
+213,AVAILABLE,Nam Từ Liêm,Xuân Phương,30.0,1,2000,4.0,293.0,8.8,0.0,0.0
+213,REVOKED (similar),Nam Từ Liêm,Mễ Trì,40.0,2,1999,4.2,128.0,5.1,1.22,-42.0
+214,AVAILABLE,Tây Hồ,Thụy Khuê,150.0,7,2013,8.8,453.0,68.0,0.0,0.0
+214,REVOKED (similar),Tây Hồ,Bưởi,78.0,8,2018,8.8,308.0,24.0,1.82,-64.7
+215,AVAILABLE,Hai Bà Trưng,Thanh Nhàn,60.0,5,2018,3.4,300.0,18.0,0.0,0.0
+215,REVOKED (similar),Hai Bà Trưng,Bách Khoa,62.5,5,2018,3.6,344.0,21.5,0.22,19.4
+215,SOLD (similar),Hai Bà Trưng,Thanh Nhàn,40.0,5,2023,3.3,99.0,3.95,0.83,-78.1
+216,AVAILABLE,Long Biên,Sài Đồng,234.8,1,2015,7.0,72.0,17.0,0.0,0.0
+216,REVOKED (similar),Long Biên,Ngọc Thụy,146.4,1,2013,8.0,130.0,19.0,1.97,11.8
+217,AVAILABLE,Thanh Xuân,Nhân Chính,70.5,9,2019,5.5,730.0,51.5,0.0,0.0
+217,REVOKED (similar),Thanh Xuân,Kim Giang,72.0,9,2023,4.7,764.0,55.0,0.68,6.8
+218,AVAILABLE,Hà Đông,Kiến Hưng,77.8,5,2020,5.4,123.0,9.6,0.0,0.0
+218,REVOKED (similar),Hà Đông,Kiến Hưng,63.2,5,2020,5.5,134.0,8.5,0.42,-11.5
+219,AVAILABLE,Đống Đa,Nam Đồng,50.6,2,2007,6.0,188.0,9.5,0.0,0.0
+219,REVOKED (similar),Đống Đa,Khương Thượng,37.5,2,2008,5.2,112.0,4.2,0.5,-55.8
+220,AVAILABLE,Thanh Xuân,Khương Đình,301.2,10,2020,10.5,481.0,145.0,0.0,0.0
+220,REVOKED (similar),Thanh Xuân,Nhân Chính,197.9,9,2022,8.2,245.0,48.5,2.61,-66.6
+221,AVAILABLE,Long Biên,Đức Giang,47.1,6,2015,3.6,399.0,18.8,0.0,0.0
+221,REVOKED (similar),Long Biên,Thạch Bàn,46.6,6,2017,4.4,204.0,9.5,0.45,-49.5
+222,AVAILABLE,Hai Bà Trưng,Nguyễn Du,13.1,5,2010,2.9,496.0,6.5,0.0,0.0
+222,REVOKED (similar),Hai Bà Trưng,Minh Khai,14.0,5,2008,2.8,229.0,3.2,0.35,-50.8
+223,AVAILABLE,Hai Bà Trưng,Thanh Nhàn,50.0,5,2016,4.0,314.0,15.7,0.0,0.0
+223,REVOKED (similar),Hai Bà Trưng,Thanh Lương,33.0,5,2015,3.9,194.0,6.4,0.39,-59.2
+223,SOLD (similar),Hai Bà Trưng,Thanh Lương,31.0,5,2015,4.3,135.0,4.2,0.91,-73.2
+224,AVAILABLE,Long Biên,Ngọc Thụy,53.0,5,2016,18.0,223.0,11.8,0.0,0.0
+224,REVOKED (similar),Long Biên,Phúc Đồng,45.0,5,2016,16.6,211.0,9.5,1.22,-19.5
+225,AVAILABLE,Hoàng Mai,Lĩnh Nam,69.0,3,2017,4.8,145.0,10.0,0.0,0.0
+225,REVOKED (similar),Hoàng Mai,Định Công,50.0,3,2015,4.3,104.0,5.2,0.56,-48.0
+226,AVAILABLE,Hai Bà Trưng,Lê Đại Hành,40.2,3,2002,3.6,572.0,23.0,0.0,0.0
+226,REVOKED (similar),Hai Bà Trưng,Thanh Nhàn,51.0,3,2000,3.4,82.0,4.2,0.41,-81.7
+227,AVAILABLE,Long Biên,Thạch Bàn,35.0,6,2024,4.6,194.0,6.8,0.0,0.0
+227,REVOKED (similar),Long Biên,Thạch Bàn,30.0,6,2023,4.5,123.0,3.7,0.21,-45.6
+227,SOLD (similar),Long Biên,Long Biên,57.3,6,2023,5.0,119.0,6.8,0.83,0.0
+228,AVAILABLE,Hai Bà Trưng,Thanh Nhàn,112.0,8,2023,5.7,446.0,50.0,0.0,0.0
+228,REVOKED (similar),Hai Bà Trưng,Thanh Nhàn,113.0,8,2023,5.6,265.0,30.0,0.02,-40.0
+229,AVAILABLE,Hai Bà Trưng,Phố Huế,172.2,2,2010,4.8,743.0,128.0,0.0,0.0
+229,REVOKED (similar),Hai Bà Trưng,Minh Khai,137.6,2,2007,4.3,269.0,37.0,0.98,-71.1
+230,AVAILABLE,Thanh Xuân,Phương Liệt,80.0,6,2013,5.4,275.0,22.0,0.0,0.0
+230,REVOKED (similar),Thanh Xuân,Phương Liệt,86.0,6,2015,5.0,302.0,26.0,0.57,18.2
+231,AVAILABLE,Hà Đông,Nguyễn Trãi,69.5,3,2010,13.5,252.0,17.5,0.0,0.0
+231,REVOKED (similar),Hà Đông,Nguyễn Trãi,69.0,1,2002,12.3,197.0,13.6,1.79,-22.3
+232,AVAILABLE,Thanh Xuân,Khương Mai,95.8,6,2015,5.1,351.0,33.6,0.0,0.0
+232,REVOKED (similar),Thanh Xuân,Phương Liệt,86.0,6,2015,5.0,302.0,26.0,0.32,-22.6
+233,AVAILABLE,Bắc Từ Liêm,Xuân Đỉnh,81.5,3,2002,5.0,101.0,8.2,0.0,0.0
+233,REVOKED (similar),Bắc Từ Liêm,Đông Ngạc,78.4,3,2003,3.3,74.0,5.8,0.87,-29.3
+234,AVAILABLE,Ba Đình,Thành Công,58.6,3,2009,4.6,427.0,25.0,0.0,0.0
+234,REVOKED (similar),Ba Đình,Giảng Võ,78.6,3,2010,4.1,118.0,9.3,0.51,-62.8
+234,SOLD (similar),Ba Đình,Liễu Giai,44.8,3,2009,4.6,413.0,18.5,0.49,-26.0
+235,AVAILABLE,Hà Đông,Quang Trung,42.9,5,2016,2.9,298.0,12.8,0.0,0.0
+235,REVOKED (similar),Hà Đông,Nguyễn Trãi,45.0,5,2016,3.3,122.0,5.5,0.31,-57.0
+235,SOLD (similar),Hà Đông,Văn Quán,57.0,5,2019,3.6,110.0,6.25,0.77,-51.2
+236,AVAILABLE,Đống Đa,Ngã Tư Sở,39.4,4,2010,3.3,482.0,19.0,0.0,0.0
+236,REVOKED (similar),Đống Đa,Thịnh Quang,45.9,4,2010,3.2,146.0,6.7,0.15,-64.7
+236,SOLD (similar),Đống Đa,Quang Trung,37.0,4,2010,3.3,203.0,7.5,0.33,-60.5
+237,AVAILABLE,Đống Đa,Thịnh Quang,48.1,7,2022,3.4,333.0,16.0,0.0,0.0
+237,REVOKED (similar),Đống Đa,Thịnh Quang,52.6,7,2022,3.4,238.0,12.5,0.12,-21.9
+238,AVAILABLE,Tây Hồ,Tứ Liên,95.0,2,2010,6.8,168.0,16.0,0.0,0.0
+238,REVOKED (similar),Tây Hồ,Yên Phụ,88.0,3,2010,6.0,101.0,8.9,0.81,-44.4
+239,AVAILABLE,Đống Đa,Khương Thượng,72.4,3,2011,8.1,228.0,16.5,0.0,0.0
+239,REVOKED (similar),Đống Đa,Khương Thượng,84.9,3,2012,7.0,117.0,9.9,0.64,-40.0
+240,AVAILABLE,Ba Đình,Ngọc Hà,57.5,2,2005,3.0,294.0,16.9,0.0,0.0
+240,REVOKED (similar),Ba Đình,Ngọc Khánh,54.6,2,2006,3.9,156.0,8.5,0.58,-49.7
+241,AVAILABLE,Ba Đình,Vĩnh Phúc,117.9,3,2005,4.5,382.0,45.0,0.0,0.0
+241,REVOKED (similar),Ba Đình,Liễu Giai,94.0,3,2005,4.1,137.0,12.9,0.63,-71.3
+242,AVAILABLE,Bắc Từ Liêm,Thụy Phương,45.2,2,2015,6.2,124.0,5.6,0.0,0.0
+242,REVOKED (similar),Bắc Từ Liêm,Xuân Đỉnh,49.0,1,2016,5.8,92.0,4.5,0.8,-19.6
+243,AVAILABLE,Bắc Từ Liêm,Cổ Nhuế 1,78.0,1,2011,5.0,95.0,7.4,0.0,0.0
+243,REVOKED (similar),Bắc Từ Liêm,Đức Thắng,97.3,2,2009,5.5,82.0,8.0,0.84,8.1
+244,AVAILABLE,Tây Hồ,Bưởi,162.3,8,2023,9.5,240.0,39.0,0.0,0.0
+244,REVOKED (similar),Tây Hồ,Thụy Khuê,165.6,8,2022,6.2,202.0,33.5,1.54,-14.1
+245,AVAILABLE,Ba Đình,Liễu Giai,33.9,1,2017,3.7,221.0,7.5,0.0,0.0
+245,REVOKED (similar),Ba Đình,Đội Cấn,25.6,1,2015,3.3,195.0,5.0,2.16,-33.3
+246,AVAILABLE,Hai Bà Trưng,Trương Định,39.4,2,2000,4.3,335.0,13.2,0.0,0.0
+246,REVOKED (similar),Hai Bà Trưng,Lê Đại Hành,37.3,2,2000,4.0,335.0,12.5,0.37,-5.3
+247,AVAILABLE,Hà Đông,Vạn Phúc,59.0,4,2009,4.5,303.0,17.9,0.0,0.0
+247,REVOKED (similar),Hà Đông,Mộ Lao,51.8,4,2010,4.5,138.0,7.15,0.37,-60.1
+248,AVAILABLE,Ba Đình,Ngọc Hà,92.9,6,2019,4.0,135.0,12.5,0.0,0.0
+248,REVOKED (similar),Ba Đình,Kim Mã,90.0,6,2020,3.6,206.0,18.5,0.42,48.0
+249,AVAILABLE,Hai Bà Trưng,Cầu Dền,130.0,4,2000,3.9,315.0,41.0,0.0,0.0
+249,REVOKED (similar),Hai Bà Trưng,Cầu Dền,116.2,5,2000,3.0,231.0,26.9,0.83,-34.4
+250,AVAILABLE,Hoàng Mai,Vĩnh Hưng,73.4,6,2017,4.2,341.0,25.0,0.0,0.0
+250,REVOKED (similar),Hoàng Mai,Hoàng Văn Thụ,64.1,6,2015,4.5,156.0,10.0,0.52,-60.0
+250,SOLD (similar),Hoàng Mai,Hoàng Văn Thụ,62.3,5,2018,5.0,87.0,5.45,0.87,-78.2
+251,AVAILABLE,Đống Đa,Ô Chợ Dừa,88.0,5,2015,5.5,409.0,36.0,0.0,0.0
+251,REVOKED (similar),Đống Đa,Quang Trung,101.3,5,2015,4.9,257.0,26.0,0.42,-27.8
+252,AVAILABLE,Hoàng Mai,Thịnh Liệt,40.0,2,2018,3.5,215.0,8.6,0.0,0.0
+252,REVOKED (similar),Hoàng Mai,Yên Sở,30.0,2,2018,3.9,117.0,3.5,0.27,-59.3
+252,SOLD (similar),Hoàng Mai,Giáp Bát,56.0,2,2015,3.9,71.0,4.0,0.91,-53.5
+253,AVAILABLE,Hoàng Mai,Mai Động,45.1,6,2020,4.0,432.0,19.5,0.0,0.0
+253,REVOKED (similar),Hoàng Mai,Tân Mai,48.0,6,2019,3.6,121.0,5.8,0.38,-70.3
+253,SOLD (similar),Hoàng Mai,Hoàng Văn Thụ,62.3,5,2018,5.0,87.0,5.45,0.93,-72.1
+254,AVAILABLE,Hoàn Kiếm,Hàng Buồm,118.8,3,2010,5.2,497.0,59.0,0.0,0.0
+254,REVOKED (similar),Hoàn Kiếm,Hàng Bạc,85.0,3,2005,4.9,765.0,65.0,1.02,10.2
+255,AVAILABLE,Hà Đông,Biên Giang,30.4,4,2023,3.1,135.0,4.1,0.0,0.0
+255,REVOKED (similar),Hà Đông,Phú Lương,30.0,4,2023,3.6,102.0,3.05,0.21,-25.6
+256,AVAILABLE,Nam Từ Liêm,Mỹ Đình 1,141.9,4,2014,6.6,359.0,51.0,0.0,0.0
+256,REVOKED (similar),Nam Từ Liêm,Phú Đô,130.0,4,2015,7.5,114.0,14.8,0.62,-71.0
+257,AVAILABLE,Thanh Xuân,Phương Liệt,109.3,8,2018,4.0,198.0,21.6,0.0,0.0
+257,REVOKED (similar),Thanh Xuân,Khương Mai,96.0,8,2017,4.9,359.0,34.5,0.63,59.7
+258,AVAILABLE,Hoàng Mai,Hoàng Liệt,184.0,3,2008,2.8,130.0,23.9,0.0,0.0
+258,REVOKED (similar),Hoàng Mai,Giáp Bát,191.3,3,2007,4.5,154.0,29.5,1.02,23.4
+259,AVAILABLE,Đống Đa,Khâm Thiên,17.5,4,2010,2.5,417.0,7.3,0.0,0.0
+259,REVOKED (similar),Đống Đa,Khâm Thiên,23.8,4,2010,2.4,147.0,3.5,0.17,-52.1
+259,SOLD (similar),Đống Đa,Quang Trung,37.0,4,2010,3.3,203.0,7.5,0.65,2.7
+260,AVAILABLE,Bắc Từ Liêm,Cổ Nhuế 1,94.0,4,2015,7.0,279.0,26.2,0.0,0.0
+260,REVOKED (similar),Bắc Từ Liêm,Phú Diễn,86.3,4,2019,6.2,214.0,18.5,0.87,-29.4
+261,AVAILABLE,Ba Đình,Kim Mã,28.3,5,2014,3.2,636.0,18.0,0.0,0.0
+261,REVOKED (similar),Ba Đình,Kim Mã,26.0,5,2015,3.3,146.0,3.8,0.17,-78.9
+262,AVAILABLE,Hai Bà Trưng,Trương Định,36.3,5,2009,3.0,455.0,16.5,0.0,0.0
+262,REVOKED (similar),Hai Bà Trưng,Trương Định,39.3,5,2010,3.1,165.0,6.5,0.17,-60.6
+263,AVAILABLE,Hoàn Kiếm,Cửa Đông,49.5,4,2009,2.9,667.0,33.0,0.0,0.0
+263,REVOKED (similar),Hoàn Kiếm,Hàng Bông,52.9,4,2007,2.6,284.0,15.0,0.33,-54.5
+264,AVAILABLE,Thanh Xuân,Hạ Đình,44.0,5,2002,3.0,307.0,13.5,0.0,0.0
+264,REVOKED (similar),Thanh Xuân,Khương Đình,56.0,5,2005,3.4,232.0,13.0,0.62,-3.7
+265,AVAILABLE,Thanh Xuân,Khương Trung,52.1,5,2024,3.7,250.0,13.0,0.0,0.0
+265,REVOKED (similar),Thanh Xuân,Khương Đình,35.0,5,2024,3.9,166.0,5.8,0.38,-55.4
+265,SOLD (similar),Thanh Xuân,Khương Trung,40.8,5,2023,3.2,144.0,5.88,0.58,-54.8
+266,AVAILABLE,Hai Bà Trưng,Đồng Tâm,64.2,5,2012,4.2,402.0,25.8,0.0,0.0
+266,REVOKED (similar),Hai Bà Trưng,Đống Mác,78.8,5,2012,4.6,99.0,7.8,0.49,-69.8
+266,SOLD (similar),Hai Bà Trưng,Thanh Lương,31.0,5,2015,4.3,135.0,4.2,0.95,-83.7
+267,AVAILABLE,Long Biên,Bồ Đề,32.2,4,2005,2.9,373.0,12.0,0.0,0.0
+267,REVOKED (similar),Long Biên,Ngọc Thụy,32.9,4,2004,3.3,116.0,3.8,0.62,-68.3
+268,AVAILABLE,Tây Hồ,Quảng An,43.2,2,2015,5.1,299.0,12.9,0.0,0.0
+268,REVOKED (similar),Tây Hồ,Yên Phụ,23.2,3,2015,4.6,155.0,3.6,0.83,-72.1
+269,AVAILABLE,Tây Hồ,Thụy Khuê,59.8,8,2018,4.9,535.0,32.0,0.0,0.0
+269,REVOKED (similar),Tây Hồ,Bưởi,72.0,8,2020,4.9,199.0,14.3,0.44,-55.3
+270,AVAILABLE,Long Biên,Giang Biên,173.0,1,2000,3.0,118.0,20.5,0.0,0.0
+270,REVOKED (similar),Long Biên,Ngọc Lâm,211.0,2,1998,3.0,95.0,20.0,1.39,-2.4
+271,AVAILABLE,Đống Đa,Trung Phụng,59.7,4,2003,4.7,168.0,10.0,0.0,0.0
+271,REVOKED (similar),Đống Đa,Nam Đồng,44.7,5,2011,6.4,112.0,5.0,2.23,-50.0
+272,AVAILABLE,Hà Đông,Mộ Lao,74.0,5,2005,4.0,243.0,18.0,0.0,0.0
+272,REVOKED (similar),Hà Đông,Mộ Lao,75.5,5,2005,4.0,179.0,13.5,0.04,-25.0
+273,AVAILABLE,Hà Đông,Mộ Lao,36.0,5,2023,3.3,260.0,9.35,0.0,0.0
+273,REVOKED (similar),Hà Đông,Mộ Lao,38.0,5,2023,3.6,131.0,4.99,0.26,-46.6
+273,SOLD (similar),Hà Đông,Văn Quán,57.0,5,2019,3.6,110.0,6.25,0.74,-33.2
+274,AVAILABLE,Ba Đình,Phúc Xá,34.5,6,2013,3.2,435.0,15.0,0.0,0.0
+274,REVOKED (similar),Ba Đình,Phúc Xá,44.4,6,2013,4.0,306.0,13.6,0.55,-9.3
+275,AVAILABLE,Hai Bà Trưng,Vĩnh Tuy,45.0,5,2019,4.1,222.0,10.0,0.0,0.0
+275,REVOKED (similar),Hai Bà Trưng,Trương Định,50.5,5,2020,4.6,166.0,8.4,0.28,-16.0
+275,SOLD (similar),Hai Bà Trưng,Trương Định,42.3,5,2024,4.5,210.0,8.9,0.74,-11.0
+276,AVAILABLE,Tây Hồ,Phú Thượng,39.8,5,2012,3.6,171.0,6.8,0.0,0.0
+276,REVOKED (similar),Tây Hồ,Phú Thượng,50.7,4,2013,3.9,148.0,7.5,0.71,10.3
+277,AVAILABLE,Hoàn Kiếm,Đồng Xuân,60.3,2,1998,4.4,415.0,25.0,0.0,0.0
+277,REVOKED (similar),Hoàn Kiếm,Hàng Bồ,71.7,3,2000,4.5,711.0,51.0,0.76,104.0
+278,AVAILABLE,Hoàn Kiếm,Đồng Xuân,69.6,2,1998,4.4,388.0,27.0,0.0,0.0
+278,REVOKED (similar),Hoàn Kiếm,Hàng Bồ,71.7,3,2000,4.5,711.0,51.0,0.72,88.9
+279,AVAILABLE,Hai Bà Trưng,Phố Huế,19.8,5,2003,2.7,379.0,7.5,0.0,0.0
+279,REVOKED (similar),Hai Bà Trưng,Bách Khoa,33.4,5,2000,2.9,249.0,8.3,0.64,10.7
+280,AVAILABLE,Đống Đa,Văn Chương,73.6,3,2015,3.4,265.0,19.5,0.0,0.0
+280,REVOKED (similar),Đống Đa,Trung Liệt,78.2,3,2014,3.2,409.0,32.0,0.26,64.1
+280,SOLD (similar),Đống Đa,Khương Thượng,59.5,4,2011,3.4,111.0,6.6,0.93,-66.2
+281,AVAILABLE,Đống Đa,Trung Phụng,49.5,5,2016,3.7,242.0,12.0,0.0,0.0
+281,REVOKED (similar),Đống Đa,Phương Mai,48.1,5,2018,4.0,281.0,13.5,0.71,12.5
+282,AVAILABLE,Hoàng Mai,Thanh Trì,62.0,3,2009,5.2,89.0,5.5,0.0,0.0
+282,REVOKED (similar),Hoàng Mai,Thanh Trì,34.6,3,2008,5.6,159.0,5.5,0.62,0.0
+283,AVAILABLE,Hoàng Mai,Đại Kim,98.0,5,2004,4.0,245.0,24.0,0.0,0.0
+283,REVOKED (similar),Hoàng Mai,Tân Mai,70.7,6,2010,4.2,113.0,8.0,1.46,-66.7
+284,AVAILABLE,Bắc Từ Liêm,Cổ Nhuế 1,54.3,9,2020,5.0,552.0,30.0,0.0,0.0
+284,REVOKED (similar),Bắc Từ Liêm,Phú Diễn,61.6,8,2022,4.9,349.0,21.5,0.88,-28.3
+285,AVAILABLE,Cầu Giấy,Trung Hòa,132.1,8,2019,8.5,416.0,55.0,0.0,0.0
+285,REVOKED (similar),Cầu Giấy,Trung Hòa,120.0,8,2023,8.8,221.0,26.5,0.65,-51.8
+286,AVAILABLE,Ba Đình,Ngọc Khánh,155.4,4,2015,7.0,296.0,46.0,0.0,0.0
+286,REVOKED (similar),Ba Đình,Ngọc Hà,118.4,4,2014,6.9,372.0,44.0,0.86,-4.3
+287,AVAILABLE,Ba Đình,Ngọc Khánh,65.7,1,2016,3.6,259.0,17.0,0.0,0.0
+287,REVOKED (similar),Ba Đình,Giảng Võ,56.0,1,2015,3.9,259.0,14.5,0.5,-14.7
+288,AVAILABLE,Đống Đa,Thổ Quan,29.2,5,2012,3.1,212.0,6.2,0.0,0.0
+288,REVOKED (similar),Đống Đa,Nam Đồng,24.8,5,2013,3.2,181.0,4.5,0.19,-27.4
+288,SOLD (similar),Đống Đa,Thổ Quan,50.0,5,2012,4.0,194.0,9.7,0.6,56.5
+289,AVAILABLE,Nam Từ Liêm,Mỹ Đình 1,57.7,5,2018,4.0,203.0,11.7,0.0,0.0
+289,REVOKED (similar),Nam Từ Liêm,Mỹ Đình 1,62.0,5,2019,4.2,160.0,9.9,0.21,-15.4
+289,SOLD (similar),Nam Từ Liêm,Mỹ Đình 1,70.4,5,2018,5.0,312.0,22.0,0.57,88.0
+290,AVAILABLE,Hoàn Kiếm,Phúc Tân,38.5,5,2013,3.5,325.0,12.5,0.0,0.0
+290,REVOKED (similar),Hoàn Kiếm,Hàng Bồ,37.5,5,2013,4.3,467.0,17.5,0.41,40.0
+290,SOLD (similar),Hoàn Kiếm,Hàng Bài,35.0,5,2013,5.0,63.0,2.2,0.81,-82.4
+291,AVAILABLE,Hai Bà Trưng,Cầu Dền,122.3,3,2004,3.3,352.0,43.0,0.0,0.0
+291,REVOKED (similar),Hai Bà Trưng,Bạch Mai,105.9,3,2005,4.2,307.0,32.5,0.8,-24.4
+292,AVAILABLE,Hai Bà Trưng,Bách Khoa,19.3,4,1999,3.2,352.0,6.8,0.0,0.0
+292,REVOKED (similar),Hai Bà Trưng,Trương Định,32.7,4,2000,3.6,164.0,5.35,0.68,-21.3
+293,AVAILABLE,Hoàng Mai,Định Công,103.0,8,2022,5.0,204.0,21.0,0.0,0.0
+293,REVOKED (similar),Hoàng Mai,Định Công,100.0,8,2020,4.8,148.0,14.8,0.37,-29.5
+294,AVAILABLE,Thanh Trì,X. Tân Triều,40.0,2,2000,3.8,270.0,10.8,0.0,0.0
+294,REVOKED (similar),Thanh Trì,X. Tân Triều,67.0,3,2003,3.9,119.0,8.0,0.96,-25.9
+295,AVAILABLE,Long Biên,Ngọc Thụy,60.0,3,2000,3.8,125.0,7.5,0.0,0.0
+295,REVOKED (similar),Long Biên,Đức Giang,66.5,3,2000,4.7,128.0,8.5,0.8,13.3
+296,AVAILABLE,Hai Bà Trưng,Nguyễn Du,56.6,4,2012,3.6,362.0,20.5,0.0,0.0
+296,REVOKED (similar),Hai Bà Trưng,Cầu Dền,48.0,4,2010,3.7,99.0,4.75,0.37,-76.8
+296,SOLD (similar),Hai Bà Trưng,Thanh Lương,61.8,3,2014,4.6,108.0,6.7,0.92,-67.3
+297,AVAILABLE,Hà Đông,Biên Giang,30.6,4,2023,3.1,134.0,4.1,0.0,0.0
+297,REVOKED (similar),Hà Đông,Phú Lương,30.0,4,2023,3.6,102.0,3.05,0.21,-25.6
+298,AVAILABLE,Đống Đa,Trung Liệt,45.6,4,2012,3.4,498.0,22.7,0.0,0.0
+298,REVOKED (similar),Đống Đa,Trung Liệt,46.8,4,2013,3.2,203.0,9.5,0.17,-58.1
+298,SOLD (similar),Đống Đa,Quang Trung,37.0,4,2010,3.3,203.0,7.5,0.36,-67.0
+299,AVAILABLE,Tây Hồ,Quảng An,316.0,1,2000,10.3,244.0,77.0,0.0,0.0
+299,REVOKED (similar),Tây Hồ,Bưởi,297.6,2,2000,7.0,151.0,45.0,1.84,-41.6
+300,AVAILABLE,Tây Hồ,Yên Phụ,34.8,2,2012,4.1,373.0,13.0,0.0,0.0
+300,REVOKED (similar),Tây Hồ,Thụy Khuê,46.3,2,2010,3.4,149.0,6.9,0.99,-46.9
+301,AVAILABLE,Hai Bà Trưng,Trương Định,36.5,5,2022,3.7,233.0,8.5,0.0,0.0
+301,REVOKED (similar),Hai Bà Trưng,Minh Khai,38.7,5,2022,3.6,145.0,5.6,0.15,-34.1
+301,SOLD (similar),Hai Bà Trưng,Thanh Nhàn,40.0,5,2023,3.3,99.0,3.95,0.4,-53.5
+302,AVAILABLE,Đống Đa,Láng Thượng,75.3,9,2015,7.5,186.0,14.0,0.0,0.0
+302,REVOKED (similar),Đống Đa,Thịnh Quang,53.5,10,2020,7.5,691.0,37.0,1.12,164.3
+303,AVAILABLE,Hai Bà Trưng,Trương Định,95.0,7,2020,3.9,149.0,14.2,0.0,0.0
+303,REVOKED (similar),Hai Bà Trưng,Bách Khoa,118.0,7,2022,4.5,280.0,33.0,0.66,132.4
+304,AVAILABLE,Hoàn Kiếm,Hàng Bài,32.4,3,1999,5.2,241.0,7.8,0.0,0.0
+304,REVOKED (similar),Hoàn Kiếm,Cửa Nam,40.8,4,2000,5.0,154.0,6.3,0.69,-19.2
+305,AVAILABLE,Hai Bà Trưng,Cầu Dền,80.0,5,2014,3.7,110.0,8.8,0.0,0.0
+305,REVOKED (similar),Hai Bà Trưng,Cầu Dền,76.3,5,2015,3.0,113.0,8.6,0.37,-2.3
+306,AVAILABLE,Cầu Giấy,Nghĩa Tân,45.0,3,2019,4.5,400.0,18.0,0.0,0.0
+306,REVOKED (similar),Cầu Giấy,Nghĩa Đô,50.0,3,2018,4.5,340.0,17.0,0.29,-5.6
+306,SOLD (similar),Cầu Giấy,Quan Hoa,52.0,4,2017,4.0,227.0,11.8,0.83,-34.4
+307,AVAILABLE,Hoàng Mai,Thịnh Liệt,79.4,5,2022,6.0,290.0,23.0,0.0,0.0
+307,REVOKED (similar),Hoàng Mai,Thịnh Liệt,74.0,5,2023,5.5,205.0,15.2,0.31,-33.9
+307,SOLD (similar),Hoàng Mai,Hoàng Văn Thụ,62.3,5,2018,5.0,87.0,5.45,0.94,-76.3
+308,AVAILABLE,Thanh Xuân,Khương Mai,94.6,6,2007,3.4,132.0,12.5,0.0,0.0
+308,REVOKED (similar),Thanh Xuân,Khương Trung,76.8,5,2009,3.3,103.0,7.9,0.9,-36.8
+309,AVAILABLE,Thanh Xuân,Phương Liệt,64.2,3,1996,4.2,117.0,7.5,0.0,0.0
+309,REVOKED (similar),Thanh Xuân,Khương Mai,59.7,3,1999,4.0,151.0,9.0,0.66,20.0
+310,AVAILABLE,Hoài Đức,X. Vân Canh,38.6,5,2023,4.8,136.0,5.25,0.0,0.0
+310,REVOKED (similar),Hoài Đức,X. Vân Canh,36.5,5,2021,3.2,112.0,4.1,0.85,-21.9
+311,AVAILABLE,Ba Đình,Kim Mã,110.0,2,1990,3.5,118.0,13.0,0.0,0.0
+311,REVOKED (similar),Ba Đình,Kim Mã,108.0,2,1990,3.8,222.0,24.0,0.17,84.6
+312,AVAILABLE,Hà Đông,Văn Quán,79.0,6,2015,3.3,329.0,26.0,0.0,0.0
+312,REVOKED (similar),Hà Đông,Văn Quán,64.0,6,2016,4.0,367.0,23.5,0.5,-9.6
+312,SOLD (similar),Hà Đông,Văn Quán,57.0,5,2019,3.6,110.0,6.25,0.98,-76.0
+313,AVAILABLE,Đống Đa,Thổ Quan,42.4,3,2015,2.9,252.0,10.7,0.0,0.0
+313,REVOKED (similar),Đống Đa,Ô Chợ Dừa,30.0,3,2014,2.7,130.0,3.9,0.31,-63.6
+313,SOLD (similar),Đống Đa,Văn Chương,28.0,3,2013,3.1,118.0,3.3,0.48,-69.2
+314,AVAILABLE,Cầu Giấy,Quan Hoa,65.0,7,2015,2.0,174.0,11.3,0.0,0.0
+314,REVOKED (similar),Cầu Giấy,Quan Hoa,52.0,8,2015,2.7,173.0,9.0,0.78,-20.4
+315,AVAILABLE,Long Biên,Ngọc Thụy,60.6,4,2014,4.2,80.0,4.85,0.0,0.0
+315,REVOKED (similar),Long Biên,Ngọc Lâm,66.0,4,2015,4.1,108.0,7.1,0.31,46.4
+315,SOLD (similar),Long Biên,Ngọc Lâm,93.9,4,2010,4.3,176.0,16.5,0.94,240.2
+316,AVAILABLE,Long Biên,Bồ Đề,150.0,7,2020,4.8,567.0,85.0,0.0,0.0
+316,REVOKED (similar),Long Biên,Ngọc Lâm,120.0,6,2023,5.3,325.0,39.0,1.03,-54.1
+316,SOLD (similar),Long Biên,Bồ Đề,120.0,6,2018,4.8,132.0,15.9,0.95,-81.3
+317,AVAILABLE,Long Biên,Bồ Đề,150.0,7,2021,9.0,567.0,85.0,0.0,0.0
+317,REVOKED (similar),Long Biên,Thượng Thanh,164.3,5,2022,9.0,213.0,35.0,1.48,-58.8
+318,AVAILABLE,Hà Đông,La Khê,198.9,3,2010,7.5,70.0,14.0,0.0,0.0
+318,REVOKED (similar),Hà Đông,Phú La,224.7,4,2014,6.9,209.0,47.0,1.08,235.7
+319,AVAILABLE,Nam Từ Liêm,Tây Mỗ,194.0,3,2015,9.8,51.0,9.9,0.0,0.0
+319,REVOKED (similar),Nam Từ Liêm,Đại Mỗ,170.0,3,2015,9.2,103.0,17.5,0.81,76.8
+320,AVAILABLE,Hà Đông,Yên Nghĩa,34.0,4,2023,3.2,115.0,3.9,0.0,0.0
+320,REVOKED (similar),Hà Đông,Yên Nghĩa,33.7,4,2023,3.2,116.0,3.9,0.01,0.0
+321,AVAILABLE,Hà Đông,Yên Nghĩa,35.1,4,2023,3.2,111.0,3.9,0.0,0.0
+321,REVOKED (similar),Hà Đông,Yên Nghĩa,34.8,4,2023,3.2,112.0,3.9,0.01,0.0
+322,AVAILABLE,Hà Đông,Yên Nghĩa,35.5,4,2023,3.2,111.0,3.95,0.0,0.0
+322,REVOKED (similar),Hà Đông,Yên Nghĩa,34.8,4,2023,3.2,112.0,3.9,0.01,-1.3
+323,AVAILABLE,Hoài Đức,X. Vân Canh,43.0,5,2023,3.1,98.0,4.2,0.0,0.0
+323,REVOKED (similar),Hoài Đức,X. Kim Chung,37.4,5,2023,3.0,88.0,3.3,0.13,-21.4
+324,AVAILABLE,Ba Đình,Cống Vị,29.2,4,2017,3.0,219.0,6.4,0.0,0.0
+324,REVOKED (similar),Ba Đình,Phúc Xá,40.0,4,2015,3.0,120.0,4.8,0.37,-25.0
+324,SOLD (similar),Ba Đình,Cống Vị,32.9,4,2023,3.7,116.0,3.8,0.92,-40.6
+325,AVAILABLE,Hoài Đức,X. Vân Canh,31.0,5,2021,4.5,108.0,3.35,0.0,0.0
+325,REVOKED (similar),Hoài Đức,X. Vân Canh,36.5,5,2021,3.2,112.0,4.1,0.63,22.4
+326,AVAILABLE,Đống Đa,Trung Phụng,42.5,1,2005,3.4,299.0,12.7,0.0,0.0
+326,REVOKED (similar),Đống Đa,Quang Trung,54.1,1,2006,3.9,222.0,12.0,2.64,-5.5
+327,AVAILABLE,Đống Đa,Ô Chợ Dừa,72.9,3,2010,4.5,412.0,30.0,0.0,0.0
+327,REVOKED (similar),Đống Đa,Ô Chợ Dừa,72.9,3,2010,4.6,412.0,30.0,0.0,0.0

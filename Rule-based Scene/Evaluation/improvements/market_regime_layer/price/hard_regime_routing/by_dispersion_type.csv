@@ -1,2 +1,0 @@
-level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
-by_dispersion_type,high_dispersion_group,hard regime routing,price,26381,4696160275.0805025,15726573313.647865,64.74053819117552,28.185059262225025,21.667108904135553,39.1683408513703,34.84130479952895,51.12012433190554,48.87987566809446

@@ -1,0 +1,1 @@
+{"iterations": 800, "learning_rate": 0.03, "depth": 7, "loss_function": "MAE", "l2_leaf_reg": 5.0, "min_data_in_leaf": 20, "random_seed": 42, "thread_count": -1, "verbose": 0}

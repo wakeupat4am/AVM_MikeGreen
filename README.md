@@ -6,7 +6,12 @@ single accuracy number" and is now organised as a **segmented, business-defensib
 system**: it reports where it can be trusted, explains where its errors come from, and flags the
 cases it should not answer confidently.
 
-All active work lives under [`Rule-based Scene/`](Rule-based%20Scene).
+All active work lives under [`Phase 1/Rule-based Scene/`](Phase%201/Rule-based%20Scene).
+
+> **Phase 2** — a follow-up on cleaner Hà Nội **transaction/inventory data** (with geocoordinates
+> and construction year) that **tests this project's central hypothesis**: it reaches Phase-1
+> accuracy (~13% Median APE) on **70× less data**, confirming *data quality was the ceiling, not the
+> model*. Full write-up: [`Phase 2/README.md`](Phase%202/README.md).
 
 ---
 
@@ -166,7 +171,7 @@ skewed target like house prices; treat MAPE as a *label-quality* indicator.
 ## 6. Calibration layer
 
 Two additions turn the routed model into a shippable, self-aware system
-([`src/train_region_subtype_calibrated.py`](Rule-based%20Scene/src/train_region_subtype_calibrated.py)).
+([`src/train_region_subtype_calibrated.py`](Phase%201/Rule-based%20Scene/src/train_region_subtype_calibrated.py)).
 
 ### Hierarchical shrinkage routing (replaces the hard fallback)
 
@@ -196,7 +201,7 @@ signal available **at inference time, before the true price is known**.
 
 ## 7. Regional reliability report
 
-Full report: [`Rule-based Scene/Evaluation/regional_report/README.md`](Rule-based%20Scene/Evaluation/regional_report/README.md).
+Full report: [`Phase 1/Rule-based Scene/Evaluation/regional_report/README.md`](Phase%201/Rule-based%20Scene/Evaluation/regional_report/README.md).
 Per-region datasets and metrics live in that folder's `regions/` subtree (48 regions with ≥ 100
 test listings reported individually, covering ~99% of listings; the rest pooled).
 
@@ -294,7 +299,7 @@ Reproduce: `python3 train_region_subtype_calibrated.py --output-suffix clean_ppm
 
 ## 9. How to reproduce
 
-From `Rule-based Scene/src/` (expects processed parquet in `data/processed/`):
+From `Phase 1/Rule-based Scene/src/` (expects processed parquet in `data/processed/`):
 
 ```bash
 # 1. Train the deployable model: shrinkage routing + prediction intervals
@@ -312,7 +317,7 @@ drift from the numbers.
 ## 10. Repository layout
 
 ```
-Rule-based Scene/
+Phase 1/Rule-based Scene/
 ├── src/                          reusable logic
 │   ├── common.py                 features, cleaning, metrics (incl. robust bias)
 │   ├── outlier_handling.py       leakage-safe local price/m² outlier bands

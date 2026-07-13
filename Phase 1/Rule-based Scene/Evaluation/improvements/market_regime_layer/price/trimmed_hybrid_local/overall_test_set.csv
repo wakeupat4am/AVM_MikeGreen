@@ -1,0 +1,2 @@
+level,group,model,target,count,MAE,RMSE,MAPE,Median_APE,HitRate_10_pct,HitRate_20_pct,Bias_pct,OvervaluationRate_pct,UndervaluationRate_pct
+overall_test_set,ALL,trimmed hybrid local,price,88885,3311123724.0371437,13943174455.260895,46.4793208538337,20.946394625166647,27.447825842380603,48.36024076053327,23.710544453826447,50.772346290150196,49.227653709849804
