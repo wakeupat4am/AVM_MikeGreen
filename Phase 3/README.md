@@ -1,9 +1,9 @@
 # Phase 3 — Hà Nội Sellability & Mispricing Report
 
 **Goal:** turn the combined Hà Nội data into a **listing-triage engine** — for any house, estimate
-the price it would actually *clear* at, and flag its asking price as **over- / fair- / under-priced**.
-The dataset is weak for absolute valuation (asking prices only, tiny realized-sale sample) but strong
-for **relative mispricing**, so that is what Phase 3 delivers.
+the price it would actually *clear* at, and flag its asking price as **over- / fair- / under-priced**,
+with a calibrated confidence band. The dataset is weak for absolute valuation (asking prices only,
+tiny realized-sale sample) but strong for **relative mispricing**, so that is what Phase 3 delivers.
 
 ---
 
@@ -19,7 +19,8 @@ and appends them → `data/phase3_merged_dataset.parquet`.
 | **Total** | **27,800** | 36 Phase-2 columns + `dataset_source` |
 
 Phase-1 listings get an availability label from their date (as requested):
-**AVAILABLE if `last_modified` ≥ Oct 2025 (or 2026), else UNKNOWN** → 307 AVAILABLE, 17,000 UNKNOWN.
+**AVAILABLE if `last_modified` ≥ Oct 2025 (or 2026), else UNKNOWN** → 307 AVAILABLE, 17,000 UNKNOWN
+(792 dated before Oct-2025 + 16,208 undated). No 2026 listings exist (scrape ends 2025-12).
 
 > ⚠️ **The single most important caveat:** *every price in the data is an **asking** price.* There is
 > no realized transaction price anywhere; `SOLD` is a **label** (a deal happened), not a sale value.
@@ -30,22 +31,55 @@ Phase-1 listings get an availability label from their date (as requested):
 
 ## 2. Status policy — what each status is used for
 
-| status | n | role | action |
-|---|--:|---|---|
-| **SOLD** | 194 | asking that **cleared** — gold label | train (up-weighted) + positive class |
-| **REVOKED** | 9,941 | asking that **didn't clear** | train (bulk) + negative class |
-| **AVAILABLE** (+**ON_STOCK** 345) | 652 | live **unsold** inventory | **score, don't train** |
-| **LOCKED** | 13 | deal in progress | fold into SOLD |
-| **UNKNOWN** | 17,000 | scraped listings, noisy, mostly undated, no geo | **score + comparable prior, never a label** |
+| status | n | what it is | role | action |
+|---|--:|---|---|---|
+| **SOLD** | 194 | asking that **cleared** — gold label | train + positive class | up-weight ×5 |
+| **REVOKED** | 9,941 | asking that **didn't clear**, later pulled | train (bulk) + negative class | keep |
+| **AVAILABLE** (+**ON_STOCK** 345) | 652 | live **unsold** inventory | score, not train | merge ON_STOCK in |
+| **LOCKED** | 13 | deal in progress | fold into SOLD | negligible |
+| **UNKNOWN** | 17,000 | scraped listings, noisy, mostly undated, no geo | score + comparable prior | never a label |
 
-Rules baked into `build_phase3_modeling.py`:
-- **Train on** SOLD (+LOCKED, ×5 weight) + REVOKED, suspicious prices removed.
-- **Label from** SOLD (=1) vs REVOKED (=0) only.
-- **Score** AVAILABLE and UNKNOWN (never trained on — Phase 2 proved adding unsold inventory *hurts*).
+Baked into `build_phase3_modeling.py`: **train on** SOLD (+LOCKED, ×5 weight) + REVOKED, suspicious
+prices removed; **label from** SOLD (=1) vs REVOKED (=0) only; **score** AVAILABLE and UNKNOWN. Phase 2
+proved that training on unsold inventory (AVAILABLE) *hurts* — it drags the model toward the asking level.
+
+**What `LOCKED` means** (undocumented; inferred from all 13 rows): all are `NOT_AVAILABLE`, all have a
+**SIGNED** brokerage contract, priced in the normal (clearing) range (median 6.5B) — i.e. a property
+**frozen mid-transaction** (reserved / under deposit), between "available" and "sold". So it is treated
+as effectively clearing → folded into SOLD. It is 0.05% of rows, so the choice is immaterial.
 
 ---
 
-## 3. The lean common-feature model (why not the full one)
+## 3. Market structure — what the data shows (figures interpreted)
+
+### 3.1 Price by status (`figs/phase3_price_kde_by_status.png`, `..._dist_by_status.png`)
+Median asking price, low → high: **SOLD 5.7B ≈ REVOKED 6.8B** (near-overlapping density peaks) →
+**UNKNOWN 10.5B** → **AVAILABLE 14.2B** (after merging ON_STOCK's 18.5B tail). The clear signal:
+**the market clears at the low end; unsold / listed inventory is the pricier tail.** This SOLD ≈ REVOKED
+overlap is what makes REVOKED a sound training proxy, and AVAILABLE/UNKNOWN the "asking, not clearing" pools.
+
+### 3.2 Price by district (`figs/phase3_price_kde_by_district.png`, district×status facets)
+A clean **~4× median gradient**, peripheral → central:
+
+| Hoài Đức | Hoàng Mai / Long Biên | Hà Đông / Nam Từ Liêm | Đống Đa / Ba Đình | Thanh Xuân | Tây Hồ | Cầu Giấy | Hoàn Kiếm |
+|--:|--:|--:|--:|--:|--:|--:|--:|
+| 5.0B | 6.5B | 8.3–8.5B | 10.3–10.5B | 11.0B | 13.0B | 15.0B | **21.0B** |
+
+Within-district spread is large everywhere (Hoàn Kiếm's 5th–95th spans ~2B→170B), so **district alone is
+too coarse — ward + district is the location unit.** The district×status facets show the same
+REVOKED-left / AVAILABLE-right ordering *inside* most districts, not just in aggregate.
+
+### 3.3 Price over time (`figs/phase3_price_timeseries.png`)
+Using `last_modified_date` across all members (2023-09 → 2026-07): median asking **price/m² rose
+~147M → ~350M (+~140%)**; the smoothed market index used by the model runs **135M → 319M/m² (+136%)**.
+Composition (bottom panel) is honest about coverage: **2023-09 → 2024-mid is thick transaction data**
+(peak 1,700 rows/mo), **2025 thins and adds scraped listings**, **2026 rests on ~20–50 rows/mo** — so
+the late uptrend is real in direction but low-confidence in level. **16,208 undated listings are excluded**
+(can't be placed on the axis). This appreciation is the single biggest force in the data and motivates §5.
+
+---
+
+## 4. The lean common-feature model (why not the full one)
 
 The three groups **do not share features** — UNKNOWN has none of Phase 2's rich columns:
 
@@ -59,23 +93,21 @@ The three groups **do not share features** — UNKNOWN has none of Phase 2's ric
 | main_road_dist | 100% | 53% | **0%** |
 | ward_name | 100% | 98% | 55% |
 
-A full model would learn to lean on geo / construction_year (88–100% in training) then **impute them
-for 100% of UNKNOWN** — a silent failure. So Phase 3 uses the **lean common set**:
-`total_area, number_of_floors, facade_width, district_name, ward_name`. Phase 2 already showed geo
-adds **no statistically significant gain**, so the accuracy cost is small and the model applies
-*honestly* to UNKNOWN. Model: **LightGBM, L1 (median-calibrated), log target, SOLD ×5**.
+A full model would learn to lean on geo / construction_year (88–100% in training) then **impute them for
+100% of UNKNOWN** — a silent failure. So Phase 3 uses the **lean common set**:
+`total_area, number_of_floors, facade_width, district_name, ward_name`. Phase 2 showed geo adds **no
+statistically significant gain**, so the accuracy cost is small and the model applies *honestly* to
+UNKNOWN. Model: **LightGBM, L1 (median-calibrated), log target, SOLD ×5**.
 
 ---
 
-## 4. Temporal treatment (the decisive step)
+## 5. Temporal treatment (the decisive step)
 
-Hà Nội prices **rose ~136%** across the window (`figs/phase3_price_timeseries.png`): the market index
-`I(t)` = monthly median ₫/m² climbs **135M → 319M/m² (2023-09 → 2026)**. The transaction pool is
-**2023–24-heavy**, but the inventory we score is **2025–26** — so an un-timed model anchors in the
-*cheaper* market and **overstates over-pricing**.
+The market rose **+136%** (§3.3), but the transaction pool is **2023–24-heavy** while the inventory we
+score is **2025–26** — so an un-timed model anchors in the *cheaper* market and **overstates over-pricing.**
 
-`train_phase3_clearing_time.py` fixes this with a **deterministic market-index adjustment**
-(transparent, non-extrapolating — a learned tree time-feature cannot extrapolate):
+`train_phase3_clearing_time.py` fixes this with a **deterministic market-index adjustment** (a learned
+tree time-feature cannot extrapolate):
 
 1. **Build** the smoothed monthly index `I(t)` from all dated members.
 2. **Deflate** every training price to a reference month: `price_ref = price · I(ref)/I(t)` → the model
@@ -86,20 +118,20 @@ Hà Nội prices **rose ~136%** across the window (`figs/phase3_price_timeseries
 
 ---
 
-## 5. Results
+## 6. Results
 
-### 5.1 Validation (out-of-fold, leakage-safe GroupKFold by `property_id`)
+### 6.1 Validation (out-of-fold, leakage-safe GroupKFold by `property_id`)
 
 | model | set | MedAPE | MAPE | Hit20 |
 |---|---|--:|--:|--:|
 | no-time | all SOLD+REVOKED | 18.7% | 26.2 | 52.2 |
 | **time-aware** | all SOLD+REVOKED | **18.0%** | 25.2 | **54.1** |
-| **time-aware** | SOLD only (truth-ish) | 18.6% | 26.6 | 51.5 |
+| time-aware | SOLD only (truth-ish) | 18.6% | 26.6 | 51.5 |
 
-Lean model is ~18% MedAPE (vs Phase 2's ~13% full model — the price of dropping geo for UNKNOWN
+Lean model ≈18% MedAPE (vs Phase 2's ~13% full model — the price of dropping geo for UNKNOWN
 compatibility). Time adjustment gives a modest, honest lift.
 
-### 5.2 Scoring — the temporal treatment transforms the verdict
+### 6.2 Scoring — the temporal treatment transforms the verdict
 
 **AVAILABLE (n=612 clean, full-feature → higher trust)**
 
@@ -123,15 +155,25 @@ compatibility). Time adjustment gives a modest, honest lift.
 UNKNOWN barely moves because **only 792 of 17,000 are dated** — we honestly cannot time-place the
 other 16,208, so they stay at the reference level.
 
-### 5.3 Comparable cross-check (model-independent)
+### 6.3 Comparable cross-check (model-independent)
 
 `unknown_address_feature_matches.csv`: **4,629 UNKNOWN listings (68% of the ward-locatable ones)** have
-a feature-identical comparable (same ward + area ±3% + floors) in the transaction pool. On the
-high-confidence street-matched subset, UNKNOWN asks a **median +13–28% above** comparable SOLD/REVOKED
-prices — a second, independent confirmation of systematic over-asking. **Trust an UNKNOWN flag only
-where the model and the comparable agree.**
+a feature-identical comparable (same ward + area ±3% + floors) in the transaction pool; 1,351 also match
+street name. The asking-vs-comparable price gap by matched status (street-matched, plausible prices):
 
-### 5.4 Prediction intervals — the decision-grade layer (`train_phase3_intervals.py`)
+| matched against | median gap | reading |
+|---|--:|---|
+| **SOLD** | **+28%** | UNKNOWN asks ~30% above where identical houses *cleared* |
+| **REVOKED** | **+20%** | above the revoked/asking pool too |
+| **AVAILABLE** | **~0%** | same level as other unsold inventory |
+| ON_STOCK | −20% | below the priciest live inventory |
+| **overall** | **+13% (median), +18% (trimmed mean)** | |
+
+A second, independent confirmation of systematic over-asking. The matched extremes (+1000% / −99%)
+also expose **heavy price noise** in the scraped listings — another reason UNKNOWN is a scoring target,
+not a label. **Trust an UNKNOWN flag only where the model and the comparable agree.**
+
+### 6.4 Prediction intervals — the decision-grade layer (`train_phase3_intervals.py`)
 
 A point clearing price ± an arbitrary 10% band is untrustworthy when the model's own error is ~18%
 (the ±10% flag sits *inside* the noise). So the model is wrapped in a **calibrated band [P10, P50, P90]**
@@ -156,40 +198,50 @@ fallback for thin ones). A listing is flagged only by where its asking falls rel
 | OVERPRICED (> P90 ceiling) | 9.4% | 12.9% |
 | STRONGLY_OVER (> P90 ×1.3) | 9.4% | 12.2% |
 
+**Example bands (AVAILABLE):**
+
+| district | ward | m² | asking B | P10 | P50 | P90 | flag |
+|---|---|--:|--:|--:|--:|--:|---|
+| Ba Đình | Cống Vị | 40 | 360.0 | 8.4 | 13.2 | 19.0 | STRONGLY_OVER *(also a data error)* |
+| Thanh Xuân | T.X. Trung | 74 | 34.0 | 13.0 | 18.1 | **34.7** | **fair** *(point model would say "+88% over")* |
+| Đống Đa | Hàng Bột | 34 | 7.0 | **7.29** | 10.2 | 16.3 | UNDERPRICED |
+
 **Why this matters:** the point model called AVAILABLE ~29–62% over-priced; the interval model says only
 **~19% clear the P90 ceiling** — the rest fall *inside* a calibrated clearing band. That gap was false
 confidence. Now each flag means "confidently outside the 80% clearing range," with a controlled
-false-positive rate — exactly what a triage engine needs. Example: Thanh Xuân 74m² asking 34.0B, band
-`[13.0, 34.7]` → correctly **fair**, though a point model at 18.1B would have screamed "+88% over."
+false-positive rate — exactly what a triage engine needs.
 
 ---
 
-## 6. Insights
+## 7. Insights
 
-1. **Available inventory is not ¾ over-priced — it's roughly fair once you credit the market.**
-   The headline "+48%" collapses to **+1% median** after time adjustment. The apparent over-pricing was
-   mostly the model being anchored in the 2023–24 market while the listings live in 2025–26.
-   ~**29% remain genuinely strongly over-priced** — those are the robust flags.
-2. **The market, not mispricing, is the dominant force.** +136% index over the window swamps the
-   ±10–30% mispricing signal. Any valuation here that ignores time is wrong by ~40%.
-3. **SOLD ≈ REVOKED confirmed a third way** (distribution, KDE, and now the model): the market clears at
-   the low end; unsold inventory is the pricier tail.
-4. **UNKNOWN behaves like unsold listing inventory** — over-asking confirmed by distribution, KDE, and
-   comparable-matching — but its **own prices are too noisy to trust row-by-row** (26–29% "underpriced"
-   is largely data noise, not bargains).
-5. **Location is saturated by district+ward.** Adding geo didn't significantly help; the lean model is
-   the right honesty/accuracy trade-off given 61% of rows have no coordinates.
+1. **Available inventory is not ¾ over-priced — it's roughly fair once you credit the market.** The
+   headline "+48%" collapses to **+1% median** after time adjustment; the interval model confirms **~61%
+   fair, only ~19% above the P90 ceiling.** The apparent over-pricing was mostly the model anchored in the
+   2023–24 market while the listings live in 2025–26.
+2. **The market, not mispricing, is the dominant force.** +136% appreciation swamps the ±10–30% mispricing
+   signal. Any valuation here that ignores time is wrong by ~40%.
+3. **SOLD ≈ REVOKED, confirmed four ways** (distribution, KDE, district×status facets, and the model): the
+   market clears at the low end; unsold inventory is the pricier tail.
+4. **UNKNOWN behaves like unsold listing inventory** — over-asking confirmed by distribution, KDE, *and*
+   comparable-matching (+20–28% over SOLD/REVOKED) — but its **own prices are too noisy to trust
+   row-by-row** (the 13–29% "underpriced" is largely data noise, not bargains).
+5. **Location is saturated by district+ward.** Adding geo didn't significantly help; the lean model is the
+   right honesty/accuracy trade-off given 61% of rows have no coordinates.
+6. **Uncertainty must be modelled, not assumed.** With ~18% point error, only a *calibrated band* makes the
+   flags trustworthy — the CQR layer is what turns "directionally useful" into "decision-grade."
 
 ### Honest limits
-- **~18% MedAPE**, not 13% — the lean model's cost. Absolute valuations are ±18%, use the **band/flag**,
+- **~18% MedAPE**, not 13% — the lean model's cost. Absolute valuations are ±18%; use the **band/flag**,
   not the point.
-- **AVAILABLE's 41% "under-priced" is time-extrapolation-optimistic** — re-inflating into thin 2026 index
-  months pushes clearing prices up. Treat AVAILABLE UNDERPRICED as "review," not "confirmed bargain."
+- **AVAILABLE's ~41% "under-priced" (point model) is time-extrapolation-optimistic** — re-inflating into
+  thin 2026 index months pushes clearing prices up. The interval model tempers this (20% under P10). Treat
+  AVAILABLE UNDERPRICED as "review," not "confirmed bargain."
 - **Everything is asking-price modelling.** Realized transaction prices remain the true ceiling.
 
 ---
 
-## 7. Step-by-step — reproduce the whole report
+## 8. Step-by-step — reproduce the whole report
 
 ```bash
 cd "Phase 3/src"
@@ -197,27 +249,28 @@ cd "Phase 3/src"
 # 1. Merge Phase 1 Hà Nội listings into the Phase 2 schema  -> phase3_merged_dataset.parquet
 python3 build_phase3_dataset.py
 
-# 2. Assemble modeling splits per the status policy (train + 2 scoring frames, with weights/labels)
+# 2. Assemble modeling splits per the status policy (train + 2 scoring frames, weights/labels)
 python3 build_phase3_modeling.py
 
-# 3a. Baseline clearing model (no time)  -> phase3_{available,unknown}_predictions.csv
+# 3a. Baseline clearing model (no time)                    -> phase3_{available,unknown}_predictions.csv
 python3 train_phase3_clearing.py
 
-# 3b. TIME-AWARE clearing model (market-index adjust) -> *_predictions_timeadj.csv
+# 3b. TIME-AWARE clearing model (market-index adjust)      -> *_predictions_timeadj.csv
 python3 train_phase3_clearing_time.py
 
-# 3c. PREDICTION INTERVALS (CQR, per-district coverage) -> *_intervals.csv   [decision-grade; use these]
+# 3c. PREDICTION INTERVALS (CQR, per-district coverage)    -> *_intervals.csv   [decision-grade; use these]
 python3 train_phase3_intervals.py
 
 # 4. Figures
 python3 plot_price_kde.py                 # price density by status / by district
 python3 plot_kde_district_by_status.py    # district x status density facets
+python3 plot_price_distributions.py       # boxplot views (status / district)
 python3 plot_timeseries.py                # market index / composition over time
 ```
 
-**Pipeline in one line:** merge → split by status policy → lean model, time-adjusted → clearing price →
-compare to asking → over/fair/under flag, gated by confidence (AVAILABLE full-feature; UNKNOWN needs the
-comparable cross-check).
+**Pipeline in one line:** merge → split by status policy → lean model, time-adjusted → calibrated
+clearing band → compare asking to the band → over/fair/under flag, gated by confidence (AVAILABLE
+full-feature; UNKNOWN needs the comparable cross-check).
 
 ### Key outputs
 | file | contents |
@@ -232,18 +285,18 @@ comparable cross-check).
 
 ---
 
-## 8. Next steps (ranked)
+## 9. Next steps (ranked)
 1. **"Will it sell?" classifier** from the SOLD-vs-REVOKED label — the one thing this dataset has *real*
    labels for; sidesteps the asking-price ceiling entirely.
 2. **Full-feature model for AVAILABLE** (it has 44% geo / 53% year) to recover ~13% accuracy there.
-3. **Fuse model interval flag + comparable flag** into one confidence-tiered verdict for UNKNOWN.
+3. **Fuse the interval flag + comparable flag** into one confidence-tiered verdict for UNKNOWN.
 4. **Geocode UNKNOWN** addresses to recover the location feature and place them on the map.
 5. **Acquire realized transaction prices** — the true accuracy ceiling; every experiment points here.
 
-*Done:* status policy · lean model · temporal (market-index) treatment · **calibrated prediction
-intervals (CQR, 80% coverage validated per district)**.
+*Done:* merge · status policy (incl. LOCKED) · market-structure EDA · lean model · temporal
+(market-index) treatment · **calibrated prediction intervals (CQR, 80% coverage validated per district)**.
 
-## 9. Layout
+## 10. Layout
 ```
 Phase 3/
 ├── data/   phase3_merged_dataset.parquet · phase3_*_intervals.csv · phase3_interval_coverage.csv
