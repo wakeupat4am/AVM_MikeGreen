@@ -1,0 +1,653 @@
+property_id,dataset_source,district_name,ward_name,total_area,number_of_floors,asking_B,pred_clearing_B,over_ask_pct,flag
+7b99d5ef-3f40-fb25-4a5a-d984c54c5b41,phase2_transaction,Q. Đống Đa,P. Quang Trung,52.3,5.0,33.0,10.35,218.8,STRONGLY_OVER
+027bed2a-f4c6-6287-c74d-ff5a9780878a,phase2_transaction,Q. Hai Bà Trưng,P. Minh Khai,53.0,1.0,18.5,6.6,180.1,STRONGLY_OVER
+95729d62-f483-a46b-da68-980cddc3481d,phase2_transaction,Q. Bắc Từ Liêm,P. Phú Diễn,59.0,7.0,21.5,11.29,90.4,STRONGLY_OVER
+998ffae9-7971-75cf-d6cb-4adad8cd8ce7,phase2_transaction,Q. Đống Đa,P. Hàng Bột,34.1,4.0,7.0,4.53,54.5,STRONGLY_OVER
+addaf0ec-cca4-670d-43a4-1cf8b79b2865,phase2_transaction,Q. Hoàng Mai,P. Tương Mai,49.0,5.0,9.9,6.49,52.6,STRONGLY_OVER
+6eb68705-1f57-4714-0d75-202c6a8f6206,phase2_transaction,H. Hoài Đức,X. Kim Chung,96.5,9.0,26.0,22.14,17.4,OVERPRICED
+847e172e-3456-eb1f-efb1-f926c8dd521b,phase2_transaction,Q. Thanh Xuân,P. Thanh Xuân Trung,74.1,3.0,34.0,9.96,241.4,STRONGLY_OVER
+7216723b-69d2-6045-c8c9-7c1c2617ad15,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,165.6,8.0,39.0,35.85,8.8,fair
+3e352f4e-8ba6-9178-36df-3509e81fc322,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,65.9,1.0,25.5,8.52,199.2,STRONGLY_OVER
+e07d0afc-c814-c153-f4a6-96b478ef66f9,phase2_transaction,Q. Đống Đa,P. Khương Thượng,32.0,2.0,14.0,4.39,219.1,STRONGLY_OVER
+a8f45275-c529-a8a5-98ea-c0c6b4dd513b,phase2_transaction,Q. Long Biên,P. Thạch Bàn,90.0,6.0,36.0,16.29,121.0,STRONGLY_OVER
+0a2878f4-41de-5ef1-52e8-9614094e1f3d,phase2_transaction,Q. Hai Bà Trưng,P. Bạch Mai,35.0,6.0,7.5,6.28,19.4,OVERPRICED
+32b048f0-ab9d-3286-e292-92a711035193,phase2_transaction,Q. Tây Hồ,P. Bưởi,230.0,9.0,110.0,64.42,70.8,STRONGLY_OVER
+023606b5-c896-5351-8bf7-29d54686c125,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,105.5,5.0,38.0,15.89,139.1,STRONGLY_OVER
+d79f2457-420e-a723-0483-b2e37a287f82,phase2_transaction,Q. Ba Đình,P. Điện Biên,57.0,4.0,13.6,8.45,61.0,STRONGLY_OVER
+a2d5ef57-b33a-8264-1d51-8d9e0ff8a1ce,phase2_transaction,Q. Long Biên,P. Thạch Bàn,114.0,3.0,6.8,11.97,-43.2,UNDERPRICED
+7732e1f8-ec07-567b-7a78-1b5372d1868d,phase2_transaction,Q. Long Biên,P. Bồ Đề,61.0,1.0,24.5,7.29,235.9,STRONGLY_OVER
+99e3ef9f-b037-8bbd-a3e3-95492b3bdf18,phase2_transaction,Q. Long Biên,P. Việt Hưng,77.0,3.0,21.0,10.37,102.5,STRONGLY_OVER
+0383f4d1-54c5-e801-8607-4f8ab1ac6257,phase2_transaction,H. Thanh Trì,X. Tân Triều,75.0,8.0,24.5,15.76,55.5,STRONGLY_OVER
+accbf5e3-0d34-cf57-b586-9cb5ebbd8ae6,phase2_transaction,H. Thanh Trì,X. Tân Triều,60.0,7.0,14.7,8.79,67.3,STRONGLY_OVER
+e77f4544-be7a-2395-40fe-7c35895b4c6a,phase2_transaction,Q. Cầu Giấy,P. Quan Hoa,60.0,4.0,38.0,11.75,223.4,STRONGLY_OVER
+18145432-c39e-e08e-14b5-5cd9d31f292e,phase2_transaction,Q. Long Biên,P. Thượng Thanh,33.9,1.0,8.0,3.18,151.7,STRONGLY_OVER
+ac091319-017d-1d08-239e-dc332851a24b,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 2,84.7,8.0,24.5,17.03,43.8,STRONGLY_OVER
+7f685cbc-0807-af48-1105-d3f0fa7bbba8,phase2_transaction,Q. Đống Đa,P. Văn Miếu,33.0,3.0,18.0,4.47,302.3,STRONGLY_OVER
+4ef290b1-3c3d-6e1d-5c42-e77a3f5286e3,phase2_transaction,Q. Long Biên,P. Cự Khối,63.9,4.0,20.5,7.83,161.7,STRONGLY_OVER
+77964dbf-f7dc-5403-01c7-21b6216affc5,phase2_transaction,Q. Long Biên,P. Đức Giang,78.7,5.0,26.0,9.93,161.9,STRONGLY_OVER
+857bb835-71c7-449a-0ea7-c93870d9db0f,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,36.8,4.0,8.5,4.76,78.7,STRONGLY_OVER
+420880e3-54a1-9593-3eab-94f092c1e793,phase2_transaction,Q. Tây Hồ,P. Quảng An,99.9,5.0,35.0,22.79,53.6,STRONGLY_OVER
+c00bbeca-6f5a-eb42-11cd-dc30c2efb029,phase2_transaction,Q. Hoàn Kiếm,P. Chương Dương,167.8,4.0,32.0,23.52,36.1,STRONGLY_OVER
+aebeba06-b437-870f-1d87-57e9a587ac57,phase2_transaction,Q. Long Biên,P. Bồ Đề,230.0,4.0,60.0,48.33,24.1,OVERPRICED
+414dba8a-d5af-282c-acac-9c3e7373cfce,phase2_transaction,Q. Đống Đa,P. Láng Hạ,34.8,1.0,7.5,5.29,41.7,STRONGLY_OVER
+ca1e8c90-a2f0-0214-d69e-0be15035fa3f,phase2_transaction,Q. Đống Đa,P. Trung Liệt,63.8,4.0,19.5,13.77,41.7,STRONGLY_OVER
+26a9bc63-7059-5362-46b4-b82e9a921403,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,39.6,2.0,13.0,6.71,93.8,STRONGLY_OVER
+9636d239-abaf-ef40-a6f7-8467b7644a15,phase2_transaction,Q. Hai Bà Trưng,P. Quỳnh Mai,59.0,3.0,13.0,8.36,55.5,STRONGLY_OVER
+b9cd04de-4b11-a8cb-32e0-76a401c7f36d,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,48.1,5.0,18.5,9.44,96.0,STRONGLY_OVER
+cdcdb378-c8bc-9728-2fb5-14314f42f876,phase2_transaction,Q. Nam Từ Liêm,P. Mễ Trì,60.0,3.0,26.0,7.89,229.5,STRONGLY_OVER
+af185cc5-ed01-1783-f235-8477e3d7c3f2,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,41.7,7.0,28.6,10.69,167.4,STRONGLY_OVER
+cd9a0f3c-d189-aff8-9eca-d8641be7ce40,phase2_transaction,Q. Đống Đa,P. Hàng Bột,125.0,3.0,63.0,12.85,390.3,STRONGLY_OVER
+63619e5e-54d6-e29f-4189-f5b408d7a844,phase2_transaction,Q. Ba Đình,P. Đội Cấn,34.6,5.0,14.5,5.43,166.9,STRONGLY_OVER
+64aadd6e-8495-b214-9e6d-8e546fc24e4f,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Gai,15.0,5.0,4.95,7.33,-32.4,UNDERPRICED
+80dfcf9a-2e11-abc6-fe22-1cf10ece0b34,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Buồm,145.0,5.0,94.5,24.73,282.1,STRONGLY_OVER
+f353dc17-3d80-44fd-0ef6-c9726d4ff2a6,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,59.9,3.0,7.5,5.41,38.6,STRONGLY_OVER
+5230fae0-8162-6f15-af92-f485d88ac3e0,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,125.9,3.0,27.0,17.85,51.3,STRONGLY_OVER
+ccf182e1-79c4-5fc4-2cc9-37eaa0d1ba8b,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Bồ,76.0,3.0,15.5,20.43,-24.1,UNDERPRICED
+cb5d332a-3b37-89f4-67e7-b9714c8eac40,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Đào,86.0,3.0,81.0,16.64,386.6,STRONGLY_OVER
+324f7be3-a27a-1ebe-7147-0d1ccf0ae76d,phase2_transaction,Q. Long Biên,P. Ngọc Lâm,75.1,3.0,32.0,8.94,257.9,STRONGLY_OVER
+034f0896-e6fc-e916-e958-bb3fd76fa9e1,phase2_transaction,Q. Long Biên,P. Bồ Đề,164.0,5.0,41.0,22.5,82.2,STRONGLY_OVER
+b83611ec-92fb-ef01-b372-ebb0522fea9a,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,54.2,4.0,18.5,7.02,163.6,STRONGLY_OVER
+7a42a0bf-ca54-10bc-52c2-aeee050469bc,phase2_transaction,Q. Hoàng Mai,P. Lĩnh Nam,54.0,1.0,9.0,5.31,69.4,STRONGLY_OVER
+08bb3f89-a903-578d-0ebd-aa91b0b8399d,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,165.0,5.0,27.9,22.03,26.7,OVERPRICED
+ad06d08b-c885-56ad-914b-993185d2cb8b,phase2_transaction,Q. Thanh Xuân,P. Thanh Xuân Trung,64.2,3.0,18.5,7.7,140.2,STRONGLY_OVER
+4416b7e7-0742-3810-2ee1-fe333ea74a0d,phase2_transaction,Q. Hoàng Mai,P. Hoàng Liệt,40.0,4.0,8.5,4.94,71.9,STRONGLY_OVER
+0faa87b7-fb8d-150f-de19-592505494d18,phase2_transaction,Q. Tây Hồ,P. Bưởi,160.0,9.0,51.5,28.14,83.0,STRONGLY_OVER
+b2cc39bb-47ed-fbd9-4d8e-8965a78d8ae0,phase2_transaction,Q. Tây Hồ,P. Yên Phụ,68.0,8.0,40.0,19.38,106.4,STRONGLY_OVER
+3e39b4b5-fa95-b06d-b7c5-8702a4cf74df,phase2_transaction,Q. Tây Hồ,P. Quảng An,56.0,3.0,9.2,9.99,-7.9,fair
+2af657d9-a29a-8484-5ff9-3167168a8c25,phase2_transaction,Q. Cầu Giấy,P. Quan Hoa,110.0,1.0,95.0,16.52,475.0,STRONGLY_OVER
+de6df699-8d79-9913-52c9-f614d21deafc,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,33.7,5.0,9.5,5.32,78.6,STRONGLY_OVER
+c076ae68-8e7c-db40-954a-7ba43790d2af,phase2_transaction,Q. Ba Đình,P. Cống Vị,43.1,3.0,21.0,7.26,189.3,STRONGLY_OVER
+2b0dfed5-2722-0516-ca43-72408b151e9c,phase2_transaction,Q. Đống Đa,P. Nam Đồng,111.4,5.0,61.0,18.07,237.6,STRONGLY_OVER
+d75d2f00-7371-2684-e8ea-89224093d97a,phase2_transaction,Q. Ba Đình,P. Vĩnh Phúc,90.0,2.0,18.5,17.15,7.9,fair
+3f9fbcfd-8b73-46c4-02d4-86bb22556a23,phase2_transaction,Q. Tây Hồ,P. Tứ Liên,110.0,1.0,9.5,13.07,-27.3,UNDERPRICED
+a2dec36e-2c3e-b49b-f133-17d909f53115,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,86.3,5.0,30.0,19.55,53.4,STRONGLY_OVER
+893470df-9d46-2fc2-1e14-3f29ceee2fdc,phase2_transaction,Q. Đống Đa,P. Láng Hạ,42.37,5.0,12.0,7.82,53.5,STRONGLY_OVER
+3b013e52-caec-033d-4581-48c425384497,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,19.4,5.0,11.9,3.88,206.5,STRONGLY_OVER
+884dbf9b-9d64-d788-9d6f-2d7395baf4e5,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Buồm,68.3,4.0,23.5,14.42,63.0,STRONGLY_OVER
+86f5c608-45f7-4084-3489-3d8426a82dca,phase2_transaction,Q. Hoàng Mai,P. Định Công,77.5,4.0,19.0,11.89,59.8,STRONGLY_OVER
+5efdec0e-c983-0254-897c-0df5e916b35e,phase2_transaction,Q. Long Biên,P. Bồ Đề,114.2,2.0,45.0,11.72,284.0,STRONGLY_OVER
+a20413e4-f14b-08c7-4669-711e16217a05,phase2_transaction,Q. Hoàng Mai,P. Đại Kim,53.0,4.0,22.0,7.74,184.1,STRONGLY_OVER
+ed10ea2a-2086-83d0-f761-96a80338bc8c,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,53.8,5.0,21.5,11.41,88.5,STRONGLY_OVER
+43e77f15-9a3e-6e96-2b45-1808e0384792,phase2_transaction,Q. Ba Đình,P. Vĩnh Phúc,60.0,4.0,11.0,7.63,44.2,STRONGLY_OVER
+b4ae97de-77ad-6576-3bcb-8bf36e794c97,phase2_transaction,Q. Hoàng Mai,P. Định Công,95.5,2.0,12.5,13.9,-10.1,UNDERPRICED
+bd5c14d7-4c89-592e-bffd-4f50b274dddb,phase2_transaction,Q. Hoàng Mai,P. Tân Mai,58.4,3.0,13.5,7.08,90.7,STRONGLY_OVER
+0f06b743-33e6-19d2-533f-694d0d33fa3b,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,177.0,3.0,33.0,23.35,41.3,STRONGLY_OVER
+b965a5c3-0fcd-4b26-1a53-bfe0de3229ab,phase2_transaction,Q. Ba Đình,P. Đội Cấn,90.0,5.0,35.0,17.2,103.5,STRONGLY_OVER
+2df6b044-11db-dc2b-9c04-39b66d9e3fc9,phase2_transaction,Q. Hai Bà Trưng,P. Minh Khai,81.7,7.0,24.0,19.98,20.1,OVERPRICED
+746eccdc-337a-7efb-b960-85880bea0c9a,phase2_transaction,Q. Cầu Giấy,P. Nghĩa Đô,33.0,3.0,13.0,4.28,203.5,STRONGLY_OVER
+2a758926-7a0b-f472-e859-102eb6eda163,phase2_transaction,Q. Đống Đa,P. Quang Trung,36.0,3.0,13.2,5.79,127.9,STRONGLY_OVER
+45d58588-84d8-7a0d-3ef5-9cdf7a8049f7,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,112.5,9.0,98.0,32.76,199.2,STRONGLY_OVER
+d2eafaaa-2b59-57b7-658b-f9688715e809,phase2_transaction,Q. Cầu Giấy,P. Yên Hòa,165.0,7.0,29.6,36.91,-19.8,UNDERPRICED
+ff99205d-8162-9b93-19db-5f533b38748e,phase2_transaction,Q. Cầu Giấy,P. Nghĩa Đô,300.0,10.0,280.0,62.2,350.2,STRONGLY_OVER
+45aaa154-888a-3fcb-e0bb-16a3886eb99e,phase2_transaction,Q. Tây Hồ,P. Quảng An,390.0,3.0,45.0,49.8,-9.6,fair
+b12784dd-3388-ffda-0262-8de761720bc7,phase2_transaction,Q. Đống Đa,P. Thổ Quan,44.0,4.0,22.5,6.2,262.9,STRONGLY_OVER
+f79bb252-a933-441f-00df-ddaf4743b5e3,phase2_transaction,Q. Long Biên,P. Phúc Lợi,383.0,7.0,135.0,41.53,225.0,STRONGLY_OVER
+0c7cbb85-dcf1-20b9-77a0-79991c2c75ab,phase2_transaction,Q. Hoàng Mai,P. Đại Kim,124.0,7.0,30.0,21.42,40.0,STRONGLY_OVER
+557ea33e-549e-2dae-b2f1-2351d3945fb5,phase2_transaction,Q. Long Biên,P. Bồ Đề,135.0,3.0,40.0,15.32,161.0,STRONGLY_OVER
+d413acf8-d87f-36cd-2b65-59c44a80f022,phase2_transaction,Q. Long Biên,P. Long Biên,142.0,1.0,54.0,12.66,326.6,STRONGLY_OVER
+b1f1a7f5-0482-4299-f3b4-32063bbf82ff,phase2_transaction,Q. Nam Từ Liêm,P. Phương Canh,75.0,6.0,26.0,15.53,67.4,STRONGLY_OVER
+7df00cf6-9632-db3a-0fa3-5b7e9874ee3e,phase2_transaction,H. Thanh Trì,X. Tân Triều,388.0,9.0,99.0,42.08,135.3,STRONGLY_OVER
+26ad3a7e-35d5-c987-13c4-922b5a961bfe,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,143.0,9.0,50.0,43.27,15.6,OVERPRICED
+15212d34-b935-d355-53c1-36714c97813f,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,109.4,9.0,45.9,29.71,54.5,STRONGLY_OVER
+0178996f-8812-2c10-845a-3f8e4b5b9207,phase2_transaction,Q. Bắc Từ Liêm,P. Xuân Đỉnh,72.4,4.0,25.0,10.67,134.4,STRONGLY_OVER
+f89a692d-fe3a-75ed-7ebc-9f0c1111fb6c,phase2_transaction,Q. Cầu Giấy,P. Yên Hòa,314.2,5.0,130.0,42.09,208.9,STRONGLY_OVER
+666eab33-eace-6951-2a09-d6f69e97c54e,phase2_transaction,Q. Đống Đa,P. Văn Miếu,126.3,2.0,120.0,21.21,465.7,STRONGLY_OVER
+49a63d9a-a36e-6770-0b5b-837c1a1528ae,phase2_transaction,Q. Long Biên,P. Thượng Thanh,70.0,1.0,6.5,6.89,-5.6,fair
+c2e77bf2-3514-b399-b6fc-fbf7c8d92b56,phase2_transaction,Q. Nam Từ Liêm,P. Tây Mỗ,345.0,3.0,70.0,53.39,31.1,STRONGLY_OVER
+5de54e6f-5909-2093-d838-7814313447a0,phase2_transaction,H. Gia Lâm,TT. Trâu Quỳ,95.0,1.0,22.6,9.96,126.8,STRONGLY_OVER
+abe18b6b-c4e8-b71e-9c4d-a613b80e31b2,phase2_transaction,Q. Tây Hồ,P. Nhật Tân,222.0,2.0,57.0,40.66,40.2,STRONGLY_OVER
+38a675c2-ea04-7d70-13ac-252e9eea5068,phase2_transaction,Q. Bắc Từ Liêm,P. Xuân Đỉnh,99.6,3.0,25.0,14.13,76.9,STRONGLY_OVER
+1d3a7f9a-c60b-7648-6de7-2c9aca2883c3,phase2_transaction,Q. Cầu Giấy,P. Mai Dịch,64.0,3.0,21.0,10.2,105.9,STRONGLY_OVER
+eefa7141-bded-f69d-0f12-0ca64f74196f,phase2_transaction,Q. Cầu Giấy,P. Quan Hoa,118.0,5.0,39.0,30.93,26.1,OVERPRICED
+b0974fc9-5661-066d-be8a-c509315fd38b,phase2_transaction,Q. Cầu Giấy,P. Trung Hòa,72.5,2.0,14.0,8.9,57.3,STRONGLY_OVER
+8bc5c20b-243e-d983-993a-58e3ea2c33e7,phase2_transaction,Q. Hoàng Mai,P. Mai Động,138.0,3.0,21.0,13.28,58.1,STRONGLY_OVER
+f26fdfc4-f3bb-780f-e176-f0a2a42274d6,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,61.1,2.0,21.5,8.11,165.0,STRONGLY_OVER
+03538e5b-08a1-6600-ceae-d28676d5f663,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,18.5,5.0,18.0,4.0,350.0,STRONGLY_OVER
+38ec8ff4-982f-52ad-3f43-8e0931f50a50,phase2_transaction,Q. Tây Hồ,P. Quảng An,50.0,5.0,19.5,10.69,82.4,STRONGLY_OVER
+72adfec8-162b-52ec-a8c1-9b0e8497e7ce,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 2,121.8,3.0,30.5,18.15,68.0,STRONGLY_OVER
+0afaa466-0dde-73d6-ec48-0fc254c51183,phase2_transaction,Q. Ba Đình,P. Điện Biên,72.27,5.0,27.0,14.56,85.5,STRONGLY_OVER
+a82269e3-a62d-9ef0-1ec7-e332788b4782,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 2,51.0,2.0,13.9,5.14,170.4,STRONGLY_OVER
+72e05013-e9d9-d157-b70c-f365a02b7aa6,phase2_transaction,Q. Tây Hồ,P. Quảng An,166.9,4.0,30.0,31.52,-4.8,fair
+b11cf63b-a8b2-c32e-2321-f00443be0a64,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,62.0,4.0,19.0,8.6,120.9,STRONGLY_OVER
+86f60a50-45f1-b831-af6b-688baa50308c,phase2_transaction,Q. Thanh Xuân,P. Nhân Chính,57.2,3.0,6.2,7.82,-20.7,UNDERPRICED
+6c554d1f-d481-bcf2-5d08-2add0e7911da,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,54.0,4.0,19.9,9.1,118.6,STRONGLY_OVER
+756743a2-f76d-abcd-2b94-0bc14578daf2,phase2_transaction,Q. Thanh Xuân,P. Thanh Xuân Trung,72.0,2.0,37.0,9.51,289.2,STRONGLY_OVER
+cee9dbc8-19da-6dd6-faa3-cae5b1e0f42a,phase2_transaction,Q. Long Biên,P. Ngọc Lâm,110.0,6.0,28.0,20.84,34.4,STRONGLY_OVER
+904769d2-6775-2f39-4f53-36bf12943d4d,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,96.4,5.0,44.0,14.86,196.0,STRONGLY_OVER
+e10eec74-c0ca-7809-a883-6661793b65ea,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,52.81,3.0,13.0,5.31,144.6,STRONGLY_OVER
+9395d19a-7ad4-6aa3-5a6b-d3f2f13f8496,phase2_transaction,Q. Đống Đa,P. Khương Thượng,50.0,2.0,12.5,5.57,124.5,STRONGLY_OVER
+f7b2be8a-8569-2473-a56c-df28d6d9494c,phase2_transaction,Q. Ba Đình,P. Phúc Xá,110.0,3.0,10.5,14.44,-27.3,UNDERPRICED
+e2bb74be-a87e-44ba-4839-fae519086062,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 1,53.6,4.0,17.0,5.85,190.8,STRONGLY_OVER
+d16c1967-7108-64c2-0c8c-5bb265e89046,phase2_transaction,Q. Hai Bà Trưng,P. Phố Huế,67.8,5.0,29.5,13.41,120.1,STRONGLY_OVER
+8ff2da96-f446-a6e2-6c64-57c336829210,phase2_transaction,Q. Hoàng Mai,P. Vĩnh Hưng,81.45,1.0,16.0,8.5,88.3,STRONGLY_OVER
+d6e6d66c-c98a-66e0-189a-107483902d4c,phase2_transaction,Q. Thanh Xuân,P. Khương Đình,46.2,5.0,13.0,6.36,104.3,STRONGLY_OVER
+e71aa2c8-97bc-a6ef-dbb6-1541b791777c,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,67.2,3.0,17.0,9.85,72.7,STRONGLY_OVER
+b9ee2c61-21e6-c80a-683a-1498cb785b30,phase2_transaction,Q. Tây Hồ,P. Bưởi,18.2,2.0,6.5,3.17,105.2,STRONGLY_OVER
+70591efa-c149-dc53-0591-4ea29c9f1d7b,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 2,73.2,8.0,22.0,16.55,32.9,STRONGLY_OVER
+5983eb39-8c14-9445-6891-ae1a6bacdea4,phase2_transaction,Q. Hoàn Kiếm,P. Lý Thái Tổ,85.04,4.0,22.0,14.73,49.4,STRONGLY_OVER
+e4e0b44f-ef88-ecbe-70bd-1eab6cab2520,phase2_transaction,Q. Ba Đình,P. Điện Biên,38.1,6.0,83.0,7.83,960.4,STRONGLY_OVER
+59f58461-2738-4358-7e60-469a90fd366d,phase2_transaction,Q. Đống Đa,P. Phương Liên,177.32,5.0,50.0,25.13,98.9,STRONGLY_OVER
+9e98b891-021f-a23d-73ce-9dd34d7504b8,phase2_transaction,Q. Cầu Giấy,P. Nghĩa Tân,63.0,5.0,50.0,12.1,313.1,STRONGLY_OVER
+e8312579-ce9a-e994-8b94-3eae225c517b,phase2_transaction,H. Thanh Trì,X. Tân Triều,83.2,5.0,13.7,12.78,7.2,fair
+c3bcfe7a-b420-6b9f-2a00-1cc8718e8453,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,130.0,3.0,80.0,25.24,216.9,STRONGLY_OVER
+3db6a689-78dd-4330-4621-3bfd3ace0f67,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,22.9,4.0,24.6,4.64,430.7,STRONGLY_OVER
+5bd29a02-d123-50ec-bf5b-a9363c054e8e,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Trống,30.0,4.0,30.0,7.93,278.2,STRONGLY_OVER
+878e30a7-2a15-9097-32b7-07e6c6bedc23,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,52.4,2.0,12.5,8.51,46.9,STRONGLY_OVER
+e2d7736e-190d-67d6-1d0f-cb9e8ff65edb,phase2_transaction,Q. Long Biên,P. Đức Giang,66.0,3.0,15.5,6.07,155.3,STRONGLY_OVER
+2552e98d-1ec7-b35a-6d5f-a1ba3d772211,phase2_transaction,Q. Hoàng Mai,P. Hoàng Văn Thụ,64.0,5.0,15.0,9.81,52.9,STRONGLY_OVER
+409c1630-87b9-9bf9-ddcf-217982f9fa43,phase2_transaction,Q. Hoàng Mai,P. Tương Mai,55.4,5.0,35.0,7.2,386.4,STRONGLY_OVER
+b6b88ace-b655-34fb-4ca8-ac1c5607de39,phase2_transaction,Q. Đống Đa,P. Kim Liên,47.2,4.0,6.75,6.12,10.3,OVERPRICED
+b8ae015e-8b2c-7ab3-dfe7-d747eb0a9654,phase2_transaction,Q. Đống Đa,P. Nam Đồng,47.0,2.0,8.5,6.76,25.8,OVERPRICED
+4d42f8a1-b0e0-3083-d2d7-873df5670365,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,49.4,5.0,23.0,8.92,158.0,STRONGLY_OVER
+57b7b2e5-cef4-afe1-e68a-6884bdf97832,phase2_transaction,Q. Hai Bà Trưng,P. Quỳnh Mai,30.55,4.0,17.0,4.77,256.6,STRONGLY_OVER
+b35fce6e-1731-f3ec-16fd-ffc15527cba0,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,38.0,5.0,9.5,5.12,85.7,STRONGLY_OVER
+900d25f3-aee7-3f18-33ed-bb4b639c4c84,phase2_transaction,H. Gia Lâm,TT. Yên Viên,180.0,1.0,6.6,18.83,-65.0,UNDERPRICED
+51227904-36ca-c400-ac11-df67a0a07ac4,phase2_transaction,Q. Long Biên,P. Gia Thụy,61.0,4.0,25.0,7.46,235.3,STRONGLY_OVER
+d9f77e1b-0bfc-f011-94e0-c880084f7d74,phase2_transaction,Q. Nam Từ Liêm,P. Trung Văn,68.8,4.0,28.5,9.68,194.3,STRONGLY_OVER
+f97e73a8-051d-9134-4118-1cb71c26cb38,phase2_transaction,Q. Hai Bà Trưng,P. Minh Khai,34.2,5.0,18.5,5.16,258.6,STRONGLY_OVER
+8ce54410-b99b-ec2b-9f1d-4933ad8a2304,phase2_transaction,Q. Hai Bà Trưng,P. Đống Mác,107.5,5.0,95.0,19.13,396.5,STRONGLY_OVER
+a3aba5b3-2f5a-6f2f-3098-4ac7f40ec3b4,phase2_transaction,Q. Tây Hồ,P. Quảng An,161.7,6.0,245.0,30.42,705.4,STRONGLY_OVER
+e444f096-a4cc-68f0-0d17-0d03ee6865de,phase2_transaction,Q. Hoàng Mai,P. Hoàng Liệt,326.8,5.0,55.0,56.8,-3.2,fair
+a4dccde6-e59d-5095-6ed6-b895435368f3,phase2_transaction,Q. Hoàn Kiếm,P. Chương Dương,60.7,4.0,7.7,11.59,-33.6,UNDERPRICED
+dc6cd200-4568-79e1-8b4c-4199e5704414,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,82.6,3.0,8.6,8.54,0.8,fair
+a3a30642-2399-3835-83f3-ec40d16e9631,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,93.9,2.0,14.2,9.66,47.0,STRONGLY_OVER
+111faadd-2842-693d-b308-8215f011db96,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,39.1,5.0,8.6,6.53,31.7,STRONGLY_OVER
+1355ecd7-b744-5a44-deeb-a5f5a35bb5b4,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,47.5,4.0,26.9,6.56,310.1,STRONGLY_OVER
+8adfa5e1-71e1-8a75-c1e3-4a6819b78b0e,phase2_transaction,Q. Ba Đình,P. Thành Công,69.7,5.0,30.0,13.71,118.8,STRONGLY_OVER
+caa3db5a-a1f1-25d2-3606-0fe57dcf8a2c,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,83.6,4.0,26.9,13.83,94.6,STRONGLY_OVER
+633740e8-4a17-9971-5a82-c6e140a838a0,phase2_transaction,Q. Ba Đình,P. Giảng Võ,44.2,3.0,8.5,6.98,21.7,OVERPRICED
+24d64087-becb-7fd6-4684-7eae296488d7,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,48.0,4.0,14.0,5.87,138.3,STRONGLY_OVER
+50ce13fb-f744-2421-e288-b5f0952218cf,phase2_transaction,Q. Ba Đình,P. Kim Mã,70.8,5.0,18.0,13.96,28.9,OVERPRICED
+dc13e24c-4218-e8e2-4cfb-be42f5023a4c,phase2_transaction,Q. Ba Đình,P. Phúc Xá,74.12,3.0,8.8,10.21,-13.8,UNDERPRICED
+952c3eee-e49d-f6ce-ae1f-c7c597b3d086,phase2_transaction,Q. Hoàng Mai,P. Vĩnh Hưng,21.5,4.0,4.5,3.03,48.5,STRONGLY_OVER
+918b3a94-d043-4f1e-5681-db0a708c7882,phase2_transaction,H. Gia Lâm,TT. Yên Viên,57.8,4.0,7.5,4.21,78.2,STRONGLY_OVER
+a44cbc34-501b-203c-4b2e-11aa8e77bf81,phase2_transaction,Q. Long Biên,P. Bồ Đề,42.62,7.0,25.5,10.0,155.1,STRONGLY_OVER
+0bc01963-c774-6b00-9913-109a216a7690,phase2_transaction,Q. Tây Hồ,P. Quảng An,253.9,2.0,50.0,57.29,-12.7,UNDERPRICED
+5de22747-8d79-efe4-e81e-252f8bf81e9b,phase2_transaction,Q. Đống Đa,P. Quang Trung,106.6,5.0,59.5,23.09,157.7,STRONGLY_OVER
+d08005c6-34c8-0435-d833-e81402bea6f3,phase2_transaction,Q. Tây Hồ,P. Bưởi,100.0,3.0,13.2,16.56,-20.3,UNDERPRICED
+f02693ed-e5c0-7cbd-56be-d6a864914129,phase2_transaction,Q. Nam Từ Liêm,P. Cầu Diễn,140.0,3.0,51.0,21.62,135.9,STRONGLY_OVER
+6b2ac0a5-ecfd-0ff4-c82f-e33d05d95d3e,phase2_transaction,Q. Tây Hồ,P. Quảng An,385.0,1.0,430.0,62.69,586.0,STRONGLY_OVER
+02d89e5f-1587-9789-e5f3-683585408a7c,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,122.0,5.0,50.0,24.32,105.6,STRONGLY_OVER
+d95346cc-65d1-0b80-4d73-bbb1f197c6af,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,35.0,7.0,28.0,9.01,210.6,STRONGLY_OVER
+17faf287-dd61-b7fa-73cb-4706c996c114,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,33.0,6.0,16.2,6.39,153.5,STRONGLY_OVER
+e55484c5-bb2b-342f-b178-7f0d270d8769,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,119.3,4.0,76.0,16.4,363.4,STRONGLY_OVER
+9b82c10f-9dc8-d98b-198e-eda372aa875f,phase2_transaction,Q. Đống Đa,P. Láng Thượng,40.0,4.0,15.0,6.72,123.2,STRONGLY_OVER
+199cf228-74ec-c72e-3c24-352860f57514,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,70.0,1.0,22.5,8.72,157.9,STRONGLY_OVER
+3a4b901a-1f73-5428-2547-bb149f6f7b6e,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,74.9,9.0,29.5,18.92,55.9,STRONGLY_OVER
+b09343bf-0803-3271-02bd-fdcf23b0d108,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,42.8,5.0,7.7,7.9,-2.5,fair
+8752faa7-407a-cca0-5ee6-1a77dda09227,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,46.9,5.0,15.0,6.97,115.2,STRONGLY_OVER
+c7b54fd9-c4cc-fedf-26a9-a6d018615927,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,25.21,4.0,18.0,4.34,314.8,STRONGLY_OVER
+dd11f027-5a6a-b859-4f82-7698caa64add,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,90.3,4.0,16.5,15.92,3.6,fair
+520b0eb0-f4f8-8bfd-8b53-6f6d29e5beef,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,65.0,7.0,28.5,13.22,115.6,STRONGLY_OVER
+1c1c50f5-0409-9a62-3af3-5e36622192f6,phase2_transaction,Q. Hoàng Mai,P. Tương Mai,76.5,7.0,16.5,13.69,20.6,OVERPRICED
+cae463be-6079-da36-c726-28c1c05697fe,phase2_transaction,Q. Hoàng Mai,P. Hoàng Văn Thụ,70.7,4.0,16.0,11.51,39.0,STRONGLY_OVER
+b3bc6108-683c-0a05-cbac-ce8d692b35a8,phase2_transaction,Q. Ba Đình,P. Ngọc Hà,58.2,7.0,22.5,15.28,47.3,STRONGLY_OVER
+a5fb42e7-f545-15fe-9fed-75d2d9a8d5ff,phase2_transaction,Q. Hà Đông,P. Mộ Lao,133.6,3.0,46.0,19.67,133.9,STRONGLY_OVER
+26405315-e94b-c64a-1cca-5ae34278aa06,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,115.0,4.0,55.0,21.26,158.7,STRONGLY_OVER
+2fd8db22-bbfa-33f7-b065-9a3f34f7d253,phase2_transaction,Q. Tây Hồ,P. Xuân La,47.8,3.0,11.0,5.76,90.8,STRONGLY_OVER
+3466b29b-40da-cfcc-033d-d4aa31c78e53,phase2_transaction,Q. Ba Đình,P. Cống Vị,34.4,5.0,11.2,5.46,105.2,STRONGLY_OVER
+3e0c8908-358c-f4e8-3c55-d89f0a88347b,phase2_transaction,Q. Ba Đình,P. Giảng Võ,117.4,7.0,38.0,25.79,47.3,STRONGLY_OVER
+ff1c1699-2f95-e710-fbc7-70e236e25b0d,phase2_transaction,Q. Ba Đình,P. Giảng Võ,47.6,3.0,30.5,7.58,302.2,STRONGLY_OVER
+ec2630b8-c186-db16-967a-a314fa6ba349,phase2_transaction,Q. Nam Từ Liêm,P. Đại Mỗ,220.0,5.0,75.0,28.52,163.0,STRONGLY_OVER
+4bbd1f4f-5167-3a7b-b400-e8ca226ac840,phase2_transaction,Q. Long Biên,P. Phúc Lợi,38.1,3.0,4.1,4.23,-3.2,fair
+00d085bb-7f5b-4926-0b52-835887189d29,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,124.3,5.0,14.25,16.22,-12.1,UNDERPRICED
+18b506fa-e124-598f-dfb7-7d195c89371c,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,50.0,5.0,14.25,6.81,109.2,STRONGLY_OVER
+e6391923-c02b-b7ce-026a-b127009088af,phase2_transaction,Q. Hoàng Mai,P. Tương Mai,108.4,8.0,29.6,19.08,55.1,STRONGLY_OVER
+86302dec-a6d7-66f2-9f90-2d46dd306da9,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,66.6,5.0,13.5,10.46,29.0,OVERPRICED
+ee362269-8949-29d7-5bf3-1d0ca1997d09,phase2_transaction,Q. Đống Đa,P. Láng Thượng,75.5,6.0,22.0,15.69,40.2,STRONGLY_OVER
+6b0a2a12-6402-4e97-c064-2c67735b453e,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,38.3,5.0,10.5,5.26,99.6,STRONGLY_OVER
+7e28616f-70d4-8e1f-7b21-833c7cd257d0,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,28.5,4.0,32.0,4.98,542.5,STRONGLY_OVER
+582b6ff3-2f5c-c01a-f6f3-09a519b00bb0,phase2_transaction,Q. Hoàn Kiếm,P. Chương Dương,100.0,2.0,16.0,20.62,-22.4,UNDERPRICED
+c39e5d0c-1830-92bf-b30d-4b26b1fc9f74,phase2_transaction,Q. Hoàng Mai,P. Lĩnh Nam,97.8,3.0,20.0,12.97,54.2,STRONGLY_OVER
+c76b7c4e-30c7-7dfd-ca29-9e7b4d534d42,phase2_transaction,Q. Hoàng Mai,P. Thanh Trì,30.0,5.0,5.9,3.46,70.4,STRONGLY_OVER
+384cea7d-1504-6dde-5523-f8e56afe8694,phase2_transaction,Q. Hoàng Mai,P. Thanh Trì,30.0,5.0,5.6,3.37,66.1,STRONGLY_OVER
+d2aee6f0-5cab-52a2-07a1-48a849535513,phase2_transaction,Q. Hoàng Mai,P. Thanh Trì,30.0,5.0,5.6,3.5,60.0,STRONGLY_OVER
+b94d84da-b806-5216-4855-6a9d0dd28b8b,phase2_transaction,Q. Ba Đình,P. Thành Công,160.0,7.0,76.0,36.05,110.8,STRONGLY_OVER
+bf776d1d-adfa-6b34-aed2-4531e75f32e1,phase2_transaction,Q. Nam Từ Liêm,P. Mễ Trì,68.0,7.0,22.0,13.07,68.3,STRONGLY_OVER
+35f6c083-195d-2ac5-2fd3-9989c1e71deb,phase2_transaction,Q. Thanh Xuân,P. Nhân Chính,43.6,3.0,7.5,5.94,26.3,OVERPRICED
+5c70e71e-835a-36cf-c914-a722ec1d1580,phase2_transaction,Q. Đống Đa,P. Láng Thượng,89.8,5.0,18.0,18.26,-1.4,fair
+5d3055e0-8312-a4e5-f0c1-d19558e409d8,phase2_transaction,H. Thanh Trì,X. Thanh Liệt,58.5,4.0,0.02,4.59,-99.6,UNDERPRICED
+7bc2863d-d673-db20-d2b1-f2ab319aefca,phase2_transaction,Q. Hoàn Kiếm,P. Tràng Tiền,51.4,3.0,13.0,9.49,36.9,STRONGLY_OVER
+6a6d72e5-1b4a-eda0-f7b6-e50103dca15e,phase2_transaction,Q. Hai Bà Trưng,P. Phố Huế,26.0,4.0,8.5,4.46,90.4,STRONGLY_OVER
+0e5803b6-8676-5dff-61b5-16f98a947152,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,52.0,6.0,14.5,9.94,45.9,STRONGLY_OVER
+a9a2a6fb-4805-d0a5-b899-54b23ef8dfe6,phase2_transaction,Q. Bắc Từ Liêm,P. Đông Ngạc,80.0,3.0,13.0,11.15,16.6,OVERPRICED
+00fc23a3-df7f-5342-0742-37b19a0b8f5d,phase2_transaction,Q. Hà Đông,P. La Khê,47.9,2.0,18.2,6.14,196.3,STRONGLY_OVER
+54252956-b5de-48e2-c820-8951a8871a47,phase2_transaction,Q. Hai Bà Trưng,P. Vĩnh Tuy,60.0,5.0,12.0,9.33,28.6,OVERPRICED
+8516846a-29e7-e41b-1208-4dfa97bb0c97,phase2_transaction,Q. Thanh Xuân,P. Khương Đình,170.7,7.0,38.5,30.99,24.2,OVERPRICED
+78527eef-df84-7908-0e2d-e87d78faa5a4,phase2_transaction,Q. Đống Đa,P. Hàng Bột,65.0,2.0,23.0,8.63,166.5,STRONGLY_OVER
+cee743c8-2706-452f-5f90-74f7614d7cd2,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,13.9,2.0,12.5,3.09,304.1,STRONGLY_OVER
+0a44ad4f-b3c5-dbe4-567c-c90927689b9e,phase2_transaction,Q. Ba Đình,P. Vĩnh Phúc,58.3,4.0,29.5,9.09,224.4,STRONGLY_OVER
+d8066422-e79a-5f45-4044-8bd4e67e680a,phase2_transaction,Q. Ba Đình,P. Đội Cấn,120.0,7.0,45.0,15.7,186.7,STRONGLY_OVER
+a1dfe4b1-6b98-2dbb-e70a-4fd763e48d27,phase2_transaction,Q. Thanh Xuân,P. Thanh Xuân Trung,66.3,6.0,26.5,13.55,95.5,STRONGLY_OVER
+fdc5da51-a8e1-aa15-7621-833b1ddc8ea3,phase2_transaction,Q. Ba Đình,P. Đội Cấn,60.0,5.0,25.0,11.26,122.0,STRONGLY_OVER
+fcf0bef2-7454-729f-e5a8-3741eddf5b40,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,63.3,3.0,25.5,9.15,178.8,STRONGLY_OVER
+8d23a118-9f3b-af9f-3cdf-3c3052bba92c,phase2_transaction,Q. Nam Từ Liêm,P. Phú Đô,76.0,3.0,18.5,9.69,90.9,STRONGLY_OVER
+b0097aa3-17c1-170d-6128-6d46fc2f6e9f,phase2_transaction,Q. Thanh Xuân,P. Hạ Đình,39.2,1.0,19.9,4.82,313.1,STRONGLY_OVER
+01362f3b-52e2-38e8-3182-e06aa60d2023,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,202.5,1.0,37.0,33.5,10.5,OVERPRICED
+adf55582-6c7f-1586-726d-3054851eaeb8,phase2_transaction,Q. Tây Hồ,P. Xuân La,134.7,2.0,8.2,25.74,-68.1,UNDERPRICED
+dfbf4d99-8bcd-cdff-a10b-c028830c9c48,phase2_transaction,Q. Đống Đa,P. Phương Liên,48.7,6.0,16.0,10.33,54.9,STRONGLY_OVER
+3f38f25d-2458-0c90-500c-39f82732db0f,phase2_transaction,Q. Nam Từ Liêm,P. Xuân Phương,30.0,1.0,8.8,2.9,203.3,STRONGLY_OVER
+2f7d7250-a06a-a824-9cff-90068bec00a8,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,150.0,7.0,68.0,27.34,148.7,STRONGLY_OVER
+82ab9c8e-334e-adfe-3ab8-19820291011f,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,60.0,5.0,18.0,8.6,109.4,STRONGLY_OVER
+63e90321-39fe-9a17-c9ed-769a83575dd9,phase2_transaction,Q. Long Biên,P. Sài Đồng,234.8,1.0,17.0,32.59,-47.8,UNDERPRICED
+c2e3ff6b-41a0-ae52-23ab-d4c985b4136e,phase2_transaction,Q. Thanh Xuân,P. Nhân Chính,70.5,9.0,51.5,22.06,133.5,STRONGLY_OVER
+817110c0-10ae-194d-a6ad-0aaa1cbf7f97,phase2_transaction,Q. Hà Đông,P. Kiến Hưng,77.8,5.0,9.6,14.33,-33.0,UNDERPRICED
+343d474a-8126-46f3-32c8-47608e0b5899,phase2_transaction,Q. Đống Đa,P. Nam Đồng,50.64,2.0,9.5,5.85,62.3,STRONGLY_OVER
+746db00d-31fd-aa79-dae0-da60bf42d275,phase2_transaction,Q. Thanh Xuân,P. Khương Đình,301.2,10.0,145.0,54.27,167.2,STRONGLY_OVER
+40ed600e-df65-226f-63fb-60fcd1da694c,phase2_transaction,Q. Long Biên,P. Đức Giang,47.1,6.0,18.8,7.96,136.2,STRONGLY_OVER
+bd94839c-3a08-9c56-6570-2d780cbad797,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,13.1,5.0,6.5,4.1,58.7,STRONGLY_OVER
+20fb877d-7448-111e-5f29-710838662025,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,50.0,5.0,15.7,8.24,90.6,STRONGLY_OVER
+c3650ffe-17c5-7396-0e26-c9ff5c4760e1,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,53.0,5.0,11.8,9.83,20.0,OVERPRICED
+0ab8d636-c403-8d41-28f5-716d1290355f,phase2_transaction,Q. Hoàn Kiếm,P. Phan Chu Trinh,22.0,6.0,30.0,5.79,418.2,STRONGLY_OVER
+f65afe8b-7962-e01d-f552-0b1340941c8f,phase2_transaction,Q. Hoàng Mai,P. Lĩnh Nam,69.0,3.0,10.0,7.11,40.6,STRONGLY_OVER
+f5a168ef-09cd-4733-4438-c07f5c5568f5,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,40.2,3.0,23.0,6.49,254.4,STRONGLY_OVER
+1694e22a-0a16-6284-5dd1-877f88987225,phase2_transaction,Q. Long Biên,P. Thạch Bàn,35.0,6.0,6.8,6.4,6.3,fair
+dc7bb490-7120-1288-06a7-f64ceb45c105,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,112.0,8.0,50.0,30.04,66.4,STRONGLY_OVER
+add4b4f3-676c-189f-f1ee-1481257474ab,phase2_transaction,Q. Hai Bà Trưng,P. Phố Huế,172.2,2.0,128.0,28.77,344.9,STRONGLY_OVER
+83c1a696-e9cb-1c67-4417-ebbdbe3ed0c2,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,80.0,6.0,22.0,19.31,13.9,OVERPRICED
+2fb987f5-c169-7847-f20a-0583d5e2aeb3,phase2_transaction,Q. Hà Đông,P. Nguyễn Trãi,69.5,3.0,17.5,11.17,56.7,STRONGLY_OVER
+2f823056-92f0-bbe5-8252-b722b2541636,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,95.8,6.0,33.6,21.86,53.7,STRONGLY_OVER
+4ccbdaed-0807-01da-4a6c-d29b8e9ddf51,phase2_transaction,Q. Bắc Từ Liêm,P. Xuân Đỉnh,81.5,3.0,8.2,10.78,-24.0,UNDERPRICED
+700a707f-1462-bde0-efbd-0d3ca6b1b0ca,phase2_transaction,Q. Ba Đình,P. Thành Công,58.6,3.0,25.0,8.26,202.6,STRONGLY_OVER
+4218db89-dba4-9dff-b0d0-495f580e62eb,phase2_transaction,Q. Hà Đông,P. Quang Trung,42.9,5.0,12.8,6.69,91.3,STRONGLY_OVER
+bfc710cc-7d71-5056-442f-877c2ea49e79,phase2_transaction,Q. Đống Đa,P. Ngã Tư Sở,39.4,4.0,19.0,7.22,163.1,STRONGLY_OVER
+014aac39-0f38-0555-02d1-48a7eb12ba70,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,48.1,7.0,16.0,11.63,37.5,STRONGLY_OVER
+8493a78a-4f90-c17a-54c9-0e7ca88720d3,phase2_transaction,Q. Tây Hồ,P. Tứ Liên,95.0,2.0,16.0,14.54,10.1,OVERPRICED
+881fe899-e64f-e428-adf5-04eafc25faf2,phase2_transaction,Q. Đống Đa,P. Khương Thượng,72.44,3.0,16.5,9.69,70.3,STRONGLY_OVER
+0bea4d39-436a-7bd2-9efb-86b980999657,phase2_transaction,Q. Ba Đình,P. Ngọc Hà,57.5,2.0,16.9,8.55,97.7,STRONGLY_OVER
+0ecd6f2a-c73d-5e81-4ea1-17cf531b0bbf,phase2_transaction,Q. Ba Đình,P. Vĩnh Phúc,117.9,3.0,45.0,24.34,84.9,STRONGLY_OVER
+b840ea3f-629c-f05e-b5c4-db021b5967c3,phase2_transaction,Q. Bắc Từ Liêm,P. Thụy Phương,45.2,2.0,5.6,4.25,31.6,STRONGLY_OVER
+e6373727-9aa0-c168-fdfd-4647a02a8e1e,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 1,78.0,1.0,7.4,10.52,-29.6,UNDERPRICED
+13adb821-332f-1f01-900e-c5aa7ecd622d,phase2_transaction,Q. Tây Hồ,P. Bưởi,162.3,8.0,39.0,42.54,-8.3,fair
+6d498c8a-d837-1714-777d-e4cdc5fca5ff,phase2_transaction,Q. Ba Đình,P. Liễu Giai,33.9,1.0,7.5,4.4,70.5,STRONGLY_OVER
+e48ac5b6-c2ff-4a7c-d987-039c190f053b,phase2_transaction,Q. Hai Bà Trưng,P. Trương Định,39.4,2.0,13.2,4.28,208.4,STRONGLY_OVER
+6733c4f8-979d-4656-82ef-ff0c2a9ef0b4,phase2_transaction,Q. Hà Đông,P. Vạn Phúc,59.0,4.0,17.9,7.44,140.4,STRONGLY_OVER
+b6d5dfb6-f2eb-e40f-a351-575a40b82eaf,phase2_transaction,Q. Ba Đình,P. Ngọc Hà,92.9,6.0,12.5,17.14,-27.1,UNDERPRICED
+cec17148-f3a4-8d89-59ab-1ad6cca04f7f,phase2_transaction,Q. Hai Bà Trưng,P. Cầu Dền,130.0,4.0,41.0,24.32,68.6,STRONGLY_OVER
+eb522bc9-8b76-cf8b-286e-003109e5d516,phase2_transaction,Q. Hoàng Mai,P. Vĩnh Hưng,73.4,6.0,25.0,12.61,98.3,STRONGLY_OVER
+fd246483-a00b-d2ca-21b1-b06c15f96581,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,88.0,5.0,36.0,18.76,91.9,STRONGLY_OVER
+ca3ad8c8-72a2-1bdc-eb1f-9905dfcd8f0d,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,40.0,2.0,8.6,4.85,77.5,STRONGLY_OVER
+8d77b36d-7640-333d-0b38-e73afceffb4c,phase2_transaction,Q. Hoàng Mai,P. Mai Động,45.1,6.0,19.5,9.04,115.7,STRONGLY_OVER
+b974a716-3570-c17f-d5a0-071690ca7932,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Buồm,118.8,3.0,59.0,24.22,143.6,STRONGLY_OVER
+6ed1a28c-e4af-34c7-397a-3418964089dd,phase2_transaction,Q. Hà Đông,P. Biên Giang,30.4,4.0,4.1,2.96,38.6,STRONGLY_OVER
+d16b50dc-9c4d-a32b-a358-c0d5fb96cf67,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 1,141.9,4.0,51.0,24.82,105.5,STRONGLY_OVER
+de7b1e70-eaf7-6a26-68a4-5dad29d9cb0a,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,109.3,8.0,21.6,24.3,-11.1,UNDERPRICED
+5a25c4ba-dafc-e2ba-7bbe-0b7aa8c30926,phase2_transaction,Q. Hoàng Mai,P. Hoàng Liệt,184.0,3.0,23.9,16.45,45.3,STRONGLY_OVER
+a280cc16-254a-15ab-d484-c28501ddb8fa,phase2_transaction,Q. Đống Đa,P. Khâm Thiên,17.5,4.0,7.3,2.84,157.2,STRONGLY_OVER
+3a9bc1ab-2576-549e-f3f1-5ddf9b21b7fd,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 1,94.0,4.0,26.2,13.3,97.0,STRONGLY_OVER
+c17a0ffa-1b9b-a00d-3449-81da5888ac32,phase2_transaction,Q. Ba Đình,P. Kim Mã,28.3,5.0,18.0,5.54,225.1,STRONGLY_OVER
+94c208fb-77bb-fdab-e9da-97e9c31a3935,phase2_transaction,Q. Hai Bà Trưng,P. Trương Định,36.3,5.0,16.5,5.2,217.3,STRONGLY_OVER
+92950192-27f0-697e-54a4-672a294db826,phase2_transaction,Q. Hoàn Kiếm,P. Cửa Đông,49.5,4.0,33.0,9.68,240.8,STRONGLY_OVER
+f56821b9-a07a-04dd-f6e8-9b29571ce083,phase2_transaction,Q. Thanh Xuân,P. Hạ Đình,44.0,5.0,13.5,5.83,131.5,STRONGLY_OVER
+9aa0d5c7-3e38-ef0c-f938-ba65e007b916,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,52.1,5.0,13.0,9.08,43.1,STRONGLY_OVER
+853339f0-7cb3-b7e9-bbbf-8a72057f209f,phase2_transaction,Q. Hai Bà Trưng,P. Đồng Tâm,64.2,5.0,25.8,11.95,115.8,STRONGLY_OVER
+93619124-213f-6e3a-e60b-8cc627febb24,phase2_transaction,Q. Long Biên,P. Bồ Đề,32.2,4.0,12.0,3.79,216.3,STRONGLY_OVER
+de44bc51-04b7-a786-1d43-b92b12e33ac8,phase2_transaction,Q. Tây Hồ,P. Quảng An,43.2,2.0,12.9,6.81,89.4,STRONGLY_OVER
+77406c34-9c33-32f6-e8c6-170f0ef084a4,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,59.8,8.0,32.0,16.86,89.7,STRONGLY_OVER
+0bcafc8a-aa35-5e35-a3f9-3fd4f01184b9,phase2_transaction,Q. Long Biên,P. Giang Biên,173.0,1.0,20.5,14.97,37.0,STRONGLY_OVER
+d2643fda-2f63-f1f4-7073-b7f6a47cf190,phase2_transaction,Q. Đống Đa,P. Trung Phụng,59.7,4.0,10.0,7.61,31.4,STRONGLY_OVER
+27d72e72-9b94-5c6b-7113-52d68d943723,phase2_transaction,Q. Hà Đông,P. Mộ Lao,74.0,5.0,18.0,12.29,46.5,STRONGLY_OVER
+10516adc-482b-eb9a-40ab-08504ac39b64,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,10.9,4.0,23.3,3.48,570.2,STRONGLY_OVER
+760d909f-b07f-50c1-f42d-cd30db151e96,phase2_transaction,Q. Hà Đông,P. Mộ Lao,36.0,5.0,9.35,5.03,86.0,STRONGLY_OVER
+0dee98a7-667a-c03e-7c84-bb5ce498ce8e,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Bông,51.6,5.0,52.0,15.26,240.7,STRONGLY_OVER
+755d0b68-d742-334b-5549-b5cf62c0289a,phase2_transaction,Q. Ba Đình,P. Phúc Xá,34.47,6.0,15.0,6.79,121.0,STRONGLY_OVER
+0a7a4eeb-844a-0a56-c958-4d63d013ba7b,phase2_transaction,Q. Hai Bà Trưng,P. Vĩnh Tuy,45.0,5.0,10.0,7.43,34.7,STRONGLY_OVER
+4002dfa4-0236-7b28-bd7a-a687781d8f04,phase2_transaction,Q. Tây Hồ,P. Phú Thượng,39.8,5.0,6.8,6.54,3.9,fair
+939378e2-228f-11e5-1824-ccc364c62a58,phase2_transaction,Q. Hoàn Kiếm,P. Đồng Xuân,60.3,2.0,25.0,14.73,69.7,STRONGLY_OVER
+85575675-f18f-27d8-fb2d-b242c9f45ec6,phase2_transaction,Q. Hoàn Kiếm,P. Đồng Xuân,69.6,2.0,27.0,15.49,74.3,STRONGLY_OVER
+9414caeb-f556-bf4b-7c9d-2c06ed8d55c2,phase2_transaction,Q. Hai Bà Trưng,P. Phố Huế,19.8,5.0,7.5,3.95,89.7,STRONGLY_OVER
+e4d4b2e7-7d3e-79a4-1335-5e15694ee11e,phase2_transaction,Q. Đống Đa,P. Văn Chương,73.6,3.0,19.5,8.55,128.1,STRONGLY_OVER
+fbcdb9a9-2028-61dc-0471-a083f5afdba1,phase2_transaction,Q. Đống Đa,P. Trung Phụng,49.5,5.0,12.0,7.5,59.9,STRONGLY_OVER
+d6b7d161-cb16-938d-3fcd-faba53081e50,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Bông,13.4,4.0,13.5,6.29,114.7,STRONGLY_OVER
+46a5f24a-5a1d-954e-ab22-4d5822f9028b,phase2_transaction,Q. Hoàng Mai,P. Thanh Trì,62.0,3.0,5.5,5.94,-7.4,fair
+23a1d48d-116c-b022-c078-3476ecaa755c,phase2_transaction,Q. Hoàng Mai,P. Đại Kim,98.0,5.0,24.0,13.19,81.9,STRONGLY_OVER
+d8145617-2a0b-d130-a9a7-ed945c035726,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 1,54.3,9.0,30.0,11.53,160.2,STRONGLY_OVER
+93bf75f5-cc87-9080-ff22-3b2aaaf4af49,phase2_transaction,Q. Cầu Giấy,P. Trung Hòa,132.1,8.0,55.0,30.41,80.9,STRONGLY_OVER
+b33c8558-b95d-6ddd-a1f2-d69abfdba062,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,155.4,4.0,46.0,21.83,110.7,STRONGLY_OVER
+5fda0c9d-f244-113e-2b72-9dbc2b815ffc,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,65.7,1.0,17.0,9.67,75.8,STRONGLY_OVER
+ca833c88-5ed5-142c-6382-d9cf08abd7c9,phase2_transaction,Q. Đống Đa,P. Thổ Quan,29.2,5.0,6.2,4.5,37.9,STRONGLY_OVER
+29285b30-6fdd-6212-3a8e-89f8e58db307,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 1,57.7,5.0,11.7,9.43,24.1,OVERPRICED
+f33db98f-f270-43d1-e8f8-c191555accda,phase2_transaction,Q. Hoàn Kiếm,P. Phúc Tân,38.5,5.0,12.5,8.91,40.2,STRONGLY_OVER
+819a0962-56d5-c188-1483-38f07332e167,phase2_transaction,Q. Hai Bà Trưng,P. Cầu Dền,122.3,3.0,43.0,18.32,134.7,STRONGLY_OVER
+3185f0b4-24a7-2257-1476-7f4f674391fb,phase2_transaction,Q. Hai Bà Trưng,P. Bách Khoa,19.3,4.0,6.8,3.82,78.1,STRONGLY_OVER
+803a1954-a79a-2a8e-beb2-b491330934aa,phase2_transaction,Q. Hoàng Mai,P. Định Công,103.0,8.0,21.0,18.18,15.5,OVERPRICED
+21e4b336-6c86-84a2-4bf9-dc13c67ac87d,phase2_transaction,H. Thanh Trì,X. Tân Triều,40.0,2.0,10.8,4.5,140.0,STRONGLY_OVER
+aeb7dc29-e69c-94a5-1ffe-b6644f2fdfbb,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,60.0,3.0,7.5,7.23,3.7,fair
+5a2831e8-75d1-cec6-b319-b747d47ae87e,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,56.6,4.0,20.5,10.25,100.0,STRONGLY_OVER
+fe7f5f7f-b2e3-77cc-af0a-afed48d58982,phase2_transaction,Q. Hà Đông,P. Biên Giang,30.6,4.0,4.1,2.91,40.7,STRONGLY_OVER
+4e9807fd-a62c-a775-44d6-fc7ee4552cc7,phase2_transaction,Q. Đống Đa,P. Trung Liệt,45.6,4.0,22.7,8.36,171.5,STRONGLY_OVER
+2938bd30-55ae-1cc0-6ae7-79b0bed651ff,phase2_transaction,Q. Tây Hồ,P. Quảng An,316.0,1.0,77.0,56.32,36.7,STRONGLY_OVER
+2c0c82b7-7b1d-d64f-ffbc-dcd823329408,phase2_transaction,Q. Tây Hồ,P. Yên Phụ,34.84,2.0,13.0,4.42,194.2,STRONGLY_OVER
+f4ea84c3-5d12-492b-c7f7-05f459d301c7,phase2_transaction,Q. Hai Bà Trưng,P. Trương Định,36.5,5.0,8.5,5.98,42.2,STRONGLY_OVER
+f264e693-889b-f704-c8a9-de9cc27a1582,phase2_transaction,Q. Đống Đa,P. Láng Thượng,75.3,9.0,14.0,26.36,-46.9,UNDERPRICED
+b4b48769-4bd7-ed8f-387f-73c4d3334e5a,phase2_transaction,Q. Hai Bà Trưng,P. Trương Định,95.0,7.0,14.2,18.65,-23.9,UNDERPRICED
+5b4d734c-ed1e-257b-6420-de7ed3a3d74a,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Bài,32.4,3.0,7.8,5.79,34.8,STRONGLY_OVER
+494c9947-64f2-53a4-dacb-bde50d63ff79,phase2_transaction,Q. Hai Bà Trưng,P. Cầu Dền,80.0,5.0,8.8,15.37,-42.7,UNDERPRICED
+43e01ba9-00a5-df94-f441-d459d0219cd5,phase2_transaction,Q. Cầu Giấy,P. Nghĩa Tân,45.0,3.0,18.0,9.79,83.8,STRONGLY_OVER
+986f8c74-2b3d-a201-9f90-000ec5df57c4,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,79.4,5.0,23.0,13.08,75.9,STRONGLY_OVER
+1be3c49b-dd9e-3444-8d0a-105b8fbc34f9,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,94.6,6.0,12.5,19.63,-36.3,UNDERPRICED
+60dda5cd-244c-21f2-f941-94b2d0d44747,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,64.2,3.0,7.5,8.93,-16.0,UNDERPRICED
+8f2d3d73-5347-09ee-6169-9e117592428d,phase2_transaction,H. Hoài Đức,X. Vân Canh,38.6,5.0,5.25,4.37,20.1,OVERPRICED
+ee6e1446-2e70-3ddc-a89d-83c3da8cd5f5,phase2_transaction,Q. Ba Đình,P. Kim Mã,110.0,2.0,13.0,20.81,-37.5,UNDERPRICED
+dd770905-a6cb-af06-7d66-e9a021a186b8,phase2_transaction,Q. Hà Đông,P. Văn Quán,79.0,6.0,26.0,13.88,87.3,STRONGLY_OVER
+bf78117b-4f64-b032-4c0f-0ccd80321896,phase2_transaction,Q. Đống Đa,P. Thổ Quan,42.4,3.0,10.7,4.41,142.9,STRONGLY_OVER
+75a94638-50c0-e423-4379-4f3a21ec396b,phase2_transaction,Q. Cầu Giấy,P. Quan Hoa,65.0,7.0,11.3,11.21,0.8,fair
+621214fd-6d7c-1141-5cb2-86ad4e7f6887,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,60.6,4.0,4.85,7.38,-34.3,UNDERPRICED
+4304d5c2-56d8-ded0-c231-8fef390e7137,phase2_transaction,Q. Long Biên,P. Bồ Đề,150.0,7.0,85.0,24.54,246.4,STRONGLY_OVER
+0dfb8033-9356-943d-f911-defe400d1eb3,phase2_transaction,Q. Long Biên,P. Bồ Đề,150.0,7.0,85.0,31.37,170.9,STRONGLY_OVER
+d17cb0b0-3353-7a57-f5af-239beabdd3f4,phase2_transaction,Q. Hà Đông,P. La Khê,198.9,3.0,14.0,21.63,-35.3,UNDERPRICED
+5624ed85-99c1-d5c1-0a32-08e5ac5bcc4f,phase2_transaction,Q. Nam Từ Liêm,P. Tây Mỗ,194.0,3.0,9.9,32.19,-69.2,UNDERPRICED
+3806fe6c-38b9-614d-1542-1240eb46c0a9,phase2_transaction,Q. Hà Đông,P. Yên Nghĩa,34.0,4.0,3.9,3.87,0.8,fair
+2a58823c-0d5e-f9e0-6169-bd9a09784bf3,phase2_transaction,Q. Hà Đông,P. Yên Nghĩa,35.1,4.0,3.9,4.07,-4.3,fair
+481f19c5-3e4c-6487-5b3c-6c4b7577c7f5,phase2_transaction,Q. Hà Đông,P. Yên Nghĩa,35.5,4.0,3.95,4.09,-3.3,fair
+39947bee-252c-f10f-f97b-d92ba5c7e926,phase2_transaction,H. Hoài Đức,X. Vân Canh,43.0,5.0,4.2,4.9,-14.3,UNDERPRICED
+1ff4809b-fd84-2893-63d2-40979f030044,phase2_transaction,Q. Ba Đình,P. Cống Vị,29.2,4.0,6.4,4.66,37.3,STRONGLY_OVER
+7ab2c0bd-a320-325f-f476-16b508ccd677,phase2_transaction,H. Hoài Đức,X. Vân Canh,31.0,5.0,3.35,3.31,1.3,fair
+3f2cbaa7-f680-6242-5d38-fc202a96b06d,phase2_transaction,Q. Đống Đa,P. Trung Phụng,42.5,1.0,12.7,3.91,225.1,STRONGLY_OVER
+P1_1094593,phase1_listing,Q. Hoàn Kiếm,P. Hàng Bông,65.0,6.0,41.5,21.15,96.2,STRONGLY_OVER
+P1_1277977,phase1_listing,,P. La Khê,83.0,5.0,16.5,13.11,25.9,OVERPRICED
+P1_1057912,phase1_listing,Q. Hai Bà Trưng,P. Lê Đại Hành,20.0,,1.25,4.37,-71.4,UNDERPRICED
+P1_1052874,phase1_listing,,P. Quan Hoa,40.0,5.0,8.9,6.65,33.9,STRONGLY_OVER
+P1_1077153,phase1_listing,Q. Tây Hồ,P. Phú Thượng,50.0,,7.2,8.06,-10.7,UNDERPRICED
+P1_1281143,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Trung,20.0,,0.0,3.67,-99.9,UNDERPRICED
+P1_1282990,phase1_listing,Q. Hà Đông,P. Phú La,118.0,,6.25,18.3,-65.9,UNDERPRICED
+P1_1284586,phase1_listing,Q. Nam Từ Liêm,P. Mỹ Đình 1,94.0,1.0,8.35,12.85,-35.0,UNDERPRICED
+P1_1101402,phase1_listing,Q. Cầu Giấy,P. Nghĩa Tân,60.0,7.0,21.0,16.93,24.0,OVERPRICED
+P1_1287271,phase1_listing,,X. Đông Hội,130.9,5.0,58.9,24.59,139.5,STRONGLY_OVER
+P1_1044812,phase1_listing,,P. Phú Thượng,39.2,6.0,8.3,6.87,20.8,OVERPRICED
+P1_1292022,phase1_listing,Q. Hoàng Mai,P. Lĩnh Nam,181.0,,24.5,23.01,6.5,fair
+P1_1065583,phase1_listing,Q. Hoàn Kiếm,P. Cửa Nam,230.0,,115.0,34.49,233.4,STRONGLY_OVER
+P1_1061883,phase1_listing,Q. Hoàng Mai,P. Lĩnh Nam,50.0,,6.5,7.27,-10.5,UNDERPRICED
+P1_1106686,phase1_listing,Q. Hà Đông,P. La Khê,39.0,5.0,10.0,5.91,69.2,STRONGLY_OVER
+P1_1294627,phase1_listing,H. Thanh Trì,X. Tân Triều,70.0,5.0,23.7,7.85,201.7,STRONGLY_OVER
+P1_1295843,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Bắc,138.0,9.0,35.0,36.29,-3.5,fair
+P1_1297250,phase1_listing,Q. Đống Đa,P. CáT Linh,41.0,5.0,11.0,6.1,80.3,STRONGLY_OVER
+P1_1082040,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,40.0,5.0,14.5,7.23,100.5,STRONGLY_OVER
+P1_1043655,phase1_listing,Q. Hà Đông,P. Quang Trung,35.0,4.0,6.0,4.98,20.4,OVERPRICED
+P1_1300155,phase1_listing,Q. Hà Đông,P. La Khê,136.0,,7.89,18.41,-57.1,UNDERPRICED
+P1_1052908,phase1_listing,Q. Tây Hồ,P. Tứ Liên,45.0,2.0,3.0,5.8,-48.3,UNDERPRICED
+P1_1304387,phase1_listing,Q. Hoàng Mai,P. Định Công,35.0,4.0,6.6,4.53,45.7,STRONGLY_OVER
+P1_1304500,phase1_listing,Q. Long Biên,P. Ngọc Thụy,33.0,,5.8,4.28,35.5,STRONGLY_OVER
+P1_1071954,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,300.0,,95.0,37.63,152.4,STRONGLY_OVER
+P1_1085100,phase1_listing,Q. Thanh Xuân,P. Khương Đình,37.0,6.0,8.9,7.25,22.8,OVERPRICED
+P1_1308814,phase1_listing,Q. Tây Hồ,P. Quảng An,82.0,,16.0,20.51,-22.0,UNDERPRICED
+P1_1058005,phase1_listing,,P. Long Biên,93.0,4.0,15.8,13.76,14.8,OVERPRICED
+P1_1311882,phase1_listing,Q. Đống Đa,P. Ô Chợ DừA,50.0,,1.0,8.24,-87.9,UNDERPRICED
+P1_1317040,phase1_listing,Q. Tây Hồ,P. Yên Phụ,38.0,3.0,7.85,4.86,61.5,STRONGLY_OVER
+P1_1317344,phase1_listing,,,70.0,,4.65,11.23,-58.6,UNDERPRICED
+P1_1317585,phase1_listing,H. Sóc Sơn,X. Nam Sơn,1284.0,,7.0,43.88,-84.0,UNDERPRICED
+P1_1318372,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,328.0,1.0,62.0,38.9,59.4,STRONGLY_OVER
+P1_1093197,phase1_listing,Q. Tây Hồ,P. Xuân La,150.0,9.0,60.0,43.68,37.4,STRONGLY_OVER
+P1_1319982,phase1_listing,H. Sóc Sơn,X. Minh Phú,2981.0,,0.01,29.63,-100.0,UNDERPRICED
+P1_1320246,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,40.0,,1.0,6.27,-84.1,UNDERPRICED
+P1_1320432,phase1_listing,,P. Dương Nội,170.0,,27.0,19.52,38.3,STRONGLY_OVER
+P1_1052859,phase1_listing,Q. Nam Từ Liêm,P. Trung Văn,42.0,,8.2,5.77,42.0,STRONGLY_OVER
+P1_1323818,phase1_listing,Q. Đống Đa,P. Văn Chương,36.0,6.0,7.9,7.06,11.9,OVERPRICED
+P1_1057723,phase1_listing,,P. Hà Cầu,30.0,3.0,4.7,3.87,21.4,OVERPRICED
+P1_1328622,phase1_listing,,P. Thanh Xuân Bắc,117.0,4.0,20.0,18.2,9.9,fair
+P1_1330237,phase1_listing,Q. Thanh Xuân,P. Khương Đình,55.0,4.0,8.5,8.18,3.9,fair
+P1_1070762,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,80.0,7.0,28.0,20.57,36.1,STRONGLY_OVER
+P1_1086081,phase1_listing,Q. Hoàng Mai,P. Mai Động,34.0,,6.95,4.39,58.4,STRONGLY_OVER
+P1_1092415,phase1_listing,Q. Đống Đa,P. Quang Trung,69.0,,22.99,15.87,44.8,STRONGLY_OVER
+P1_1339214,phase1_listing,H. Thanh Trì,X. Tả Thanh Oai,60.0,4.0,12.8,4.66,174.7,STRONGLY_OVER
+P1_1339492,phase1_listing,,,127.0,,13.0,18.11,-28.2,UNDERPRICED
+P1_1067850,phase1_listing,Q. Đống Đa,P. Trung Liệt,44.0,,10.5,9.84,6.7,fair
+P1_1343584,phase1_listing,Q. Tây Hồ,P. Quảng An,82.0,,15.0,20.51,-26.9,UNDERPRICED
+P1_1343785,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,73.0,,7.0,11.45,-38.9,UNDERPRICED
+P1_1058782,phase1_listing,Q. Nam Từ Liêm,P. Cầu Diễn,61.0,,17.6,9.99,76.1,STRONGLY_OVER
+P1_1078388,phase1_listing,Q. Hai Bà Trưng,P. Bách Khoa,36.0,,10.2,5.7,79.1,STRONGLY_OVER
+P1_1347212,phase1_listing,Q. Thanh Xuân,P. Thượng Đình,120.0,4.0,31.0,17.25,79.7,STRONGLY_OVER
+P1_1048380,phase1_listing,Q. Cầu Giấy,P. Dịch Vọng Hậu,59.0,7.0,22.5,16.41,37.1,STRONGLY_OVER
+P1_1349065,phase1_listing,Q. Cầu Giấy,P. Trung Hòa,94.0,,8.3,21.81,-61.9,UNDERPRICED
+P1_1061434,phase1_listing,Q. Hai Bà Trưng,P. Minh Khai,75.0,8.0,15.0,23.59,-36.4,UNDERPRICED
+P1_1094104,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,28.0,,4.1,4.4,-6.8,fair
+P1_1357940,phase1_listing,Q. Cầu Giấy,P. Quan Hoa,56.0,7.0,25.0,13.84,80.7,STRONGLY_OVER
+P1_1047687,phase1_listing,,P. Nhân Chính,90.0,,5.0,13.33,-62.5,UNDERPRICED
+P1_1117816,phase1_listing,Q. Đống Đa,P. Ô Chợ Dừa,50.0,,6.8,9.35,-27.2,UNDERPRICED
+P1_1360350,phase1_listing,Q. Hà Đông,P. Mộ Lao,50.0,6.0,22.0,10.91,101.7,STRONGLY_OVER
+P1_1112458,phase1_listing,Q. Ba Đình,P. Nguyễn Trung Trực,26.0,,6.5,5.26,23.6,OVERPRICED
+P1_1362587,phase1_listing,H. Quốc Oai,X. Đại Thành,65.0,4.0,4.8,7.49,-35.9,UNDERPRICED
+P1_1363272,phase1_listing,Q. Hoàng Mai,P. Tân Mai,40.0,,0.01,5.76,-99.9,UNDERPRICED
+P1_1365328,phase1_listing,H. Gia Lâm,X. Dương Xá,60.0,,4.4,5.74,-23.3,UNDERPRICED
+P1_1365773,phase1_listing,Q. Đống Đa,X. Đàn,55.0,,1.0,10.32,-90.3,UNDERPRICED
+P1_1049863,phase1_listing,,P. Yên Sở,36.0,,5.4,4.48,20.4,OVERPRICED
+P1_1065889,phase1_listing,Q. Đống Đa,P. Láng Thượng,50.0,4.0,18.19,7.98,127.9,STRONGLY_OVER
+P1_1366785,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,82.0,5.0,50.0,15.63,219.9,STRONGLY_OVER
+P1_1370381,phase1_listing,Q. Hai Bà Trưng,P. VĩNh Tuy,60.0,16.0,5.0,14.78,-66.2,UNDERPRICED
+P1_1062452,phase1_listing,Q. Ba Đình,P. Kim Mã,45.0,,10.8,9.05,19.4,OVERPRICED
+P1_1371997,phase1_listing,,,112.0,,6.5,16.58,-60.8,UNDERPRICED
+P1_1062218,phase1_listing,Q. Hai Bà Trưng,P. Cầu Dền,58.0,5.0,12.8,11.01,16.3,OVERPRICED
+P1_1113156,phase1_listing,Q. Hà Đông,P. La Khê,54.0,,6.5,9.91,-34.4,UNDERPRICED
+P1_1076082,phase1_listing,Q. Hai Bà Trưng,P. Đống Mác,26.0,,5.4,4.47,20.9,OVERPRICED
+P1_1044328,phase1_listing,,X. Hải Bối,43.0,3.0,5.1,5.13,-0.6,fair
+P1_1116630,phase1_listing,Q. Hà Đông,,117.0,,0.06,17.32,-99.7,UNDERPRICED
+P1_1104313,phase1_listing,Q. Cầu Giấy,P. Quan Hoa,40.0,7.0,14.7,9.87,48.9,STRONGLY_OVER
+P1_1087975,phase1_listing,Q. Hà Đông,P. La Khê,60.0,5.0,11.0,10.84,1.5,fair
+P1_1060647,phase1_listing,Q. Tây Hồ,,220.0,4.0,121.0,35.91,236.9,STRONGLY_OVER
+P1_1391141,phase1_listing,Q. Cầu Giấy,P. Nghĩa Đô,189.0,3.0,97.0,28.99,234.6,STRONGLY_OVER
+P1_1101253,phase1_listing,,P. Hoàng Văn Thụ,57.0,6.0,8.99,10.81,-16.8,UNDERPRICED
+P1_1392674,phase1_listing,,P. Trung Hòa,60.0,7.0,21.0,12.88,63.0,STRONGLY_OVER
+P1_1053832,phase1_listing,Q. Cầu Giấy,P. Dịch Vọng Hậu,120.0,9.0,48.0,36.47,31.6,STRONGLY_OVER
+P1_1395526,phase1_listing,Q. Long Biên,P. Long Biên,56.0,7.0,16.8,11.33,48.3,STRONGLY_OVER
+P1_1054289,phase1_listing,Q. Nam Từ Liêm,P. Xuân Phương,100.0,,19.3,15.36,25.6,OVERPRICED
+P1_1398705,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,56.0,,4.3,12.23,-64.8,UNDERPRICED
+P1_1401463,phase1_listing,Q. Ba Đình,P. VĩNh PhúC,45.0,,4.5,7.1,-36.6,UNDERPRICED
+P1_1408724,phase1_listing,Q. Nam Từ Liêm,TT. Cầu Diễn,83.0,,5.6,14.12,-60.3,UNDERPRICED
+P1_1409341,phase1_listing,Q. Hoàng Mai,P. Hoàng Văn Thụ,35.0,5.0,7.4,4.43,66.9,STRONGLY_OVER
+P1_1070143,phase1_listing,,X. Tả Thanh Oai,35.0,5.0,3.18,4.13,-23.0,UNDERPRICED
+P1_1413876,phase1_listing,Q. Ba Đình,P. NgọC Hà,55.0,,1.0,9.91,-89.9,UNDERPRICED
+P1_1092565,phase1_listing,Q. Thanh Xuân,P. Phương Liệt,94.0,,16.6,21.28,-22.0,UNDERPRICED
+P1_1042576,phase1_listing,Q. Hoàng Mai,P. Hoàng Liệt,71.0,,16.5,10.84,52.3,STRONGLY_OVER
+P1_1416741,phase1_listing,Q. Đống Đa,P. Nam ĐồNg,80.0,,12.5,16.42,-23.9,UNDERPRICED
+P1_1419137,phase1_listing,Q. Ba Đình,P. Phúc Xá,64.0,2.0,7.3,8.34,-12.4,UNDERPRICED
+P1_1114542,phase1_listing,Q. Ba Đình,P. Liễu Giai,66.0,2.0,17.0,10.34,64.4,STRONGLY_OVER
+P1_1066698,phase1_listing,Q. Ba Đình,P. Điện Biên,40.0,4.0,9.0,6.36,41.6,STRONGLY_OVER
+P1_1423041,phase1_listing,H. Đan Phượng,X. Liên Trung,228.0,,53.0,30.09,76.2,STRONGLY_OVER
+P1_1069787,phase1_listing,Q. Ba Đình,P. Ngọc Hà,40.0,,9.1,6.87,32.4,STRONGLY_OVER
+P1_1079653,phase1_listing,Q. Hai Bà Trưng,P. Vĩnh Tuy,32.0,3.0,5.2,4.66,11.6,OVERPRICED
+P1_1109623,phase1_listing,H. Chương Mỹ,TT. Chúc Sơn,32.0,5.0,2.7,4.29,-37.1,UNDERPRICED
+P1_1426510,phase1_listing,Q. Cầu Giấy,P. Mai Dịch,73.0,5.0,17.6,13.45,30.9,STRONGLY_OVER
+P1_1427687,phase1_listing,Q. Nam Từ Liêm,P. Phú Đô,36.0,5.0,6.2,5.27,17.7,OVERPRICED
+P1_1431972,phase1_listing,H. Thanh Trì,X. Tả Thanh Oai,63.0,,2.58,6.72,-61.6,UNDERPRICED
+P1_1115464,phase1_listing,Q. Bắc Từ Liêm,P. Phúc Diễn,38.0,5.0,7.5,5.72,31.2,STRONGLY_OVER
+P1_1098918,phase1_listing,Q. Cầu Giấy,P. Nghĩa Đô,90.0,,23.5,16.16,45.4,STRONGLY_OVER
+P1_1101263,phase1_listing,Q. Đống Đa,P. Trung Liệt,80.0,,19.0,19.11,-0.6,fair
+P1_1047822,phase1_listing,Q. Hoàng Mai,P. Thịnh Liệt,73.0,,12.9,11.07,16.5,OVERPRICED
+P1_1436945,phase1_listing,Q. Hà Đông,P. Phú La,77.0,6.0,4.8,15.84,-69.7,UNDERPRICED
+P1_1437933,phase1_listing,Q. Hà Đông,P. Văn Quán,155.0,,5.95,17.06,-65.1,UNDERPRICED
+P1_1078050,phase1_listing,Q. Thanh Xuân,P. Khương Trung,52.0,7.0,21.0,11.74,78.8,STRONGLY_OVER
+P1_1229611,phase1_listing,,X. Vĩnh Quỳnh,62.0,,6.2,7.29,-15.0,UNDERPRICED
+P1_1440575,phase1_listing,Q. Hoàng Mai,P. Định Công,35.0,4.0,6.6,4.53,45.7,STRONGLY_OVER
+P1_1059678,phase1_listing,,P. Vĩnh Hưng,38.0,4.0,5.9,4.64,27.2,OVERPRICED
+P1_1075598,phase1_listing,Q. Hà Đông,P. Mộ Lao,65.0,,17.86,10.68,67.2,STRONGLY_OVER
+P1_1084945,phase1_listing,Q. Đống Đa,P. Ô Chợ Dừa,50.0,4.0,21.0,8.11,158.8,STRONGLY_OVER
+P1_1064889,phase1_listing,,P. Chương Dương Độ,37.0,,5.75,4.3,33.8,STRONGLY_OVER
+P1_1447303,phase1_listing,,X. Thạch Hòa,180.0,,10.5,19.64,-46.5,UNDERPRICED
+P1_1448012,phase1_listing,,P. Trung LiệT,50.0,5.0,8.0,7.13,12.2,OVERPRICED
+P1_1083599,phase1_listing,Q. Cầu Giấy,P. Mai Dịch,341.0,10.0,290.0,60.29,381.0,STRONGLY_OVER
+P1_1097961,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,72.0,3.0,15.0,8.75,71.5,STRONGLY_OVER
+P1_1074079,phase1_listing,Q. Đống Đa,P. Trung Liệt,26.0,,7.0,5.34,31.0,STRONGLY_OVER
+P1_1461734,phase1_listing,Q. Thanh Xuân,P. Khương Đình,68.0,,12.3,10.76,14.3,OVERPRICED
+P1_1463020,phase1_listing,Q. Thanh Xuân,P. Khương Trung,110.0,16.0,8.3,26.07,-68.2,UNDERPRICED
+P1_1465953,phase1_listing,H. Phú Xuyên,X. Tân Dân,140.0,,4.1,22.41,-81.7,UNDERPRICED
+P1_1467524,phase1_listing,Q. Tây Hồ,P. Xuân La,50.0,7.0,215.0,13.76,1462.4,STRONGLY_OVER
+P1_1058573,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,33.2,5.0,8.1,5.09,59.1,STRONGLY_OVER
+P1_1078679,phase1_listing,Q. Cầu Giấy,P. Trung Hòa,80.0,6.0,29.0,18.25,58.9,STRONGLY_OVER
+P1_1473722,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,30.0,5.0,7.95,4.95,60.7,STRONGLY_OVER
+P1_1476743,phase1_listing,Q. Cầu Giấy,P. Quan Hoa,78.0,4.0,22.0,16.4,34.2,STRONGLY_OVER
+P1_1479447,phase1_listing,Q. Thanh Xuân,P. Kim Giang,119.0,8.0,29.5,26.74,10.3,OVERPRICED
+P1_1113875,phase1_listing,Q. Ba Đình,P. Trúc Bạch,30.0,4.0,18.0,4.61,290.2,STRONGLY_OVER
+P1_1480876,phase1_listing,Q. Hai Bà Trưng,P. ĐốNg MáC,52.0,,0.9,8.57,-89.5,UNDERPRICED
+P1_1481988,phase1_listing,Q. Đống Đa,P. LáNg ThượNg,42.0,4.0,15.8,6.06,160.6,STRONGLY_OVER
+P1_1064418,phase1_listing,Q. Đống Đa,P. Hàng Bột,80.0,8.0,30.0,21.18,41.7,STRONGLY_OVER
+P1_1484052,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Bắc,252.0,3.0,83.0,38.26,116.9,STRONGLY_OVER
+P1_1486259,phase1_listing,Q. Nam Từ Liêm,P. Tây Mỗ,90.0,,5.3,12.66,-58.1,UNDERPRICED
+P1_1487460,phase1_listing,Q. Hà Đông,P. Kiến Hưng,75.0,1.0,3.38,9.77,-65.4,UNDERPRICED
+P1_1487657,phase1_listing,Q. Hà Đông,P. La Khê,127.0,,17.2,18.31,-6.0,fair
+P1_1109372,phase1_listing,Q. Long Biên,P. Giang Biên,30.0,,4.9,4.1,19.4,OVERPRICED
+P1_1117192,phase1_listing,H. Thanh Trì,X. Thanh Liệt,36.0,,6.9,4.45,55.2,STRONGLY_OVER
+P1_1060237,phase1_listing,Q. Cầu Giấy,P. Nghĩa Đô,40.0,6.0,13.6,8.85,53.6,STRONGLY_OVER
+P1_1207895,phase1_listing,,X. An Thượng,42.0,4.0,3.99,4.89,-18.5,UNDERPRICED
+P1_1495413,phase1_listing,Q. Đống Đa,P. Văn Chương,36.0,6.0,7.9,7.0,12.9,OVERPRICED
+P1_1047302,phase1_listing,H. Thanh Trì,,52.0,,7.0,9.01,-22.3,UNDERPRICED
+P1_1098003,phase1_listing,Q. Hai Bà Trưng,P. Bạch Mai,38.0,4.0,7.3,5.61,30.2,STRONGLY_OVER
+P1_1507216,phase1_listing,Q. Đống Đa,P. Thổ Quan,50.0,7.0,13.9,10.76,29.1,OVERPRICED
+P1_1067764,phase1_listing,Q. Hai Bà Trưng,P. Minh Khai,88.0,,8.2,15.54,-47.2,UNDERPRICED
+P1_1059563,phase1_listing,Q. Hai Bà Trưng,P. Quỳnh Lôi,104.0,,32.0,20.1,59.2,STRONGLY_OVER
+P1_1073658,phase1_listing,,P. Thanh NhàN,46.0,,4.6,5.76,-20.1,UNDERPRICED
+P1_1517172,phase1_listing,Q. Hoàng Mai,P. Mai Động,55.0,,1.0,9.08,-89.0,UNDERPRICED
+P1_1090021,phase1_listing,,P. VĩNh Tuy,55.0,5.0,8.45,8.26,2.3,fair
+P1_1525151,phase1_listing,Q. Hà Đông,P. Yên Nghĩa,75.0,5.0,13.0,12.44,4.5,fair
+P1_1075806,phase1_listing,Q. Ba Đình,P. Liễu Giai,36.0,5.0,10.2,5.43,87.9,STRONGLY_OVER
+P1_1064390,phase1_listing,Q. Đống Đa,P. Quốc Tử Giám,260.0,,65.0,37.92,71.4,STRONGLY_OVER
+P1_1527938,phase1_listing,,,53.0,,11.0,8.87,24.0,OVERPRICED
+P1_1103947,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,30.0,6.0,8.5,5.63,51.0,STRONGLY_OVER
+P1_1530973,phase1_listing,H. Thanh Trì,X. Tả Thanh Oai,50.0,,1.69,5.51,-69.3,UNDERPRICED
+P1_1531401,phase1_listing,H. Thường Tín,X. Tự Nhiên,95.0,2.0,4.9,15.45,-68.3,UNDERPRICED
+P1_1044865,phase1_listing,Q. Hai Bà Trưng,P. Lê Đại Hành,199.0,,145.0,26.5,447.2,STRONGLY_OVER
+P1_1107977,phase1_listing,Q. Ba Đình,P. Thành Công,50.0,,5.2,8.51,-38.9,UNDERPRICED
+P1_1537910,phase1_listing,Q. Đống Đa,P. LáNg ThượNg,42.0,4.0,15.8,6.06,160.6,STRONGLY_OVER
+P1_1540329,phase1_listing,Q. Nam Từ Liêm,P. Trung Văn,36.0,5.0,5.5,5.21,5.5,fair
+P1_1541058,phase1_listing,Q. Tây Hồ,P. Bưởi,40.0,6.0,9.5,8.21,15.7,OVERPRICED
+P1_1541088,phase1_listing,Q. Nam Từ Liêm,P. Đại Mỗ,115.0,12.0,12.86,22.32,-42.4,UNDERPRICED
+P1_1541192,phase1_listing,Q. Cầu Giấy,P. Nghĩa Đô,44.0,6.0,15.5,11.45,35.4,STRONGLY_OVER
+P1_1545049,phase1_listing,Q. Nam Từ Liêm,P. Phương Canh,90.0,,18.9,16.29,16.0,OVERPRICED
+P1_1045371,phase1_listing,Q. Tây Hồ,P. Bưởi,100.0,,12.5,16.62,-24.8,UNDERPRICED
+P1_1546720,phase1_listing,Q. Cầu Giấy,P. Quan Hoa,66.0,4.0,13.0,11.74,10.7,OVERPRICED
+P1_1113054,phase1_listing,Q. Hai Bà Trưng,P. Ngô Thì Nhậm,48.5,,40.0,7.19,456.2,STRONGLY_OVER
+P1_1098917,phase1_listing,H. Thanh Trì,X. Hữu Hòa,65.0,,9.2,7.51,22.4,OVERPRICED
+P1_1045267,phase1_listing,,P. Tương Mai,48.0,5.0,16.0,6.47,147.3,STRONGLY_OVER
+P1_1050095,phase1_listing,,X. Đông Ngạc,57.0,,4.9,7.67,-36.2,UNDERPRICED
+P1_1051191,phase1_listing,Q. Cầu Giấy,P. Dịch Vọng Hậu,55.0,5.0,6.5,12.21,-46.7,UNDERPRICED
+P1_1068725,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,150.0,,85.0,22.04,285.7,STRONGLY_OVER
+P1_1558103,phase1_listing,Q. Đống Đa,P. Ô Chợ DừA,30.0,6.0,8.0,4.9,63.3,STRONGLY_OVER
+P1_1097450,phase1_listing,,P. Quang Trung,52.0,,6.85,8.71,-21.3,UNDERPRICED
+P1_1077334,phase1_listing,Q. Hoàng Mai,P. Định Công,34.0,,6.2,4.93,25.7,OVERPRICED
+P1_1067887,phase1_listing,Q. Cầu Giấy,P. Trung Hòa,65.0,3.0,16.5,10.74,53.6,STRONGLY_OVER
+P1_1113665,phase1_listing,Q. Tây Hồ,P. Quảng An,194.0,9.0,72.0,44.11,63.2,STRONGLY_OVER
+P1_1562133,phase1_listing,Q. Hà Đông,P. Hà Cầu,62.0,,3.65,9.62,-62.1,UNDERPRICED
+P1_1562449,phase1_listing,Q. Nam Từ Liêm,P. Mỹ Đình 1,90.0,1.0,5.68,11.82,-51.9,UNDERPRICED
+P1_1563609,phase1_listing,Q. Ba Đình,P. Cống Vị,80.0,1.0,6.5,14.18,-54.1,UNDERPRICED
+P1_1048266,phase1_listing,,P. VĩNh Tuy,29.0,4.0,7.5,3.5,114.3,STRONGLY_OVER
+P1_1082355,phase1_listing,Q. Đống Đa,P. Phương Liên,32.0,5.0,5.95,5.28,12.6,OVERPRICED
+P1_1569438,phase1_listing,Q. Hoàng Mai,P. Định Công,35.0,4.0,6.6,4.53,45.7,STRONGLY_OVER
+P1_1569498,phase1_listing,,,83.0,,5.6,13.22,-57.6,UNDERPRICED
+P1_1569706,phase1_listing,Q. Nam Từ Liêm,P. Đại Mỗ,32.0,5.0,5.3,4.25,24.7,OVERPRICED
+P1_1114699,phase1_listing,Q. Ba Đình,P. Ngọc Khánh,102.0,5.0,48.0,23.19,107.0,STRONGLY_OVER
+P1_1055355,phase1_listing,,P. Khâm Thiên,20.2,2.0,3.5,3.3,6.1,fair
+P1_1572660,phase1_listing,Q. Long Biên,P. Phúc Đồng,31.0,5.0,6.15,3.76,63.6,STRONGLY_OVER
+P1_1574183,phase1_listing,Q. Đống Đa,P. Trung LiệT,33.0,5.0,9.0,4.99,80.4,STRONGLY_OVER
+P1_1048068,phase1_listing,,P. QuỳNh Lôi,30.0,5.0,5.99,3.67,63.0,STRONGLY_OVER
+P1_1064322,phase1_listing,Q. Đống Đa,P. Khâm Thiên,31.0,4.0,7.5,4.25,76.5,STRONGLY_OVER
+P1_1086691,phase1_listing,Q. Nam Từ Liêm,P. Mỹ Đình 2,35.0,,6.75,5.11,32.1,STRONGLY_OVER
+P1_1096856,phase1_listing,Q. Ba Đình,P. Trúc Bạch,50.0,,19.0,9.4,102.2,STRONGLY_OVER
+P1_1069479,phase1_listing,,P. Đại Kim,31.0,5.0,6.4,4.33,47.8,STRONGLY_OVER
+P1_1100179,phase1_listing,Q. Hoàn Kiếm,P. Hàng Bạc,160.0,,0.12,33.19,-99.6,UNDERPRICED
+P1_1098728,phase1_listing,Q. Hà Đông,P. Dương Nội,242.0,,56.0,28.01,99.9,STRONGLY_OVER
+P1_1111943,phase1_listing,Q. Đống Đa,P. Khâm Thiên,35.0,,5.19,5.27,-1.5,fair
+P1_1599862,phase1_listing,H. Sóc Sơn,X. Minh Phú,660.0,,0.01,43.88,-100.0,UNDERPRICED
+P1_1101076,phase1_listing,Q. Bắc Từ Liêm,,31.0,,5.8,4.61,25.8,OVERPRICED
+P1_1076800,phase1_listing,Q. Tây Hồ,,112.0,5.0,51.0,16.2,214.8,STRONGLY_OVER
+P1_1097236,phase1_listing,Q. Hà Đông,P. Phúc La,200.0,,36.0,23.66,52.1,STRONGLY_OVER
+P1_1097904,phase1_listing,Q. Cầu Giấy,P. Mai Dịch,81.0,,6.3,15.62,-59.7,UNDERPRICED
+P1_1611720,phase1_listing,H. Đông Anh,TT. Đông Anh,55.0,,6.0,6.69,-10.3,UNDERPRICED
+P1_1613713,phase1_listing,H. Gia Lâm,X. Dương Xá,30.0,,1.92,3.2,-39.9,UNDERPRICED
+P1_1117890,phase1_listing,Q. Thanh Xuân,P. Khương Trung,40.0,,7.0,6.52,7.4,fair
+P1_1617706,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,52.0,7.0,13.5,11.32,19.2,OVERPRICED
+P1_1082842,phase1_listing,H. Hoài Đức,X. Vân Canh,31.0,5.0,5.28,3.31,59.5,STRONGLY_OVER
+P1_1081810,phase1_listing,Q. Tây Hồ,P. Bưởi,270.0,,86.0,53.09,62.0,STRONGLY_OVER
+P1_1619993,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Trung,98.0,,7.5,18.17,-58.7,UNDERPRICED
+P1_1082016,phase1_listing,Q. Ba Đình,P. Điện Biên,33.5,,25.0,5.38,364.5,STRONGLY_OVER
+P1_1075176,phase1_listing,Q. Ba Đình,P. Kim Mã,32.0,3.0,9.5,5.38,76.7,STRONGLY_OVER
+P1_1106784,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,44.0,,6.0,6.27,-4.3,fair
+P1_1044268,phase1_listing,Q. Đống Đa,P. Văn Chương,60.0,3.0,7.8,8.23,-5.2,fair
+P1_1072866,phase1_listing,Q. Đống Đa,P. Khương Thượng,84.9,,25.5,16.69,52.8,STRONGLY_OVER
+P1_1640067,phase1_listing,Q. Ba Đình,P. Ngọc Hà,100.0,5.0,25.0,17.96,39.2,STRONGLY_OVER
+P1_1088188,phase1_listing,Q. Ba Đình,P. Điện Biên,210.0,,110.0,32.07,243.0,STRONGLY_OVER
+P1_1085846,phase1_listing,Q. Đống Đa,P. Láng Thượng,50.0,,18.5,9.16,102.0,STRONGLY_OVER
+P1_1056846,phase1_listing,Q. Long Biên,P. Ngọc Lâm,55.7,,0.27,8.61,-96.9,UNDERPRICED
+P1_1051392,phase1_listing,,P. Lĩnh Nam,35.0,5.0,5.4,4.12,31.0,STRONGLY_OVER
+P1_1090521,phase1_listing,Q. Long Biên,P. Thạch Bàn,342.0,5.0,5.48,22.45,-75.6,UNDERPRICED
+P1_1080463,phase1_listing,Q. Hoàng Mai,P. Hoàng Liệt,45.0,5.0,4.0,6.76,-40.8,UNDERPRICED
+P1_1048343,phase1_listing,Q. Đống Đa,P. Kim Liên,49.0,3.0,7.9,7.59,4.0,fair
+P1_1048710,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,50.0,3.0,7.7,7.01,9.9,fair
+P1_1042948,phase1_listing,,P. Minh Khai,45.0,,7.0,6.71,4.3,fair
+P1_1099949,phase1_listing,Q. Thanh Xuân,P. Khương Đình,57.0,,19.8,9.58,106.6,STRONGLY_OVER
+P1_1657500,phase1_listing,Q. Thanh Xuân,P. Khương Trung,64.0,,13.8,10.77,28.2,OVERPRICED
+P1_1052746,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,50.0,,21.5,10.5,104.7,STRONGLY_OVER
+P1_1053275,phase1_listing,Q. Hà Đông,P. Hà Cầu,45.0,,12.0,7.12,68.6,STRONGLY_OVER
+P1_1048714,phase1_listing,Q. Đống Đa,P. Trung Liệt,60.0,,4.19,14.24,-70.6,UNDERPRICED
+P1_1665622,phase1_listing,Q. Long Biên,P. Long Biên,56.0,7.0,16.8,11.33,48.3,STRONGLY_OVER
+P1_1117243,phase1_listing,Q. Đống Đa,P. Văn Chương,20.0,,4.8,3.56,34.7,STRONGLY_OVER
+P1_1067303,phase1_listing,Q. Đống Đa,P. Ô Chợ Dừa,71.0,,17.99,14.69,22.4,OVERPRICED
+P1_1668947,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,31.0,4.0,7.0,4.6,52.1,STRONGLY_OVER
+P1_1090588,phase1_listing,Q. Thanh Xuân,P. Khương Mai,38.5,,8.4,6.88,22.0,OVERPRICED
+P1_1669620,phase1_listing,Q. Hà Đông,P. Kiến Hưng,32.0,5.0,7.0,4.12,69.7,STRONGLY_OVER
+P1_1116549,phase1_listing,Q. Tây Hồ,P. Quảng An,150.0,,55.0,27.38,100.9,STRONGLY_OVER
+P1_1048900,phase1_listing,,X. Tây Mỗ,52.0,5.0,6.65,7.55,-12.0,UNDERPRICED
+P1_1675536,phase1_listing,Q. Long Biên,P. Ngọc Thụy,73.0,3.0,8.5,7.85,8.3,fair
+P1_1055180,phase1_listing,,P. Ngọc Thụy,41.0,,5.75,5.63,2.0,fair
+P1_1678616,phase1_listing,Q. Đống Đa,P. Văn Chương,36.0,6.0,7.9,7.06,11.9,OVERPRICED
+P1_1086575,phase1_listing,Q. Hoàn Kiếm,P. Hàng Mã,30.0,,29.0,8.46,242.8,STRONGLY_OVER
+P1_1049354,phase1_listing,,P. Thanh NhàN,62.0,4.0,7.0,6.8,2.9,fair
+P1_1115701,phase1_listing,Q. Tây Hồ,P. Phú Thượng,32.0,4.0,4.6,4.45,3.4,fair
+P1_1103285,phase1_listing,Q. Tây Hồ,P. Xuân La,31.0,5.0,7.6,4.37,73.7,STRONGLY_OVER
+P1_1686970,phase1_listing,Q. Hà Đông,P. Mộ Lao,78.0,7.0,18.0,17.6,2.3,fair
+P1_1688489,phase1_listing,Q. Hai Bà Trưng,P. ĐồNg Nhân,27.0,4.0,6.8,3.46,96.4,STRONGLY_OVER
+P1_1689425,phase1_listing,Q. Nam Từ Liêm,P. Đại Mỗ,32.0,5.0,5.3,4.25,24.7,OVERPRICED
+P1_1088826,phase1_listing,Q. Tây Hồ,P. Xuân La,155.0,,7.0,22.16,-68.4,UNDERPRICED
+P1_1108868,phase1_listing,Q. Ba Đình,P. Ngọc Khánh,57.0,4.0,15.6,9.9,57.5,STRONGLY_OVER
+P1_1691083,phase1_listing,Q. Long Biên,P. Thạch Bàn,55.0,,3.25,7.96,-59.1,UNDERPRICED
+P1_1046659,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,100.0,,58.0,15.39,277.0,STRONGLY_OVER
+P1_1066523,phase1_listing,Q. Hoàng Mai,P. Mai Động,33.3,5.0,6.95,4.28,62.3,STRONGLY_OVER
+P1_1079521,phase1_listing,Q. Long Biên,P. Ngọc Lâm,85.0,4.0,17.5,12.49,40.1,STRONGLY_OVER
+P1_1071300,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,84.0,,32.0,16.04,99.5,STRONGLY_OVER
+P1_1701026,phase1_listing,Q. Hai Bà Trưng,P. PhạM ĐìNh Hổ,70.0,5.0,5.18,11.6,-55.4,UNDERPRICED
+P1_1097015,phase1_listing,Q. Hoàng Mai,P. Hoàng Văn Thụ,72.0,,10.08,11.03,-8.6,fair
+P1_1084862,phase1_listing,,P. Kiến Hưng,60.0,4.0,14.0,8.57,63.4,STRONGLY_OVER
+P1_1706746,phase1_listing,Q. Đống Đa,P. Ô Chợ DừA,30.0,6.0,8.0,4.9,63.3,STRONGLY_OVER
+P1_1708141,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Trung,64.0,6.0,13.0,12.69,2.4,fair
+P1_1068348,phase1_listing,Q. Hai Bà Trưng,P. Vĩnh Tuy,55.0,5.0,15.5,10.15,52.7,STRONGLY_OVER
+P1_1713377,phase1_listing,H. Đông Anh,X. Cổ Loa,60.0,1.0,1.7,7.79,-78.2,UNDERPRICED
+P1_1090984,phase1_listing,,P. Phú Lương,32.0,5.0,4.35,3.56,22.3,OVERPRICED
+P1_1070909,phase1_listing,Q. Đống Đa,P. Khương Thượng,45.0,,19.9,7.59,162.2,STRONGLY_OVER
+P1_1060137,phase1_listing,Q. Hoàn Kiếm,P. Cửa Đông,65.0,5.0,16.0,15.58,2.7,fair
+P1_1052094,phase1_listing,,P. CáT Linh,60.0,,4.48,8.74,-48.7,UNDERPRICED
+P1_1075052,phase1_listing,Q. Hai Bà Trưng,P. Bạch Đằng,21.0,3.0,4.49,3.35,34.1,STRONGLY_OVER
+P1_1069711,phase1_listing,,P. Biên Giang,45.0,3.0,3.35,5.58,-39.9,UNDERPRICED
+P1_1095414,phase1_listing,Q. Long Biên,P. Ngọc Lâm,42.0,,8.8,6.24,41.1,STRONGLY_OVER
+P1_1095815,phase1_listing,H. Gia Lâm,X. Cổ Bi,97.1,2.0,0.12,11.45,-98.9,UNDERPRICED
+P1_1108138,phase1_listing,H. Hoài Đức,X. Vân Canh,31.0,5.0,5.28,3.31,59.5,STRONGLY_OVER
+P1_1106019,phase1_listing,Q. Hoàng Mai,P. Giáp Bát,46.0,5.0,5.8,6.9,-15.9,UNDERPRICED
+P1_1107636,phase1_listing,Q. Hai Bà Trưng,P. Trương Định,35.0,5.0,5.5,5.45,0.9,fair
+P1_1061327,phase1_listing,,P. QuỳNh Lôi,35.0,5.0,8.5,3.94,115.8,STRONGLY_OVER
+P1_1733216,phase1_listing,Q. Hà Đông,P. Kiến Hưng,78.0,,3.4,13.52,-74.9,UNDERPRICED
+P1_1087965,phase1_listing,Q. Hoàn Kiếm,P. Hàng Mã,220.0,,155.0,62.45,148.2,STRONGLY_OVER
+P1_1065464,phase1_listing,Q. Hai Bà Trưng,P. Ngô Thì Nhậm,180.0,,159.0,28.05,466.9,STRONGLY_OVER
+P1_1740081,phase1_listing,Q. Hà Đông,P. La Khê,55.0,7.0,19.0,12.55,51.4,STRONGLY_OVER
+P1_1741021,phase1_listing,Q. Hà Đông,P. Phúc La,70.0,5.0,18.0,12.17,47.9,STRONGLY_OVER
+P1_1055045,phase1_listing,Q. Ba Đình,P. Trúc Bạch,86.0,,0.3,20.8,-98.6,UNDERPRICED
+P1_1089684,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,55.0,,8.15,9.14,-10.8,UNDERPRICED
+P1_1064546,phase1_listing,Q. Bắc Từ Liêm,P. Minh Khai,60.0,7.0,12.5,12.0,4.2,fair
+P1_1113481,phase1_listing,Q. Thanh Xuân,P. Khương Trung,86.0,,20.6,17.52,17.6,OVERPRICED
+P1_1099596,phase1_listing,,P. Ngọc Thụy,41.0,4.0,5.4,5.01,7.7,fair
+P1_1084033,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,150.0,7.0,29.7,25.53,16.3,OVERPRICED
+P1_1043049,phase1_listing,Q. Long Biên,P. Gia Thụy,51.0,,12.3,8.17,50.6,STRONGLY_OVER
+P1_1756243,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,120.0,3.0,43.5,18.38,136.6,STRONGLY_OVER
+P1_1100999,phase1_listing,H. Thanh Trì,X. Thanh Liệt,30.0,5.0,6.9,3.88,78.0,STRONGLY_OVER
+P1_1110679,phase1_listing,Q. Hai Bà Trưng,P. Đồng Nhân,63.0,,10.2,12.33,-17.3,UNDERPRICED
+P1_1763779,phase1_listing,Q. Hoàn Kiếm,P. HàNg BạC,350.0,3.0,255.0,44.07,478.6,STRONGLY_OVER
+P1_1763854,phase1_listing,Q. Hà Đông,,65.0,,3.63,10.05,-63.9,UNDERPRICED
+P1_1084302,phase1_listing,Q. Hai Bà Trưng,P. Cầu Dền,23.0,,4.5,4.31,4.5,fair
+P1_1095649,phase1_listing,Q. Hai Bà Trưng,P. Thanh Nhàn,32.0,,8.5,4.82,76.2,STRONGLY_OVER
+P1_1048750,phase1_listing,Q. Bắc Từ Liêm,,100.0,,12.8,13.71,-6.6,fair
+P1_1767581,phase1_listing,Q. Bắc Từ Liêm,,163.0,4.0,48.0,27.64,73.7,STRONGLY_OVER
+P1_1768013,phase1_listing,Q. Hai Bà Trưng,P. Minh Khai,35.0,5.0,7.1,5.21,36.2,STRONGLY_OVER
+P1_1770984,phase1_listing,Q. Cầu Giấy,P. Trung Hòa,69.0,5.0,26.0,15.92,63.3,STRONGLY_OVER
+P1_1218895,phase1_listing,,P. Ô Chợ DừA,43.0,5.0,15.3,5.57,174.6,STRONGLY_OVER
+P1_1773214,phase1_listing,Q. Ba Đình,P. Cống Vị,25.0,2.0,5.9,3.94,49.6,STRONGLY_OVER
+P1_1116564,phase1_listing,Q. Hai Bà Trưng,P. Ngô Thì Nhậm,235.0,,150.0,33.28,350.8,STRONGLY_OVER
+P1_1108291,phase1_listing,Q. Hai Bà Trưng,,101.0,,23.0,18.3,25.7,OVERPRICED
+P1_1093211,phase1_listing,Q. Đống Đa,P. Thổ Quan,43.0,,6.8,7.72,-11.9,UNDERPRICED
+P1_1318791,phase1_listing,Q. Tây Hồ,P. Quảng An,82.0,,17.5,20.51,-14.7,UNDERPRICED
+P1_1463980,phase1_listing,Q. Ba Đình,P. CốNg Vị,40.0,7.0,360.0,8.33,4221.3,STRONGLY_OVER
