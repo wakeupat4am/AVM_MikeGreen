@@ -286,6 +286,43 @@ The 2025–26 index rests on 20–50 rows/month, so `sensitivity_index_error.py`
 
 ---
 
+## 6.6 "Will it sell?" — the one real-label model, and an honest negative result
+
+Everything above models *asking* prices. `train_phase3_sellability.py` attacks the only genuine
+outcome label — **SOLD (206, +LOCKED) vs REVOKED (9,941)**, base rate 2.0% — and tests the natural
+product hypothesis: *does the mispricing signal from the clearing engine predict clearing?* Validated
+**prequentially** (train on month < m, score month m, pool out-of-time scores; calendar month, price
+level and the label are never features).
+
+**Finding: sellability is only weakly predictable from listing attributes, and the result is honest
+but modest.**
+
+| feature set | temporal AUC (95% CI) | random-fold AUC |
+|---|---|---|
+| lean (area, floors, facade, district, ward) | **0.588 [0.545, 0.634]** | 0.579 |
+| lean + mispricing | 0.588 [0.540, 0.636] | 0.584 |
+| rich (+ geo, construction_year, road dist) | 0.564 [0.518, 0.613] | 0.582 |
+
+Three things this says, each defensible:
+1. **The signal is real but weak** — AUC ~0.59, CI clears 0.50, but it is far from a confident
+   classifier. Ranking by it, the **top decile holds ~1.7× the base rate** (3.4% vs 2.0%), capturing
+   **20% of eventual sellers in 10% of inventory** — modest operational value for a broker triaging
+   which listings to work, not a precise predictor.
+2. **The mispricing hypothesis is rejected.** SOLD and REVOKED have near-identical mispricing (median
+   +3.0% vs +0.7%), and adding the feature does not move AUC. REVOKED listings were **not** pulled
+   mainly for being over-priced — clearing turns on factors not in the asking price (timing,
+   negotiation, demand, seller circumstances). This is consistent with the SOLD ≈ REVOKED overlap in §3.1.
+3. **The ceiling is fundamental, not feature-poverty.** Richer geo/year/road features *do not help*
+   (0.564 ≤ 0.588). And unlike the price model, **temporal ≈ random-fold AUC** — this weak signal is
+   at least not fold-inflated; it is honestly weak.
+
+**Product implication — the binding constraint, confirmed a third way:** you cannot build a strong
+"will it sell?" model from 206 positives and attributes that don't separate. What would move it is
+**outcome data** — time-on-market, demand signals (views/contacts), realized transactions — i.e. data
+acquisition (§9.5), not more modelling.
+
+---
+
 ## 7. Insights
 
 1. **Available inventory is not ¾ over-priced — it's roughly fair once you credit the market.** The
@@ -340,6 +377,9 @@ python3 backtest_cqr_fix.py               # grid-select the drift-proof CQR conf
 python3 train_phase3_intervals_v2.py      # PRODUCTION bands -> *_intervals_v2.csv   [use these]
 python3 sensitivity_index_error.py        # index-error robustness table               (§6.5.3)
 
+# 3e. "WILL IT SELL?" classifier on the real label (SOLD vs REVOKED)     (§6.6; weak, honest)
+python3 train_phase3_sellability.py       # -> phase3_sellability_scores.csv
+
 # 4. Figures
 python3 plot_price_kde.py                 # price density by status / by district
 python3 plot_kde_district_by_status.py    # district x status density facets
@@ -365,27 +405,28 @@ full-feature; UNKNOWN needs the comparable cross-check).
 ---
 
 ## 9. Next steps (ranked)
-1. **"Will it sell?" classifier** from the SOLD-vs-REVOKED label — the one thing this dataset has *real*
-   labels for; sidesteps the asking-price ceiling entirely.
-2. **Anchor the hedonic index to a published Hà Nội price index** (CBRE / Savills / batdongsan) — an
+1. **Anchor the hedonic index to a published Hà Nội price index** (CBRE / Savills / batdongsan) — an
    independent external check on the +111% trajectory.
-3. **Full-feature model for AVAILABLE** (it has 44% geo / 53% year) to recover accuracy there.
-4. **Fuse the interval flag + comparable flag** into one confidence-tiered verdict for UNKNOWN.
-5. **Acquire realized transaction prices** — the true accuracy ceiling; every experiment points here.
+2. **Full-feature model for AVAILABLE** (it has 44% geo / 53% year) to recover accuracy there.
+3. **Fuse the interval flag + comparable flag** into one confidence-tiered verdict for UNKNOWN.
+4. **Acquire outcome data** — time-on-market, demand signals (views/contacts), and realized
+   transaction prices. §6.6 showed sellability caps at AUC ~0.59 on attributes alone; this is the
+   true accuracy ceiling for *both* the price model and the sell classifier. **Every experiment points here.**
 
 *Done:* merge · status policy (incl. LOCKED) · market-structure EDA · lean model · temporal
 (market-index) treatment · CQR intervals · **rolling-origin backtest (real-time MedAPE + coverage)** ·
-**drift-proof CQR v2 + hedonic index** · **index-error sensitivity** · **[`MODEL_CARD.md`](MODEL_CARD.md)**.
+**drift-proof CQR v2 + hedonic index** · **index-error sensitivity** · **"will it sell?" classifier
+(§6.6 — honest negative result)** · **[`MODEL_CARD.md`](MODEL_CARD.md)**.
 
 ## 10. Layout
 ```
 Phase 3/
 ├── data/   phase3_merged_dataset.parquet · phase3_*_intervals.csv · phase3_*_intervals_v2.csv
 │            phase3_backtest_results.csv · phase3_backtest_coverage.csv · phase3_cqr_fix_grid.csv
-│            phase3_sensitivity_index.csv · phase3_*_predictions_timeadj.csv
-│            phase3_interval_coverage.csv · unknown_address_feature_matches.csv
+│            phase3_sensitivity_index.csv · phase3_sellability_scores.csv
+│            phase3_*_predictions_timeadj.csv · phase3_interval_coverage.csv · unknown_address_feature_matches.csv
 ├── src/    build_phase3_dataset.py · build_phase3_modeling.py
-│            train_phase3_clearing[_time].py · train_phase3_intervals[_v2].py
+│            train_phase3_clearing[_time].py · train_phase3_intervals[_v2].py · train_phase3_sellability.py
 │            backtest_rolling_origin.py · backtest_cqr_fix.py · sensitivity_index_error.py · plot_*.py
 ├── figs/   phase3_price_kde_* · phase3_price_dist_* · phase3_price_timeseries.png
 ├── MODEL_CARD.md   (intended use, validity domain, real-time metrics, limits — read first)

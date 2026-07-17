@@ -18,6 +18,11 @@ It is **not** an absolute appraiser. Every price in the training data is an *ask
 is a label (a deal happened), not a realized sale value. The product is **relative mispricing with
 a calibrated confidence band**, which the data supports; single-number valuation, which it does not.
 
+A companion **"will it sell?" classifier** (`train_phase3_sellability.py`) was built on the one real
+outcome label (SOLD vs REVOKED) but is **weak and not production-grade**: real-time AUC ~0.59, no lift
+from the mispricing signal or richer features (see §6.6 of the report). Ship it only as a soft ranking
+hint (top-decile lift ~1.7×), never as a confident sell/no-sell call.
+
 ## 2. Intended use / out of scope
 
 | Intended | Out of scope |
@@ -133,4 +138,5 @@ python3 backtest_rolling_origin.py         # real-time performance (§5) + v1 co
 python3 backtest_cqr_fix.py                # select the drift-proof CQR config (§6)
 python3 train_phase3_intervals_v2.py       # PRODUCTION bands -> *_intervals_v2.csv
 python3 sensitivity_index_error.py         # robustness table (§7)
+python3 train_phase3_sellability.py        # "will it sell?" classifier (weak; §1 caveat)
 ```
