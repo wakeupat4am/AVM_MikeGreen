@@ -1,0 +1,653 @@
+property_id,dataset_source,district_name,ward_name,total_area,number_of_floors,last_modified_date,asking_B,P10_B,P50_B,P90_B,over_P90_pct,flag,time_adjusted
+7b99d5ef-3f40-fb25-4a5a-d984c54c5b41,phase2_transaction,Q. Đống Đa,P. Quang Trung,52.3,5.0,2026-07-06 04:53:18,33.0,8.36,18.41,38.54,-14.4,fair,True
+027bed2a-f4c6-6287-c74d-ff5a9780878a,phase2_transaction,Q. Hai Bà Trưng,P. Minh Khai,53.0,1.0,2026-07-06 03:21:34,18.5,5.53,12.85,31.57,-41.4,fair,True
+95729d62-f483-a46b-da68-980cddc3481d,phase2_transaction,Q. Bắc Từ Liêm,P. Phú Diễn,59.0,7.0,2026-07-04 04:18:20,21.5,12.83,21.96,32.36,-33.6,fair,True
+998ffae9-7971-75cf-d6cb-4adad8cd8ce7,phase2_transaction,Q. Đống Đa,P. Hàng Bột,34.1,4.0,2026-07-04 02:00:50,7.0,4.92,9.24,18.25,-61.7,fair,True
+addaf0ec-cca4-670d-43a4-1cf8b79b2865,phase2_transaction,Q. Hoàng Mai,P. Tương Mai,49.0,5.0,2026-07-04 01:56:04,9.9,7.25,12.94,28.07,-64.7,fair,True
+6eb68705-1f57-4714-0d75-202c6a8f6206,phase2_transaction,H. Hoài Đức,X. Kim Chung,96.5,9.0,2026-07-03 03:50:52,26.0,21.0,38.6,67.54,-61.5,fair,True
+847e172e-3456-eb1f-efb1-f926c8dd521b,phase2_transaction,Q. Thanh Xuân,P. Thanh Xuân Trung,74.1,3.0,2026-07-01 10:51:16,34.0,7.72,16.71,43.63,-22.1,fair,True
+7216723b-69d2-6045-c8c9-7c1c2617ad15,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,165.6,8.0,2026-07-01 10:51:14,39.0,29.28,70.76,170.47,-77.1,fair,True
+3e352f4e-8ba6-9178-36df-3509e81fc322,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,65.9,1.0,2026-07-01 10:51:08,25.5,6.59,15.46,47.27,-46.1,fair,True
+e07d0afc-c814-c153-f4a6-96b478ef66f9,phase2_transaction,Q. Đống Đa,P. Khương Thượng,32.0,2.0,2026-07-01 10:50:07,14.0,4.49,8.82,22.64,-38.2,fair,True
+a8f45275-c529-a8a5-98ea-c0c6b4dd513b,phase2_transaction,Q. Long Biên,P. Thạch Bàn,90.0,6.0,2026-07-01 10:49:11,36.0,15.2,30.07,51.97,-30.7,fair,True
+0a2878f4-41de-5ef1-52e8-9614094e1f3d,phase2_transaction,Q. Hai Bà Trưng,P. Bạch Mai,35.0,6.0,2026-07-01 10:49:08,7.5,6.6,12.28,28.54,-73.7,fair,True
+32b048f0-ab9d-3286-e292-92a711035193,phase2_transaction,Q. Tây Hồ,P. Bưởi,230.0,9.0,2026-07-01 10:49:01,110.0,28.39,103.82,272.55,-59.6,fair,True
+023606b5-c896-5351-8bf7-29d54686c125,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,105.5,5.0,2026-07-01 10:48:34,38.0,11.89,27.99,60.47,-37.2,fair,True
+d79f2457-420e-a723-0483-b2e37a287f82,phase2_transaction,Q. Ba Đình,P. Điện Biên,57.0,4.0,2026-07-01 10:47:11,13.6,7.04,15.37,40.77,-66.6,fair,True
+a2d5ef57-b33a-8264-1d51-8d9e0ff8a1ce,phase2_transaction,Q. Long Biên,P. Thạch Bàn,114.0,3.0,2026-07-01 10:46:04,6.8,9.47,21.45,44.62,-84.8,UNDERPRICED,True
+7732e1f8-ec07-567b-7a78-1b5372d1868d,phase2_transaction,Q. Long Biên,P. Bồ Đề,61.0,1.0,2026-07-01 10:09:20,24.5,6.07,13.36,37.87,-35.3,fair,True
+99e3ef9f-b037-8bbd-a3e3-95492b3bdf18,phase2_transaction,Q. Long Biên,P. Việt Hưng,77.0,3.0,2026-07-01 05:09:06,21.0,8.2,17.5,39.38,-46.7,fair,True
+0383f4d1-54c5-e801-8607-4f8ab1ac6257,phase2_transaction,H. Thanh Trì,X. Tân Triều,75.0,8.0,2026-07-01 05:07:10,24.5,16.16,27.98,50.85,-51.8,fair,True
+accbf5e3-0d34-cf57-b586-9cb5ebbd8ae6,phase2_transaction,H. Thanh Trì,X. Tân Triều,60.0,7.0,2026-07-01 05:07:09,14.7,10.56,14.59,37.31,-60.6,fair,True
+e77f4544-be7a-2395-40fe-7c35895b4c6a,phase2_transaction,Q. Cầu Giấy,P. Quan Hoa,60.0,4.0,2026-07-01 02:31:37,38.0,9.95,23.19,53.33,-28.7,fair,True
+18145432-c39e-e08e-14b5-5cd9d31f292e,phase2_transaction,Q. Long Biên,P. Thượng Thanh,33.9,1.0,2026-06-30 04:15:08,8.0,3.65,5.55,11.77,-32.0,fair,True
+ac091319-017d-1d08-239e-dc332851a24b,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 2,84.7,8.0,2026-06-30 04:14:26,24.5,19.18,27.38,53.65,-54.3,fair,True
+7f685cbc-0807-af48-1105-d3f0fa7bbba8,phase2_transaction,Q. Đống Đa,P. Văn Miếu,33.0,3.0,2026-06-29 03:57:59,18.0,4.67,8.23,16.79,7.2,OVERPRICED,True
+4ef290b1-3c3d-6e1d-5c42-e77a3f5286e3,phase2_transaction,Q. Long Biên,P. Cự Khối,63.9,4.0,2026-06-29 03:57:45,20.5,7.28,14.18,34.21,-40.1,fair,True
+77964dbf-f7dc-5403-01c7-21b6216affc5,phase2_transaction,Q. Long Biên,P. Đức Giang,78.7,5.0,2026-06-29 03:55:09,26.0,7.8,19.81,39.81,-34.7,fair,True
+857bb835-71c7-449a-0ea7-c93870d9db0f,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,36.8,4.0,2026-06-29 03:39:14,8.5,5.11,8.84,18.04,-52.9,fair,True
+420880e3-54a1-9593-3eab-94f092c1e793,phase2_transaction,Q. Tây Hồ,P. Quảng An,99.9,5.0,2026-06-29 03:23:48,35.0,12.94,36.83,65.0,-46.2,fair,True
+c00bbeca-6f5a-eb42-11cd-dc30c2efb029,phase2_transaction,Q. Hoàn Kiếm,P. Chương Dương,167.8,4.0,2026-06-29 03:05:18,32.0,15.7,48.63,74.83,-57.2,fair,True
+aebeba06-b437-870f-1d87-57e9a587ac57,phase2_transaction,Q. Long Biên,P. Bồ Đề,230.0,4.0,2026-06-27 04:49:14,60.0,17.6,90.81,164.35,-63.5,fair,True
+414dba8a-d5af-282c-acac-9c3e7373cfce,phase2_transaction,Q. Đống Đa,P. Láng Hạ,34.8,1.0,2026-06-27 04:49:12,7.5,4.12,8.53,21.93,-65.8,fair,True
+ca1e8c90-a2f0-0214-d69e-0be15035fa3f,phase2_transaction,Q. Đống Đa,P. Trung Liệt,63.8,4.0,2026-06-27 04:49:10,19.5,9.28,21.54,53.62,-63.6,fair,True
+26a9bc63-7059-5362-46b4-b82e9a921403,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,39.6,2.0,2026-06-27 04:49:08,13.0,4.95,10.17,20.46,-36.5,fair,True
+9636d239-abaf-ef40-a6f7-8467b7644a15,phase2_transaction,Q. Hai Bà Trưng,P. Quỳnh Mai,59.0,3.0,2026-06-27 03:45:00,13.0,6.84,14.3,36.33,-64.2,fair,True
+b9cd04de-4b11-a8cb-32e0-76a401c7f36d,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,48.1,5.0,2026-06-27 02:29:20,18.5,7.65,15.93,43.38,-57.4,fair,True
+cdcdb378-c8bc-9728-2fb5-14314f42f876,phase2_transaction,Q. Nam Từ Liêm,P. Mễ Trì,60.0,3.0,2026-06-25 09:00:06,26.0,6.59,12.08,32.85,-20.9,fair,True
+af185cc5-ed01-1783-f235-8477e3d7c3f2,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,41.7,7.0,2026-06-25 04:48:47,28.6,10.66,20.4,27.43,4.3,OVERPRICED,True
+cd9a0f3c-d189-aff8-9eca-d8641be7ce40,phase2_transaction,Q. Đống Đa,P. Hàng Bột,125.0,3.0,2026-06-25 04:04:02,63.0,8.45,19.49,52.73,19.5,OVERPRICED,True
+63619e5e-54d6-e29f-4189-f5b408d7a844,phase2_transaction,Q. Ba Đình,P. Đội Cấn,34.6,5.0,2026-06-24 08:49:29,14.5,5.78,9.79,19.11,-24.1,fair,True
+64aadd6e-8495-b214-9e6d-8e546fc24e4f,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Gai,15.0,5.0,2026-06-24 04:50:45,4.95,3.67,11.83,31.6,-84.3,fair,True
+80dfcf9a-2e11-abc6-fe22-1cf10ece0b34,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Buồm,145.0,5.0,2026-06-24 04:50:44,94.5,7.14,47.01,97.09,-2.7,fair,True
+f353dc17-3d80-44fd-0ef6-c9726d4ff2a6,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,59.9,3.0,2026-06-24 03:43:55,7.5,5.4,9.83,22.19,-66.2,fair,True
+5230fae0-8162-6f15-af92-f485d88ac3e0,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,125.9,3.0,2026-06-24 02:29:32,27.0,11.92,27.45,76.57,-64.7,fair,True
+ccf182e1-79c4-5fc4-2cc9-37eaa0d1ba8b,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Bồ,76.0,3.0,2026-06-23 03:44:29,15.5,8.66,38.23,117.59,-86.8,fair,True
+cb5d332a-3b37-89f4-67e7-b9714c8eac40,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Đào,86.0,3.0,2026-06-23 03:44:29,81.0,8.52,35.98,71.35,13.5,OVERPRICED,True
+324f7be3-a27a-1ebe-7147-0d1ccf0ae76d,phase2_transaction,Q. Long Biên,P. Ngọc Lâm,75.1,3.0,2026-06-22 04:42:11,32.0,7.78,15.63,41.37,-22.6,fair,True
+034f0896-e6fc-e916-e958-bb3fd76fa9e1,phase2_transaction,Q. Long Biên,P. Bồ Đề,164.0,5.0,2026-06-22 04:37:07,41.0,16.0,37.31,68.21,-39.9,fair,True
+b83611ec-92fb-ef01-b372-ebb0522fea9a,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,54.2,4.0,2026-06-22 02:51:54,18.5,6.1,12.22,27.4,-32.5,fair,True
+7a42a0bf-ca54-10bc-52c2-aeee050469bc,phase2_transaction,Q. Hoàng Mai,P. Lĩnh Nam,54.0,1.0,2026-06-22 02:51:50,9.0,4.54,9.85,25.71,-65.0,fair,True
+08bb3f89-a903-578d-0ebd-aa91b0b8399d,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,165.0,5.0,2026-06-20 05:55:57,27.9,13.87,34.78,69.3,-59.7,fair,True
+ad06d08b-c885-56ad-914b-993185d2cb8b,phase2_transaction,Q. Thanh Xuân,P. Thanh Xuân Trung,64.2,3.0,2026-06-18 08:02:12,18.5,6.78,14.53,37.07,-50.1,fair,True
+4416b7e7-0742-3810-2ee1-fe333ea74a0d,phase2_transaction,Q. Hoàng Mai,P. Hoàng Liệt,40.0,4.0,2026-06-18 07:18:27,8.5,5.36,9.12,20.54,-58.6,fair,True
+0faa87b7-fb8d-150f-de19-592505494d18,phase2_transaction,Q. Tây Hồ,P. Bưởi,160.0,9.0,2026-06-18 02:05:58,51.5,17.46,49.9,109.03,-52.8,fair,True
+b2cc39bb-47ed-fbd9-4d8e-8965a78d8ae0,phase2_transaction,Q. Tây Hồ,P. Yên Phụ,68.0,8.0,2026-06-18 02:05:26,40.0,13.45,31.53,51.46,-22.3,fair,True
+3e39b4b5-fa95-b06d-b7c5-8702a4cf74df,phase2_transaction,Q. Tây Hồ,P. Quảng An,56.0,3.0,2026-06-18 02:05:05,9.2,7.19,16.76,38.54,-76.1,fair,True
+2af657d9-a29a-8484-5ff9-3167168a8c25,phase2_transaction,Q. Cầu Giấy,P. Quan Hoa,110.0,1.0,2026-06-17 07:54:03,95.0,14.52,35.01,65.31,45.5,STRONGLY_OVER,True
+de6df699-8d79-9913-52c9-f614d21deafc,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,33.7,5.0,2026-06-15 08:05:02,9.5,5.84,9.72,18.47,-48.6,fair,True
+c076ae68-8e7c-db40-954a-7ba43790d2af,phase2_transaction,Q. Ba Đình,P. Cống Vị,43.1,3.0,2026-06-15 05:00:43,21.0,5.55,12.67,25.65,-18.1,fair,True
+2b0dfed5-2722-0516-ca43-72408b151e9c,phase2_transaction,Q. Đống Đa,P. Nam Đồng,111.4,5.0,2026-06-15 03:28:39,61.0,12.61,28.1,70.85,-13.9,fair,True
+d75d2f00-7371-2684-e8ea-89224093d97a,phase2_transaction,Q. Ba Đình,P. Vĩnh Phúc,90.0,2.0,2026-06-13 03:08:08,18.5,8.24,24.5,57.8,-68.0,fair,True
+3f9fbcfd-8b73-46c4-02d4-86bb22556a23,phase2_transaction,Q. Tây Hồ,P. Tứ Liên,110.0,1.0,2026-06-12 09:13:12,9.5,10.02,22.45,48.12,-80.3,UNDERPRICED,True
+a2dec36e-2c3e-b49b-f133-17d909f53115,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,86.3,5.0,2026-06-12 07:24:34,30.0,14.7,31.46,73.84,-59.4,fair,True
+893470df-9d46-2fc2-1e14-3f29ceee2fdc,phase2_transaction,Q. Đống Đa,P. Láng Hạ,42.37,5.0,2026-06-11 07:37:24,12.0,7.04,14.18,37.24,-67.8,fair,True
+3b013e52-caec-033d-4581-48c425384497,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,19.4,5.0,2026-06-09 10:53:36,11.9,3.97,7.95,15.31,-22.3,fair,True
+884dbf9b-9d64-d788-9d6f-2d7395baf4e5,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Buồm,68.3,4.0,2026-06-08 02:23:01,23.5,7.66,26.76,92.4,-74.6,fair,True
+86f5c608-45f7-4084-3489-3d8426a82dca,phase2_transaction,Q. Hoàng Mai,P. Định Công,77.5,4.0,2026-06-08 02:21:07,19.0,9.33,22.41,54.69,-65.3,fair,True
+5efdec0e-c983-0254-897c-0df5e916b35e,phase2_transaction,Q. Long Biên,P. Bồ Đề,114.2,2.0,2026-06-06 03:46:36,45.0,13.19,21.92,54.46,-17.4,fair,True
+a20413e4-f14b-08c7-4669-711e16217a05,phase2_transaction,Q. Hoàng Mai,P. Đại Kim,53.0,4.0,2026-06-05 05:34:27,22.0,7.05,14.01,30.36,-27.5,fair,True
+ed10ea2a-2086-83d0-f761-96a80338bc8c,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,53.8,5.0,2026-06-03 11:13:27,21.5,8.72,20.1,39.53,-45.6,fair,True
+43e77f15-9a3e-6e96-2b45-1808e0384792,phase2_transaction,Q. Ba Đình,P. Vĩnh Phúc,60.0,4.0,2026-06-01 04:32:03,11.0,6.85,14.08,40.96,-73.1,fair,True
+b4ae97de-77ad-6576-3bcb-8bf36e794c97,phase2_transaction,Q. Hoàng Mai,P. Định Công,95.5,2.0,2026-06-01 03:23:13,12.5,10.86,23.4,52.98,-76.4,fair,True
+bd5c14d7-4c89-592e-bffd-4f50b274dddb,phase2_transaction,Q. Hoàng Mai,P. Tân Mai,58.4,3.0,2026-06-01 03:23:13,13.5,5.63,11.47,28.07,-51.9,fair,True
+0f06b743-33e6-19d2-533f-694d0d33fa3b,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,177.0,3.0,2026-05-23 05:55:35,33.0,11.93,35.67,75.53,-56.3,fair,True
+b965a5c3-0fcd-4b26-1a53-bfe0de3229ab,phase2_transaction,Q. Ba Đình,P. Đội Cấn,90.0,5.0,2026-05-23 05:53:21,35.0,11.31,28.98,52.44,-33.3,fair,True
+2df6b044-11db-dc2b-9c04-39b66d9e3fc9,phase2_transaction,Q. Hai Bà Trưng,P. Minh Khai,81.7,7.0,2026-05-23 03:37:56,24.0,18.24,32.26,73.46,-67.3,fair,True
+746eccdc-337a-7efb-b960-85880bea0c9a,phase2_transaction,Q. Cầu Giấy,P. Nghĩa Đô,33.0,3.0,2026-05-23 02:40:38,13.0,4.81,7.2,21.45,-39.4,fair,True
+2a758926-7a0b-f472-e859-102eb6eda163,phase2_transaction,Q. Đống Đa,P. Quang Trung,36.0,3.0,2026-05-21 10:36:43,13.2,4.92,9.73,21.17,-37.6,fair,True
+45d58588-84d8-7a0d-3ef5-9cdf7a8049f7,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,112.5,9.0,2026-05-21 03:51:37,98.0,21.96,51.39,88.09,11.2,OVERPRICED,True
+d2eafaaa-2b59-57b7-658b-f9688715e809,phase2_transaction,Q. Cầu Giấy,P. Yên Hòa,165.0,7.0,2026-05-21 03:44:36,29.6,18.59,57.6,140.76,-79.0,fair,True
+ff99205d-8162-9b93-19db-5f533b38748e,phase2_transaction,Q. Cầu Giấy,P. Nghĩa Đô,300.0,10.0,2026-05-21 03:44:35,280.0,29.13,93.09,228.88,22.3,OVERPRICED,True
+45aaa154-888a-3fcb-e0bb-16a3886eb99e,phase2_transaction,Q. Tây Hồ,P. Quảng An,390.0,3.0,2026-05-21 02:44:33,45.0,26.34,63.88,196.28,-77.1,fair,True
+b12784dd-3388-ffda-0262-8de761720bc7,phase2_transaction,Q. Đống Đa,P. Thổ Quan,44.0,4.0,2026-05-18 02:17:33,22.5,6.32,12.05,22.3,0.9,OVERPRICED,True
+f79bb252-a933-441f-00df-ddaf4743b5e3,phase2_transaction,Q. Long Biên,P. Phúc Lợi,383.0,7.0,2026-05-15 05:33:58,135.0,23.11,63.77,223.83,-39.7,fair,True
+0c7cbb85-dcf1-20b9-77a0-79991c2c75ab,phase2_transaction,Q. Hoàng Mai,P. Đại Kim,124.0,7.0,2026-05-15 02:41:51,30.0,20.06,32.86,69.98,-57.1,fair,True
+557ea33e-549e-2dae-b2f1-2351d3945fb5,phase2_transaction,Q. Long Biên,P. Bồ Đề,135.0,3.0,2026-05-14 04:04:54,40.0,10.18,24.68,57.18,-30.0,fair,True
+d413acf8-d87f-36cd-2b65-59c44a80f022,phase2_transaction,Q. Long Biên,P. Long Biên,142.0,1.0,2026-05-12 08:19:04,54.0,7.13,23.59,54.31,-0.6,fair,True
+b1f1a7f5-0482-4299-f3b4-32063bbf82ff,phase2_transaction,Q. Nam Từ Liêm,P. Phương Canh,75.0,6.0,2026-05-12 08:04:05,26.0,11.8,25.84,40.27,-35.4,fair,True
+7df00cf6-9632-db3a-0fa3-5b7e9874ee3e,phase2_transaction,H. Thanh Trì,X. Tân Triều,388.0,9.0,2026-05-11 09:53:08,99.0,23.27,67.69,182.09,-45.6,fair,True
+26ad3a7e-35d5-c987-13c4-922b5a961bfe,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,143.0,9.0,2026-05-11 07:42:34,50.0,21.98,76.0,125.32,-60.1,fair,True
+15212d34-b935-d355-53c1-36714c97813f,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,109.4,9.0,2026-05-11 07:42:06,45.9,18.74,49.25,81.1,-43.4,fair,True
+0178996f-8812-2c10-845a-3f8e4b5b9207,phase2_transaction,Q. Bắc Từ Liêm,P. Xuân Đỉnh,72.4,4.0,2026-05-11 07:38:22,25.0,6.99,17.02,28.27,-11.6,fair,True
+f89a692d-fe3a-75ed-7ebc-9f0c1111fb6c,phase2_transaction,Q. Cầu Giấy,P. Yên Hòa,314.2,5.0,2026-05-11 04:52:31,130.0,14.45,71.83,172.96,-24.8,fair,True
+666eab33-eace-6951-2a09-d6f69e97c54e,phase2_transaction,Q. Đống Đa,P. Văn Miếu,126.3,2.0,2026-05-11 03:34:19,120.0,11.53,29.51,68.91,74.2,STRONGLY_OVER,True
+49a63d9a-a36e-6770-0b5b-837c1a1528ae,phase2_transaction,Q. Long Biên,P. Thượng Thanh,70.0,1.0,2026-05-08 07:42:35,6.5,5.54,12.04,29.85,-78.2,fair,True
+c2e77bf2-3514-b399-b6fc-fbf7c8d92b56,phase2_transaction,Q. Nam Từ Liêm,P. Tây Mỗ,345.0,3.0,2026-05-06 04:09:00,70.0,24.83,71.46,149.69,-53.2,fair,True
+5de54e6f-5909-2093-d838-7814313447a0,phase2_transaction,H. Gia Lâm,TT. Trâu Quỳ,95.0,1.0,2026-05-05 11:04:47,22.6,6.94,13.73,41.17,-45.1,fair,True
+abe18b6b-c4e8-b71e-9c4d-a613b80e31b2,phase2_transaction,Q. Tây Hồ,P. Nhật Tân,222.0,2.0,2026-05-05 05:26:34,57.0,18.03,59.62,125.09,-54.4,fair,True
+38a675c2-ea04-7d70-13ac-252e9eea5068,phase2_transaction,Q. Bắc Từ Liêm,P. Xuân Đỉnh,99.6,3.0,2026-05-04 08:46:43,25.0,10.87,21.0,44.87,-44.3,fair,True
+1d3a7f9a-c60b-7648-6de7-2c9aca2883c3,phase2_transaction,Q. Cầu Giấy,P. Mai Dịch,64.0,3.0,2026-04-24 10:42:08,21.0,7.2,17.56,46.5,-54.8,fair,True
+eefa7141-bded-f69d-0f12-0ca64f74196f,phase2_transaction,Q. Cầu Giấy,P. Quan Hoa,118.0,5.0,2026-04-24 10:42:07,39.0,17.84,39.36,75.31,-48.2,fair,True
+b0974fc9-5661-066d-be8a-c509315fd38b,phase2_transaction,Q. Cầu Giấy,P. Trung Hòa,72.5,2.0,2026-04-24 10:42:06,14.0,6.87,14.02,35.72,-60.8,fair,True
+8bc5c20b-243e-d983-993a-58e3ea2c33e7,phase2_transaction,Q. Hoàng Mai,P. Mai Động,138.0,3.0,2026-04-24 10:42:04,21.0,12.42,22.89,50.53,-58.4,fair,True
+f26fdfc4-f3bb-780f-e176-f0a2a42274d6,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,61.1,2.0,2026-04-24 09:29:42,21.5,6.42,13.25,34.04,-36.8,fair,True
+03538e5b-08a1-6600-ceae-d28676d5f663,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,18.5,5.0,2026-04-24 08:46:05,18.0,3.88,7.58,15.33,17.4,OVERPRICED,True
+38ec8ff4-982f-52ad-3f43-8e0931f50a50,phase2_transaction,Q. Tây Hồ,P. Quảng An,50.0,5.0,2026-04-24 08:45:40,19.5,8.27,17.88,37.65,-48.2,fair,True
+72adfec8-162b-52ec-a8c1-9b0e8497e7ce,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 2,121.8,3.0,2026-04-24 08:22:35,30.5,13.33,27.19,61.6,-50.5,fair,True
+0afaa466-0dde-73d6-ec48-0fc254c51183,phase2_transaction,Q. Ba Đình,P. Điện Biên,72.27,5.0,2026-04-21 10:03:01,27.0,9.93,22.71,40.33,-33.1,fair,True
+a82269e3-a62d-9ef0-1ec7-e332788b4782,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 2,51.0,2.0,2026-04-20 05:08:52,13.9,5.05,9.38,21.39,-35.0,fair,True
+72e05013-e9d9-d157-b70c-f365a02b7aa6,phase2_transaction,Q. Tây Hồ,P. Quảng An,166.9,4.0,2026-04-16 02:43:25,30.0,17.9,47.69,100.91,-70.3,fair,True
+b11cf63b-a8b2-c32e-2321-f00443be0a64,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,62.0,4.0,2026-04-13 04:54:23,19.0,8.59,15.49,32.87,-42.2,fair,True
+86f60a50-45f1-b831-af6b-688baa50308c,phase2_transaction,Q. Thanh Xuân,P. Nhân Chính,57.2,3.0,2026-04-09 08:17:24,6.2,6.62,13.85,29.93,-79.3,UNDERPRICED,True
+6c554d1f-d481-bcf2-5d08-2add0e7911da,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,54.0,4.0,2026-04-09 08:17:17,19.9,7.74,15.44,28.71,-30.7,fair,True
+756743a2-f76d-abcd-2b94-0bc14578daf2,phase2_transaction,Q. Thanh Xuân,P. Thanh Xuân Trung,72.0,2.0,2026-04-09 08:17:11,37.0,7.26,15.57,34.45,7.4,OVERPRICED,True
+cee9dbc8-19da-6dd6-faa3-cae5b1e0f42a,phase2_transaction,Q. Long Biên,P. Ngọc Lâm,110.0,6.0,2026-03-24 23:51:03,28.0,17.5,32.5,75.55,-62.9,fair,True
+904769d2-6775-2f39-4f53-36bf12943d4d,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,96.4,5.0,2026-03-20 01:36:06,44.0,12.03,21.99,47.06,-6.5,fair,True
+e10eec74-c0ca-7809-a883-6661793b65ea,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,52.81,3.0,2026-03-18 10:46:54,13.0,4.06,8.12,19.06,-31.8,fair,True
+9395d19a-7ad4-6aa3-5a6b-d3f2f13f8496,phase2_transaction,Q. Đống Đa,P. Khương Thượng,50.0,2.0,2026-03-18 10:46:51,12.5,3.92,8.84,16.02,-22.0,fair,True
+f7b2be8a-8569-2473-a56c-df28d6d9494c,phase2_transaction,Q. Ba Đình,P. Phúc Xá,110.0,3.0,2026-03-16 07:26:10,10.5,7.75,19.19,49.35,-78.7,fair,True
+e2bb74be-a87e-44ba-4839-fae519086062,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 1,53.6,4.0,2026-03-16 05:07:55,17.0,6.18,9.65,20.06,-15.2,fair,True
+d16c1967-7108-64c2-0c8c-5bb265e89046,phase2_transaction,Q. Hai Bà Trưng,P. Phố Huế,67.8,5.0,2026-03-13 05:05:13,29.5,9.34,21.94,66.88,-55.9,fair,True
+8ff2da96-f446-a6e2-6c64-57c336829210,phase2_transaction,Q. Hoàng Mai,P. Vĩnh Hưng,81.45,1.0,2026-03-05 05:07:55,16.0,6.99,14.2,36.57,-56.3,fair,True
+d6e6d66c-c98a-66e0-189a-107483902d4c,phase2_transaction,Q. Thanh Xuân,P. Khương Đình,46.2,5.0,2026-03-04 10:35:31,13.0,6.26,10.76,22.6,-42.5,fair,True
+e71aa2c8-97bc-a6ef-dbb6-1541b791777c,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,67.2,3.0,2026-03-04 10:35:31,17.0,6.89,15.03,47.73,-64.4,fair,True
+b9ee2c61-21e6-c80a-683a-1498cb785b30,phase2_transaction,Q. Tây Hồ,P. Bưởi,18.2,2.0,2026-03-04 10:35:23,6.5,2.9,4.88,10.39,-37.4,fair,True
+70591efa-c149-dc53-0591-4ea29c9f1d7b,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 2,73.2,8.0,2026-03-04 10:35:20,22.0,16.35,25.01,53.97,-59.2,fair,True
+5983eb39-8c14-9445-6891-ae1a6bacdea4,phase2_transaction,Q. Hoàn Kiếm,P. Lý Thái Tổ,85.04,4.0,2026-03-04 10:35:19,22.0,5.58,23.2,67.89,-67.6,fair,True
+e4e0b44f-ef88-ecbe-70bd-1eab6cab2520,phase2_transaction,Q. Ba Đình,P. Điện Biên,38.1,6.0,2026-03-04 10:34:42,83.0,7.48,13.39,25.16,229.9,STRONGLY_OVER,True
+59f58461-2738-4358-7e60-469a90fd366d,phase2_transaction,Q. Đống Đa,P. Phương Liên,177.32,5.0,2026-03-04 10:34:39,50.0,10.58,38.48,95.19,-47.5,fair,True
+9e98b891-021f-a23d-73ce-9dd34d7504b8,phase2_transaction,Q. Cầu Giấy,P. Nghĩa Tân,63.0,5.0,2026-03-04 10:34:22,50.0,8.39,19.86,44.18,13.2,OVERPRICED,True
+e8312579-ce9a-e994-8b94-3eae225c517b,phase2_transaction,H. Thanh Trì,X. Tân Triều,83.2,5.0,2026-03-04 10:34:21,13.7,8.35,20.92,40.73,-66.4,fair,True
+c3bcfe7a-b420-6b9f-2a00-1cc8718e8453,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,130.0,3.0,2026-03-04 10:34:18,80.0,11.62,41.36,93.96,-14.9,fair,True
+3db6a689-78dd-4330-4621-3bfd3ace0f67,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,22.9,4.0,2026-03-04 10:34:13,24.6,3.74,7.55,18.23,34.9,STRONGLY_OVER,True
+5bd29a02-d123-50ec-bf5b-a9363c054e8e,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Trống,30.0,4.0,2026-03-03 02:15:22,30.0,3.98,12.31,27.07,10.8,OVERPRICED,True
+878e30a7-2a15-9097-32b7-07e6c6bedc23,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,52.4,2.0,2026-02-28 05:13:56,12.5,5.53,11.98,27.56,-54.6,fair,True
+e2d7736e-190d-67d6-1d0f-cb9e8ff65edb,phase2_transaction,Q. Long Biên,P. Đức Giang,66.0,3.0,2026-02-27 04:15:55,15.5,5.07,8.93,23.78,-34.8,fair,True
+2552e98d-1ec7-b35a-6d5f-a1ba3d772211,phase2_transaction,Q. Hoàng Mai,P. Hoàng Văn Thụ,64.0,5.0,2026-02-24 10:17:06,15.0,6.54,14.69,36.94,-59.4,fair,True
+409c1630-87b9-9bf9-ddcf-217982f9fa43,phase2_transaction,Q. Hoàng Mai,P. Tương Mai,55.4,5.0,2026-02-24 10:17:00,35.0,6.28,12.37,28.79,21.6,OVERPRICED,True
+b6b88ace-b655-34fb-4ca8-ac1c5607de39,phase2_transaction,Q. Đống Đa,P. Kim Liên,47.2,4.0,2026-02-24 09:53:58,6.75,4.22,8.56,16.32,-58.6,fair,True
+b8ae015e-8b2c-7ab3-dfe7-d747eb0a9654,phase2_transaction,Q. Đống Đa,P. Nam Đồng,47.0,2.0,2026-02-24 09:53:56,8.5,4.86,10.99,29.28,-71.0,fair,True
+4d42f8a1-b0e0-3083-d2d7-873df5670365,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,49.4,5.0,2026-02-24 09:27:09,23.0,7.03,15.37,30.72,-25.1,fair,True
+57b7b2e5-cef4-afe1-e68a-6884bdf97832,phase2_transaction,Q. Hai Bà Trưng,P. Quỳnh Mai,30.55,4.0,2026-02-24 09:26:47,17.0,4.35,8.03,13.32,27.6,OVERPRICED,True
+b35fce6e-1731-f3ec-16fd-ffc15527cba0,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,38.0,5.0,2026-02-24 09:26:25,9.5,5.1,8.73,15.19,-37.4,fair,True
+900d25f3-aee7-3f18-33ed-bb4b639c4c84,phase2_transaction,H. Gia Lâm,TT. Yên Viên,180.0,1.0,2026-02-09 07:21:20,6.6,11.32,27.51,38.39,-82.8,UNDERPRICED,True
+51227904-36ca-c400-ac11-df67a0a07ac4,phase2_transaction,Q. Long Biên,P. Gia Thụy,61.0,4.0,2026-02-09 07:17:06,25.0,6.45,12.51,33.42,-25.2,fair,True
+d9f77e1b-0bfc-f011-94e0-c880084f7d74,phase2_transaction,Q. Nam Từ Liêm,P. Trung Văn,68.8,4.0,2026-02-09 03:51:13,28.5,6.52,18.09,30.89,-7.7,fair,True
+f97e73a8-051d-9134-4118-1cb71c26cb38,phase2_transaction,Q. Hai Bà Trưng,P. Minh Khai,34.2,5.0,2026-02-09 03:44:13,18.5,5.31,9.12,16.05,15.2,OVERPRICED,True
+8ce54410-b99b-ec2b-9f1d-4933ad8a2304,phase2_transaction,Q. Hai Bà Trưng,P. Đống Mác,107.5,5.0,2026-02-09 03:44:01,95.0,11.93,28.42,93.14,2.0,OVERPRICED,True
+a3aba5b3-2f5a-6f2f-3098-4ac7f40ec3b4,phase2_transaction,Q. Tây Hồ,P. Quảng An,161.7,6.0,2026-02-09 03:19:21,245.0,17.78,48.24,108.8,125.2,STRONGLY_OVER,True
+e444f096-a4cc-68f0-0d17-0d03ee6865de,phase2_transaction,Q. Hoàng Mai,P. Hoàng Liệt,326.8,5.0,2026-02-06 10:43:34,55.0,17.5,77.1,239.81,-77.1,fair,True
+a4dccde6-e59d-5095-6ed6-b895435368f3,phase2_transaction,Q. Hoàn Kiếm,P. Chương Dương,60.7,4.0,2026-02-06 10:43:30,7.7,6.74,21.24,46.57,-83.5,fair,True
+dc6cd200-4568-79e1-8b4c-4199e5704414,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,82.6,3.0,2026-02-06 10:43:27,8.6,5.91,14.29,27.33,-68.5,fair,True
+a3a30642-2399-3835-83f3-ec40d16e9631,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,93.9,2.0,2026-02-06 10:43:27,14.2,6.84,16.88,48.36,-70.6,fair,True
+111faadd-2842-693d-b308-8215f011db96,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,39.1,5.0,2026-02-06 10:43:26,8.6,6.12,10.54,23.53,-63.4,fair,True
+1355ecd7-b744-5a44-deeb-a5f5a35bb5b4,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,47.5,4.0,2026-02-06 10:43:25,26.9,6.11,11.86,26.68,0.8,OVERPRICED,True
+8adfa5e1-71e1-8a75-c1e3-4a6819b78b0e,phase2_transaction,Q. Ba Đình,P. Thành Công,69.7,5.0,2026-02-06 10:43:24,30.0,7.62,20.18,60.76,-50.6,fair,True
+caa3db5a-a1f1-25d2-3606-0fe57dcf8a2c,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,83.6,4.0,2026-02-06 10:43:22,26.9,8.46,19.09,40.81,-34.1,fair,True
+633740e8-4a17-9971-5a82-c6e140a838a0,phase2_transaction,Q. Ba Đình,P. Giảng Võ,44.2,3.0,2026-02-02 08:20:51,8.5,4.97,10.4,19.94,-57.4,fair,True
+24d64087-becb-7fd6-4684-7eae296488d7,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,48.0,4.0,2026-02-02 01:51:41,14.0,5.53,9.71,22.38,-37.4,fair,True
+50ce13fb-f744-2421-e288-b5f0952218cf,phase2_transaction,Q. Ba Đình,P. Kim Mã,70.8,5.0,2026-01-31 01:39:38,18.0,9.1,20.89,59.34,-69.7,fair,True
+dc13e24c-4218-e8e2-4cfb-be42f5023a4c,phase2_transaction,Q. Ba Đình,P. Phúc Xá,74.12,3.0,2026-01-27 00:15:36,8.8,7.88,14.16,32.74,-73.1,fair,True
+952c3eee-e49d-f6ce-ae1f-c7c597b3d086,phase2_transaction,Q. Hoàng Mai,P. Vĩnh Hưng,21.5,4.0,2026-01-26 03:02:19,4.5,3.02,4.9,7.83,-42.6,fair,True
+918b3a94-d043-4f1e-5681-db0a708c7882,phase2_transaction,H. Gia Lâm,TT. Yên Viên,57.8,4.0,2026-01-24 04:49:18,7.5,4.39,6.23,12.36,-39.3,fair,True
+a44cbc34-501b-203c-4b2e-11aa8e77bf81,phase2_transaction,Q. Long Biên,P. Bồ Đề,42.62,7.0,2026-01-24 04:48:50,25.5,8.43,16.34,33.73,-24.4,fair,True
+0bc01963-c774-6b00-9913-109a216a7690,phase2_transaction,Q. Tây Hồ,P. Quảng An,253.9,2.0,2026-01-24 02:56:55,50.0,21.05,86.41,214.86,-76.7,fair,True
+5de22747-8d79-efe4-e81e-252f8bf81e9b,phase2_transaction,Q. Đống Đa,P. Quang Trung,106.6,5.0,2026-01-21 11:27:00,59.5,11.65,30.56,62.05,-4.1,fair,True
+d08005c6-34c8-0435-d833-e81402bea6f3,phase2_transaction,Q. Tây Hồ,P. Bưởi,100.0,3.0,2026-01-14 02:39:17,13.2,12.85,28.91,61.11,-78.4,fair,True
+f02693ed-e5c0-7cbd-56be-d6a864914129,phase2_transaction,Q. Nam Từ Liêm,P. Cầu Diễn,140.0,3.0,2026-01-06 08:50:57,51.0,13.54,30.68,64.22,-20.6,fair,True
+6b2ac0a5-ecfd-0ff4-c82f-e33d05d95d3e,phase2_transaction,Q. Tây Hồ,P. Quảng An,385.0,1.0,2026-01-06 08:50:03,430.0,23.8,90.26,243.24,76.8,STRONGLY_OVER,True
+02d89e5f-1587-9789-e5f3-683585408a7c,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,122.0,5.0,2026-01-06 08:49:51,50.0,13.59,37.0,67.88,-26.3,fair,True
+d95346cc-65d1-0b80-4d73-bbb1f197c6af,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,35.0,7.0,2026-01-06 08:49:42,28.0,7.02,13.97,26.55,5.5,OVERPRICED,True
+17faf287-dd61-b7fa-73cb-4706c996c114,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,33.0,6.0,2026-01-06 08:44:29,16.2,5.26,11.11,19.66,-17.6,fair,True
+e55484c5-bb2b-342f-b178-7f0d270d8769,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,119.3,4.0,2026-01-05 04:01:41,76.0,8.74,24.25,79.69,-4.6,fair,True
+9b82c10f-9dc8-d98b-198e-eda372aa875f,phase2_transaction,Q. Đống Đa,P. Láng Thượng,40.0,4.0,2025-12-25 04:40:04,15.0,4.85,8.16,19.56,-23.3,fair,True
+199cf228-74ec-c72e-3c24-352860f57514,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,70.0,1.0,2025-12-25 02:25:20,22.5,4.88,10.47,25.7,-12.5,fair,True
+3a4b901a-1f73-5428-2547-bb149f6f7b6e,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,74.9,9.0,2025-12-25 02:24:26,29.5,9.51,24.36,43.47,-32.1,fair,True
+b09343bf-0803-3271-02bd-fdcf23b0d108,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,42.8,5.0,2025-12-22 10:42:17,7.7,4.85,9.38,23.72,-67.5,fair,True
+8752faa7-407a-cca0-5ee6-1a77dda09227,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,46.9,5.0,2025-12-22 09:02:40,15.0,4.09,8.76,20.12,-25.4,fair,True
+c7b54fd9-c4cc-fedf-26a9-a6d018615927,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,25.21,4.0,2025-12-22 02:14:22,18.0,3.08,5.69,14.98,20.2,OVERPRICED,True
+dd11f027-5a6a-b859-4f82-7698caa64add,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,90.3,4.0,2025-12-19 03:27:55,16.5,6.81,18.49,35.67,-53.7,fair,True
+520b0eb0-f4f8-8bfd-8b53-6f6d29e5beef,phase2_transaction,Q. Hoàng Mai,P. Giáp Bát,65.0,7.0,2025-12-19 03:27:42,28.5,9.21,16.74,29.57,-3.6,fair,True
+1c1c50f5-0409-9a62-3af3-5e36622192f6,phase2_transaction,Q. Hoàng Mai,P. Tương Mai,76.5,7.0,2025-12-18 03:34:47,16.5,9.15,16.61,29.11,-43.3,fair,True
+cae463be-6079-da36-c726-28c1c05697fe,phase2_transaction,Q. Hoàng Mai,P. Hoàng Văn Thụ,70.7,4.0,2025-12-15 04:29:42,16.0,6.63,14.46,37.05,-56.8,fair,True
+b3bc6108-683c-0a05-cbac-ce8d692b35a8,phase2_transaction,Q. Ba Đình,P. Ngọc Hà,58.2,7.0,2025-12-12 04:38:38,22.5,9.17,18.12,31.39,-28.3,fair,True
+a5fb42e7-f545-15fe-9fed-75d2d9a8d5ff,phase2_transaction,Q. Hà Đông,P. Mộ Lao,133.6,3.0,2025-12-11 02:17:48,46.0,9.8,23.4,47.62,-3.4,fair,True
+26405315-e94b-c64a-1cca-5ae34278aa06,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,115.0,4.0,2025-12-09 09:37:32,55.0,11.1,28.33,40.65,35.3,STRONGLY_OVER,True
+2fd8db22-bbfa-33f7-b065-9a3f34f7d253,phase2_transaction,Q. Tây Hồ,P. Xuân La,47.8,3.0,2025-12-09 02:40:11,11.0,4.04,6.82,20.12,-45.3,fair,True
+3466b29b-40da-cfcc-033d-d4aa31c78e53,phase2_transaction,Q. Ba Đình,P. Cống Vị,34.4,5.0,2025-12-08 09:31:50,11.2,4.26,6.89,11.69,-4.2,fair,True
+3e0c8908-358c-f4e8-3c55-d89f0a88347b,phase2_transaction,Q. Ba Đình,P. Giảng Võ,117.4,7.0,2025-12-08 05:26:54,38.0,11.37,29.99,49.41,-23.1,fair,True
+ff1c1699-2f95-e710-fbc7-70e236e25b0d,phase2_transaction,Q. Ba Đình,P. Giảng Võ,47.6,3.0,2025-12-05 09:30:27,30.5,3.96,9.28,20.94,45.7,STRONGLY_OVER,True
+ec2630b8-c186-db16-967a-a314fa6ba349,phase2_transaction,Q. Nam Từ Liêm,P. Đại Mỗ,220.0,5.0,2025-11-28 03:24:49,75.0,9.69,40.47,75.5,-0.7,fair,True
+4bbd1f4f-5167-3a7b-b400-e8ca226ac840,phase2_transaction,Q. Long Biên,P. Phúc Lợi,38.1,3.0,2025-11-26 07:43:52,4.1,3.4,5.57,11.79,-65.2,fair,True
+00d085bb-7f5b-4926-0b52-835887189d29,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,124.3,5.0,2025-11-26 07:34:49,14.25,10.04,17.55,41.52,-65.7,fair,True
+18b506fa-e124-598f-dfb7-7d195c89371c,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,50.0,5.0,2025-11-26 07:34:45,14.25,4.41,9.08,20.14,-29.2,fair,True
+e6391923-c02b-b7ce-026a-b127009088af,phase2_transaction,Q. Hoàng Mai,P. Tương Mai,108.4,8.0,2025-11-26 07:14:11,29.6,14.48,24.15,47.37,-37.5,fair,True
+86302dec-a6d7-66f2-9f90-2d46dd306da9,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Lương,66.6,5.0,2025-11-26 07:10:56,13.5,6.02,12.72,37.5,-64.0,fair,True
+ee362269-8949-29d7-5bf3-1d0ca1997d09,phase2_transaction,Q. Đống Đa,P. Láng Thượng,75.5,6.0,2025-11-26 04:44:20,22.0,10.16,19.95,54.91,-59.9,fair,True
+6b0a2a12-6402-4e97-c064-2c67735b453e,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,38.3,5.0,2025-11-26 03:42:47,10.5,3.87,6.96,18.6,-43.6,fair,True
+7e28616f-70d4-8e1f-7b21-833c7cd257d0,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,28.5,4.0,2025-11-24 07:30:42,32.0,3.64,6.18,13.02,145.7,STRONGLY_OVER,True
+582b6ff3-2f5c-c01a-f6f3-09a519b00bb0,phase2_transaction,Q. Hoàn Kiếm,P. Chương Dương,100.0,2.0,2025-11-22 04:21:05,16.0,9.56,27.66,71.61,-77.7,fair,True
+c39e5d0c-1830-92bf-b30d-4b26b1fc9f74,phase2_transaction,Q. Hoàng Mai,P. Lĩnh Nam,97.8,3.0,2025-11-22 04:16:45,20.0,7.47,15.51,33.36,-40.0,fair,True
+c76b7c4e-30c7-7dfd-ca29-9e7b4d534d42,phase2_transaction,Q. Hoàng Mai,P. Thanh Trì,30.0,5.0,2025-11-21 09:50:12,5.9,3.15,4.68,8.23,-28.3,fair,True
+384cea7d-1504-6dde-5523-f8e56afe8694,phase2_transaction,Q. Hoàng Mai,P. Thanh Trì,30.0,5.0,2025-11-21 09:50:04,5.6,3.25,4.79,7.78,-28.0,fair,True
+d2aee6f0-5cab-52a2-07a1-48a849535513,phase2_transaction,Q. Hoàng Mai,P. Thanh Trì,30.0,5.0,2025-11-21 09:49:54,5.6,2.99,4.78,8.32,-32.7,fair,True
+b94d84da-b806-5216-4855-6a9d0dd28b8b,phase2_transaction,Q. Ba Đình,P. Thành Công,160.0,7.0,2025-11-18 03:34:48,76.0,15.69,41.45,95.52,-20.4,fair,True
+bf776d1d-adfa-6b34-aed2-4531e75f32e1,phase2_transaction,Q. Nam Từ Liêm,P. Mễ Trì,68.0,7.0,2025-11-18 03:03:31,22.0,9.8,16.81,28.37,-22.5,fair,True
+35f6c083-195d-2ac5-2fd3-9989c1e71deb,phase2_transaction,Q. Thanh Xuân,P. Nhân Chính,43.6,3.0,2025-11-17 10:42:12,7.5,3.96,8.05,19.0,-60.5,fair,True
+5c70e71e-835a-36cf-c914-a722ec1d1580,phase2_transaction,Q. Đống Đa,P. Láng Thượng,89.8,5.0,2025-11-17 03:02:48,18.0,10.94,21.56,44.75,-59.8,fair,True
+5d3055e0-8312-a4e5-f0c1-d19558e409d8,phase2_transaction,H. Thanh Trì,X. Thanh Liệt,58.5,4.0,2025-11-15 04:58:22,0.02,3.9,5.99,16.05,-99.9,UNDERPRICED,True
+7bc2863d-d673-db20-d2b1-f2ab319aefca,phase2_transaction,Q. Hoàn Kiếm,P. Tràng Tiền,51.4,3.0,2025-11-13 07:51:17,13.0,4.59,11.34,23.78,-45.3,fair,True
+6a6d72e5-1b4a-eda0-f7b6-e50103dca15e,phase2_transaction,Q. Hai Bà Trưng,P. Phố Huế,26.0,4.0,2025-11-10 02:43:31,8.5,3.32,5.95,12.18,-30.2,fair,True
+0e5803b6-8676-5dff-61b5-16f98a947152,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,52.0,6.0,2025-11-10 02:28:28,14.5,7.83,13.43,23.98,-39.5,fair,True
+a9a2a6fb-4805-d0a5-b899-54b23ef8dfe6,phase2_transaction,Q. Bắc Từ Liêm,P. Đông Ngạc,80.0,3.0,2025-11-04 10:15:45,13.0,6.0,12.98,29.75,-56.3,fair,True
+00fc23a3-df7f-5342-0742-37b19a0b8f5d,phase2_transaction,Q. Hà Đông,P. La Khê,47.9,2.0,2025-11-04 09:46:40,18.2,3.69,7.31,20.35,-10.5,fair,True
+54252956-b5de-48e2-c820-8951a8871a47,phase2_transaction,Q. Hai Bà Trưng,P. Vĩnh Tuy,60.0,5.0,2025-11-04 09:41:24,12.0,5.73,12.33,34.1,-64.8,fair,True
+8516846a-29e7-e41b-1208-4dfa97bb0c97,phase2_transaction,Q. Thanh Xuân,P. Khương Đình,170.7,7.0,2025-11-04 07:22:49,38.5,18.71,42.58,75.67,-49.1,fair,True
+78527eef-df84-7908-0e2d-e87d78faa5a4,phase2_transaction,Q. Đống Đa,P. Hàng Bột,65.0,2.0,2025-11-03 09:56:27,23.0,4.59,10.17,34.92,-34.1,fair,True
+cee743c8-2706-452f-5f90-74f7614d7cd2,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,13.9,2.0,2025-11-03 07:59:08,12.5,1.79,3.67,17.48,-28.5,fair,True
+0a44ad4f-b3c5-dbe4-567c-c90927689b9e,phase2_transaction,Q. Ba Đình,P. Vĩnh Phúc,58.3,4.0,2025-11-01 05:14:06,29.5,5.78,11.84,37.47,-21.3,fair,True
+d8066422-e79a-5f45-4044-8bd4e67e680a,phase2_transaction,Q. Ba Đình,P. Đội Cấn,120.0,7.0,2025-10-31 07:46:03,45.0,9.34,21.09,40.37,11.5,OVERPRICED,True
+a1dfe4b1-6b98-2dbb-e70a-4fd763e48d27,phase2_transaction,Q. Thanh Xuân,P. Thanh Xuân Trung,66.3,6.0,2025-10-30 02:34:28,26.5,9.19,18.06,35.17,-24.6,fair,True
+fdc5da51-a8e1-aa15-7621-833b1ddc8ea3,phase2_transaction,Q. Ba Đình,P. Đội Cấn,60.0,5.0,2025-10-29 03:46:35,25.0,6.24,14.19,33.29,-24.9,fair,True
+fcf0bef2-7454-729f-e5a8-3741eddf5b40,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,63.3,3.0,2025-10-28 09:05:52,25.5,4.93,11.77,37.45,-31.9,fair,True
+8d23a118-9f3b-af9f-3cdf-3c3052bba92c,phase2_transaction,Q. Nam Từ Liêm,P. Phú Đô,76.0,3.0,2025-10-28 07:12:35,18.5,6.34,12.43,26.45,-30.1,fair,True
+b0097aa3-17c1-170d-6128-6d46fc2f6e9f,phase2_transaction,Q. Thanh Xuân,P. Hạ Đình,39.2,1.0,2025-10-27 08:15:29,19.9,3.38,6.18,14.67,35.6,STRONGLY_OVER,True
+01362f3b-52e2-38e8-3182-e06aa60d2023,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,202.5,1.0,2025-10-20 02:31:54,37.0,11.14,41.51,122.04,-69.7,fair,True
+adf55582-6c7f-1586-726d-3054851eaeb8,phase2_transaction,Q. Tây Hồ,P. Xuân La,134.7,2.0,2025-10-13 03:00:07,8.2,8.01,30.6,57.23,-85.7,fair,True
+dfbf4d99-8bcd-cdff-a10b-c028830c9c48,phase2_transaction,Q. Đống Đa,P. Phương Liên,48.7,6.0,2025-10-07 01:59:13,16.0,7.8,13.47,26.66,-40.0,fair,True
+3f38f25d-2458-0c90-500c-39f82732db0f,phase2_transaction,Q. Nam Từ Liêm,P. Xuân Phương,30.0,1.0,2025-10-06 08:24:13,8.8,2.64,3.28,8.36,5.3,OVERPRICED,True
+2f7d7250-a06a-a824-9cff-90068bec00a8,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,150.0,7.0,2025-10-06 07:16:19,68.0,14.86,37.98,68.27,-0.4,fair,True
+82ab9c8e-334e-adfe-3ab8-19820291011f,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,60.0,5.0,2025-10-06 03:12:58,18.0,5.08,11.52,37.78,-52.4,fair,True
+63e90321-39fe-9a17-c9ed-769a83575dd9,phase2_transaction,Q. Long Biên,P. Sài Đồng,234.8,1.0,2025-10-06 02:52:34,17.0,11.41,40.78,103.8,-83.6,fair,True
+c2e3ff6b-41a0-ae52-23ab-d4c985b4136e,phase2_transaction,Q. Thanh Xuân,P. Nhân Chính,70.5,9.0,2025-10-03 04:17:22,51.5,13.42,32.75,61.15,-15.8,fair,True
+817110c0-10ae-194d-a6ad-0aaa1cbf7f97,phase2_transaction,Q. Hà Đông,P. Kiến Hưng,77.8,5.0,2025-09-29 05:09:10,9.6,8.69,17.57,33.96,-71.7,fair,True
+343d474a-8126-46f3-32c8-47608e0b5899,phase2_transaction,Q. Đống Đa,P. Nam Đồng,50.64,2.0,2025-09-23 08:53:21,9.5,4.01,8.87,24.93,-61.9,fair,True
+746db00d-31fd-aa79-dae0-da60bf42d275,phase2_transaction,Q. Thanh Xuân,P. Khương Đình,301.2,10.0,2025-09-23 02:13:57,145.0,19.58,57.38,159.87,-9.3,fair,True
+40ed600e-df65-226f-63fb-60fcd1da694c,phase2_transaction,Q. Long Biên,P. Đức Giang,47.1,6.0,2025-09-16 09:03:08,18.8,5.69,10.02,18.06,4.1,OVERPRICED,True
+bd94839c-3a08-9c56-6570-2d780cbad797,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,13.1,5.0,2025-09-16 05:37:50,6.5,3.04,5.36,11.3,-42.5,fair,True
+20fb877d-7448-111e-5f29-710838662025,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,50.0,5.0,2025-09-16 02:37:47,15.7,5.42,10.21,26.34,-40.4,fair,True
+c3650ffe-17c5-7396-0e26-c9ff5c4760e1,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,53.0,5.0,2025-09-13 05:27:16,11.8,5.0,11.72,22.98,-48.7,fair,True
+0ab8d636-c403-8d41-28f5-716d1290355f,phase2_transaction,Q. Hoàn Kiếm,P. Phan Chu Trinh,22.0,6.0,2025-09-08 02:22:09,30.0,3.32,7.43,22.04,36.1,STRONGLY_OVER,True
+f65afe8b-7962-e01d-f552-0b1340941c8f,phase2_transaction,Q. Hoàng Mai,P. Lĩnh Nam,69.0,3.0,2025-09-04 06:14:36,10.0,4.6,9.38,24.71,-59.5,fair,True
+f5a168ef-09cd-4733-4438-c07f5c5568f5,phase2_transaction,Q. Hai Bà Trưng,P. Lê Đại Hành,40.2,3.0,2025-08-28 08:57:54,23.0,4.07,8.29,23.4,-1.7,fair,True
+1694e22a-0a16-6284-5dd1-877f88987225,phase2_transaction,Q. Long Biên,P. Thạch Bàn,35.0,6.0,2025-08-11 04:30:26,6.8,4.48,8.27,15.38,-55.8,fair,True
+dc7bb490-7120-1288-06a7-f64ceb45c105,phase2_transaction,Q. Hai Bà Trưng,P. Thanh Nhàn,112.0,8.0,2025-08-09 03:42:36,50.0,17.65,45.4,83.73,-40.3,fair,True
+add4b4f3-676c-189f-f1ee-1481257474ab,phase2_transaction,Q. Hai Bà Trưng,P. Phố Huế,172.2,2.0,2025-08-09 01:23:59,128.0,14.04,35.9,81.35,57.3,STRONGLY_OVER,True
+83c1a696-e9cb-1c67-4417-ebbdbe3ed0c2,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,80.0,6.0,2025-08-09 01:17:57,22.0,12.85,26.46,49.09,-55.2,fair,True
+2fb987f5-c169-7847-f20a-0583d5e2aeb3,phase2_transaction,Q. Hà Đông,P. Nguyễn Trãi,69.5,3.0,2025-08-05 10:10:43,17.5,6.79,13.2,37.59,-53.4,fair,True
+2f823056-92f0-bbe5-8252-b722b2541636,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,95.8,6.0,2025-08-05 05:10:11,33.6,15.97,29.88,56.3,-40.3,fair,True
+4ccbdaed-0807-01da-4a6c-d29b8e9ddf51,phase2_transaction,Q. Bắc Từ Liêm,P. Xuân Đỉnh,81.5,3.0,2025-08-05 05:09:18,8.2,6.71,13.62,30.87,-73.4,fair,True
+700a707f-1462-bde0-efbd-0d3ca6b1b0ca,phase2_transaction,Q. Ba Đình,P. Thành Công,58.6,3.0,2025-08-05 05:08:52,25.0,5.19,10.04,33.08,-24.4,fair,True
+4218db89-dba4-9dff-b0d0-495f580e62eb,phase2_transaction,Q. Hà Đông,P. Quang Trung,42.9,5.0,2025-08-05 05:08:46,12.8,4.15,7.98,13.6,-5.9,fair,True
+bfc710cc-7d71-5056-442f-877c2ea49e79,phase2_transaction,Q. Đống Đa,P. Ngã Tư Sở,39.4,4.0,2025-08-05 05:08:45,19.0,4.84,9.44,21.61,-12.1,fair,True
+014aac39-0f38-0555-02d1-48a7eb12ba70,phase2_transaction,Q. Đống Đa,P. Thịnh Quang,48.1,7.0,2025-08-05 05:08:42,16.0,8.28,16.29,26.55,-39.7,fair,True
+8493a78a-4f90-c17a-54c9-0e7ca88720d3,phase2_transaction,Q. Tây Hồ,P. Tứ Liên,95.0,2.0,2025-08-05 05:08:41,16.0,8.56,17.81,34.86,-54.1,fair,True
+881fe899-e64f-e428-adf5-04eafc25faf2,phase2_transaction,Q. Đống Đa,P. Khương Thượng,72.44,3.0,2025-08-05 05:08:40,16.5,7.37,13.4,27.53,-40.1,fair,True
+0bea4d39-436a-7bd2-9efb-86b980999657,phase2_transaction,Q. Ba Đình,P. Ngọc Hà,57.5,2.0,2025-08-05 05:08:15,16.9,4.31,11.23,23.67,-28.6,fair,True
+0ecd6f2a-c73d-5e81-4ea1-17cf531b0bbf,phase2_transaction,Q. Ba Đình,P. Vĩnh Phúc,117.9,3.0,2025-08-05 05:07:51,45.0,9.67,27.62,63.61,-29.3,fair,True
+b840ea3f-629c-f05e-b5c4-db021b5967c3,phase2_transaction,Q. Bắc Từ Liêm,P. Thụy Phương,45.2,2.0,2025-08-05 05:07:48,5.6,3.28,5.87,14.31,-60.9,fair,True
+e6373727-9aa0-c168-fdfd-4647a02a8e1e,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 1,78.0,1.0,2025-08-05 05:07:42,7.4,6.36,12.44,27.38,-73.0,fair,True
+13adb821-332f-1f01-900e-c5aa7ecd622d,phase2_transaction,Q. Tây Hồ,P. Bưởi,162.3,8.0,2025-08-02 05:00:22,39.0,21.76,59.13,104.13,-62.5,fair,True
+6d498c8a-d837-1714-777d-e4cdc5fca5ff,phase2_transaction,Q. Ba Đình,P. Liễu Giai,33.9,1.0,2025-07-22 09:49:33,7.5,2.81,4.89,9.36,-19.8,fair,True
+e48ac5b6-c2ff-4a7c-d987-039c190f053b,phase2_transaction,Q. Hai Bà Trưng,P. Trương Định,39.4,2.0,2025-07-14 05:02:04,13.2,3.03,5.52,15.09,-12.5,fair,True
+6733c4f8-979d-4656-82ef-ff0c2a9ef0b4,phase2_transaction,Q. Hà Đông,P. Vạn Phúc,59.0,4.0,2025-07-14 03:05:02,17.9,4.73,9.41,21.27,-15.8,fair,True
+b6d5dfb6-f2eb-e40f-a351-575a40b82eaf,phase2_transaction,Q. Ba Đình,P. Ngọc Hà,92.9,6.0,2025-07-08 10:12:55,12.5,11.77,19.69,39.58,-68.4,fair,True
+cec17148-f3a4-8d89-59ab-1ad6cca04f7f,phase2_transaction,Q. Hai Bà Trưng,P. Cầu Dền,130.0,4.0,2025-07-07 08:44:09,41.0,7.52,24.95,53.53,-23.4,fair,True
+eb522bc9-8b76-cf8b-286e-003109e5d516,phase2_transaction,Q. Hoàng Mai,P. Vĩnh Hưng,73.4,6.0,2025-07-05 01:34:25,25.0,8.16,17.12,27.96,-10.6,fair,True
+fd246483-a00b-d2ca-21b1-b06c15f96581,phase2_transaction,Q. Đống Đa,P. Ô Chợ Dừa,88.0,5.0,2025-07-02 02:46:27,36.0,7.62,21.23,50.91,-29.3,fair,True
+ca3ad8c8-72a2-1bdc-eb1f-9905dfcd8f0d,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,40.0,2.0,2025-06-30 03:06:20,8.6,3.6,6.21,15.29,-43.7,fair,True
+8d77b36d-7640-333d-0b38-e73afceffb4c,phase2_transaction,Q. Hoàng Mai,P. Mai Động,45.1,6.0,2025-06-30 03:06:18,19.5,6.48,11.97,24.19,-19.4,fair,True
+b974a716-3570-c17f-d5a0-071690ca7932,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Buồm,118.8,3.0,2025-06-28 04:41:37,59.0,8.87,33.28,98.02,-39.8,fair,True
+6ed1a28c-e4af-34c7-397a-3418964089dd,phase2_transaction,Q. Hà Đông,P. Biên Giang,30.4,4.0,2025-06-27 08:03:31,4.1,2.77,4.22,6.19,-33.8,fair,True
+d16b50dc-9c4d-a32b-a358-c0d5fb96cf67,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 1,141.9,4.0,2025-06-26 10:31:16,51.0,12.29,33.68,53.67,-5.0,fair,True
+de7b1e70-eaf7-6a26-68a4-5dad29d9cb0a,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,109.3,8.0,2025-06-26 10:27:05,21.6,16.12,27.94,38.09,-43.3,fair,True
+5a25c4ba-dafc-e2ba-7bbe-0b7aa8c30926,phase2_transaction,Q. Hoàng Mai,P. Hoàng Liệt,184.0,3.0,2025-06-26 10:09:57,23.9,8.09,22.9,44.54,-46.3,fair,True
+a280cc16-254a-15ab-d484-c28501ddb8fa,phase2_transaction,Q. Đống Đa,P. Khâm Thiên,17.5,4.0,2025-06-26 08:48:17,7.3,2.24,3.51,6.22,17.4,OVERPRICED,True
+3a9bc1ab-2576-549e-f3f1-5ddf9b21b7fd,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 1,94.0,4.0,2025-06-18 02:46:14,26.2,9.2,15.72,40.49,-35.3,fair,True
+c17a0ffa-1b9b-a00d-3449-81da5888ac32,phase2_transaction,Q. Ba Đình,P. Kim Mã,28.3,5.0,2025-06-04 04:06:48,18.0,3.86,7.19,13.9,29.5,OVERPRICED,True
+94c208fb-77bb-fdab-e9da-97e9c31a3935,phase2_transaction,Q. Hai Bà Trưng,P. Trương Định,36.3,5.0,2025-05-24 04:55:59,16.5,3.89,6.82,12.39,33.1,STRONGLY_OVER,True
+92950192-27f0-697e-54a4-672a294db826,phase2_transaction,Q. Hoàn Kiếm,P. Cửa Đông,49.5,4.0,2025-05-24 04:12:54,33.0,3.81,13.32,24.31,35.8,STRONGLY_OVER,True
+f56821b9-a07a-04dd-f6e8-9b29571ce083,phase2_transaction,Q. Thanh Xuân,P. Hạ Đình,44.0,5.0,2025-05-13 09:54:13,13.5,4.51,7.61,16.56,-18.5,fair,True
+9aa0d5c7-3e38-ef0c-f938-ba65e007b916,phase2_transaction,Q. Thanh Xuân,P. Khương Trung,52.1,5.0,2025-05-13 09:01:20,13.0,6.39,12.29,22.43,-42.1,fair,True
+853339f0-7cb3-b7e9-bbbf-8a72057f209f,phase2_transaction,Q. Hai Bà Trưng,P. Đồng Tâm,64.2,5.0,2025-05-12 06:43:33,25.8,5.99,15.51,41.27,-37.5,fair,True
+93619124-213f-6e3a-e60b-8cc627febb24,phase2_transaction,Q. Long Biên,P. Bồ Đề,32.2,4.0,2025-04-29 08:18:37,12.0,3.13,4.89,8.78,36.8,STRONGLY_OVER,True
+de44bc51-04b7-a786-1d43-b92b12e33ac8,phase2_transaction,Q. Tây Hồ,P. Quảng An,43.2,2.0,2025-04-11 04:45:50,12.9,3.94,9.26,26.35,-51.0,fair,True
+77406c34-9c33-32f6-e8c6-170f0ef084a4,phase2_transaction,Q. Tây Hồ,P. Thụy Khuê,59.8,8.0,2025-04-05 02:00:52,32.0,11.26,18.83,40.35,-20.7,fair,True
+0bcafc8a-aa35-5e35-a3f9-3fd4f01184b9,phase2_transaction,Q. Long Biên,P. Giang Biên,173.0,1.0,2025-04-01 02:30:42,20.5,5.3,19.41,43.95,-53.4,fair,True
+d2643fda-2f63-f1f4-7073-b7f6a47cf190,phase2_transaction,Q. Đống Đa,P. Trung Phụng,59.7,4.0,2025-03-26 06:14:38,10.0,5.37,9.68,22.14,-54.8,fair,True
+27d72e72-9b94-5c6b-7113-52d68d943723,phase2_transaction,Q. Hà Đông,P. Mộ Lao,74.0,5.0,2025-03-10 04:00:30,18.0,8.19,16.5,34.62,-48.0,fair,True
+10516adc-482b-eb9a-40ab-08504ac39b64,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,10.9,4.0,2025-03-05 02:21:30,23.3,2.93,4.78,13.37,74.3,STRONGLY_OVER,True
+760d909f-b07f-50c1-f42d-cd30db151e96,phase2_transaction,Q. Hà Đông,P. Mộ Lao,36.0,5.0,2025-02-27 07:34:40,9.35,4.43,6.97,13.0,-28.1,fair,True
+0dee98a7-667a-c03e-7c84-bb5ce498ce8e,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Bông,51.6,5.0,2025-02-22 05:13:43,52.0,5.09,17.64,35.6,46.0,STRONGLY_OVER,True
+755d0b68-d742-334b-5549-b5cf62c0289a,phase2_transaction,Q. Ba Đình,P. Phúc Xá,34.47,6.0,2025-02-12 02:27:53,15.0,4.38,9.03,16.5,-9.1,fair,True
+0a7a4eeb-844a-0a56-c958-4d63d013ba7b,phase2_transaction,Q. Hai Bà Trưng,P. Vĩnh Tuy,45.0,5.0,2025-02-10 08:22:18,10.0,5.11,9.46,22.31,-55.2,fair,True
+4002dfa4-0236-7b28-bd7a-a687781d8f04,phase2_transaction,Q. Tây Hồ,P. Phú Thượng,39.8,5.0,2025-02-03 07:43:16,6.8,5.0,8.76,17.72,-61.6,fair,True
+939378e2-228f-11e5-1824-ccc364c62a58,phase2_transaction,Q. Hoàn Kiếm,P. Đồng Xuân,60.3,2.0,2025-01-23 04:42:10,25.0,4.24,15.8,46.95,-46.7,fair,True
+85575675-f18f-27d8-fb2d-b242c9f45ec6,phase2_transaction,Q. Hoàn Kiếm,P. Đồng Xuân,69.6,2.0,2025-01-23 04:42:04,27.0,4.76,17.7,51.26,-47.3,fair,True
+9414caeb-f556-bf4b-7c9d-2c06ed8d55c2,phase2_transaction,Q. Hai Bà Trưng,P. Phố Huế,19.8,5.0,2025-01-23 04:30:51,7.5,2.45,4.45,9.2,-18.5,fair,True
+e4d4b2e7-7d3e-79a4-1335-5e15694ee11e,phase2_transaction,Q. Đống Đa,P. Văn Chương,73.6,3.0,2024-12-23 03:19:47,19.5,4.74,9.73,25.99,-25.0,fair,True
+fbcdb9a9-2028-61dc-0471-a083f5afdba1,phase2_transaction,Q. Đống Đa,P. Trung Phụng,49.5,5.0,2024-12-16 07:25:07,12.0,4.74,9.43,20.13,-40.4,fair,True
+d6b7d161-cb16-938d-3fcd-faba53081e50,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Bông,13.4,4.0,2024-12-13 03:12:34,13.5,2.26,6.45,14.74,-8.4,fair,True
+46a5f24a-5a1d-954e-ab22-4d5822f9028b,phase2_transaction,Q. Hoàng Mai,P. Thanh Trì,62.0,3.0,2024-12-13 03:12:33,5.5,4.37,6.9,19.11,-71.2,fair,True
+23a1d48d-116c-b022-c078-3476ecaa755c,phase2_transaction,Q. Hoàng Mai,P. Đại Kim,98.0,5.0,2024-12-13 03:11:27,24.0,5.6,15.14,35.47,-32.3,fair,True
+d8145617-2a0b-d130-a9a7-ed945c035726,phase2_transaction,Q. Bắc Từ Liêm,P. Cổ Nhuế 1,54.3,9.0,2024-12-05 02:31:54,30.0,7.62,14.21,26.21,14.4,OVERPRICED,True
+93bf75f5-cc87-9080-ff22-3b2aaaf4af49,phase2_transaction,Q. Cầu Giấy,P. Trung Hòa,132.1,8.0,2024-12-03 03:11:33,55.0,16.4,37.14,77.6,-29.1,fair,True
+b33c8558-b95d-6ddd-a1f2-d69abfdba062,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,155.4,4.0,2024-12-02 04:20:31,46.0,9.5,23.65,59.3,-22.4,fair,True
+5fda0c9d-f244-113e-2b72-9dbc2b815ffc,phase2_transaction,Q. Ba Đình,P. Ngọc Khánh,65.7,1.0,2024-12-02 04:20:24,17.0,4.58,10.53,21.59,-21.3,fair,True
+ca833c88-5ed5-142c-6382-d9cf08abd7c9,phase2_transaction,Q. Đống Đa,P. Thổ Quan,29.2,5.0,2024-12-02 02:18:08,6.2,3.3,6.04,10.73,-42.2,fair,True
+29285b30-6fdd-6212-3a8e-89f8e58db307,phase2_transaction,Q. Nam Từ Liêm,P. Mỹ Đình 1,57.7,5.0,2024-11-29 02:54:30,11.7,5.96,11.22,22.23,-47.4,fair,True
+f33db98f-f270-43d1-e8f8-c191555accda,phase2_transaction,Q. Hoàn Kiếm,P. Phúc Tân,38.5,5.0,2024-11-29 02:53:22,12.5,3.69,10.39,22.55,-44.6,fair,True
+819a0962-56d5-c188-1483-38f07332e167,phase2_transaction,Q. Hai Bà Trưng,P. Cầu Dền,122.3,3.0,2024-11-29 01:58:50,43.0,6.2,17.89,44.41,-3.2,fair,True
+3185f0b4-24a7-2257-1476-7f4f674391fb,phase2_transaction,Q. Hai Bà Trưng,P. Bách Khoa,19.3,4.0,2024-11-27 02:56:33,6.8,2.73,4.64,8.96,-24.1,fair,True
+803a1954-a79a-2a8e-beb2-b491330934aa,phase2_transaction,Q. Hoàng Mai,P. Định Công,103.0,8.0,2024-11-27 02:25:19,21.0,13.78,19.87,44.98,-53.3,fair,True
+21e4b336-6c86-84a2-4bf9-dc13c67ac87d,phase2_transaction,H. Thanh Trì,X. Tân Triều,40.0,2.0,2024-11-22 04:33:58,10.8,2.63,5.85,11.0,-1.8,fair,True
+aeb7dc29-e69c-94a5-1ffe-b6644f2fdfbb,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,60.0,3.0,2024-11-15 01:50:51,7.5,3.76,7.73,21.7,-65.4,fair,True
+5a2831e8-75d1-cec6-b319-b747d47ae87e,phase2_transaction,Q. Hai Bà Trưng,P. Nguyễn Du,56.6,4.0,2024-11-13 03:20:42,20.5,5.5,10.9,33.7,-39.2,fair,True
+fe7f5f7f-b2e3-77cc-af0a-afed48d58982,phase2_transaction,Q. Hà Đông,P. Biên Giang,30.6,4.0,2024-11-06 09:02:56,4.1,2.47,3.87,5.72,-28.3,fair,True
+4e9807fd-a62c-a775-44d6-fc7ee4552cc7,phase2_transaction,Q. Đống Đa,P. Trung Liệt,45.6,4.0,2024-11-02 03:17:36,22.7,5.04,10.4,20.01,13.4,OVERPRICED,True
+2938bd30-55ae-1cc0-6ae7-79b0bed651ff,phase2_transaction,Q. Tây Hồ,P. Quảng An,316.0,1.0,2024-10-25 02:05:45,77.0,16.35,58.36,141.81,-45.7,fair,True
+2c0c82b7-7b1d-d64f-ffbc-dcd823329408,phase2_transaction,Q. Tây Hồ,P. Yên Phụ,34.84,2.0,2024-10-22 01:45:59,13.0,2.59,4.53,14.74,-11.8,fair,True
+f4ea84c3-5d12-492b-c7f7-05f459d301c7,phase2_transaction,Q. Hai Bà Trưng,P. Trương Định,36.5,5.0,2024-10-14 08:25:05,8.5,3.53,6.68,13.37,-36.4,fair,True
+f264e693-889b-f704-c8a9-de9cc27a1582,phase2_transaction,Q. Đống Đa,P. Láng Thượng,75.3,9.0,2024-10-07 02:33:34,14.0,12.12,29.71,68.31,-79.5,fair,True
+b4b48769-4bd7-ed8f-387f-73c4d3334e5a,phase2_transaction,Q. Hai Bà Trưng,P. Trương Định,95.0,7.0,2024-10-07 02:23:07,14.2,10.89,21.78,54.4,-73.9,fair,True
+5b4d734c-ed1e-257b-6420-de7ed3a3d74a,phase2_transaction,Q. Hoàn Kiếm,P. Hàng Bài,32.4,3.0,2024-09-17 08:43:44,7.8,2.51,6.41,23.38,-66.6,fair,True
+494c9947-64f2-53a4-dacb-bde50d63ff79,phase2_transaction,Q. Hai Bà Trưng,P. Cầu Dền,80.0,5.0,2024-09-04 07:18:12,8.8,6.63,15.97,41.93,-79.0,fair,True
+43e01ba9-00a5-df94-f441-d459d0219cd5,phase2_transaction,Q. Cầu Giấy,P. Nghĩa Tân,45.0,3.0,2024-09-04 02:58:07,18.0,3.94,10.58,26.69,-32.6,fair,True
+986f8c74-2b3d-a201-9f90-000ec5df57c4,phase2_transaction,Q. Hoàng Mai,P. Thịnh Liệt,79.4,5.0,2024-08-26 02:20:08,23.0,7.57,13.86,29.71,-22.6,fair,True
+1be3c49b-dd9e-3444-8d0a-105b8fbc34f9,phase2_transaction,Q. Thanh Xuân,P. Khương Mai,94.6,6.0,2024-08-26 02:19:58,12.5,9.59,17.49,41.4,-69.8,fair,True
+60dda5cd-244c-21f2-f941-94b2d0d44747,phase2_transaction,Q. Thanh Xuân,P. Phương Liệt,64.2,3.0,2024-08-26 02:19:43,7.5,4.25,9.64,22.88,-67.2,fair,True
+8f2d3d73-5347-09ee-6169-9e117592428d,phase2_transaction,H. Hoài Đức,X. Vân Canh,38.6,5.0,2024-08-19 02:10:44,5.25,2.41,4.45,6.28,-16.4,fair,True
+ee6e1446-2e70-3ddc-a89d-83c3da8cd5f5,phase2_transaction,Q. Ba Đình,P. Kim Mã,110.0,2.0,2024-07-25 07:40:13,13.0,6.37,18.69,37.44,-65.3,fair,True
+dd770905-a6cb-af06-7d66-e9a021a186b8,phase2_transaction,Q. Hà Đông,P. Văn Quán,79.0,6.0,2024-07-25 07:37:08,26.0,6.44,14.38,31.47,-17.4,fair,True
+bf78117b-4f64-b032-4c0f-0ccd80321896,phase2_transaction,Q. Đống Đa,P. Thổ Quan,42.4,3.0,2024-07-18 02:30:04,10.7,2.67,5.04,11.98,-10.7,fair,True
+75a94638-50c0-e423-4379-4f3a21ec396b,phase2_transaction,Q. Cầu Giấy,P. Quan Hoa,65.0,7.0,2024-06-07 02:17:38,11.3,6.72,12.11,20.19,-44.0,fair,True
+621214fd-6d7c-1141-5cb2-86ad4e7f6887,phase2_transaction,Q. Long Biên,P. Ngọc Thụy,60.6,4.0,2024-05-16 05:22:13,4.85,3.58,7.41,18.67,-74.0,fair,True
+4304d5c2-56d8-ded0-c231-8fef390e7137,phase2_transaction,Q. Long Biên,P. Bồ Đề,150.0,7.0,2024-04-20 07:46:30,85.0,12.27,25.79,40.15,111.7,STRONGLY_OVER,True
+0dfb8033-9356-943d-f911-defe400d1eb3,phase2_transaction,Q. Long Biên,P. Bồ Đề,150.0,7.0,2024-04-20 06:00:46,85.0,12.97,26.44,47.88,77.5,STRONGLY_OVER,True
+d17cb0b0-3353-7a57-f5af-239beabdd3f4,phase2_transaction,Q. Hà Đông,P. La Khê,198.9,3.0,2024-03-12 04:42:18,14.0,7.23,20.53,45.49,-69.2,fair,True
+5624ed85-99c1-d5c1-0a32-08e5ac5bcc4f,phase2_transaction,Q. Nam Từ Liêm,P. Tây Mỗ,194.0,3.0,2024-03-04 04:28:13,9.9,11.29,26.32,47.54,-79.2,UNDERPRICED,True
+3806fe6c-38b9-614d-1542-1240eb46c0a9,phase2_transaction,Q. Hà Đông,P. Yên Nghĩa,34.0,4.0,2024-02-22 08:22:43,3.9,2.34,3.47,6.16,-36.7,fair,True
+2a58823c-0d5e-f9e0-6169-bd9a09784bf3,phase2_transaction,Q. Hà Đông,P. Yên Nghĩa,35.1,4.0,2024-02-22 05:18:20,3.9,2.38,3.51,7.3,-46.6,fair,True
+481f19c5-3e4c-6487-5b3c-6c4b7577c7f5,phase2_transaction,Q. Hà Đông,P. Yên Nghĩa,35.5,4.0,2024-02-22 05:18:20,3.95,2.35,3.45,6.97,-43.3,fair,True
+39947bee-252c-f10f-f97b-d92ba5c7e926,phase2_transaction,H. Hoài Đức,X. Vân Canh,43.0,5.0,2024-01-22 04:27:08,4.2,1.95,3.74,6.78,-38.0,fair,True
+1ff4809b-fd84-2893-63d2-40979f030044,phase2_transaction,Q. Ba Đình,P. Cống Vị,29.2,4.0,2024-01-05 03:28:02,6.4,2.45,3.98,7.74,-17.3,fair,True
+7ab2c0bd-a320-325f-f476-16b508ccd677,phase2_transaction,H. Hoài Đức,X. Vân Canh,31.0,5.0,2023-12-13 08:44:22,3.35,1.84,2.89,4.27,-21.6,fair,True
+3f2cbaa7-f680-6242-5d38-fc202a96b06d,phase2_transaction,Q. Đống Đa,P. Trung Phụng,42.5,1.0,2023-11-08 10:33:21,12.7,1.96,3.28,9.02,40.7,STRONGLY_OVER,True
+P1_1094593,phase1_listing,Q. Hoàn Kiếm,P. Hàng Bông,65.0,6.0,2025-12-03 02:21:02,41.5,7.06,25.78,61.07,-32.0,fair,True
+P1_1277977,phase1_listing,,P. La Khê,83.0,5.0,2025-11-06 18:21:40,16.5,8.0,15.19,34.82,-52.6,fair,True
+P1_1057912,phase1_listing,Q. Hai Bà Trưng,P. Lê Đại Hành,20.0,,2025-12-03 03:21:35,1.25,2.85,5.71,12.42,-89.9,UNDERPRICED,True
+P1_1052874,phase1_listing,,P. Quan Hoa,40.0,5.0,2025-10-03 04:21:20,8.9,4.63,9.15,15.77,-43.6,fair,True
+P1_1077153,phase1_listing,Q. Tây Hồ,P. Phú Thượng,50.0,,2025-12-03 03:21:23,7.2,5.26,9.98,19.72,-63.5,fair,True
+P1_1281143,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Trung,20.0,,2025-11-05 20:20:15,0.0,2.73,4.47,9.81,-100.0,UNDERPRICED,True
+P1_1282990,phase1_listing,Q. Hà Đông,P. Phú La,118.0,,2025-11-05 13:20:21,6.25,9.33,22.75,46.95,-86.7,UNDERPRICED,True
+P1_1284586,phase1_listing,Q. Nam Từ Liêm,P. Mỹ Đình 1,94.0,1.0,2025-12-05 17:20:55,8.35,8.12,14.82,34.92,-76.1,fair,True
+P1_1101402,phase1_listing,Q. Cầu Giấy,P. Nghĩa Tân,60.0,7.0,2025-10-03 03:21:35,21.0,10.76,20.26,40.17,-47.7,fair,True
+P1_1287271,phase1_listing,,X. Đông Hội,130.9,5.0,2025-10-05 08:20:20,58.9,10.68,28.31,64.7,-9.0,fair,True
+P1_1044812,phase1_listing,,P. Phú Thượng,39.2,6.0,2025-12-03 02:21:36,8.3,5.01,8.76,15.85,-47.6,fair,True
+P1_1292022,phase1_listing,Q. Hoàng Mai,P. Lĩnh Nam,181.0,,2025-10-05 15:20:42,24.5,10.98,29.52,63.38,-61.3,fair,True
+P1_1065583,phase1_listing,Q. Hoàn Kiếm,P. Cửa Nam,230.0,,2025-12-03 02:22:10,115.0,9.3,55.66,110.59,4.0,OVERPRICED,True
+P1_1061883,phase1_listing,Q. Hoàng Mai,P. Lĩnh Nam,50.0,,2025-12-03 03:21:27,6.5,4.66,9.71,20.28,-68.0,fair,True
+P1_1106686,phase1_listing,Q. Hà Đông,P. La Khê,39.0,5.0,2025-10-03 03:22:07,10.0,4.13,8.03,16.02,-37.6,fair,True
+P1_1294627,phase1_listing,H. Thanh Trì,X. Tân Triều,70.0,5.0,2025-11-06 18:21:14,23.7,4.87,10.68,24.1,-1.7,fair,True
+P1_1295843,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Bắc,138.0,9.0,2025-12-05 13:20:08,35.0,18.86,46.43,89.25,-60.8,fair,True
+P1_1297250,phase1_listing,Q. Đống Đa,P. CáT Linh,41.0,5.0,2025-12-05 22:21:20,11.0,3.83,8.69,18.17,-39.5,fair,True
+P1_1082040,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,40.0,5.0,2025-10-03 05:22:03,14.5,5.82,9.62,20.93,-30.7,fair,True
+P1_1043655,phase1_listing,Q. Hà Đông,P. Quang Trung,35.0,4.0,2025-12-03 03:21:36,6.0,3.44,5.86,14.97,-59.9,fair,True
+P1_1300155,phase1_listing,Q. Hà Đông,P. La Khê,136.0,,2025-12-06 17:22:05,7.89,7.02,19.73,48.42,-83.7,fair,True
+P1_1052908,phase1_listing,Q. Tây Hồ,P. Tứ Liên,45.0,2.0,2025-12-03 03:21:18,3.0,3.39,6.13,19.81,-84.9,UNDERPRICED,True
+P1_1304387,phase1_listing,Q. Hoàng Mai,P. Định Công,35.0,4.0,2025-11-05 21:20:16,6.6,3.69,6.52,14.02,-52.9,fair,True
+P1_1304500,phase1_listing,Q. Long Biên,P. Ngọc Thụy,33.0,,2025-12-06 17:20:52,5.8,3.53,5.43,9.76,-40.6,fair,True
+P1_1071954,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,300.0,,2025-12-03 03:22:57,95.0,12.58,52.32,135.76,-30.0,fair,True
+P1_1085100,phase1_listing,Q. Thanh Xuân,P. Khương Đình,37.0,6.0,2025-12-03 02:21:28,8.9,5.78,9.0,15.11,-41.1,fair,True
+P1_1308814,phase1_listing,Q. Tây Hồ,P. Quảng An,82.0,,2025-10-05 13:20:17,16.0,8.33,22.44,44.99,-64.4,fair,True
+P1_1058005,phase1_listing,,P. Long Biên,93.0,4.0,2025-10-03 04:20:52,15.8,7.28,15.97,33.99,-53.5,fair,True
+P1_1311882,phase1_listing,Q. Đống Đa,P. Ô Chợ DừA,50.0,,2025-10-05 14:20:26,1.0,5.21,12.62,25.62,-96.1,UNDERPRICED,True
+P1_1317040,phase1_listing,Q. Tây Hồ,P. Yên Phụ,38.0,3.0,2025-10-05 13:21:12,7.85,3.1,5.83,18.33,-57.2,fair,True
+P1_1317344,phase1_listing,,,70.0,,2025-10-05 23:21:28,4.65,5.65,14.4,30.03,-84.5,UNDERPRICED,True
+P1_1317585,phase1_listing,H. Sóc Sơn,X. Nam Sơn,1284.0,,2025-12-05 10:20:17,7.0,9.79,51.99,135.09,-94.8,UNDERPRICED,True
+P1_1318372,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,328.0,1.0,2025-12-05 17:20:58,62.0,14.36,40.7,126.99,-51.2,fair,True
+P1_1093197,phase1_listing,Q. Tây Hồ,P. Xuân La,150.0,9.0,2025-10-03 05:20:49,60.0,15.7,50.41,82.9,-27.6,fair,True
+P1_1319982,phase1_listing,H. Sóc Sơn,X. Minh Phú,2981.0,,2025-12-05 08:20:21,0.01,7.5,34.38,79.2,-100.0,UNDERPRICED,True
+P1_1320246,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,40.0,,2025-12-06 17:22:03,1.0,4.95,8.93,14.35,-93.0,UNDERPRICED,True
+P1_1320432,phase1_listing,,P. Dương Nội,170.0,,2025-11-06 18:22:05,27.0,6.79,24.61,53.24,-49.3,fair,True
+P1_1052859,phase1_listing,Q. Nam Từ Liêm,P. Trung Văn,42.0,,2025-10-03 03:20:46,8.2,3.92,7.85,14.9,-45.0,fair,True
+P1_1323818,phase1_listing,Q. Đống Đa,P. Văn Chương,36.0,6.0,2025-10-05 10:20:41,7.9,5.33,9.43,18.57,-57.5,fair,True
+P1_1057723,phase1_listing,,P. Hà Cầu,30.0,3.0,2025-10-03 03:21:03,4.7,3.21,5.37,10.85,-56.7,fair,True
+P1_1328622,phase1_listing,,P. Thanh Xuân Bắc,117.0,4.0,2025-12-05 09:21:24,20.0,9.08,21.66,37.42,-46.5,fair,True
+P1_1330237,phase1_listing,Q. Thanh Xuân,P. Khương Đình,55.0,4.0,2025-12-05 15:20:26,8.5,5.65,10.5,19.87,-57.2,fair,True
+P1_1070762,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,80.0,7.0,2025-12-03 03:21:42,28.0,13.51,25.08,46.77,-40.1,fair,True
+P1_1086081,phase1_listing,Q. Hoàng Mai,P. Mai Động,34.0,,2025-10-03 05:21:43,6.95,3.78,5.95,10.89,-36.2,fair,True
+P1_1092415,phase1_listing,Q. Đống Đa,P. Quang Trung,69.0,,2025-12-03 03:21:37,22.99,6.81,18.01,39.95,-42.5,fair,True
+P1_1339214,phase1_listing,H. Thanh Trì,X. Tả Thanh Oai,60.0,4.0,2025-12-05 22:21:36,12.8,3.68,5.84,13.73,-6.8,fair,True
+P1_1339492,phase1_listing,,,127.0,,2025-11-05 08:21:18,13.0,6.31,19.77,47.82,-72.8,fair,True
+P1_1067850,phase1_listing,Q. Đống Đa,P. Trung Liệt,44.0,,2025-10-03 05:21:49,10.5,5.79,12.65,26.46,-60.3,fair,True
+P1_1343584,phase1_listing,Q. Tây Hồ,P. Quảng An,82.0,,2025-10-05 13:20:29,15.0,8.33,22.44,44.99,-66.7,fair,True
+P1_1343785,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,73.0,,2025-12-06 17:22:25,7.0,7.25,14.93,28.02,-75.0,UNDERPRICED,True
+P1_1058782,phase1_listing,Q. Nam Từ Liêm,P. Cầu Diễn,61.0,,2025-12-03 02:22:17,17.6,6.1,11.85,25.99,-32.3,fair,True
+P1_1078388,phase1_listing,Q. Hai Bà Trưng,P. Bách Khoa,36.0,,2025-10-03 03:22:18,10.2,3.87,8.08,15.47,-34.1,fair,True
+P1_1347212,phase1_listing,Q. Thanh Xuân,P. Thượng Đình,120.0,4.0,2025-12-05 12:20:56,31.0,9.23,18.77,44.67,-30.6,fair,True
+P1_1048380,phase1_listing,Q. Cầu Giấy,P. Dịch Vọng Hậu,59.0,7.0,2025-12-03 03:21:44,22.5,9.8,19.38,36.47,-38.3,fair,True
+P1_1349065,phase1_listing,Q. Cầu Giấy,P. Trung Hòa,94.0,,2025-12-06 17:22:06,8.3,10.0,26.11,58.29,-85.8,UNDERPRICED,True
+P1_1061434,phase1_listing,Q. Hai Bà Trưng,P. Minh Khai,75.0,8.0,2025-12-03 03:21:38,15.0,13.04,28.49,58.54,-74.4,fair,True
+P1_1094104,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,28.0,,2025-12-03 02:21:15,4.1,3.25,5.54,10.47,-60.9,fair,True
+P1_1357940,phase1_listing,Q. Cầu Giấy,P. Quan Hoa,56.0,7.0,2025-12-06 17:21:24,25.0,10.0,17.48,28.7,-12.9,fair,True
+P1_1047687,phase1_listing,,P. Nhân Chính,90.0,,2025-10-03 04:20:51,5.0,8.37,16.56,35.95,-86.1,UNDERPRICED,True
+P1_1117816,phase1_listing,Q. Đống Đa,P. Ô Chợ Dừa,50.0,,2025-10-03 03:22:12,6.8,5.55,11.71,27.74,-75.5,fair,True
+P1_1360350,phase1_listing,Q. Hà Đông,P. Mộ Lao,50.0,6.0,2025-10-05 14:20:38,22.0,7.96,14.71,28.44,-22.7,fair,True
+P1_1112458,phase1_listing,Q. Ba Đình,P. Nguyễn Trung Trực,26.0,,2025-12-03 03:21:51,6.5,3.87,7.23,12.41,-47.6,fair,True
+P1_1362587,phase1_listing,H. Quốc Oai,X. Đại Thành,65.0,4.0,2025-12-05 11:20:58,4.8,3.76,8.97,15.65,-69.3,fair,True
+P1_1363272,phase1_listing,Q. Hoàng Mai,P. Tân Mai,40.0,,2025-12-05 08:20:16,0.01,4.04,7.43,15.23,-100.0,UNDERPRICED,True
+P1_1365328,phase1_listing,H. Gia Lâm,X. Dương Xá,60.0,,2025-10-05 13:20:27,4.4,3.26,6.97,13.26,-66.8,fair,True
+P1_1365773,phase1_listing,Q. Đống Đa,X. Đàn,55.0,,2025-12-06 17:22:08,1.0,5.09,13.49,30.86,-96.8,UNDERPRICED,True
+P1_1049863,phase1_listing,,P. Yên Sở,36.0,,2025-12-03 02:21:27,5.4,3.67,5.37,11.02,-51.0,fair,True
+P1_1065889,phase1_listing,Q. Đống Đa,P. Láng Thượng,50.0,4.0,2025-12-03 03:21:44,18.19,5.9,10.71,26.08,-30.3,fair,True
+P1_1366785,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,82.0,5.0,2025-10-05 15:21:01,50.0,8.67,20.07,43.63,14.6,OVERPRICED,True
+P1_1370381,phase1_listing,Q. Hai Bà Trưng,P. VĩNh Tuy,60.0,16.0,2025-10-05 20:20:20,5.0,9.72,21.19,34.29,-85.4,UNDERPRICED,True
+P1_1062452,phase1_listing,Q. Ba Đình,P. Kim Mã,45.0,,2025-12-03 03:21:47,10.8,4.95,11.34,28.1,-61.6,fair,True
+P1_1371997,phase1_listing,,,112.0,,2025-10-05 23:21:33,6.5,6.26,18.91,39.08,-83.4,fair,True
+P1_1062218,phase1_listing,Q. Hai Bà Trưng,P. Cầu Dền,58.0,5.0,2025-10-03 05:21:40,12.8,6.35,13.7,24.84,-48.5,fair,True
+P1_1113156,phase1_listing,Q. Hà Đông,P. La Khê,54.0,,2025-12-03 03:21:32,6.5,5.59,12.8,24.88,-73.9,fair,True
+P1_1076082,phase1_listing,Q. Hai Bà Trưng,P. Đống Mác,26.0,,2025-12-03 03:21:31,5.4,3.47,5.79,10.63,-49.2,fair,True
+P1_1044328,phase1_listing,,X. Hải Bối,43.0,3.0,2025-10-03 02:21:17,5.1,2.94,7.22,13.94,-63.4,fair,True
+P1_1116630,phase1_listing,Q. Hà Đông,,117.0,,2025-12-03 04:20:49,0.06,6.68,19.97,40.57,-99.9,UNDERPRICED,True
+P1_1104313,phase1_listing,Q. Cầu Giấy,P. Quan Hoa,40.0,7.0,2025-12-03 03:21:49,14.7,7.42,12.96,26.33,-44.2,fair,True
+P1_1087975,phase1_listing,Q. Hà Đông,P. La Khê,60.0,5.0,2025-10-03 05:21:00,11.0,6.17,13.43,28.31,-61.1,fair,True
+P1_1060647,phase1_listing,Q. Tây Hồ,,220.0,4.0,2025-12-03 04:20:52,121.0,11.22,38.23,105.03,15.2,OVERPRICED,True
+P1_1391141,phase1_listing,Q. Cầu Giấy,P. Nghĩa Đô,189.0,3.0,2025-10-05 09:21:23,97.0,12.19,35.39,60.37,60.7,STRONGLY_OVER,True
+P1_1101253,phase1_listing,,P. Hoàng Văn Thụ,57.0,6.0,2025-10-03 04:20:54,8.99,7.76,13.78,30.82,-70.8,fair,True
+P1_1392674,phase1_listing,,P. Trung Hòa,60.0,7.0,2025-11-05 15:20:45,21.0,10.13,17.2,32.61,-35.6,fair,True
+P1_1053832,phase1_listing,Q. Cầu Giấy,P. Dịch Vọng Hậu,120.0,9.0,2025-12-03 02:22:29,48.0,14.84,40.95,71.21,-32.6,fair,True
+P1_1395526,phase1_listing,Q. Long Biên,P. Long Biên,56.0,7.0,2025-12-05 05:20:57,16.8,7.57,14.34,26.92,-37.6,fair,True
+P1_1054289,phase1_listing,Q. Nam Từ Liêm,P. Xuân Phương,100.0,,2025-12-03 03:21:26,19.3,5.92,17.29,31.31,-38.4,fair,True
+P1_1398705,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,56.0,,2025-10-05 07:20:54,4.3,7.35,14.67,32.91,-86.9,UNDERPRICED,True
+P1_1401463,phase1_listing,Q. Ba Đình,P. VĩNh PhúC,45.0,,2025-10-05 13:20:23,4.5,4.62,10.66,22.49,-80.0,UNDERPRICED,True
+P1_1408724,phase1_listing,Q. Nam Từ Liêm,TT. Cầu Diễn,83.0,,2025-10-05 14:20:27,5.6,7.07,18.53,27.2,-79.4,UNDERPRICED,True
+P1_1409341,phase1_listing,Q. Hoàng Mai,P. Hoàng Văn Thụ,35.0,5.0,2025-12-05 05:20:32,7.4,3.24,5.28,14.15,-47.7,fair,True
+P1_1070143,phase1_listing,,X. Tả Thanh Oai,35.0,5.0,2025-12-03 02:21:47,3.18,2.8,5.23,11.33,-71.9,fair,True
+P1_1413876,phase1_listing,Q. Ba Đình,P. NgọC Hà,55.0,,2025-12-06 17:22:09,1.0,5.15,12.31,27.11,-96.3,UNDERPRICED,True
+P1_1092565,phase1_listing,Q. Thanh Xuân,P. Phương Liệt,94.0,,2025-12-03 03:21:20,16.6,9.32,22.79,44.88,-63.0,fair,True
+P1_1042576,phase1_listing,Q. Hoàng Mai,P. Hoàng Liệt,71.0,,2025-12-03 03:21:27,16.5,5.26,13.63,29.4,-43.9,fair,True
+P1_1416741,phase1_listing,Q. Đống Đa,P. Nam ĐồNg,80.0,,2025-12-05 11:20:42,12.5,6.54,20.79,39.72,-68.5,fair,True
+P1_1419137,phase1_listing,Q. Ba Đình,P. Phúc Xá,64.0,2.0,2025-10-05 08:21:00,7.3,4.18,8.97,22.72,-67.9,fair,True
+P1_1114542,phase1_listing,Q. Ba Đình,P. Liễu Giai,66.0,2.0,2025-12-03 03:21:51,17.0,4.61,11.32,26.77,-36.5,fair,True
+P1_1066698,phase1_listing,Q. Ba Đình,P. Điện Biên,40.0,4.0,2025-10-03 05:21:58,9.0,4.27,9.08,19.62,-54.1,fair,True
+P1_1423041,phase1_listing,H. Đan Phượng,X. Liên Trung,228.0,,2025-12-05 10:20:16,53.0,6.98,34.68,75.81,-30.1,fair,True
+P1_1069787,phase1_listing,Q. Ba Đình,P. Ngọc Hà,40.0,,2025-10-03 03:21:18,9.1,4.52,8.65,17.04,-46.6,fair,True
+P1_1079653,phase1_listing,Q. Hai Bà Trưng,P. Vĩnh Tuy,32.0,3.0,2025-10-03 03:20:52,5.2,3.24,6.1,14.8,-64.9,fair,True
+P1_1109623,phase1_listing,H. Chương Mỹ,TT. Chúc Sơn,32.0,5.0,2025-10-03 04:21:04,2.7,2.95,5.69,8.62,-68.7,UNDERPRICED,True
+P1_1426510,phase1_listing,Q. Cầu Giấy,P. Mai Dịch,73.0,5.0,2025-11-06 09:20:22,17.6,8.24,16.89,37.64,-53.2,fair,True
+P1_1427687,phase1_listing,Q. Nam Từ Liêm,P. Phú Đô,36.0,5.0,2025-12-05 08:20:22,6.2,4.08,6.86,10.64,-41.7,fair,True
+P1_1431972,phase1_listing,H. Thanh Trì,X. Tả Thanh Oai,63.0,,2025-10-05 14:20:29,2.58,3.96,8.63,17.6,-85.3,UNDERPRICED,True
+P1_1115464,phase1_listing,Q. Bắc Từ Liêm,P. Phúc Diễn,38.0,5.0,2025-12-03 03:21:46,7.5,3.57,7.47,11.99,-37.4,fair,True
+P1_1098918,phase1_listing,Q. Cầu Giấy,P. Nghĩa Đô,90.0,,2025-12-03 03:21:42,23.5,10.07,19.28,39.11,-39.9,fair,True
+P1_1101263,phase1_listing,Q. Đống Đa,P. Trung Liệt,80.0,,2025-10-03 03:21:07,19.0,7.85,25.57,67.14,-71.7,fair,True
+P1_1047822,phase1_listing,Q. Hoàng Mai,P. Thịnh Liệt,73.0,,2025-10-03 03:20:46,12.9,6.53,14.88,27.97,-53.9,fair,True
+P1_1436945,phase1_listing,Q. Hà Đông,P. Phú La,77.0,6.0,2025-12-05 13:21:02,4.8,11.06,18.55,33.11,-85.5,UNDERPRICED,True
+P1_1437933,phase1_listing,Q. Hà Đông,P. Văn Quán,155.0,,2025-11-05 20:20:15,5.95,5.84,21.35,52.55,-88.7,fair,True
+P1_1078050,phase1_listing,Q. Thanh Xuân,P. Khương Trung,52.0,7.0,2025-12-03 02:21:58,21.0,8.98,15.12,25.19,-16.6,fair,True
+P1_1229611,phase1_listing,,X. Vĩnh Quỳnh,62.0,,2025-10-04 00:22:17,6.2,3.8,10.01,25.43,-75.6,fair,True
+P1_1440575,phase1_listing,Q. Hoàng Mai,P. Định Công,35.0,4.0,2025-12-05 10:21:00,6.6,3.49,6.15,13.24,-50.2,fair,True
+P1_1059678,phase1_listing,,P. Vĩnh Hưng,38.0,4.0,2025-12-03 02:22:24,5.9,3.25,5.98,12.54,-53.0,fair,True
+P1_1075598,phase1_listing,Q. Hà Đông,P. Mộ Lao,65.0,,2025-12-03 02:21:30,17.86,6.02,14.18,31.43,-43.2,fair,True
+P1_1084945,phase1_listing,Q. Đống Đa,P. Ô Chợ Dừa,50.0,4.0,2025-12-03 03:21:41,21.0,5.15,10.51,24.18,-13.2,fair,True
+P1_1064889,phase1_listing,,P. Chương Dương Độ,37.0,,2025-10-03 04:21:09,5.75,3.34,6.1,10.78,-46.6,fair,True
+P1_1447303,phase1_listing,,X. Thạch Hòa,180.0,,2025-11-06 19:20:31,10.5,6.36,23.81,43.72,-76.0,fair,True
+P1_1448012,phase1_listing,,P. Trung LiệT,50.0,5.0,2025-10-05 04:23:14,8.0,4.32,9.62,17.24,-53.6,fair,True
+P1_1083599,phase1_listing,Q. Cầu Giấy,P. Mai Dịch,341.0,10.0,2025-12-03 02:22:38,290.0,21.96,61.31,232.13,24.9,OVERPRICED,True
+P1_1097961,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,72.0,3.0,2025-10-03 03:21:54,15.0,5.28,11.47,29.16,-48.6,fair,True
+P1_1074079,phase1_listing,Q. Đống Đa,P. Trung Liệt,26.0,,2025-12-03 03:21:44,7.0,3.52,7.07,12.63,-44.6,fair,True
+P1_1461734,phase1_listing,Q. Thanh Xuân,P. Khương Đình,68.0,,2025-10-05 11:20:14,12.3,6.5,12.88,27.91,-55.9,fair,True
+P1_1463020,phase1_listing,Q. Thanh Xuân,P. Khương Trung,110.0,16.0,2025-11-05 11:20:44,8.3,13.85,31.81,57.14,-85.5,UNDERPRICED,True
+P1_1465953,phase1_listing,H. Phú Xuyên,X. Tân Dân,140.0,,2025-12-06 17:21:42,4.1,6.98,23.75,33.54,-87.8,UNDERPRICED,True
+P1_1467524,phase1_listing,Q. Tây Hồ,P. Xuân La,50.0,7.0,2025-12-06 17:20:54,215.0,8.25,16.33,28.75,647.8,STRONGLY_OVER,True
+P1_1058573,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,33.2,5.0,2025-12-03 03:21:22,8.1,4.31,6.74,11.34,-28.6,fair,True
+P1_1078679,phase1_listing,Q. Cầu Giấy,P. Trung Hòa,80.0,6.0,2025-12-03 02:22:05,29.0,12.88,22.85,44.34,-34.6,fair,True
+P1_1473722,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,30.0,5.0,2025-12-06 17:20:43,7.95,4.2,6.68,9.68,-17.9,fair,True
+P1_1476743,phase1_listing,Q. Cầu Giấy,P. Quan Hoa,78.0,4.0,2025-10-05 03:20:25,22.0,8.75,20.25,30.84,-28.7,fair,True
+P1_1479447,phase1_listing,Q. Thanh Xuân,P. Kim Giang,119.0,8.0,2025-10-05 20:20:18,29.5,18.13,34.09,56.93,-48.2,fair,True
+P1_1113875,phase1_listing,Q. Ba Đình,P. Trúc Bạch,30.0,4.0,2025-10-03 02:21:16,18.0,3.35,6.62,11.91,51.2,STRONGLY_OVER,True
+P1_1480876,phase1_listing,Q. Hai Bà Trưng,P. ĐốNg MáC,52.0,,2025-12-05 01:20:19,0.9,5.02,11.24,22.25,-96.0,UNDERPRICED,True
+P1_1481988,phase1_listing,Q. Đống Đa,P. LáNg ThượNg,42.0,4.0,2025-10-05 07:21:44,15.8,3.76,8.38,20.18,-21.7,fair,True
+P1_1064418,phase1_listing,Q. Đống Đa,P. Hàng Bột,80.0,8.0,2025-10-03 03:21:25,30.0,14.38,24.4,46.81,-35.9,fair,True
+P1_1484052,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Bắc,252.0,3.0,2025-10-05 09:21:43,83.0,14.45,47.87,120.82,-31.3,fair,True
+P1_1486259,phase1_listing,Q. Nam Từ Liêm,P. Tây Mỗ,90.0,,2025-12-06 17:22:21,5.3,4.86,15.22,28.87,-81.6,fair,True
+P1_1487460,phase1_listing,Q. Hà Đông,P. Kiến Hưng,75.0,1.0,2025-12-05 08:21:53,3.38,5.97,12.08,26.26,-87.1,UNDERPRICED,True
+P1_1487657,phase1_listing,Q. Hà Đông,P. La Khê,127.0,,2025-11-05 01:20:24,17.2,7.51,20.36,49.45,-65.2,fair,True
+P1_1109372,phase1_listing,Q. Long Biên,P. Giang Biên,30.0,,2025-10-03 03:20:49,4.9,3.45,5.59,9.87,-50.4,fair,True
+P1_1117192,phase1_listing,H. Thanh Trì,X. Thanh Liệt,36.0,,2025-10-03 03:22:20,6.9,3.58,5.68,9.41,-26.7,fair,True
+P1_1060237,phase1_listing,Q. Cầu Giấy,P. Nghĩa Đô,40.0,6.0,2025-10-03 05:21:52,13.6,6.46,12.86,26.98,-49.6,fair,True
+P1_1207895,phase1_listing,,X. An Thượng,42.0,4.0,2025-11-04 03:22:05,3.99,3.35,6.3,14.24,-72.0,fair,True
+P1_1495413,phase1_listing,Q. Đống Đa,P. Văn Chương,36.0,6.0,2025-10-05 09:21:50,7.9,4.9,9.4,18.07,-56.3,fair,True
+P1_1047302,phase1_listing,H. Thanh Trì,,52.0,,2025-10-03 03:22:21,7.0,5.61,11.72,21.93,-68.1,fair,True
+P1_1098003,phase1_listing,Q. Hai Bà Trưng,P. Bạch Mai,38.0,4.0,2025-10-03 03:22:03,7.3,3.83,7.41,16.89,-56.8,fair,True
+P1_1507216,phase1_listing,Q. Đống Đa,P. Thổ Quan,50.0,7.0,2025-10-05 07:21:52,13.9,8.46,17.24,33.21,-58.1,fair,True
+P1_1067764,phase1_listing,Q. Hai Bà Trưng,P. Minh Khai,88.0,,2025-10-03 03:20:48,8.2,9.66,18.85,51.57,-84.1,UNDERPRICED,True
+P1_1059563,phase1_listing,Q. Hai Bà Trưng,P. Quỳnh Lôi,104.0,,2025-10-03 05:20:58,32.0,9.86,25.65,61.15,-47.7,fair,True
+P1_1073658,phase1_listing,,P. Thanh NhàN,46.0,,2025-12-03 02:22:13,4.6,3.84,7.66,15.54,-70.4,fair,True
+P1_1517172,phase1_listing,Q. Hoàng Mai,P. Mai Động,55.0,,2025-12-06 17:22:04,1.0,5.47,11.04,24.59,-95.9,UNDERPRICED,True
+P1_1090021,phase1_listing,,P. VĩNh Tuy,55.0,5.0,2025-10-03 04:21:13,8.45,4.67,10.52,19.57,-56.8,fair,True
+P1_1525151,phase1_listing,Q. Hà Đông,P. Yên Nghĩa,75.0,5.0,2025-12-05 01:20:14,13.0,6.1,15.63,26.42,-50.8,fair,True
+P1_1075806,phase1_listing,Q. Ba Đình,P. Liễu Giai,36.0,5.0,2025-12-03 03:21:48,10.2,3.93,7.35,12.4,-17.8,fair,True
+P1_1064390,phase1_listing,Q. Đống Đa,P. Quốc Tử Giám,260.0,,2025-10-03 02:21:39,65.0,9.81,46.84,135.27,-51.9,fair,True
+P1_1527938,phase1_listing,,,53.0,,2025-10-05 11:20:13,11.0,5.4,12.01,25.0,-56.0,fair,True
+P1_1103947,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,30.0,6.0,2025-12-03 03:21:42,8.5,4.41,7.08,15.45,-45.0,fair,True
+P1_1530973,phase1_listing,H. Thanh Trì,X. Tả Thanh Oai,50.0,,2025-12-05 01:20:20,1.69,3.47,7.09,13.37,-87.4,UNDERPRICED,True
+P1_1531401,phase1_listing,H. Thường Tín,X. Tự Nhiên,95.0,2.0,2025-12-05 05:21:07,4.9,6.84,17.56,33.41,-85.3,UNDERPRICED,True
+P1_1044865,phase1_listing,Q. Hai Bà Trưng,P. Lê Đại Hành,199.0,,2025-12-03 02:22:08,145.0,9.56,30.11,70.35,106.1,STRONGLY_OVER,True
+P1_1107977,phase1_listing,Q. Ba Đình,P. Thành Công,50.0,,2025-12-03 02:22:37,5.2,4.94,9.87,26.61,-80.5,fair,True
+P1_1537910,phase1_listing,Q. Đống Đa,P. LáNg ThượNg,42.0,4.0,2025-10-05 07:21:43,15.8,3.76,8.38,20.18,-21.7,fair,True
+P1_1540329,phase1_listing,Q. Nam Từ Liêm,P. Trung Văn,36.0,5.0,2025-12-05 08:20:18,5.5,3.59,6.37,10.6,-48.1,fair,True
+P1_1541058,phase1_listing,Q. Tây Hồ,P. Bưởi,40.0,6.0,2025-12-05 22:20:57,9.5,6.23,10.9,26.33,-63.9,fair,True
+P1_1541088,phase1_listing,Q. Nam Từ Liêm,P. Đại Mỗ,115.0,12.0,2025-12-06 17:22:25,12.86,12.9,24.81,43.63,-70.5,UNDERPRICED,True
+P1_1541192,phase1_listing,Q. Cầu Giấy,P. Nghĩa Đô,44.0,6.0,2025-12-06 17:21:05,15.5,7.36,14.9,32.49,-52.3,fair,True
+P1_1545049,phase1_listing,Q. Nam Từ Liêm,P. Phương Canh,90.0,,2025-12-06 17:20:56,18.9,8.38,19.89,33.17,-43.0,fair,True
+P1_1045371,phase1_listing,Q. Tây Hồ,P. Bưởi,100.0,,2025-12-03 02:21:08,12.5,8.99,20.03,45.95,-72.8,fair,True
+P1_1546720,phase1_listing,Q. Cầu Giấy,P. Quan Hoa,66.0,4.0,2025-10-05 13:20:26,13.0,6.87,16.86,30.72,-57.7,fair,True
+P1_1113054,phase1_listing,Q. Hai Bà Trưng,P. Ngô Thì Nhậm,48.5,,2025-12-03 02:22:01,40.0,4.66,11.02,21.12,89.4,STRONGLY_OVER,True
+P1_1098917,phase1_listing,H. Thanh Trì,X. Hữu Hòa,65.0,,2025-12-03 02:21:42,9.2,3.72,9.36,18.0,-48.9,fair,True
+P1_1045267,phase1_listing,,P. Tương Mai,48.0,5.0,2025-12-03 02:21:08,16.0,4.1,8.58,17.72,-9.7,fair,True
+P1_1050095,phase1_listing,,X. Đông Ngạc,57.0,,2025-12-03 02:20:51,4.9,3.77,9.02,17.52,-72.0,fair,True
+P1_1051191,phase1_listing,Q. Cầu Giấy,P. Dịch Vọng Hậu,55.0,5.0,2025-12-03 03:21:45,6.5,6.6,14.65,34.25,-81.0,UNDERPRICED,True
+P1_1068725,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,150.0,,2025-12-03 02:21:09,85.0,8.22,24.75,62.18,36.7,STRONGLY_OVER,True
+P1_1558103,phase1_listing,Q. Đống Đa,P. Ô Chợ DừA,30.0,6.0,2025-10-05 09:21:56,8.0,3.82,6.64,13.09,-38.9,fair,True
+P1_1097450,phase1_listing,,P. Quang Trung,52.0,,2025-10-03 04:21:07,6.85,5.16,11.67,23.46,-70.8,fair,True
+P1_1077334,phase1_listing,Q. Hoàng Mai,P. Định Công,34.0,,2025-12-03 03:21:28,6.2,3.45,6.24,11.05,-43.9,fair,True
+P1_1067887,phase1_listing,Q. Cầu Giấy,P. Trung Hòa,65.0,3.0,2025-10-03 02:20:54,16.5,6.11,13.42,38.0,-56.6,fair,True
+P1_1113665,phase1_listing,Q. Tây Hồ,P. Quảng An,194.0,9.0,2025-12-03 03:21:20,72.0,18.52,48.55,96.88,-25.7,fair,True
+P1_1562133,phase1_listing,Q. Hà Đông,P. Hà Cầu,62.0,,2025-12-05 08:20:31,3.65,5.66,12.39,26.05,-86.0,UNDERPRICED,True
+P1_1562449,phase1_listing,Q. Nam Từ Liêm,P. Mỹ Đình 1,90.0,1.0,2025-10-05 12:21:09,5.68,6.96,14.46,31.47,-82.0,UNDERPRICED,True
+P1_1563609,phase1_listing,Q. Ba Đình,P. Cống Vị,80.0,1.0,2025-12-05 05:20:38,6.5,6.34,16.94,40.25,-83.9,fair,True
+P1_1048266,phase1_listing,,P. VĩNh Tuy,29.0,4.0,2025-12-03 02:21:24,7.5,2.63,4.62,7.7,-2.6,fair,True
+P1_1082355,phase1_listing,Q. Đống Đa,P. Phương Liên,32.0,5.0,2025-12-03 03:21:46,5.95,4.24,7.11,14.94,-60.2,fair,True
+P1_1569438,phase1_listing,Q. Hoàng Mai,P. Định Công,35.0,4.0,2025-12-05 10:20:53,6.6,3.49,6.15,13.24,-50.2,fair,True
+P1_1569498,phase1_listing,,,83.0,,2025-10-05 23:21:50,5.6,7.32,16.16,36.32,-84.6,UNDERPRICED,True
+P1_1569706,phase1_listing,Q. Nam Từ Liêm,P. Đại Mỗ,32.0,5.0,2025-12-05 01:20:11,5.3,3.12,5.37,8.75,-39.4,fair,True
+P1_1114699,phase1_listing,Q. Ba Đình,P. Ngọc Khánh,102.0,5.0,2025-12-03 02:22:37,48.0,11.03,27.84,72.52,-33.8,fair,True
+P1_1055355,phase1_listing,,P. Khâm Thiên,20.2,2.0,2025-10-03 02:21:25,3.5,2.24,3.98,10.3,-66.0,fair,True
+P1_1572660,phase1_listing,Q. Long Biên,P. Phúc Đồng,31.0,5.0,2025-12-06 17:21:05,6.15,3.11,4.79,8.88,-30.7,fair,True
+P1_1574183,phase1_listing,Q. Đống Đa,P. Trung LiệT,33.0,5.0,2025-10-05 07:21:45,9.0,3.3,7.52,11.98,-24.9,fair,True
+P1_1048068,phase1_listing,,P. QuỳNh Lôi,30.0,5.0,2025-12-03 02:20:55,5.99,2.78,5.01,7.21,-16.9,fair,True
+P1_1064322,phase1_listing,Q. Đống Đa,P. Khâm Thiên,31.0,4.0,2025-12-03 03:21:47,7.5,3.09,5.62,14.36,-47.8,fair,True
+P1_1086691,phase1_listing,Q. Nam Từ Liêm,P. Mỹ Đình 2,35.0,,2025-10-03 05:21:34,6.75,4.39,6.94,13.36,-49.5,fair,True
+P1_1096856,phase1_listing,Q. Ba Đình,P. Trúc Bạch,50.0,,2025-12-03 03:21:50,19.0,5.17,12.08,35.83,-47.0,fair,True
+P1_1069479,phase1_listing,,P. Đại Kim,31.0,5.0,2025-10-03 02:21:13,6.4,3.81,5.66,10.22,-37.4,fair,True
+P1_1100179,phase1_listing,Q. Hoàn Kiếm,P. Hàng Bạc,160.0,,2025-12-03 02:22:01,0.12,6.72,37.22,88.06,-99.9,UNDERPRICED,True
+P1_1098728,phase1_listing,Q. Hà Đông,P. Dương Nội,242.0,,2025-12-03 04:20:48,56.0,6.19,31.63,87.63,-36.1,fair,True
+P1_1111943,phase1_listing,Q. Đống Đa,P. Khâm Thiên,35.0,,2025-12-03 03:21:40,5.19,3.87,6.67,16.44,-68.4,fair,True
+P1_1599862,phase1_listing,H. Sóc Sơn,X. Minh Phú,660.0,,2025-12-05 15:20:18,0.01,9.79,51.99,135.09,-100.0,UNDERPRICED,True
+P1_1101076,phase1_listing,Q. Bắc Từ Liêm,,31.0,,2025-10-03 03:22:01,5.8,3.53,5.96,8.91,-34.9,fair,True
+P1_1076800,phase1_listing,Q. Tây Hồ,,112.0,5.0,2025-10-03 04:21:05,51.0,7.88,18.56,43.04,18.5,OVERPRICED,True
+P1_1097236,phase1_listing,Q. Hà Đông,P. Phúc La,200.0,,2025-12-03 04:20:54,36.0,7.93,28.42,55.17,-34.7,fair,True
+P1_1097904,phase1_listing,Q. Cầu Giấy,P. Mai Dịch,81.0,,2025-12-03 02:22:34,6.3,9.18,18.01,38.29,-83.5,UNDERPRICED,True
+P1_1611720,phase1_listing,H. Đông Anh,TT. Đông Anh,55.0,,2025-10-05 06:20:29,6.0,4.78,8.41,14.9,-59.7,fair,True
+P1_1613713,phase1_listing,H. Gia Lâm,X. Dương Xá,30.0,,2025-12-05 01:20:14,1.92,2.61,4.24,6.58,-70.8,UNDERPRICED,True
+P1_1117890,phase1_listing,Q. Thanh Xuân,P. Khương Trung,40.0,,2025-12-03 03:21:29,7.0,4.7,8.91,16.36,-57.2,fair,True
+P1_1617706,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,52.0,7.0,2025-12-06 17:21:10,13.5,8.94,14.49,23.8,-43.3,fair,True
+P1_1082842,phase1_listing,H. Hoài Đức,X. Vân Canh,31.0,5.0,2025-10-03 05:22:09,5.28,2.69,4.2,5.95,-11.2,fair,True
+P1_1081810,phase1_listing,Q. Tây Hồ,P. Bưởi,270.0,,2025-12-03 02:22:03,86.0,10.73,64.92,130.58,-34.1,fair,True
+P1_1619993,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Trung,98.0,,2025-11-05 11:20:31,7.5,9.96,24.32,38.85,-80.7,UNDERPRICED,True
+P1_1082016,phase1_listing,Q. Ba Đình,P. Điện Biên,33.5,,2025-12-03 02:22:36,25.0,4.08,7.1,12.2,104.8,STRONGLY_OVER,True
+P1_1075176,phase1_listing,Q. Ba Đình,P. Kim Mã,32.0,3.0,2025-12-03 03:22:03,9.5,3.23,6.75,11.94,-20.4,fair,True
+P1_1106784,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,44.0,,2025-12-03 03:21:49,6.0,4.82,7.98,18.73,-68.0,fair,True
+P1_1044268,phase1_listing,Q. Đống Đa,P. Văn Chương,60.0,3.0,2025-10-03 05:21:40,7.8,4.33,9.64,24.22,-67.8,fair,True
+P1_1072866,phase1_listing,Q. Đống Đa,P. Khương Thượng,84.9,,2025-10-03 03:21:07,25.5,8.18,19.42,49.85,-48.8,fair,True
+P1_1640067,phase1_listing,Q. Ba Đình,P. Ngọc Hà,100.0,5.0,2025-12-05 06:20:16,25.0,10.3,22.42,44.12,-43.3,fair,True
+P1_1088188,phase1_listing,Q. Ba Đình,P. Điện Biên,210.0,,2025-10-03 02:21:15,110.0,9.28,33.77,81.43,35.1,STRONGLY_OVER,True
+P1_1085846,phase1_listing,Q. Đống Đa,P. Láng Thượng,50.0,,2025-12-03 03:21:41,18.5,6.03,11.85,28.11,-34.2,fair,True
+P1_1056846,phase1_listing,Q. Long Biên,P. Ngọc Lâm,55.7,,2025-12-03 02:21:32,0.27,5.17,10.24,22.97,-98.8,UNDERPRICED,True
+P1_1051392,phase1_listing,,P. Lĩnh Nam,35.0,5.0,2025-10-03 04:21:18,5.4,3.25,5.81,12.37,-56.3,fair,True
+P1_1090521,phase1_listing,Q. Long Biên,P. Thạch Bàn,342.0,5.0,2025-10-03 03:20:49,5.48,5.43,29.6,103.18,-94.7,fair,True
+P1_1080463,phase1_listing,Q. Hoàng Mai,P. Hoàng Liệt,45.0,5.0,2025-10-03 03:20:46,4.0,4.52,9.01,20.95,-80.9,UNDERPRICED,True
+P1_1048343,phase1_listing,Q. Đống Đa,P. Kim Liên,49.0,3.0,2025-12-03 03:21:40,7.9,4.59,9.48,23.26,-66.0,fair,True
+P1_1048710,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,50.0,3.0,2025-10-03 05:21:14,7.7,4.8,9.44,21.47,-64.1,fair,True
+P1_1042948,phase1_listing,,P. Minh Khai,45.0,,2025-10-03 04:21:17,7.0,4.75,9.2,19.79,-64.6,fair,True
+P1_1099949,phase1_listing,Q. Thanh Xuân,P. Khương Đình,57.0,,2025-12-03 03:21:17,19.8,5.82,11.74,22.34,-11.4,fair,True
+P1_1657500,phase1_listing,Q. Thanh Xuân,P. Khương Trung,64.0,,2025-10-05 11:20:13,13.8,6.29,13.3,31.86,-56.7,fair,True
+P1_1052746,phase1_listing,Q. Cầu Giấy,P. Yên Hòa,50.0,,2025-10-03 06:20:53,21.5,6.78,13.6,31.93,-32.7,fair,True
+P1_1053275,phase1_listing,Q. Hà Đông,P. Hà Cầu,45.0,,2025-12-03 02:21:26,12.0,4.58,9.51,19.78,-39.3,fair,True
+P1_1048714,phase1_listing,Q. Đống Đa,P. Trung Liệt,60.0,,2025-10-03 03:22:12,4.19,7.1,17.66,49.4,-91.5,UNDERPRICED,True
+P1_1665622,phase1_listing,Q. Long Biên,P. Long Biên,56.0,7.0,2025-12-05 05:20:57,16.8,7.57,14.34,26.92,-37.6,fair,True
+P1_1117243,phase1_listing,Q. Đống Đa,P. Văn Chương,20.0,,2025-12-03 02:22:11,4.8,2.5,4.43,9.02,-46.8,fair,True
+P1_1067303,phase1_listing,Q. Đống Đa,P. Ô Chợ Dừa,71.0,,2025-10-03 05:22:03,17.99,6.42,19.58,39.83,-54.8,fair,True
+P1_1668947,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,31.0,4.0,2025-12-05 10:20:52,7.0,3.69,6.12,10.15,-31.0,fair,True
+P1_1090588,phase1_listing,Q. Thanh Xuân,P. Khương Mai,38.5,,2025-12-03 03:21:29,8.4,4.54,9.34,17.36,-51.6,fair,True
+P1_1669620,phase1_listing,Q. Hà Đông,P. Kiến Hưng,32.0,5.0,2025-12-05 01:20:19,7.0,3.4,5.31,8.63,-18.9,fair,True
+P1_1116549,phase1_listing,Q. Tây Hồ,P. Quảng An,150.0,,2025-12-03 02:21:29,55.0,10.68,31.74,66.7,-17.5,fair,True
+P1_1048900,phase1_listing,,X. Tây Mỗ,52.0,5.0,2025-12-03 02:21:03,6.65,4.71,9.52,16.42,-59.5,fair,True
+P1_1675536,phase1_listing,Q. Long Biên,P. Ngọc Thụy,73.0,3.0,2025-12-05 05:20:23,8.5,4.52,9.23,25.91,-67.2,fair,True
+P1_1055180,phase1_listing,,P. Ngọc Thụy,41.0,,2025-12-03 02:21:41,5.75,4.0,7.61,15.43,-62.7,fair,True
+P1_1678616,phase1_listing,Q. Đống Đa,P. Văn Chương,36.0,6.0,2025-10-05 09:21:55,7.9,5.33,9.43,18.57,-57.5,fair,True
+P1_1086575,phase1_listing,Q. Hoàn Kiếm,P. Hàng Mã,30.0,,2025-12-03 02:21:36,29.0,3.3,9.29,22.59,28.4,OVERPRICED,True
+P1_1049354,phase1_listing,,P. Thanh NhàN,62.0,4.0,2025-12-03 02:21:30,7.0,4.21,8.36,19.16,-63.5,fair,True
+P1_1115701,phase1_listing,Q. Tây Hồ,P. Phú Thượng,32.0,4.0,2025-12-03 02:21:02,4.6,3.45,6.04,10.05,-54.2,fair,True
+P1_1103285,phase1_listing,Q. Tây Hồ,P. Xuân La,31.0,5.0,2025-12-03 03:21:21,7.6,3.99,5.84,11.26,-32.5,fair,True
+P1_1686970,phase1_listing,Q. Hà Đông,P. Mộ Lao,78.0,7.0,2025-10-05 14:20:33,18.0,12.18,20.99,37.31,-51.8,fair,True
+P1_1688489,phase1_listing,Q. Hai Bà Trưng,P. ĐồNg Nhân,27.0,4.0,2025-12-05 05:21:09,6.8,2.53,4.62,8.93,-23.9,fair,True
+P1_1689425,phase1_listing,Q. Nam Từ Liêm,P. Đại Mỗ,32.0,5.0,2025-11-05 13:20:16,5.3,3.3,5.68,9.26,-42.8,fair,True
+P1_1088826,phase1_listing,Q. Tây Hồ,P. Xuân La,155.0,,2025-12-03 03:21:30,7.0,5.79,24.22,57.72,-87.9,fair,True
+P1_1108868,phase1_listing,Q. Ba Đình,P. Ngọc Khánh,57.0,4.0,2025-12-03 03:21:46,15.6,5.5,11.93,36.42,-57.2,fair,True
+P1_1691083,phase1_listing,Q. Long Biên,P. Thạch Bàn,55.0,,2025-12-06 17:22:03,3.25,4.03,9.9,17.9,-81.8,UNDERPRICED,True
+P1_1046659,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,100.0,,2025-12-03 02:22:17,58.0,8.39,17.25,36.73,57.9,STRONGLY_OVER,True
+P1_1066523,phase1_listing,Q. Hoàng Mai,P. Mai Động,33.3,5.0,2025-10-03 05:21:32,6.95,3.98,5.93,10.35,-32.9,fair,True
+P1_1079521,phase1_listing,Q. Long Biên,P. Ngọc Lâm,85.0,4.0,2025-12-03 03:21:25,17.5,7.62,15.59,37.02,-52.7,fair,True
+P1_1071300,phase1_listing,Q. Thanh Xuân,P. Nhân Chính,84.0,,2025-12-03 02:22:05,32.0,8.52,20.17,42.43,-24.6,fair,True
+P1_1701026,phase1_listing,Q. Hai Bà Trưng,P. PhạM ĐìNh Hổ,70.0,5.0,2025-11-06 21:20:21,5.18,5.77,17.32,32.03,-83.8,UNDERPRICED,True
+P1_1097015,phase1_listing,Q. Hoàng Mai,P. Hoàng Văn Thụ,72.0,,2025-12-03 03:21:42,10.08,5.81,13.95,28.78,-65.0,fair,True
+P1_1084862,phase1_listing,,P. Kiến Hưng,60.0,4.0,2025-12-03 02:22:25,14.0,5.04,10.91,23.43,-40.2,fair,True
+P1_1706746,phase1_listing,Q. Đống Đa,P. Ô Chợ DừA,30.0,6.0,2025-11-05 14:20:31,8.0,3.89,6.76,13.32,-39.9,fair,True
+P1_1708141,phase1_listing,Q. Thanh Xuân,P. Thanh Xuân Trung,64.0,6.0,2025-10-05 14:20:24,13.0,8.17,16.97,36.99,-64.9,fair,True
+P1_1068348,phase1_listing,Q. Hai Bà Trưng,P. Vĩnh Tuy,55.0,5.0,2025-12-03 03:21:36,15.5,5.54,11.96,27.7,-44.0,fair,True
+P1_1713377,phase1_listing,H. Đông Anh,X. Cổ Loa,60.0,1.0,2025-10-05 12:21:18,1.7,3.52,10.37,17.29,-90.2,UNDERPRICED,True
+P1_1090984,phase1_listing,,P. Phú Lương,32.0,5.0,2025-12-03 02:22:28,4.35,3.08,4.9,7.44,-41.6,fair,True
+P1_1070909,phase1_listing,Q. Đống Đa,P. Khương Thượng,45.0,,2025-10-03 02:21:07,19.9,5.21,10.31,24.8,-19.8,fair,True
+P1_1060137,phase1_listing,Q. Hoàn Kiếm,P. Cửa Đông,65.0,5.0,2025-12-03 03:21:28,16.0,4.61,20.15,55.39,-71.1,fair,True
+P1_1052094,phase1_listing,,P. CáT Linh,60.0,,2025-10-03 02:21:10,4.48,4.83,11.07,20.95,-78.6,UNDERPRICED,True
+P1_1075052,phase1_listing,Q. Hai Bà Trưng,P. Bạch Đằng,21.0,3.0,2025-10-03 03:21:25,4.49,2.5,4.54,11.47,-60.9,fair,True
+P1_1069711,phase1_listing,,P. Biên Giang,45.0,3.0,2025-12-03 02:21:07,3.35,2.84,7.48,15.48,-78.4,fair,True
+P1_1095414,phase1_listing,Q. Long Biên,P. Ngọc Lâm,42.0,,2025-12-03 02:21:32,8.8,4.21,7.85,16.16,-45.5,fair,True
+P1_1095815,phase1_listing,H. Gia Lâm,X. Cổ Bi,97.1,2.0,2025-12-03 03:21:10,0.12,6.09,11.87,22.7,-99.5,UNDERPRICED,True
+P1_1108138,phase1_listing,H. Hoài Đức,X. Vân Canh,31.0,5.0,2025-10-03 05:22:10,5.28,2.69,4.2,5.95,-11.2,fair,True
+P1_1106019,phase1_listing,Q. Hoàng Mai,P. Giáp Bát,46.0,5.0,2025-12-03 03:21:41,5.8,4.32,8.91,18.83,-69.2,fair,True
+P1_1107636,phase1_listing,Q. Hai Bà Trưng,P. Trương Định,35.0,5.0,2025-12-03 03:21:39,5.5,3.77,6.6,13.35,-58.8,fair,True
+P1_1061327,phase1_listing,,P. QuỳNh Lôi,35.0,5.0,2025-10-03 04:21:15,8.5,2.78,5.44,10.08,-15.7,fair,True
+P1_1733216,phase1_listing,Q. Hà Đông,P. Kiến Hưng,78.0,,2025-12-05 10:20:21,3.4,7.12,16.24,29.11,-88.3,UNDERPRICED,True
+P1_1087965,phase1_listing,Q. Hoàn Kiếm,P. Hàng Mã,220.0,,2025-12-03 02:22:11,155.0,10.9,77.02,138.99,11.5,OVERPRICED,True
+P1_1065464,phase1_listing,Q. Hai Bà Trưng,P. Ngô Thì Nhậm,180.0,,2025-12-03 02:22:32,159.0,10.39,35.48,69.93,127.4,STRONGLY_OVER,True
+P1_1740081,phase1_listing,Q. Hà Đông,P. La Khê,55.0,7.0,2025-12-05 10:20:11,19.0,8.76,15.35,28.28,-32.8,fair,True
+P1_1741021,phase1_listing,Q. Hà Đông,P. Phúc La,70.0,5.0,2025-12-05 15:20:12,18.0,6.38,16.23,33.86,-46.8,fair,True
+P1_1055045,phase1_listing,Q. Ba Đình,P. Trúc Bạch,86.0,,2025-10-03 05:21:01,0.3,7.45,24.94,54.2,-99.5,UNDERPRICED,True
+P1_1089684,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,55.0,,2025-10-03 05:21:58,8.15,5.82,11.2,26.52,-69.3,fair,True
+P1_1064546,phase1_listing,Q. Bắc Từ Liêm,P. Minh Khai,60.0,7.0,2025-10-03 03:22:13,12.5,9.27,15.04,25.59,-51.2,fair,True
+P1_1113481,phase1_listing,Q. Thanh Xuân,P. Khương Trung,86.0,,2025-12-03 03:21:18,20.6,8.37,19.02,42.91,-52.0,fair,True
+P1_1099596,phase1_listing,,P. Ngọc Thụy,41.0,4.0,2025-10-03 04:21:16,5.4,3.71,6.88,14.54,-62.9,fair,True
+P1_1084033,phase1_listing,Q. Nam Từ Liêm,P. Mễ Trì,150.0,7.0,2025-12-03 03:21:38,29.7,13.17,33.9,64.8,-54.2,fair,True
+P1_1043049,phase1_listing,Q. Long Biên,P. Gia Thụy,51.0,,2025-10-03 03:20:45,12.3,5.39,10.9,21.64,-43.2,fair,True
+P1_1756243,phase1_listing,Q. Hai Bà Trưng,P. Thanh Lương,120.0,3.0,2025-10-05 14:20:38,43.5,9.68,23.32,45.13,-3.6,fair,True
+P1_1100999,phase1_listing,H. Thanh Trì,X. Thanh Liệt,30.0,5.0,2025-12-03 03:22:54,6.9,2.89,5.05,8.12,-15.0,fair,True
+P1_1110679,phase1_listing,Q. Hai Bà Trưng,P. Đồng Nhân,63.0,,2025-10-03 05:20:50,10.2,6.12,15.98,41.06,-75.2,fair,True
+P1_1763779,phase1_listing,Q. Hoàn Kiếm,P. HàNg BạC,350.0,3.0,2025-12-05 05:20:47,255.0,12.4,54.27,135.48,88.2,STRONGLY_OVER,True
+P1_1763854,phase1_listing,Q. Hà Đông,,65.0,,2025-12-05 01:20:18,3.63,4.98,13.17,27.67,-86.9,UNDERPRICED,True
+P1_1084302,phase1_listing,Q. Hai Bà Trưng,P. Cầu Dền,23.0,,2025-12-03 03:21:28,4.5,3.17,5.38,10.33,-56.4,fair,True
+P1_1095649,phase1_listing,Q. Hai Bà Trưng,P. Thanh Nhàn,32.0,,2025-12-03 03:21:31,8.5,3.78,6.2,11.98,-29.1,fair,True
+P1_1048750,phase1_listing,Q. Bắc Từ Liêm,,100.0,,2025-12-03 02:22:38,12.8,7.63,15.68,36.48,-64.9,fair,True
+P1_1767581,phase1_listing,Q. Bắc Từ Liêm,,163.0,4.0,2025-10-05 13:20:32,48.0,12.32,37.12,91.37,-47.5,fair,True
+P1_1768013,phase1_listing,Q. Hai Bà Trưng,P. Minh Khai,35.0,5.0,2025-12-06 17:20:20,7.1,3.9,6.76,14.08,-49.6,fair,True
+P1_1770984,phase1_listing,Q. Cầu Giấy,P. Trung Hòa,69.0,5.0,2025-11-05 02:20:16,26.0,8.43,21.26,51.81,-49.8,fair,True
+P1_1218895,phase1_listing,,P. Ô Chợ DừA,43.0,5.0,2025-11-04 00:21:44,15.3,3.77,7.77,14.08,8.7,OVERPRICED,True
+P1_1773214,phase1_listing,Q. Ba Đình,P. Cống Vị,25.0,2.0,2025-12-05 09:21:16,5.9,2.38,4.53,11.15,-47.1,fair,True
+P1_1116564,phase1_listing,Q. Hai Bà Trưng,P. Ngô Thì Nhậm,235.0,,2025-12-03 02:22:22,150.0,8.65,44.48,109.29,37.3,STRONGLY_OVER,True
+P1_1108291,phase1_listing,Q. Hai Bà Trưng,,101.0,,2025-12-03 03:21:38,23.0,7.83,21.48,76.7,-70.0,fair,True
+P1_1093211,phase1_listing,Q. Đống Đa,P. Thổ Quan,43.0,,2025-12-03 03:21:39,6.8,4.37,10.25,21.24,-68.0,fair,True
+P1_1318791,phase1_listing,Q. Tây Hồ,P. Quảng An,82.0,,2025-11-05 02:20:22,17.5,8.48,22.83,45.79,-61.8,fair,True
+P1_1463980,phase1_listing,Q. Ba Đình,P. CốNg Vị,40.0,7.0,2025-12-06 17:21:11,360.0,5.62,11.91,21.27,1592.6,STRONGLY_OVER,True

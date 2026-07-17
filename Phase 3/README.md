@@ -5,6 +5,18 @@ the price it would actually *clear* at, and flag its asking price as **over- / f
 with a calibrated confidence band. The dataset is weak for absolute valuation (asking prices only,
 tiny realized-sale sample) but strong for **relative mispricing**, so that is what Phase 3 delivers.
 
+> ### ⚠️ Read this first — headline numbers were revised by a real-time backtest (2026-07)
+> Sections 1–6.4 below were validated with **random GroupKFold**, which lets the model see the
+> future and flatters every metric. A **rolling-origin backtest** ([§6.5](#65-real-time-backtest--the-defensibility-test), `backtest_rolling_origin.py`)
+> re-measured everything as it would run in real time. The honest figures:
+> - **MedAPE ~21% overall (not 18%)** — and 27–37% in 2025 as the market drifts from the training pool.
+> - **v1's 80% interval coverage was an artifact** — it delivered only 67–77% under a time split. The
+>   fixed **v2 bands** (`train_phase3_intervals_v2.py`) hold **81.6–95.5%** coverage in real time.
+> - **The market rose +111% (hedonic index), not +136%** (raw median) — the gap was composition drift.
+>
+> **For decisions, use the v2 bands and [`MODEL_CARD.md`](MODEL_CARD.md), not the v1 tables below.**
+> The original sections are kept for the analysis narrative.
+
 ---
 
 ## 1. Dataset — merge of both sources
@@ -213,6 +225,67 @@ false-positive rate — exactly what a triage engine needs.
 
 ---
 
+## 6.5 Real-time backtest — the defensibility test
+
+Everything above uses **random GroupKFold**, and the index above was smoothed with a *centered* window
+over the whole timeline — both let the model peek at the future. But the model's whole pitch is
+temporal (deflate 2023–24, re-inflate into 2025–26), so it must be judged the way it would run: **train
+on the past, predict the future.** `backtest_rolling_origin.py` does exactly that — stand at origin
+month `T`, use only data ≤ `T` (model *and* index), predict SOLD+REVOKED of `T+1..T+3`, slide `T`
+quarterly across 2024-03→2025-09 — and pits five index variants against each other.
+
+### 6.5.1 Point accuracy is worse than random-fold said — honestly ~21%, drifting to 37%
+
+| origin (predict next 3 mo) | no-time | leaky (README §5) | causal nowcast | **hedonic nowcast** |
+|---|--:|--:|--:|--:|
+| 2024-03 | 19.5 | 18.9 | 19.0 | **18.9** |
+| 2024-09 | 24.9 | 25.2 | 25.8 | **25.6** |
+| 2024-12 | 32.2 | 34.3 | 35.3 | **33.4** |
+| 2025-06 | 32.0 | 27.2 | 27.5 | **27.5** |
+| 2025-09 | 43.9 | 37.3 | 37.0 | **36.3** |
+| **weighted overall** | 21.7 | 21.6 | 21.7 | **21.5** |
+
+Two lessons: **(a)** the real-time MedAPE is **~21%, and 27–37% once the market drifts** — the "18%"
+was random-fold optimism; **(b)** the time adjustment earns its keep exactly when the market has moved
+(2025-09: 43.9%→36.3%), and the **hedonic index wins** at almost every hard origin. The *leaky* variant
+(current README method) is within noise of the causal ones — so the look-ahead was in the **fold**, not
+the index; the index architecture is sound.
+
+### 6.5.2 The v1 80% band did NOT hold — and the fix that does (v2)
+
+Under a **temporal** calibration split, v1's CQR band covered only **67–77%** at most origins — the
+80.0% in §6.4 was a random-fold artifact. `backtest_cqr_fix.py` grids the fix (calibration window,
+recency weight, nominal level) and selects **split-conformal on a trailing window at nominal 90%**, the
+drift margin that clears 80% at every origin:
+
+| origin | v1 real-time coverage | **v2 real-time coverage** |
+|---|--:|--:|
+| 2024-03 | 76.3% | **87.7%** |
+| 2024-12 | 69.9% | 84.0% |
+| 2025-03 | 89.1% | 95.5% |
+| 2025-09 | 67.1% | **81.6%** |
+| **range** | **67–89% (mostly < 80)** ❌ | **81.6–95.5% (never < 80)** ✅ |
+
+`train_phase3_intervals_v2.py` is the production scorer. Honest cost: median band widens ×2.19→×4.5 —
+that width **is** the real drift uncertainty v1 hid. Result on inventory: AVAILABLE **81% fair / 10%
+over** (was 61% / 19%), UNKNOWN **82% fair**.
+
+### 6.5.3 Does the verdict survive index error? (sensitivity)
+
+The 2025–26 index rests on 20–50 rows/month, so `sensitivity_index_error.py` perturbs the late index by
+±20% and re-counts v2 flags:
+
+| index error | AVAILABLE `fair` | AVAILABLE `UNDERPRICED` | AVAILABLE `STRONGLY_OVER` |
+|---|--:|--:|--:|
+| −20% | 75.0% | 6.4% | 9.2% |
+| **0%** | **81.0%** | 8.9% | 5.1% |
+| +20% | 80.8% | 12.7% | 2.9% |
+
+**The `fair` verdict is robust (75–81% across ±20%); the *tails* are index-sensitive.** So: trust the
+`fair` flag; treat `UNDERPRICED`/`STRONGLY_OVER` on 2025+ listings as "review," not "confirmed."
+
+---
+
 ## 7. Insights
 
 1. **Available inventory is not ¾ over-priced — it's roughly fair once you credit the market.** The
@@ -258,8 +331,14 @@ python3 train_phase3_clearing.py
 # 3b. TIME-AWARE clearing model (market-index adjust)      -> *_predictions_timeadj.csv
 python3 train_phase3_clearing_time.py
 
-# 3c. PREDICTION INTERVALS (CQR, per-district coverage)    -> *_intervals.csv   [decision-grade; use these]
+# 3c. PREDICTION INTERVALS v1 (CQR, per-district; random-fold — see §6.5 caveat)
 python3 train_phase3_intervals.py
+
+# 3d. REAL-TIME BACKTEST (rolling-origin) + drift-proof CQR selection + PRODUCTION bands
+python3 backtest_rolling_origin.py        # real-time MedAPE + v1 coverage gap        (§6.5.1–2)
+python3 backtest_cqr_fix.py               # grid-select the drift-proof CQR config     (§6.5.2)
+python3 train_phase3_intervals_v2.py      # PRODUCTION bands -> *_intervals_v2.csv   [use these]
+python3 sensitivity_index_error.py        # index-error robustness table               (§6.5.3)
 
 # 4. Figures
 python3 plot_price_kde.py                 # price density by status / by district
@@ -288,21 +367,27 @@ full-feature; UNKNOWN needs the comparable cross-check).
 ## 9. Next steps (ranked)
 1. **"Will it sell?" classifier** from the SOLD-vs-REVOKED label — the one thing this dataset has *real*
    labels for; sidesteps the asking-price ceiling entirely.
-2. **Full-feature model for AVAILABLE** (it has 44% geo / 53% year) to recover ~13% accuracy there.
-3. **Fuse the interval flag + comparable flag** into one confidence-tiered verdict for UNKNOWN.
-4. **Geocode UNKNOWN** addresses to recover the location feature and place them on the map.
+2. **Anchor the hedonic index to a published Hà Nội price index** (CBRE / Savills / batdongsan) — an
+   independent external check on the +111% trajectory.
+3. **Full-feature model for AVAILABLE** (it has 44% geo / 53% year) to recover accuracy there.
+4. **Fuse the interval flag + comparable flag** into one confidence-tiered verdict for UNKNOWN.
 5. **Acquire realized transaction prices** — the true accuracy ceiling; every experiment points here.
 
 *Done:* merge · status policy (incl. LOCKED) · market-structure EDA · lean model · temporal
-(market-index) treatment · **calibrated prediction intervals (CQR, 80% coverage validated per district)**.
+(market-index) treatment · CQR intervals · **rolling-origin backtest (real-time MedAPE + coverage)** ·
+**drift-proof CQR v2 + hedonic index** · **index-error sensitivity** · **[`MODEL_CARD.md`](MODEL_CARD.md)**.
 
 ## 10. Layout
 ```
 Phase 3/
-├── data/   phase3_merged_dataset.parquet · phase3_*_intervals.csv · phase3_interval_coverage.csv
-│            phase3_*_predictions_timeadj.csv · unknown_address_feature_matches.csv
+├── data/   phase3_merged_dataset.parquet · phase3_*_intervals.csv · phase3_*_intervals_v2.csv
+│            phase3_backtest_results.csv · phase3_backtest_coverage.csv · phase3_cqr_fix_grid.csv
+│            phase3_sensitivity_index.csv · phase3_*_predictions_timeadj.csv
+│            phase3_interval_coverage.csv · unknown_address_feature_matches.csv
 ├── src/    build_phase3_dataset.py · build_phase3_modeling.py
-│            train_phase3_clearing[_time].py · train_phase3_intervals.py · plot_*.py
+│            train_phase3_clearing[_time].py · train_phase3_intervals[_v2].py
+│            backtest_rolling_origin.py · backtest_cqr_fix.py · sensitivity_index_error.py · plot_*.py
 ├── figs/   phase3_price_kde_* · phase3_price_dist_* · phase3_price_timeseries.png
+├── MODEL_CARD.md   (intended use, validity domain, real-time metrics, limits — read first)
 └── README.md   (this report)
 ```
