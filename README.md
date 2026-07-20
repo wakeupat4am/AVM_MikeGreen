@@ -1,21 +1,44 @@
 # AVM — Automated Valuation Model for Vietnamese Landed Residential Houses
 
-An end-to-end **Automated Valuation Model (AVM)** that predicts the market value of Vietnamese
-landed residential houses from structured listing data. The project has moved past "chase a
-single accuracy number" and is now organised as a **segmented, business-defensible reliability
-system**: it reports where it can be trusted, explains where its errors come from, and flags the
-cases it should not answer confidently.
+An end-to-end **Automated Valuation Model (AVM)** for Vietnamese landed residential houses, built
+over three phases. The project deliberately moved past "chase a single accuracy number" into a
+**segmented, business-defensible reliability system**: it reports where it can be trusted, explains
+where its errors come from, validates itself the way it would actually run, and declines to answer
+where the data does not support it.
 
-All active work lives under [`Phase 1/Rule-based Scene/`](Phase%201/Rule-based%20Scene).
+## The three phases at a glance
 
-> **Phase 2** — a follow-up on cleaner Hà Nội **transaction/inventory data** (with geocoordinates
-> and construction year) that **tests this project's central hypothesis**: it reaches Phase-1
-> accuracy (~13% Median APE) on **70× less data**, confirming *data quality was the ceiling, not the
-> model*. Full write-up: [`Phase 2/README.md`](Phase%202/README.md).
+| Phase | Data | What it established | Status |
+|---|---|---|---|
+| **[Phase 1](Phase%201/Rule-based%20Scene)** | 704k national scraped listings | Production AVM: hierarchical shrinkage blend + intervals + 3-tier serving policy. **12.7% MedAPE**, 64.6% within 20% | Complete |
+| **[Phase 2](Phase%202/README.md)** | 10.5k Hà Nội brokerage transaction/inventory | **Confirmed the central hypothesis**: reaches Phase-1 accuracy (~13% MedAPE) on **70× less data** → *data quality was the ceiling, not the model* | Complete |
+| **[Phase 3](Phase%203/README.md)** | 27.8k merged Hà Nội | **Listing-triage engine**: calibrated clearing bands + mispricing flags, validated by real-time backtest. See [`MODEL_CARD.md`](Phase%203/MODEL_CARD.md) | Complete |
+
+## What the project concluded
+
+Three independent lines of evidence converge on one answer:
+
+1. **Phase 2** — matching Phase 1 accuracy on 70× less data proved the ceiling was *data quality*.
+2. **Phase 3 backtest** — validating temporally (not random-fold) revealed the honest error is
+   ~21%, and that market drift, not model choice, dominates.
+3. **Phase 3 sellability** — the one real outcome label caps out at AUC ~0.59 even with rich
+   features.
+
+> **The binding constraint is data acquisition, not more modelling.** The modelling machinery
+> (temporal index, conformal calibration, backtest harness) is built and validated; it transfers
+> directly the moment realized transaction prices and time-on-market become available.
 
 ---
 
 ## Table of contents
+
+**Project level**
+- [Phase 3 — the triage engine and its real-time validation](#phase-3--listing-triage-engine)
+- [Phase 2 — the data-quality hypothesis](#phase-2--the-data-quality-hypothesis)
+- [What it would take to reach a true "sellable price"](#what-it-would-take-to-reach-a-true-sellable-price)
+- [Repository layout](#repository-layout)
+
+**Phase 1 detail (sections 1–11 below)**
 
 1. [What this project is](#1-what-this-project-is)
 2. [Project direction & framing](#2-project-direction--framing)
@@ -26,8 +49,122 @@ All active work lives under [`Phase 1/Rule-based Scene/`](Phase%201/Rule-based%2
 7. [Regional reliability report — the business defense](#7-regional-reliability-report)
 8. [Final model — cleaned training and the stability defense](#8-final-model)
 9. [How to reproduce](#9-how-to-reproduce)
-10. [Repository layout](#10-repository-layout)
+10. [Repository layout (Phase 1)](#10-repository-layout)
 11. [Limitations & next steps](#11-limitations--next-steps)
+
+---
+
+## Phase 3 — listing-triage engine
+
+Full report: [`Phase 3/README.md`](Phase%203/README.md) · Model card: [`Phase 3/MODEL_CARD.md`](Phase%203/MODEL_CARD.md)
+
+Phase 3 merges Phase 1's Hà Nội listings into Phase 2's schema (27,800 rows) and builds a
+**triage engine**: for any listing it returns a calibrated clearing-price band `[P10, P50, P90]`
+and a flag — under / fair / over. It is deliberately **not** an absolute appraiser: every price in
+the data is an *asking* price and `SOLD` is a label, not a sale value, so the product is **relative
+mispricing with calibrated confidence** — what the data actually supports.
+
+### Architecture
+
+| Layer | Mechanism |
+|---|---|
+| **Data** | Train on SOLD (×5 weight) + REVOKED; score AVAILABLE + UNKNOWN. Training on unsold inventory *hurts* (Phase 2) |
+| **Features** | Lean common set (area, floors, facade, district, ward) — geo deliberately dropped because UNKNOWN has 0% of it; a richer model would silently impute for 100% of them |
+| **Time** | **Hedonic market index (+111%)** — month coefficients of `log(price/m²) ~ month + district + features`, built causally. Deflate → predict → re-inflate |
+| **Model** | LightGBM, log target: point head (L1/median) + quantile heads (P10/P50/P90) |
+| **Uncertainty** | **CQR v2** — split-conformal on a trailing time window at nominal 90%, the drift margin selected by backtest |
+
+### Real-time results (rolling-origin backtest, not random-fold)
+
+| Metric | Value |
+|---|---|
+| MedAPE, real time | **~21% overall** (19–25% in 2024, 27–37% in 2025 as the market drifts) |
+| Band coverage (target 80%) | **81.6–95.5%** at every backtest origin — never below the promise |
+| Live inventory flagged `fair` | **81%**; only ~10% above the P90 ceiling |
+| Robustness | `fair` share holds **75–81%** under ±20% index error |
+| "Will it sell?" classifier | AUC **~0.59** — weak, reported honestly; top-decile lift ~1.7× |
+
+### What the backtest corrected
+
+Earlier drafts validated with random GroupKFold, which lets the model see the future. Re-measuring
+temporally changed three headline claims — all now revised in the report:
+
+- MedAPE **18% → ~21%** real-time (and materially worse in 2025).
+- Band coverage: the v1 "80%" was an artifact — it delivered only **67–77%** under a time split.
+  Fixed in v2, which holds ≥80% at every origin.
+- Market rise **+136% → +111%**: the raw-median index confounded composition drift (transaction
+  data early, scraped listings late); the hedonic index controls it out.
+
+### Honest negative results (reported, not buried)
+
+- **The mispricing hypothesis is rejected.** SOLD and REVOKED listings have near-identical
+  mispricing — properties were not pulled from the market mainly for being over-priced.
+- **Sellability's ceiling is fundamental, not feature-poverty.** Adding geo, construction year and
+  road distance does *not* improve AUC (0.564 ≤ 0.588).
+
+---
+
+## Phase 2 — the data-quality hypothesis
+
+Full write-up: [`Phase 2/README.md`](Phase%202/README.md)
+
+A follow-up on cleaner Hà Nội **transaction/inventory data** (with geocoordinates and construction
+year) that **tests this project's central hypothesis** — and confirms it: it reaches Phase-1
+accuracy (**~13% Median APE**) on **70× less data**, establishing that *data quality was the
+ceiling, not the model*. Two further findings carried into Phase 3: training on unsold AVAILABLE
+inventory actively **hurts**, and geo features add **no statistically significant gain** once
+district + ward are present.
+
+---
+
+## What it would take to reach a true "sellable price"
+
+The current engine predicts a band of *asking* prices that historically cleared. A true
+**sellable price** — what a specific house will actually transact at — needs three things, in
+order of bindingness:
+
+1. **Realized transaction prices.** The single missing ingredient. The asking→sale negotiation
+   discount is entirely invisible in this data. Without it you can only calibrate "asking price
+   that cleared," never sale price.
+2. **Time-on-market.** Turns the failed binary "will it sell?" into the actual product: a
+   **price-versus-speed curve** ("list at X to sell in 30 days, Y in 90").
+3. **More resolved outcomes.** 206 SOLD records is too thin for per-segment reliability.
+
+**Crucially, ~80% of the work is already done.** The hedonic time index, conformal calibration, and
+backtest harness all transfer directly — they simply re-point at realized prices instead of asking
+prices. Only the asking→sale discount model and the time-on-market model are new.
+
+> **Vietnam-specific caveat:** notary/tax-declared transfer prices are commonly **under-declared**
+> and will bias a model trained on them. The defensible path is partnering with a brokerage to log
+> true closing prices and days-on-market going forward. A few hundred real closed deals is already
+> enough to recalibrate the bands.
+
+Shippable today, honestly framed: the clearing band is a valid **"recommended listing price"**
+product — *"list in this range to be priced like homes that sold"* — provided it is never presented
+as a sale-price prediction.
+
+---
+
+## Repository layout
+
+```
+AVM/
+├── Phase 1/Rule-based Scene/    national AVM — production model, regional reliability report
+├── Phase 2/                     Hà Nội transaction/inventory — the data-quality hypothesis test
+├── Phase 3/                     listing-triage engine
+│   ├── MODEL_CARD.md            intended use, validity domain, real-time metrics, limits ← read first
+│   ├── README.md                full report (§6.5 backtest, §6.6 sellability)
+│   ├── src/                     dataset build · clearing models · intervals v1/v2
+│   │                            backtest_rolling_origin · backtest_cqr_fix · sensitivity · sellability
+│   └── data/ figs/              scored inventory, backtest results, coverage, figures
+└── README.md                    this file (project overview + Phase 1 detail below)
+```
+
+---
+
+# Phase 1 — detail
+
+*The sections below are the full Phase 1 write-up (national scraped-listing AVM).*
 
 ---
 
@@ -343,8 +480,10 @@ Phase 1/Rule-based Scene/
 - **The error tail is label noise, contained but not cleaned.** Flagging limits the damage;
   cleaning the underlying suspicious-price listings (already underway) is the upstream fix and the
   single biggest lever on raw MAPE.
-- **Random split.** All numbers are on a stratified *random* test split. A **time-based split**
-  (hold out the most recent months) is the next step to prove the model holds on *future* listings.
+- **Random split.** All Phase 1 numbers are on a stratified *random* test split. **Phase 3 acted on
+  this**: a rolling-origin backtest showed random-fold validation materially flatters a market with
+  strong price drift (18% → ~21%, and calibrated coverage 80% → 67–77% before being fixed). Phase 1's
+  figures should be read with that same caveat — a time-based re-validation is the outstanding item.
 - **Hồ Chí Minh** is the clearest modeling follow-up — a high-variance market that likely needs
   district-level segmentation rather than one city-level model.
 
@@ -352,4 +491,6 @@ Phase 1/Rule-based Scene/
 
 *This project values Vietnamese residential houses. It is built to be honest about its own
 uncertainty: it predicts sharply where the data supports it, and it says so — and flags the rest —
-where the data does not.*
+where the data does not. Across three phases the same lesson kept returning: **validate the way the
+model will actually run, publish the limits, and recognise when the binding constraint is data
+rather than modelling.***
