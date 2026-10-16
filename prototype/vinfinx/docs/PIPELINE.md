@@ -19,7 +19,7 @@ OFFLINE (research, run occasionally, outputs are versioned)
                                         │
                                         ▼
  Ingestion: fetch → hash → store original → extract text
-            (PDF text layer, or OpenAI OCR for scanned public PDFs)
+            (PDF text layer, or PaddleOCR for scanned public PDFs)
                                         │
                                         ▼
  Chunker (page + character offsets) → Indexer (OpenAI embeddings
