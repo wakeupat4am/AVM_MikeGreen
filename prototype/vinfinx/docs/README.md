@@ -5,4 +5,4 @@ Working plans for the AI engineering scope. Background, decisions and daily note
 | Plan | Status |
 |---|---|
 | [`PIPELINE.md`](PIPELINE.md): the intended macro-behavior pipeline (offline research, online decision, models, versioning, evaluation, build order) | Intended design, not built |
-| [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md): serving Qwen3.5-9B on a personal GPU server | Draft, waiting on server details |
+| [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md): serving Qwen3.5-9B on our shared 8 × RTX 3090 server via vLLM | Draft, waiting on GPU allocation and access details |

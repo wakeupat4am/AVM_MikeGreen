@@ -19,7 +19,7 @@ OFFLINE (research, run occasionally, outputs are versioned)
                                         │
                                         ▼
  Ingestion: fetch → hash → store original → extract text
-            (PDF text layer, or PaddleOCR for scanned public PDFs)
+            (PDF text layer, or the OCR service for scanned PDFs)
                                         │
                                         ▼
  Chunker (page + character offsets) → Indexer (OpenAI embeddings
@@ -49,7 +49,7 @@ ONLINE (per decision)
 ──────────────────────────────────────────────────────────────────────
  Macro-status document (synthetic)
    → file and quality checks
-   → dedicated OCR (boxes + confidence), OpenAI second reading
+   → OCR service (pluggable engine: boxes + confidence), Qwen second reading
    → field extraction → deterministic validation
    → observation EvidenceItems (doc hash, page, box, confidence)
                                         │
@@ -96,7 +96,7 @@ The source agent (Qwen) proposes sources and records why each qualifies: publish
 
 ### 2. Ingestion and indexing (RAG)
 1. **Ingest:** store the original file with URL, publisher, publication date, retrieval date and hash.
-2. **Extract:** PDF text layer where present; OpenAI OCR for scanned public PDFs.
+2. **Extract:** PDF text layer where present; the [OCR service](#ocr-service-pluggable) for scanned PDFs.
 3. **Chunk:** keep page numbers and character offsets, so a quote traces to an exact span.
 4. **Embed** with the OpenAI API; record the embedding model name and version.
 5. **Index** in a local vector store with metadata filters (geography, date, publisher), combined with keyword search for exact terms.
@@ -129,7 +129,7 @@ Each verified mapping set gets a version ID and hash and a status: `unvalidated`
 ## Online decision
 
 ### 1. Macro-document intake (handoff §5 stages)
-File-type and quality checks → dedicated OCR with word boxes and confidence → OpenAI second reading (the document is synthetic, so this is allowed) → schema-constrained field extraction → deterministic validation (dates, units, ranges, cross-field) → observation `EvidenceItem`s. Disagreement between the two readings, or low confidence, marks the field untrusted.
+File-type and quality checks → the [OCR service](#ocr-service-pluggable) with word boxes and confidence → Qwen second reading → schema-constrained field extraction → deterministic validation (dates, units, ranges, cross-field) → observation `EvidenceItem`s. Disagreement between the two readings, or low confidence, marks the field untrusted.
 
 `EvidenceItem` carries the handoff §3 input contract plus OCR provenance: metric ID, source, observation and publication timestamps, geography, value, unit, baseline, revision status, confidence, freshness deadline, document hash, page, bounding box, OCR text, normalized value, extractor version, reviewer action.
 
@@ -168,18 +168,71 @@ Fails closed. Blocks on: invalid schema or unknown action, missing or unknown ci
 ### 6. Human review and explanation
 Routed cases go to the Authenticator view. Passed recommendations reach the customer with source labels and timestamps.
 
+## OCR service (pluggable)
+
+OCR sits behind one interface, so the engine can be chosen per document type and swapped without touching the rest of the pipeline. OCR is an evidence extractor, not a truth oracle (handoff §5).
+
+### Interface
+Every engine is wrapped in an adapter that takes a page image and returns the same structure:
+
+```json
+{
+  "engine": "paddleocr",
+  "engine_version": "...",
+  "model": "...",
+  "document_hash": "sha256:...",
+  "page": 1,
+  "words": [
+    {"text": "4.0", "bbox": [x0, y0, x1, y1], "confidence": 0.97, "line_id": 12}
+  ]
+}
+```
+
+An engine that cannot return word or line boxes and a confidence score cannot be the primary engine, because every extracted field must link back to a visible span on the page.
+
+### Candidate engines
+
+| Engine | Role | Notes |
+|---|---|---|
+| **PaddleOCR** | Default primary | Detection plus recognition with boxes and confidence; Vietnamese-capable models |
+| Tesseract (`vie`) | Baseline / fallback | Mature, word boxes and confidence; weaker on degraded scans |
+| VietOCR | Vietnamese recognizer | Recognition only; pair with a detector (for example PaddleOCR's) |
+| EasyOCR | Alternative primary | Vietnamese support, boxes and confidence |
+| Qwen3.5-9B | Second reading only | Runs on our server; no reliable boxes or confidence, can hallucinate values |
+| OpenAI | Optional, public documents only | Never for customer documents |
+
+Check current Vietnamese support and versions before adopting any engine.
+
+### Configuration
+The engine is chosen in config per document type, for example:
+
+```yaml
+ocr:
+  macro_status_document: {primary: paddleocr, second_reading: qwen}
+  research_pdf_scanned:  {primary: paddleocr}
+  customer_document:     {primary: paddleocr, second_reading: qwen}   # local engines only
+```
+
+The engine name, version and model are recorded with every extracted field (`extractor_version` in `EvidenceItem`), so a change of engine is a new version for replay.
+
+### Second reading and trust
+When the primary engine and the second reading disagree on a field, or the primary confidence is below the field's threshold, the field is marked untrusted. Untrusted fields cannot feed the policy engine without human review.
+
+### Choosing the engine
+Choose by measurement: run the candidate engines on the synthetic macro document's clean and degraded variants and compare field precision/recall and false acceptance of altered documents against its ground truth. Record the comparison and the chosen configuration here.
+
 ## Model split and data boundary
 
 | Component | Model | Sees customer data? |
 |---|---|---|
 | Source agent, mapping agent | Qwen3.5-9B | No |
-| Embeddings, scanned-PDF OCR, support check, gold-label drafts | OpenAI | No |
-| Macro-document OCR | Dedicated OCR engine, OpenAI second reading | No (synthetic document) |
-| Customer-document OCR (later) | Local engine only | Yes |
+| Embeddings, support check, gold-label drafts | OpenAI | No |
+| OCR (macro document, scanned research PDFs) | OCR service: PaddleOCR by default, engine configurable; Qwen second reading | No |
+| Customer-document OCR (later) | OCR service, local engines only | Yes |
 | Policy engine, verifiers, bundle builder | Deterministic code | Yes |
 | Decision engine | Qwen3.5-9B on our own server ([`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md)) | Yes |
 
-**Rule:** only public research documents and the synthetic macro document go to OpenAI. Customer data, identity documents and bank records never do.
+**Rule:** only public research documents and the synthetic macro document may go to OpenAI. Customer data, identity documents and bank records never do; their OCR runs on local engines only.
 
 ## Versioning and replay
 
@@ -204,12 +257,12 @@ Gold passages: OpenAI drafts the labels; a human reviews a random ~20% and recor
 3. Verifiers v0: recommendation verifier and mapping verifier (rules), with a placeholder for the support check.
 4. Frozen adversarial test set.
 5. Qwen on our own server; baseline the current setup on the frozen set.
-6. Document generator and OCR stage; RAG ingestion and index; mapping agent; policy engine; decision engine.
+6. Document generator and OCR service (adapter interface, PaddleOCR first, engine comparison); RAG ingestion and index; mapping agent; policy engine; decision engine.
 
 ## Open
 
 - Server details for Qwen (see [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md)).
-- Which dedicated OCR engine to use for the macro document (needs Vietnamese support).
+- Final OCR engine per document type: PaddleOCR is the default; confirm by the measured comparison in [OCR service](#ocr-service-pluggable).
 - Source validity criteria: not yet defined; a clear citation is accepted for now and a human validates later.
 - Who reviews the gold-label sample and signs off the source list.
 - Weights and thresholds in the policy engine need a domain owner's sign-off.
