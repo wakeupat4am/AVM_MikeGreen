@@ -569,3 +569,29 @@ Principles behind the shape:
 3. **Independent checks at each stage:** rules check form, a different model checks support, a human has the final say. Customer data stays on our server.
 
 **Exists today:** Qwen serving (`qwen_api.py`), the prototype UI including the Authenticator view, Phase 3 band output. **New:** everything else. Build the schemas and the two verifiers first, since every other component plugs into them.
+
+## 2026-10-16 — Qwen server: plain `transformers` first, vLLM later
+
+Surveyed the new server `vishc-server-1` (8 × RTX 3090 24 GiB, driver 595.91.07 / CUDA 13.2, Ubuntu 22.04.5). Facts, commands and the proposed environment are in [`vinfinx/docs/SERVER_SETUP_PLAN.md`](vinfinx/docs/SERVER_SETUP_PLAN.md).
+
+### Decisions
+
+- **Inference engine: plain `transformers` now, vLLM after experiments.** `transformers` meets every hard requirement: JSON-schema-constrained output through `xgrammar`, exact replay (one request at a time, greedy, fixed seed), loopback only, and model swap via config. It gives up throughput, which the prototype's small volume can afford. vLLM is adopted only if measured runs are too slow (full frozen set beyond an overnight window, slow mapping-agent sweeps, or a model bake-off). The adapter gets an `InferenceBackend` interface so that switch does not touch callers.
+- **Storage:** environment, weights, caches and the research corpus go under `/mnt/disk1/backup_user/24chuong.ta/vinfinx/` (home is at 88 of 100 GiB quota). Not committed to git.
+- **Access: SSH over the NetBird VPN** (`vishc-server-1.netbird.cloud`), or the LAN on site. The admin asked, per VinSoc's hardening request, that no server port be exposed to the internet; cloudflared tunnels are being removed and SSH permissions are unchanged. The Pinggy relay (`vishc-1-alt`) used until now is a public way in, so it is dropped. The Qwen port stays on loopback, reached through SSH `-L`.
+
+### Still open
+
+- GPU agreement with the other users (recommended: GPUs 4,5, currently held by our own `exchange-stage2` job; GPU 6 in the meantime).
+- Whether the Mac is a NetBird peer that can reach `vishc-server-1`.
+- Whether `/mnt/disk1/backup_user` is purged or rotated.
+
+## 2026-10-16 (continued) — Qwen running on `vishc-server-1`
+
+Environment installed and the flow tested on the server; details, commands and pins in [`vinfinx/docs/SERVER_SETUP_PLAN.md`](vinfinx/docs/SERVER_SETUP_PLAN.md).
+
+- **Works:** Qwen3.5-9B bf16 on one RTX 3090 (GPU 7 for the test; 17.5 GiB), ~19 tokens/s per request. Greedy output repeats exactly. JSON-schema output through `xgrammar` parses and stays inside the action enum. The adapter is loopback only: no `Origin` gives 403, a bad schema gives 400, and the LAN address is refused.
+- **Pinned software:** Python 3.12.15, torch 2.14.1+cu130, transformers 5.19.0, xgrammar 0.2.8, flash-linear-attention 0.5.2 (gated delta rule; `causal_conv1d` on PyTorch fallback), model revision `c2022362…` with SHA-256 hashes.
+- **Bug fixed:** the tokenizer ends turns with `<|im_end|>` while the model config stops only on `<|endoftext|>`. Under a JSON grammar this ran every request to `max_tokens`. The adapter now stops on both.
+- **For the verifier and schema work:** the model repeats the demo context's "confidence 91%" as fact and pairs `no_change` with a `medium` magnitude. `maxLength` in a schema cuts text mid-word, so bound length with `max_tokens` instead.
+- **Not yet pinned:** GPU indices (awaiting the agreement with other users). Mac access over NetBird not yet tested.
