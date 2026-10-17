@@ -595,3 +595,15 @@ Environment installed and the flow tested on the server; details, commands and p
 - **Bug fixed:** the tokenizer ends turns with `<|im_end|>` while the model config stops only on `<|endoftext|>`. Under a JSON grammar this ran every request to `max_tokens`. The adapter now stops on both.
 - **For the verifier and schema work:** the model repeats the demo context's "confidence 91%" as fact and pairs `no_change` with a `medium` magnitude. `maxLength` in a schema cuts text mid-word, so bound length with `max_tokens` instead.
 - **Not yet pinned:** GPU indices (awaiting the agreement with other users). Mac access over NetBird not yet tested.
+
+## 2026-10-17 — token and cost accounting
+
+The project must show that the system built on an open-source LLM costs less than the same system on a paid API such as OpenAI. Added handoff §9, a §7 gate and backlog item 9: every model call in the pipeline records tokens, latency, GPU-seconds (local) or the price-table version (API), and its outcome.
+
+- **Compare cost per passed task, not per token.** Tokenizers differ, and a cheaper system that fails more gates is not more efficient.
+- **Self-hosted cost is reported two ways:** marginal (GPU-seconds used) and reserved (GPU held, idle included), because the server is shared.
+- **The OpenAI calls still in our system** (embeddings, support check, gold labels) count towards our cost.
+- **The baseline runs only on public and synthetic data**, so the data boundary is unchanged.
+- **The engine is part of the configuration being compared:** batching (vLLM) lowers cost per task, so cost is a second reason to revisit vLLM after the experiments.
+- **Already in place:** `qwen_api.py` returns `usage` (prompt and completion tokens). Still missing: per-call logging with trace IDs, latency and GPU-seconds.
+- **Open:** baseline paid model(s), the hourly GPU rate and how it is derived, and who signs off on the methodology.

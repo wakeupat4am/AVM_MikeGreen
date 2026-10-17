@@ -159,7 +159,8 @@ Before a production pilot, define thresholds for:
 - false acceptance of altered or low-quality documents;
 - conversation policy compliance and privacy leakage;
 - abstention accuracy; and
-- human override rate and reason distribution.
+- human override rate and reason distribution; and
+- cost per task against the paid-API baseline, at equal quality (§9).
 
 No model update should ship without a frozen evaluation set, change log, rollback target and approval owner.
 
@@ -173,3 +174,49 @@ No model update should ship without a frozen evaluation set, change log, rollbac
 6. Create conversation and document red-team suites in Vietnamese and English.
 7. Add model/prompt versioning, trace IDs, latency limits and safe fallback responses.
 8. Run a shadow-mode pilot in which humans make every final decision.
+9. Record tokens, latency and compute for every model call in the pipeline (§9).
+
+## 9. Token and cost accounting
+
+*Added 2026-10-17 by the AI engineer.*
+
+The project must show that the system built on an open-source LLM (Qwen3.5-9B on our own GPU server) costs less than the same system built on a paid API such as OpenAI, **at equal quality**. That claim needs measured numbers from day one, so every service in the pipeline records its usage on every call.
+
+### What to record per call
+
+| Field | Notes |
+|---|---|
+| Trace ID, case ID, service and stage | For example source agent, mapping agent, support check, embeddings, gold-label drafts, OCR primary, OCR second reading, decision engine, conversation |
+| Model, version, engine and precision | For example `Qwen3.5-9B` bf16 on `transformers`, or the API model name |
+| Prompt, completion and cached tokens | From the tokenizer for local models, from the response `usage` for APIs |
+| Images or pages | For OCR and multimodal calls |
+| Wall-clock latency | Per call |
+| GPU-seconds and GPU indices | Local calls only |
+| Price-table version | For API calls |
+| Outcome | Verifier result (`PASS`, `ROUTE_TO_HUMAN`, `BLOCK`), retry or failure |
+
+Retries, blocked outputs and failed calls are recorded too: they cost the same as successful ones.
+
+### How costs are computed
+
+- **Paid API:** tokens (and images) × the published price, from a dated, versioned price table.
+- **Self-hosted:** GPU time × an hourly GPU rate, stated in two ways:
+  - **marginal:** only the GPU-seconds spent on our requests, priced at a stated rate (amortized RTX 3090 hardware plus power, or a cloud rate for a comparable GPU);
+  - **reserved:** the whole time the GPU is held for the service, idle time included.
+  Report both, because the server is shared and the service may sit idle between requests.
+- **The current system is hybrid.** OpenAI is still used for embeddings, the support check and gold-label drafts, so their API cost counts towards our system, not the baseline.
+- Engineering and operations effort is not in these numbers; state that wherever results are reported.
+
+### How the comparison is run
+
+- Run the **same frozen evaluation set** through our system and through an all-API baseline (the same pipeline with the Qwen calls replaced by a paid model).
+- Compare **cost per task**: per decision, per mapping proposal, per document and per conversation turn. Do not compare cost per token, because tokenizers differ between models.
+- Compare at **equal quality**: report cost per *passed* output against the §7 gates. A cheaper system that fails more gates is not more cost-efficient.
+- **The data boundary still applies:** the baseline may only run on public documents and synthetic data. Customer data never goes to a paid API, even for this comparison.
+- State the inference engine with every result. Plain `transformers` serves one request at a time; batching (for example vLLM) lowers the cost per task, so it is part of the configuration being compared.
+
+### Open
+
+- Which paid model(s) form the baseline.
+- The hourly GPU rate and how it is derived (hardware amortization or a cloud-equivalent rate).
+- Who signs off on the cost methodology.

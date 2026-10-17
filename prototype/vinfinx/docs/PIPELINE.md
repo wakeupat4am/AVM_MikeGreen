@@ -247,6 +247,7 @@ Every decision records the versions and hashes of: corpus, index, embedding mode
 | Mapping | Citation precision; fabricated-quote rate (verifier must catch all); conflict handling; agreement with the provisional mapping table |
 | Decisions | Unsupported-claim rate, abstention accuracy, counterfactual stability (irrelevant evidence must not change the output) |
 | Humans | Override rate and reasons |
+| Cost | Tokens, latency and GPU-seconds for every model call; cost per passed task against an all-API baseline on the same frozen set (handoff §9) |
 
 Gold passages: OpenAI drafts the labels; a human reviews a random ~20% and records agreement before they are frozen. The labelling model or prompt differs from the support check's. The adversarial test set is written and frozen before the checks are built, so they are not tuned to it.
 
