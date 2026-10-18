@@ -1,0 +1,140 @@
+# VinFinx metric catalogue (docs/SPECS_AND_SCHEMAS_PLAN.md, Part A; decisions D1, D3, D4, D7).
+#
+# Every evidence item, document field and mapping refers to a metric ID built from this file:
+#   metric_id   = <scope>.<geo_id>.<key>            e.g. macro.vn.refi_rate
+#   evidence_id = <metric_id>.<period>              e.g. macro.vn.refi_rate.2026-09
+# Period format by frequency: snapshot YYYY-MM-DD, monthly YYYY-MM, quarterly YYYY-Qn.
+#
+# freshness_days is PROVISIONAL (handoff Q3; a risk owner must confirm). The freshness deadline
+# is computed by code as the end of the observation period + freshness_days. It is never read
+# from a document.
+
+version: "0.1.0"
+status: provisional
+
+geographies:
+  - geo_id: vn
+    level: national
+    name_en: Viet Nam
+    name_vi: Việt Nam
+  - geo_id: hn-dong-da
+    level: district
+    parent: vn
+    name_en: Dong Da District, Ha Noi
+    name_vi: Quận Đống Đa, Hà Nội
+    phase3_district_name: "Q. Đống Đa"
+  - geo_id: hn-hai-ba-trung
+    level: district
+    parent: vn
+    name_en: Hai Ba Trung District, Ha Noi
+    name_vi: Quận Hai Bà Trưng, Hà Nội
+    phase3_district_name: "Q. Hai Bà Trưng"
+  - geo_id: hn-ba-dinh
+    level: district
+    parent: vn
+    name_en: Ba Dinh District, Ha Noi
+    name_vi: Quận Ba Đình, Hà Nội
+    phase3_district_name: "Q. Ba Đình"
+
+metrics:
+  - key: refi_rate
+    scope: macro
+    geography_level: national
+    name_en: Refinancing rate
+    name_vi: Lãi suất tái cấp vốn
+    unit: pct
+    transformation: level
+    frequency: monthly
+    freshness_days: 60
+    valid_range: ["0", "20"]
+    reason_code_stem: REFI_RATE
+
+  - key: mortgage_rate_avg
+    scope: macro
+    geography_level: national
+    name_en: Average mortgage lending rate
+    name_vi: Lãi suất cho vay mua nhà bình quân
+    unit: pct
+    transformation: level
+    frequency: monthly
+    freshness_days: 45
+    valid_range: ["0", "30"]
+    reason_code_stem: MORTGAGE_RATE
+
+  - key: cpi
+    scope: macro
+    geography_level: national
+    name_en: Consumer price index, year on year
+    name_vi: Chỉ số giá tiêu dùng, so với cùng kỳ
+    unit: pct
+    transformation: yoy
+    frequency: monthly
+    freshness_days: 45
+    valid_range: ["-10", "30"]
+    reason_code_stem: CPI
+
+  - key: credit_growth
+    scope: macro
+    geography_level: national
+    name_en: Credit growth, year to date
+    name_vi: Tăng trưởng tín dụng, từ đầu năm
+    unit: pct
+    transformation: ytd
+    frequency: monthly
+    freshness_days: 45
+    valid_range: ["-20", "50"]
+    reason_code_stem: CREDIT_GROWTH
+
+  - key: unemployment_rate
+    scope: macro
+    geography_level: national
+    name_en: Unemployment rate
+    name_vi: Tỷ lệ thất nghiệp
+    unit: pct
+    transformation: level
+    frequency: quarterly
+    freshness_days: 120
+    valid_range: ["0", "30"]
+    reason_code_stem: UNEMPLOYMENT
+
+  - key: listing_inventory
+    scope: market
+    geography_level: district
+    name_en: Active listing inventory
+    name_vi: Số tin rao bán đang hoạt động
+    unit: count
+    transformation: level
+    frequency: snapshot
+    freshness_days: 14
+    valid_range: ["0", "100000"]
+    reason_code_stem: INVENTORY
+
+  - key: transaction_volume
+    scope: market
+    geography_level: district
+    name_en: Transaction volume
+    name_vi: Số giao dịch
+    unit: count
+    transformation: level
+    frequency: monthly
+    freshness_days: 45
+    valid_range: ["0", "50000"]
+    reason_code_stem: TRANSACTION_VOLUME
+
+  - key: price_index
+    scope: market
+    geography_level: district
+    name_en: House price index (base 100)
+    name_vi: Chỉ số giá nhà (gốc 100)
+    unit: index_points
+    transformation: index
+    frequency: monthly
+    freshness_days: 45
+    valid_range: ["10", "1000"]
+    reason_code_stem: PRICE_INDEX
+
+# Reason codes are <reason_code_stem>_RISE / _DROP for every metric, plus these (decision D4).
+extra_reason_codes:
+  - CONFLICTING_SIGNALS
+  - STALE_EVIDENCE
+  - INSUFFICIENT_EVIDENCE

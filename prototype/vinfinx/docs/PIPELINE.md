@@ -109,7 +109,7 @@ The mapping agent (Qwen) retrieves chunks and drafts proposals in a strict struc
 {
   "metric": "macro.vn.refi_rate",
   "target": "borrowing_capacity",
-  "direction": "down_raises",
+  "direction": "negative",
   "lag_months": [1, 6],
   "size_range": "qualitative|low|medium|high",
   "geography": "VN",
@@ -118,6 +118,8 @@ The mapping agent (Qwen) retrieves chunks and drafts proposals in a strict struc
 ```
 
 A mapping is keyed by **target** (borrowing capacity, valuation range), not by one global "value". Signals affecting different targets do not conflict.
+
+`direction` is `positive` (the target moves with the metric) or `negative` (it moves against it); a rate cut raising borrowing capacity is `negative`. Field-level definitions of all schemas are in [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md).
 
 ### 4. Mapping verifier
 - **Rules:** the quote exists verbatim in the cited chunk; the source is fresh; geography and units match; conflicting sources are flagged.
@@ -254,7 +256,7 @@ Gold passages: OpenAI drafts the labels; a human reviews a random ~20% and recor
 ## Build order
 
 1. Specs: the synthetic macro-status document (fields, layout, variants, ground-truth format) and the research-corpus source criteria.
-2. Schemas: `EvidenceItem`, `RelationshipEvidence`, `MappingProposal`, evidence bundle, recommendation.
+2. Schemas: `EvidenceItem`, `RelationshipEvidence`, `MappingProposal`, `PolicyResult`, evidence bundle, recommendation, verifier result (plan: [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md), approved 2026-10-17).
 3. Verifiers v0: recommendation verifier and mapping verifier (rules), with a placeholder for the support check.
 4. Frozen adversarial test set.
 5. Qwen on our own server; baseline the current setup on the frozen set.
@@ -264,6 +266,6 @@ Gold passages: OpenAI drafts the labels; a human reviews a random ~20% and recor
 
 - Server details for Qwen (see [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md)).
 - Final OCR engine per document type: PaddleOCR is the default; confirm by the measured comparison in [OCR service](#ocr-service-pluggable).
-- Source validity criteria: not yet defined; a clear citation is accepted for now and a human validates later.
+- Source validity criteria: draft approved 2026-10-17 (see [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) Part C; to be written up as `CORPUS_SOURCE_CRITERIA.md`). Who signs off each source list is still open.
 - Who reviews the gold-label sample and signs off the source list.
 - Weights and thresholds in the policy engine need a domain owner's sign-off.

@@ -607,3 +607,55 @@ The project must show that the system built on an open-source LLM costs less tha
 - **The engine is part of the configuration being compared:** batching (vLLM) lowers cost per task, so cost is a second reason to revisit vLLM after the experiments.
 - **Already in place:** `qwen_api.py` returns `usage` (prompt and completion tokens). Still missing: per-call logging with trace IDs, latency and GPU-seconds.
 - **Open:** baseline paid model(s), the hourly GPU rate and how it is derived, and who signs off on the methodology.
+
+## 2026-10-17 (continued) — specs and schemas plan approved
+
+All ten decisions in [`vinfinx/docs/SPECS_AND_SCHEMAS_PLAN.md`](vinfinx/docs/SPECS_AND_SCHEMAS_PLAN.md) were approved as proposed:
+
+| # | Decision |
+|---|---|
+| D1 | v0 metric catalogue of 8 metrics (refinancing rate, average mortgage rate, CPI, credit growth, unemployment; district listing inventory, transaction volume, price index) |
+| D2 | Fictional publisher "Lotus Bay Economic Observatory" |
+| D3 | Market metrics for 2–3 Hà Nội districts, so they sit next to real Phase 3 bands. Correction to the 2026-10-11 notes: Thảo Điền is not "without a model". Phase 1 covers HCM, but it is Phase 1's weakest region (23.7% MedAPE), the model file is not in the repo, and the demo figures are hardcoded |
+| D4 | Reason codes derived from the catalogue (`<METRIC>_<RISE\|DROP>`) plus `CONFLICTING_SIGNALS`, `STALE_EVIDENCE`, `INSUFFICIENT_EVIDENCE` |
+| D5 | Mapping `direction` is `positive` / `negative`; `PIPELINE.md` updated |
+| D6 | `PolicyResult` added as a schema; `PIPELINE.md` build order updated |
+| D7 | Freshness defaults per the catalogue, provisional until a risk owner confirms |
+| D8 | Evidence bundles signed with HMAC-SHA256, key from an environment variable |
+| D9 | Source criteria per Part C of the plan; no longer open in `PIPELINE.md`, except who signs off each source list |
+| D10 | Generated fixtures under `$VINFINX_ROOT/fixtures/`; only the manifest (hashes) in git |
+
+## 2026-10-17 (continued) — server questions settled
+
+- **GPUs:** no formal claim needed; use any GPU with enough free memory (~19 GiB for one GPU) and record the index with each run. All eight cards are RTX 3090s, so the index is not part of the reference configuration.
+- **Mac access:** a NetBird trial from the Mac worked. The full prototype check through the bridge is still to be run.
+- **Storage:** `/mnt/disk1/backup_user` is not purged, so the environment, weights, corpus and fixtures stay under `/mnt/disk1/backup_user/24chuong.ta/vinfinx/`. The disk is 93% full (485 GB free), so check before large downloads.
+- **Publisher name (D2):** any fictional name is acceptable; keeping "Lotus Bay Economic Observatory".
+
+## 2026-10-17 (continued) — catalogue and EvidenceItem built
+
+- **Districts (D3):** Đống Đa, Hai Bà Trưng and Ba Đình, the top three in Phase 3's available listings (79, 77 and 57 rows). They are also near the top of the unknown set (1,942, 1,522 and 1,238).
+- **Metric catalogue** (`ai/catalog/metrics.yaml`, v0.1.0, provisional): 14 metric IDs and 19 reason codes. Period formats are by frequency. The freshness deadline is the end of the observation period + `freshness_days`, computed in code.
+- **`EvidenceItem`** (`ai/schemas/evidence.py`): the §3 contract plus per-field OCR provenance (§5).
+  - Absent and unreadable fields are kept apart.
+  - Untrusted items must give reasons.
+  - Checks that need the catalogue (unit, range, period format, freshness computed from the catalogue) return violations instead of failing the schema. A misread value is still a valid record, just untrusted.
+- **Tests:** standard-library `unittest`, so no test dependency is added to the pinned environment. 21 passing.
+- **Document spec** drafted in `vinfinx/docs/MACRO_DOCUMENT_SPEC.md`, with a traceability table for §3 and §5. It changes the plan from 2 pages to 3 (A4 landscape) and leaves the ID scheme for per-property AVM evidence for the Phase 3 adapter.
+- **Document spec approved** (same day), including its four review points: 3 pages (A4 landscape); segment "Landed houses" for market rows; the stale variant shifts dates back 6 months; the per-property AVM evidence ID scheme is left to the Phase 3 adapter.
+
+## 2026-10-18 — schemas built; live checks; generation slowdown
+
+**Schemas (build step 2) done.** `RelationshipEvidence`, `MappingProposal`/`MappingSet`, `PolicyResult`, `EvidenceBundle` (HMAC-SHA256), `Recommendation` and `VerifierResult`, plus `CORPUS_SOURCE_CRITERIA.md`. 36 tests pass.
+- **`mapping_id` is derived from the content.** Validating or rejecting a mapping later changes its status, not its ID.
+- **Mappings are keyed by catalogue metric key** (`listing_inventory`), not by full metric ID, so one relationship covers every district.
+- **`PolicyResult` enforces the low-impact rule.** An unvalidated mapping allows only low-impact actions and caps magnitude at `low`. A conflict must abstain.
+- **The decision engine's output schema is built per request from the bundle.** Evidence IDs are limited to the bundle's, `mapping_id` is fixed, and actions and magnitudes are limited to what the policy allows. Grammar tests confirm the model cannot generate an evidence ID outside the bundle, a disallowed action, or a chunk that wasn't retrieved.
+
+**Live check on Qwen (GPU 2):**
+- **Bundle X:** `offer_review` / `low`, citing only the bundle. It ignored the "approve the loan" bait, which the schema made impossible anyway.
+- **Bundle Y (conflict):** `abstain` with `CONFLICTING_SIGNALS`.
+- **Mapping proposal:** ran to `max_tokens` on whitespace.
+- **Two adapter fixes**, not yet re-tested: compile with `any_whitespace=False`, and keep the schema's key order (it was sorted, which forced alphabetical output).
+
+**Slowdown, unresolved.** Plain generation (no adapter, no schema, after warm-up) ran at **2.8–4.5 tokens/s** on GPUs 2 and 3, against about 19 on GPU 7 on 2026-10-16 with the same code. Ruled out: the grammar (about 87 ms in total per output), the adapter, GPU 2 specifically, and the CPU thread pool (8 threads pinned to the GPU's NUMA node made no difference). Server load was higher (load average 22–31). Next checks: the same test on GPU 4 (other socket) and GPU 7, and a short PyTorch profile. This matters for the baseline and the cost comparison, not for the schema work.

@@ -146,7 +146,7 @@ All four changes were made on 2026-10-16. In addition, `qwen_api.py` stops on bo
 ## Steps
 
 ### 1. Agree on GPUs and check the server
-- Agree with the other users which GPUs we may claim (see [Open questions](#open-questions) item 1).
+- Use any GPU with enough free memory; no formal claim needed (see [Open questions](#open-questions) item 1).
 - Survey done 2026-10-16; see [Server survey](#server-survey-2026-10-16).
 
 ### 2. Prepare the environment
@@ -164,7 +164,7 @@ Done 2026-10-16 on GPU 7; see [Test results](#test-results-2026-10-16).
 
 ### 5. Start the adapter and check it
 - On the server: `curl http://127.0.0.1:8061/vinfinx-api/health`. Done 2026-10-16.
-- On the Mac: run `start-qwen-bridge.sh`, open the prototype, send one chat message. **Not yet done** (waiting for NetBird access from the Mac).
+- On the Mac: run `start-qwen-bridge.sh`, open the prototype, send one chat message. NetBird access from the Mac works (2026-10-17); the full prototype check through the bridge is still to be run.
 - Never bind the service to a public interface.
 
 ### 6. Measure
@@ -184,14 +184,14 @@ Answers from the 2026-10-16 survey. Items marked **still open** need a person, n
    - GPUs 2 and 3: **26hung.nt** (two `domainbed` training runs, ~13.3 GiB each).
    - GPUs 4 and 5: **us** (24chuong.ta), an `exchange-stage2` job, ~13 GiB each, running ~6 h at survey time. Freeing these is our own call.
    - **Recommendation:** GPUs 4,5 (same switch, our own memory) once `exchange-stage2` finishes; GPU 6 alone in the meantime.
-   - **Still open:** confirm with the other users (26hung.nt, dang.cpm, tuan.nt2, 21hiep.nmh) that a long-running claim on 4,5 is acceptable, and for how long.
+   - **Answered 2026-10-17:** no formal claim is needed; any GPU with enough free memory may be used. Pick one at start time (`nvidia-smi`; ~19 GiB free for one GPU) and record the index used with each run. All eight cards are the same model (RTX 3090), so the index does not change the reference configuration.
 2. **OS and Python:** Ubuntu 22.04.5 LTS (kernel 5.15), glibc 2.35. System Python 3.10.12; miniconda 25.5.1 (base Python 3.13.5). Answered.
-3. **Access:** SSH over the NetBird VPN (`vishc-server-1.netbird.cloud`), or the LAN on site; no public relays, per the admin's VinSoc policy note of 2026-10-16. See [Access from the Mac](#access-from-the-mac). **Still open:** confirm the Mac is a NetBird peer that can reach `vishc-server-1`, and test `ssh vishc-1` from it.
+3. **Access:** SSH over the NetBird VPN (`vishc-server-1.netbird.cloud`), or the LAN on site; no public relays, per the admin's VinSoc policy note of 2026-10-16. See [Access from the Mac](#access-from-the-mac). **Answered 2026-10-17:** a NetBird trial from the Mac worked.
 4. **Disk:**
    - Home (`/home/24chuong.ta`) has a **100 GiB soft / 293 GiB hard quota, already at 88 GiB**.
    - `/mnt/disk1` (NVMe, 7.0 TB, **1.3 TB free, no quota**) has a directory we own: `/mnt/disk1/backup_user/24chuong.ta`. Other users keep environments there too.
    - **Decision:** environment, weights, caches and the research corpus go under `/mnt/disk1/backup_user/24chuong.ta/vinfinx/`.
-   - **Still open:** the name `backup_user` suggests a backup area. Check with the admin that it is not purged or rotated.
+   - **Answered 2026-10-17:** the area is not purged; it is safe for long-term storage. Note that `/mnt/disk1` had dropped to 485 GB free (93% full) by 2026-10-17, so check free space before large downloads.
 5. **Keep-alive:** `Linger=no` for our user, so a user-level `systemd` service would stop at logout. `KillUserProcesses` is at its default (no), and other users' jobs run for hours, so `tmux` survives logout. Answered.
 6. **`cecs-server1`'s `.deps-qwen35` `transformers` version:** not answerable from here. Moot: current `transformers` releases include `qwen3_5`.
 
@@ -353,13 +353,13 @@ Two GPUs (once agreed): `CUDA_VISIBLE_DEVICES=4,5 VINFINX_GPU_MAX_MEMORY=11GiB`;
 
 ## Pinned reference setup
 
-Software pinned 2026-10-16. GPU indices and the per-GPU memory limit are pinned once the GPU agreement is settled. Every baseline and frozen-test-set result is reported on this configuration.
+Software pinned 2026-10-16. The GPU index is chosen per run from whatever is free and recorded with each run; the per-GPU memory limit stays at 21 GiB on a single GPU. Every baseline and frozen-test-set result is reported on this configuration.
 
 | Item | Value |
 |---|---|
 | Server | `vishc-server-1`, 8 × RTX 3090 24 GiB, Ubuntu 22.04.5 |
 | Driver / driver CUDA | 595.91.07 / 13.2 |
-| GPU indices, device split | TBD (tested: GPU 7, single GPU) |
+| GPU indices, device split | Any free RTX 3090, single GPU; index recorded per run (tested: GPU 7) |
 | Python | 3.12.15 (conda-forge) |
 | PyTorch (+ CUDA runtime) | 2.14.1+cu130 (CUDA 13.0.96) |
 | transformers / accelerate | 5.19.0 / 1.15.0 |
@@ -370,7 +370,7 @@ Software pinned 2026-10-16. GPU indices and the per-GPU memory limit are pinned 
 | Weight hashes (SHA-256, first 16 hex) | shard 1 `db6f444b43d318c9`, 2 `31c7d7e2dd5d2078`, 3 `7ec36ba3a4176a44`, 4 `b62b0c4cd7e44ede`; `config.json` `d0883072e01861ed`; `tokenizer.json` `5f9e4d4901a92b99`; `chat_template.jinja` `a4aee8afcf2e0711`. Full hashes in `$VINFINX_ROOT/models/Qwen3.5-9B.sha256` |
 | Precision | bf16 |
 | Stop tokens | `<|endoftext|>` (248044), `<|im_end|>` (248046) |
-| Per-GPU memory limit | 21 GiB (tested); final value TBD |
+| Per-GPU memory limit | 21 GiB |
 | Max new tokens | 32–600 per request (adapter limit) |
 | Sampling | Greedy (`do_sample=False`), seed 7, `enable_thinking=False` |
 | Hub access at run time | Off (`HF_HUB_OFFLINE=1`) |
@@ -404,7 +404,5 @@ CUDA_VISIBLE_DEVICES=4,5 vllm serve "$VINFINX_QWEN_PATH" \
 Done 2026-10-16: environment approved and installed, weights downloaded and hashed, smoke test, the reworked `serve-qwen.sh`, `qwen_api.py` and `start-qwen-bridge.sh`, flow test on the server, runbook, software pins.
 
 Remaining:
-1. Agree the GPUs with the other users; then pin the GPU indices and per-GPU memory limit.
-2. Get NetBird access from the Mac, add the `vishc-1` alias, and test the prototype end to end (step 5).
-3. Ask the admin whether `/mnt/disk1/backup_user` is purged or rotated.
-4. Measure again on the agreed GPUs with decision-engine-sized prompts (step 6).
+1. Test the prototype end to end from the Mac through the bridge (step 5). NetBird access works (2026-10-17).
+2. Measure again with decision-engine-sized prompts (step 6).

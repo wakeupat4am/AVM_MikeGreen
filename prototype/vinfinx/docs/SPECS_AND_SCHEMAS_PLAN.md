@@ -1,6 +1,8 @@
 # Specs and schemas plan
 
-*Status: draft for review, 2026-10-17. Covers build-order steps 1 and 2 of [`PIPELINE.md`](PIPELINE.md). Nothing here is built yet. Choices that need sign-off are collected in [Decisions to verify](#decisions-to-verify); nothing is implemented until they are settled.*
+*Status: approved 2026-10-17 (all ten [decisions](#decisions-to-verify) accepted as proposed). Covers build-order steps 1 and 2 of [`PIPELINE.md`](PIPELINE.md).*
+
+*Progress, 2026-10-18: steps 1 and 2 built. Catalogue (`ai/catalog/`); schemas `EvidenceItem`, `RelationshipEvidence`, `MappingProposal`/`MappingSet`, `PolicyResult`, `EvidenceBundle` (HMAC signing), `Recommendation` with per-request generation schema, `VerifierResult` (`ai/schemas/`); [`MACRO_DOCUMENT_SPEC.md`](MACRO_DOCUMENT_SPEC.md) and [`CORPUS_SOURCE_CRITERIA.md`](CORPUS_SOURCE_CRITERIA.md) approved. Tests: `cd prototype/vinfinx && $VINFINX_ROOT/env/bin/python -m unittest discover -s ai/tests -t .` (36 passing, including grammar tests with Qwen's tokenizer). Live check on Qwen: both recommendation schemas produced valid, in-policy output; the mapping-proposal check failed on whitespace runaway, fixed in `qwen_api.py` (`any_whitespace=False`, schema key order kept) but not yet re-run. Record schemas export via `model_json_schema()`; generation schemas are built per request, so no static JSON files are kept.*
 
 ## Scope
 
@@ -237,8 +239,8 @@ The weights and thresholds are policy values owned by a domain owner (open in `P
 | # | Decision | Proposal | Alternatives |
 |---|---|---|---|
 | D1 | v0 metric catalogue | The 8 metrics in [Part A](#part-a-metric-catalogue) | Fewer (rates and inventory only) for a faster start |
-| D2 | Fictional publisher name | "Lotus Bay Economic Observatory" | Any name that resembles no real institution |
-| D3 | Geography of market metrics | 2–3 Hà Nội districts, matching Phase 3 | Thảo Điền (HCM), matching the demo property but with no model behind it |
+| D2 | Fictional publisher name | "Lotus Bay Economic Observatory" (any fictional name is acceptable, 2026-10-17) | Any name that resembles no real institution |
+| D3 | Geography of market metrics | 2–3 Hà Nội districts, so the macro document sits next to real Phase 3 bands (Hà Nội only) in the same bundle | Thảo Điền (HCM), matching the demo property. Phase 1 (national) covers HCM, but HCM is its weakest region (23.7% MedAPE, 44% within 20%), its model file `final_scorer.joblib` is not in the repo, and the demo's ₫12.48B / "91%" figures are hardcoded, not model output. Market evidence there would be synthetic only until Phase 1's model is restored |
 | D4 | Reason-code vocabulary | Derived from the catalogue: `<METRIC>_<RISE\|DROP>` (for example `REFI_RATE_DROP`, `INVENTORY_RISE`) plus `CONFLICTING_SIGNALS`, `STALE_EVIDENCE`, `INSUFFICIENT_EVIDENCE` | Hand-written list |
 | D5 | Mapping `direction` convention | `positive` / `negative` | Keep `PIPELINE.md`'s `down_raises` style |
 | D6 | Add `PolicyResult` as a schema | Yes | Fold it into the bundle |

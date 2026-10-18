@@ -106,7 +106,8 @@ class TransformersBackend:
 
     @functools.lru_cache(maxsize=32)
     def _compiled(self, schema_json: str) -> Any:
-        return self.grammar_compiler.compile_json_schema(schema_json)
+        # any_whitespace=False: with free whitespace the model can loop on spaces until max_tokens.
+        return self.grammar_compiler.compile_json_schema(schema_json, any_whitespace=False)
 
     def generate(
         self, turns: list[dict[str, Any]], max_tokens: int, json_schema: dict[str, Any] | None
@@ -124,7 +125,8 @@ class TransformersBackend:
         kwargs: dict[str, Any] = {}
         if json_schema is not None:
             # A LogitsProcessor holds per-call state, so each generate() gets a new one.
-            compiled = self._compiled(json.dumps(json_schema, sort_keys=True))
+            # Keep the schema's key order: the grammar makes the model write fields in that order.
+            compiled = self._compiled(json.dumps(json_schema))
             kwargs["logits_processor"] = [LogitsProcessor(compiled)]
         torch.manual_seed(SEED)
         with torch.inference_mode():
