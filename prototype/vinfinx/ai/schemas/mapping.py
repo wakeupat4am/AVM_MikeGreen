@@ -15,6 +15,22 @@ GEO_ID = r"^[a-z]+(?:-[a-z0-9]+)*$"
 METRIC_KEY = r"^[a-z][a-z0-9_]*$"
 
 
+class CorpusChunk(StrictModel):
+    """One retrieved chunk of a frozen corpus document: what the mapping agent saw and may quote."""
+
+    chunk_id: str
+    source_id: str
+    document_hash: Sha256
+    page: int = Field(ge=1)
+    text: str = Field(min_length=1)
+    publisher: str
+    publication_date: date
+    geography: str = Field(pattern=GEO_ID)
+    language: Literal["vi", "en"]
+    corpus_version: str
+    synthetic: bool = False
+
+
 class RelationshipEvidence(StrictModel):
     """One verbatim quote from a frozen research-corpus chunk."""
 

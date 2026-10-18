@@ -168,7 +168,7 @@ Done 2026-10-16 on GPU 7; see [Test results](#test-results-2026-10-16).
 - Never bind the service to a public interface.
 
 ### 6. Measure
-Record tokens per second, time per typical request (prompt length and output length as in the decision engine), and peak GPU memory. These numbers decide whether vLLM is needed ([Future: vLLM](#future-vllm-after-experiments)). First numbers in [Test results](#test-results-2026-10-16); measure again on the agreed GPUs with decision-engine-sized prompts.
+Record tokens per second, time per typical request (prompt length and output length as in the decision engine), and peak GPU memory. These numbers decide whether vLLM is needed ([Future: vLLM](#future-vllm-after-experiments)). All measurements so far are in [Generation speed log](#generation-speed-log); a 5–7× slowdown seen on 2026-10-17 is under investigation.
 
 ### 7. Keep it running
 Run the adapter in `tmux` (survives logout; a user-level `systemd` service would not, because lingering is off). See [Runbook](#runbook).
@@ -325,6 +325,95 @@ The service was stopped after the test to free GPU 7, since the GPU claim is not
 **Observations for later work (not setup issues):**
 - `maxLength` on a string in the JSON schema makes the grammar cut text off mid-word. Bound length with `max_tokens`, and let the verifier check length.
 - The model repeats the demo context's "confidence 91%" as if it were a calibrated figure, and in the JSON test it combined `no_change` with magnitude `medium` and cited demo numbers the prompt did not supply. This is the demo context in the system prompt (known issue), and exactly the kind of output the verifier must catch.
+
+## Generation speed log
+
+Every measured generation time, single requests with greedy decoding. Times are wall-clock per request; inputs are short, so output length dominates. Investigation status is in [Speed investigation](#speed-investigation).
+
+### 2026-10-16: GPU 7, ~19 tokens/s
+
+Smoke test (model loaded directly, no adapter):
+
+| Request | Input tokens | Output tokens | Time | Tokens/s |
+|---|---|---|---|---|
+| Free text | 30 | 89 | 4.5 s | 19.7 |
+| Same, repeated | 30 | 89 | 4.4 s | 20.2 |
+| Free text, after the stop-token fix | 30 | 87 | 4.7 s | 18.4 |
+| JSON schema, before the stop-token fix | ~60 | 300 (ran to the limit) | 15.3 s | 19.6 |
+| JSON schema, after the fix | ~60 | 94 | 5.6 s | 16.9 |
+
+Flow test (through the adapter):
+
+| Request | Input tokens | Output tokens | Time | Tokens/s |
+|---|---|---|---|---|
+| First chat after start (includes warm-up) | 220 | 188 | 59.2 s | n/a |
+| Chat | 220 | 188 | 9.8 s | 19.1 |
+| Same chat, repeated | 220 | 188 | 9.9 s | 19.0 |
+| JSON schema | 235 | 139 | 7.4 s | 18.8 |
+
+Model load: 67.5 s cold, 11.6 s with the files already in the page cache.
+
+### 2026-10-17 (late evening): GPUs 2 and 3, 2–4.5 tokens/s
+
+Live schema checks (adapter on GPU 2; [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) acceptance check):
+
+| Request | Input tokens | Output tokens | Time | Tokens/s |
+|---|---|---|---|---|
+| Recommendation, bundle X (first request, includes warm-up) | 396 | 199 | 92.6 s | 2.1 |
+| Recommendation, bundle Y | 487 | 212 | 70.3 s | 3.0 |
+| Mapping proposal | n/a | 400 (ran to the limit on whitespace) | not recorded | n/a |
+
+Timing checks (adapter on GPU 2, warm):
+
+| Request | Input tokens | Output tokens | Time | Tokens/s |
+|---|---|---|---|---|
+| Plain text | 243 | 155 | 57.4 s | 2.7 |
+| JSON schema | 243 | 200 | 79.7 s | 2.5 |
+| JSON schema, repeated | 243 | 200 | 56.9 s | 3.5 |
+| Plain, repeated | 243 | 155 | 58.0 s | 2.7 |
+| Plain, repeated again | 243 | 155 | 61.4 s | 2.5 |
+| Plain, slightly different prompt | 246 | 143 | 34.7 s | 4.1 |
+| Short ("Hi") | 209 | 32 | 11.7 s | 2.7 |
+
+Speed test (model loaded directly on GPU 3; no adapter, no schema; after warm-up; 150 tokens per run):
+
+| Setting | Run 1 | Run 2 |
+|---|---|---|
+| Default (32 threads, any core) | 51.2 s, 2.9 tokens/s | 33.4 s, 4.5 tokens/s |
+| 8 threads, pinned to the GPU's NUMA node (cores 0–15, 32–47) | 52.7 s, 2.8 tokens/s | 51.2 s, 2.9 tokens/s |
+
+Grammar cost, measured separately with Qwen's tokenizer: 0.4–0.5 s to compile a schema; about 87 ms of mask work across a whole output (median 0.005 ms per token).
+
+### 2026-10-18: GPU 7
+
+Live schema re-check (adapter, `device_map="auto"`), after the whitespace and key-order fixes:
+
+| Request | Input tokens | Output tokens | Time | Tokens/s |
+|---|---|---|---|---|
+| Recommendation, bundle X (first request) | 396 | 189 | 11.1 s | 17.0 |
+| Recommendation, bundle Y | 487 | 205 | 9.7 s | 21.1 |
+| Mapping proposal | 280 | 90 | 4.3 s | 20.9 |
+
+Speed test (model loaded directly, after warm-up, 150 tokens per run), varying only the model placement:
+
+| Setting | Run 1 | Run 2 |
+|---|---|---|
+| `device_map={"": 0}` (as in the 2026-10-17 speed test) | 40.8 s, 3.7 tokens/s | 46.2 s, 3.2 tokens/s |
+| `device_map="auto"` (as in the adapter) | 7.1 s, 21.2 tokens/s | 7.2 s, 20.8 tokens/s |
+| `device_map="auto"` + `min_new_tokens=150` | 6.9 s, 21.8 tokens/s | 7.3 s, 20.7 tokens/s |
+| `device_map="cuda:0"` | 46.9 s, 3.2 tokens/s | 46.4 s, 3.2 tokens/s |
+
+Load average 19–28 during these runs, similar to 2026-10-17.
+
+### Speed investigation
+
+- **2026-10-18 finding: model placement.** On the same GPU and load, loading with `device_map="auto"` gives ~21 tokens/s and loading onto one explicit device (`{"": 0}` or `"cuda:0"`) gives ~3.2 tokens/s. The 2026-10-17 speed tests used explicit placement, so their slowness is explained. The cause inside `transformers`/`accelerate` is not yet understood. **Always load with `device_map="auto"`** (the adapter already does).
+- **Still unexplained:** the adapter (which uses `"auto"`) was also slow on GPU 2 on 2026-10-17 (2.5–4.1 tokens/s). Next check: the adapter on GPU 2 or 3 again, to see whether that was the card or the moment.
+- **Size (2026-10-17):** a 5–7× slowdown (about 50 ms per token on 2026-10-16, 220–400 ms per token on 2026-10-17). At the slow rate a 200-token decision takes 60–80 s; at the fast rate about 10 s.
+- **Ruled out:** the JSON-schema grammar (negligible cost above); the adapter (the direct speed test is equally slow); GPU 2 specifically (GPU 3 is the same); the PyTorch CPU thread pool (limiting and pinning made no difference); per-shape kernel recompilation (identical repeats stay slow).
+- **Observed alongside:** a higher server load average (22–31, against ~17 earlier), heavy jobs from other users on GPUs 0, 1, 5, 6 and 7, and large run-to-run variation (2.5–4.5 tokens/s on the same request), which fits contention better than a fixed fault.
+- **Next checks:** the same speed test on GPU 4 (other CPU socket) and on GPU 7 (the 2026-10-16 card), and a short PyTorch profile of one decode step to see whether time goes to CPU-side kernel launches or to GPU execution.
+- **Why it matters:** it does not affect correctness or the schema work, but it decides how long baseline runs take, and it feeds the cost comparison (handoff §9) and the vLLM decision.
 
 ## Runbook
 

@@ -659,3 +659,40 @@ All ten decisions in [`vinfinx/docs/SPECS_AND_SCHEMAS_PLAN.md`](vinfinx/docs/SPE
 - **Two adapter fixes**, not yet re-tested: compile with `any_whitespace=False`, and keep the schema's key order (it was sorted, which forced alphabetical output).
 
 **Slowdown, unresolved.** Plain generation (no adapter, no schema, after warm-up) ran at **2.8–4.5 tokens/s** on GPUs 2 and 3, against about 19 on GPU 7 on 2026-10-16 with the same code. Ruled out: the grammar (about 87 ms in total per output), the adapter, GPU 2 specifically, and the CPU thread pool (8 threads pinned to the GPU's NUMA node made no difference). Server load was higher (load average 22–31). Next checks: the same test on GPU 4 (other socket) and GPU 7, and a short PyTorch profile. This matters for the baseline and the cost comparison, not for the schema work.
+
+## 2026-10-18 (continued) — verifier v0, adversarial draft, live re-check, speed
+
+**Live re-check on GPU 7** (adapter with the whitespace and key-order fixes):
+- **All three generation schemas** now give valid, in-policy JSON at 17–21 tokens/s.
+- **Mapping proposal:** quote verbatim, but **direction reversed** (`positive`; the quote supports `negative`). Rule checks cannot catch this; it is the support check's job.
+- **Recommendation for bundle X:** `REFI_RATE_RISE` and "a 4.0% rise" (the rate fell), and "safe borrowing limit of VND 3.20B" copied from the demo context in the system prompt.
+- **Recommendation for bundle Y:** abstained correctly, but with reason codes for metrics not in the bundle (`PRICE_INDEX_DROP`, `CREDIT_GROWTH_DROP`), and it quoted the policy's internal net weight.
+
+**Verifier v0** (`ai/verifier/`, 24 tests, including the four worked cases):
+- **Recommendation verifier**, which fails closed:
+  - the bundle's signature and expiry;
+  - the schema;
+  - the mapping ID, the action allowed by the policy, impacts within the policy's targets, and abstaining on conflict;
+  - citations in the bundle, fresh and trusted;
+  - reason codes that name cited metrics and match the direction the evidence shows;
+  - every number in the explanation traced to cited evidence, in the right unit, reading English and Vietnamese formats;
+  - routing: magnitude above the cap, a review request, or an abstention goes to a human.
+- **Mapping verifier:**
+  - quotes word for word in a retrieved chunk (only whitespace may differ), at least 20 characters;
+  - the chunk's geography matches the proposal's;
+  - the source is at most 10 years old (both limits provisional);
+  - a placeholder for the support check;
+  - a set-level check for conflicting sources.
+
+  Verified quotes come back as `RelationshipEvidence` with exact spans, storing the chunk's own text.
+- **Each live-check error is caught** except the reversed direction: the demo-context number (`UNSUPPORTED_NUMBER`), wrong-direction and irrelevant reason codes (`UNSUPPORTED_REASON_CODE`), and internal weights (`UNSUPPORTED_NUMBER`).
+
+**Adversarial set:** a draft (`ai/evaluation/`), not frozen.
+- **Format:** `cases.py`, with decision, mapping and document cases; scripted outputs or model runs; invariance pairs; and `requires` for components not built yet.
+- **Cases:** 42, in 16 categories and both languages. They were written from the handoff's requirements and the live-check errors, not from the verifier.
+- **Not tuned on:** the verifier has not been run against them and must not be tuned on them until the AI engineer freezes the set.
+
+**Speed:** the direct-load slowness is explained by model placement.
+- On GPU 7, `device_map="auto"` gives ~21 tokens/s; `device_map={"": 0}` or `"cuda:0"` gives ~3.2.
+- The 2026-10-17 speed tests used explicit placement. The adapter uses `"auto"`.
+- **Still open:** the adapter's slow run on GPU 2 on 2026-10-17.
