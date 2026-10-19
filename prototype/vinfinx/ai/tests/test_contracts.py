@@ -11,11 +11,26 @@ from ai.schemas.bundle import EvidenceBundle, sign_bundle, verify_bundle
 from ai.schemas.common import content_hash
 from ai.schemas.mapping import MappingSet, MappingVerification, RelationshipEvidence, proposal_generation_schema
 from ai.schemas.policy import PolicyResult
-from ai.schemas.recommendation import Recommendation, generation_schema
+from ai.schemas.recommendation import MAX_REASON_CODES, Recommendation, generation_schema, supported_reason_codes
 from ai.schemas.verifier import VerifierResult
-from ai.tests.fixtures import BUNDLE_X, BUNDLE_Y, CAT, H, INVENTORY, MAPPING, NOW, REFI, mapping_set, policy_x
+from ai.tests.fixtures import (
+    BUNDLE_X, BUNDLE_Y, CAT, H, INVENTORY, MAPPING, NOW, REFI, bundle, mapping_set, policy_x, policy_y,
+)
 
 KEY = bytes(range(32))
+
+
+def with_baseline(item, value: str, period_label: str):
+    data = item.model_dump()
+    data["baseline"] = {"value": value, "unit": item.unit, "period_label": period_label}
+    return type(item).model_validate(data)
+
+
+# The fixtures carry no baselines; these do: the refinancing rate fell, Dong Da inventory rose.
+REFI_FELL = with_baseline(REFI, "4.5", "2026-06")
+INVENTORY_ROSE = with_baseline(INVENTORY, "15", "2026-07-01")
+BUNDLE_X_MOVED = bundle(policy_x(), [REFI_FELL])
+BUNDLE_Y_MOVED = bundle(policy_y(), [REFI_FELL, INVENTORY_ROSE])
 
 
 def recommendation(**overrides) -> dict:
@@ -154,6 +169,17 @@ class RecommendationTest(unittest.TestCase):
         self.assertEqual(sy["properties"]["magnitude"]["enum"], ["none"])
         self.assertIn(INVENTORY.evidence_id, sy["properties"]["evidence_ids"]["items"]["enum"])
 
+    def test_reason_codes_follow_the_evidence(self):
+        """Only metrics in the bundle, in the direction they moved (baseline 2026-10-18: 13 of 20 model
+        outputs named metrics that were not in the bundle)."""
+        extras = ["CONFLICTING_SIGNALS", "STALE_EVIDENCE", "INSUFFICIENT_EVIDENCE"]
+        self.assertEqual(supported_reason_codes(BUNDLE_X_MOVED, CAT), ["REFI_RATE_DROP", *extras])
+        self.assertEqual(supported_reason_codes(BUNDLE_Y_MOVED, CAT), ["REFI_RATE_DROP", "INVENTORY_RISE", *extras])
+        # No baseline: the evidence does not show a direction, so no metric code
+        self.assertEqual(supported_reason_codes(BUNDLE_X, CAT), extras)
+        reason_codes = generation_schema(BUNDLE_X_MOVED, CAT)["properties"]["reason_codes"]
+        self.assertEqual(reason_codes["maxItems"], MAX_REASON_CODES)
+
 
 class VerifierResultTest(unittest.TestCase):
     def result(self, decision, codes):
@@ -201,8 +227,11 @@ class GrammarTest(unittest.TestCase):
     def test_recommendation_grammar(self):
         import json
 
-        schema = generation_schema(BUNDLE_X, CAT)
+        schema = generation_schema(BUNDLE_X_MOVED, CAT)
         self.assertTrue(self.accepts(schema, json.dumps(recommendation())))
+        self.assertFalse(self.accepts(schema, json.dumps(recommendation(reason_codes=["PRICE_INDEX_RISE"]))))
+        self.assertFalse(self.accepts(schema, json.dumps(recommendation(reason_codes=["REFI_RATE_RISE"]))))
+        self.assertFalse(self.accepts(schema, json.dumps(recommendation(reason_codes=["REFI_RATE_DROP"] * 4))))
         self.assertFalse(self.accepts(schema, json.dumps(recommendation(evidence_ids=["macro.vn.cpi.2026-09"]))))
         self.assertFalse(self.accepts(schema, json.dumps(recommendation(recommended_action="hold"))))
         self.assertFalse(self.accepts(schema, json.dumps(recommendation(mapping_id="mapping.v9.000000000000"))))

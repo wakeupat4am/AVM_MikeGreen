@@ -736,3 +736,27 @@ The adversarial set was frozen (v0.1.0, by jimmytrn154, 2026-10-18 22:55 +07:00;
   - a prompt rule against repeating customer figures and citing excluded evidence;
   - remove the demo context from the adapter;
   - later, the support check.
+
+## 2026-10-19 — first fixes, dev run
+
+Applied the three approved fixes and ran the dev split (`20261019T012038Z-all-dev`, commit `509e47c-dirty`, GPU 0). Details: `vinfinx/docs/EVALUATION_RESULTS.md`.
+
+- **Changes:**
+  - The generation schema allows reason codes only for bundle metrics, in the direction the evidence moved, plus the three general codes, with at most 3 codes (`MAX_REASON_CODES`). xgrammar enforces `maxItems` but silently ignores `uniqueItems`, so the cap is what stops loops.
+  - The runner prompt is `eval_prompts/0.2`: no customer figures, no excluded evidence.
+  - The adapter has no demo context.
+  - Reports now mark uncommitted code as `<commit>-dirty`.
+- **Result:** 18/24 dev cases passed (baseline 11/24). No invented metric codes, no loops, and Vietnamese 3/3.
+- **New problem:** Qwen used `CONFLICTING_SIGNALS` in 8 of 12 decisions with no conflict, and once wrote "the system flags conflicting signals". Verifier v0 never checked the general codes, so 4 of those passes are not real (14/24 counting them as failures).
+  - **Lesson:** each constraint closes one route, and the model moves to the next unchecked field. Every enum value the schema offers needs a verifier rule saying when it is supported.
+- **Still failing:**
+  - citing excluded items (stale, untrusted), despite the prompt rule;
+  - echoing the customer's "5 billion" and "approved";
+  - `no_change` with no citation;
+  - the irrelevant citation in ADV-028.
+- **Speed:** 75 s per decision instead of 29 s, with about the same number of tokens. The load average reached 55 while other users' jobs started on GPUs 0–4; our generation loop and grammar masking run on the CPU.
+- **Proposed, not applied:**
+  - verifier v0.1 checks the general codes;
+  - excluded items removed from the schema;
+  - a citation required for non-abstain actions.
+

@@ -48,8 +48,10 @@ mapping agent, policy engine. Current progress: `prototype/vinfinx/docs/README.m
 - Phase outputs are raw model output, not macro data.
 
 ## Known issues
-- `qwen_api.py` still carries the synthetic demo context in its system prompt; Qwen leaks numbers
-  from it (e.g. "VND 3.20B") into answers.
+- `qwen_api.py` no longer carries the demo context (removed 2026-10-19), so the web demo's chat no longer
+  knows the demo customer's figures; the app must send them in the conversation if needed.
+- Verifier v0 does not check the general reason codes (`CONFLICTING_SIGNALS`, `STALE_EVIDENCE`,
+  `INSUFFICIENT_EVIDENCE`); Qwen uses `CONFLICTING_SIGNALS` as filler. Fix proposed, not applied.
 - Load Qwen with `device_map="auto"`: an explicit single device (`{"": 0}`) runs ~7× slower.
 - Run Python from the VinFinx environment (`/mnt/disk1/backup_user/24chuong.ta/vinfinx/env`); tests run
   from `prototype/vinfinx` with `python -m unittest discover -s ai/tests -t .`.

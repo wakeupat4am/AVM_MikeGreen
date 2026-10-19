@@ -98,6 +98,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-18 | Verifier v0 built (recommendation and mapping); adversarial case format and 42 draft cases; live checks passed after adapter fixes; speed test traced the direct-load slowness to `device_map` | `ai/verifier/`, `ai/evaluation/`, `SERVER_SETUP_PLAN.md` |
 | 2026-10-18 | Adversarial set and verifier v0 approved; held-out split proposed (11 cases); evaluation runner built and checked on three cases through Qwen; verifier false positive on freshness dates fixed; `AGENTS.md` updated | `ai/evaluation/`, findings log |
 | 2026-10-18 | Adversarial set frozen (v0.1.0, by jimmytrn154); baseline run: 15/35 passed; main cause: reason codes for metrics not in the evidence (13 of 20 model-run decisions), sometimes looping until the token limit | `EVALUATION_RESULTS.md`, findings log |
+| 2026-10-19 | First fixes applied and run on the dev split: 18/24 passed (baseline 11/24), but 4 of those passes used `CONFLICTING_SIGNALS` without a conflict, which verifier v0 does not check (14/24 counting them as failures). No more invented metric codes or loops; Vietnamese 3/3. Run was slow (75 s per decision) because of server load | `EVALUATION_RESULTS.md`, findings log |
 
 ## Other workstreams
 
@@ -111,7 +112,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 
 ## Next steps
 
-1. **First fixes, measured on the dev split** (see [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md#planned-fixes-each-re-measured-on-the-dev-split-holdout-only-for-the-final-measurement)): constrain reason codes in the generation schema (only metrics in the bundle, unique, few); tell the model not to repeat customer figures or cite excluded evidence; remove the demo context from the adapter. Then one holdout run for the final number.
+1. **Second fixes, pending approval** (see [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md#proposed-next-fixes-not-applied-they-change-the-verifier)): verifier v0.1 checks the general reason codes; excluded evidence removed from the generation schema; a citation required for non-abstain actions. Measured on dev, then one holdout run for the final number. (First fixes done 2026-10-19.)
 2. **Then build step 6:** document generator and OCR; research corpus, mapping agent and support check (also fixes reversed mapping directions); policy engine.
 
 ## Open items
