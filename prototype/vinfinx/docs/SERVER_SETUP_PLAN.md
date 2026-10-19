@@ -405,10 +405,20 @@ Speed test (model loaded directly, after warm-up, 150 tokens per run), varying o
 
 Load average 19–28 during these runs, similar to 2026-10-17.
 
+### 2026-10-18: GPU 2, through the adapter
+
+First check of the evaluation runner (`device_map="auto"`):
+
+| Request | Output tokens | Time | Tokens/s |
+|---|---|---|---|
+| ADV-001 recommendation | 206 | 13.3 s | 15.5 |
+| ADV-005 recommendation | 256 | 12.5 s | 20.5 |
+| ADV-033 mapping proposal | 113 | 5.7 s | 19.8 |
+
 ### Speed investigation
 
 - **2026-10-18 finding: model placement.** On the same GPU and load, loading with `device_map="auto"` gives ~21 tokens/s and loading onto one explicit device (`{"": 0}` or `"cuda:0"`) gives ~3.2 tokens/s. The 2026-10-17 speed tests used explicit placement, so their slowness is explained. The cause inside `transformers`/`accelerate` is not yet understood. **Always load with `device_map="auto"`** (the adapter already does).
-- **Still unexplained:** the adapter (which uses `"auto"`) was also slow on GPU 2 on 2026-10-17 (2.5–4.1 tokens/s). Next check: the adapter on GPU 2 or 3 again, to see whether that was the card or the moment.
+- **Resolved as transient:** the adapter (which uses `"auto"`) was slow on GPU 2 on 2026-10-17 (2.5–4.1 tokens/s), but ran at 15–20 tokens/s on the same card on 2026-10-18. Most likely contention at that moment; re-check only if it recurs.
 - **Size (2026-10-17):** a 5–7× slowdown (about 50 ms per token on 2026-10-16, 220–400 ms per token on 2026-10-17). At the slow rate a 200-token decision takes 60–80 s; at the fast rate about 10 s.
 - **Ruled out:** the JSON-schema grammar (negligible cost above); the adapter (the direct speed test is equally slow); GPU 2 specifically (GPU 3 is the same); the PyTorch CPU thread pool (limiting and pinning made no difference); per-shape kernel recompilation (identical repeats stay slow).
 - **Observed alongside:** a higher server load average (22–31, against ~17 earlier), heavy jobs from other users on GPUs 0, 1, 5, 6 and 7, and large run-to-run variation (2.5–4.5 tokens/s on the same request), which fits contention better than a fixed fault.

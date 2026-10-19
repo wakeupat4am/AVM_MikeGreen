@@ -30,7 +30,7 @@ class CaseSetTest(unittest.TestCase):
 
         self.assertEqual({c.category for c in self.cases.cases}, set(Category))
         self.assertTrue(self.cases.synthetic)
-        self.assertEqual(self.cases.status, "draft")
+        self.assertEqual(self.cases.status, "frozen")
 
     def test_both_languages_present(self):
         self.assertEqual({c.language for c in self.cases.cases}, {"en", "vi"})
@@ -79,12 +79,23 @@ class CaseSetTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             Case.model_validate(raw)
         raw = self.cases.model_dump(mode="json")
-        raw["status"] = "frozen"  # frozen without frozen_by / frozen_at
+        raw["frozen_by"] = None  # frozen without saying who froze it
         with self.assertRaises(ValueError):
             CaseSet.model_validate(raw)
 
     def test_set_hash_is_stable(self):
         self.assertEqual(self.cases.set_hash, load_case_set(CASES_PATH).set_hash)
+
+    def test_frozen_files_match_the_manifest(self):
+        """A frozen set must never change: both its content hash and its file hash are recorded."""
+        import hashlib
+        import re
+
+        manifest = (CASES_PATH.parent / "MANIFEST.md").read_text(encoding="utf-8")
+        row = next(line for line in manifest.splitlines() if line.startswith(f"| `{CASES_PATH.name}`"))
+        content_hash, file_hash = re.findall(r"`(sha256:[0-9a-f]{64})`", row)
+        self.assertEqual(self.cases.set_hash, content_hash)
+        self.assertEqual("sha256:" + hashlib.sha256(CASES_PATH.read_bytes()).hexdigest(), file_hash)
 
 
 if __name__ == "__main__":

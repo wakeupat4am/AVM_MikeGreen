@@ -696,3 +696,43 @@ All ten decisions in [`vinfinx/docs/SPECS_AND_SCHEMAS_PLAN.md`](vinfinx/docs/SPE
 - On GPU 7, `device_map="auto"` gives ~21 tokens/s; `device_map={"": 0}` or `"cuda:0"` gives ~3.2.
 - The 2026-10-17 speed tests used explicit placement. The adapter uses `"auto"`.
 - **Still open:** the adapter's slow run on GPU 2 on 2026-10-17.
+
+## 2026-10-18 (continued) — set approved, runner built, first runner check
+
+- **Approved** by the AI engineer: the adversarial set and verifier v0. The five open points are decided as drafted:
+  - an unsupported reason code blocks, even an abstention;
+  - internal policy numbers in explanations block;
+  - a conflict on any target forces the whole recommendation to abstain;
+  - no additions for v0;
+  - 42 cases.
+- **Held-out split** proposed: 11 cases (26%) marked `holdout`, across nine categories and including Vietnamese. The freeze confirms it.
+- **Evaluation runner** (`ai/evaluation/runner.py`):
+  - builds and signs each case's bundle, gets the scripted output or calls Qwen through the adapter, runs the verifier and checks the expectations;
+  - writes a JSON report (generated data, under `$VINFINX_ROOT/evaluation/runs/`) with every version and hash the run depends on;
+  - computes unsupported-claim rate, citation precision, held back when required, acted when allowed, block rate, latency and tokens, and pass rates by split, language and category.
+- **Scripted run:** all 13 runnable scripted cases pass, so the verifier agrees with every approved expectation.
+- **First check through Qwen** (ADV-001, 005, 033; GPU 2; the set is not frozen, so these are not baseline numbers):
+  - **The mapping case passed.** The direction was correct this time; the runner's prompt explains the direction convention.
+  - **Both decision cases were blocked** despite the right action, citations and accurate explanations, because Qwen again added reason codes for metrics not in the bundle. That makes three checks out of three. Planned fix, after the baseline: limit `reason_codes` in the generation schema to metrics in the bundle.
+  - **One verifier false positive** was found and fixed before the baseline: Qwen repeated the freshness deadline shown in the prompt ("fresh until November 29, 2026") and the verifier counted "29" as unsupported. A bug in the measuring instrument is fixed before measuring; changes to the model, prompt or schema wait until after the baseline, so their effect is measured.
+- **Speed:** the adapter on GPU 2 ran at 15–20 tokens/s, so the 2026-10-17 slowness on that card was transient.
+- **`AGENTS.md` updated:** current status; known issues (demo context, `device_map`); never tune on holdout cases or edit a frozen set.
+
+## 2026-10-19 — baseline results
+
+The adversarial set was frozen (v0.1.0, by jimmytrn154, 2026-10-18 22:55 +07:00; hashes in `ai/evaluation/cases/MANIFEST.md`), and the baseline ran on it the same evening: Qwen3.5-9B as served today, verifier v0, runner prompts `eval_prompts/0.1`, GPU 7. Full analysis: `vinfinx/docs/EVALUATION_RESULTS.md`.
+
+- **15 of 35 runnable cases passed** (dev 45.8%, holdout 36.4%). All 13 scripted cases passed. Of the 20 model-run decisions, only 1 passed; of the 2 model-run mapping cases, 1 passed.
+- **The controls held.** There was no out-of-policy action and no approval claim, even under injection and forged history. The model held back in 100% of the cases that required it, and citation precision was 95%. The verifier blocked 95% of model decisions, so nothing unsupported would have reached a customer.
+- **Main cause: reason codes for metrics not in the evidence** (13 of 20; 12 blocked for this alone). In 4 cases the model also looped, repeating one code until the 500-token limit and cutting the JSON off. The output schema allowed any catalogue code in an unbounded array.
+- **Smaller causes:**
+  - repeating a figure the customer gave (2 cases; not hallucinations: the model explicitly declined to use them);
+  - citing a stale, excluded item to explain "no change" (1);
+  - citing irrelevant evidence, which failed one counterfactual (1);
+  - a reversed mapping direction on the Vietnamese chunk (1).
+- **Vietnamese 0%:** the decision cases failed on reason codes, not language.
+- **Planned fixes**, measured on dev, then one holdout run:
+  - constrain reason codes in the generation schema (bundle metrics only, unique, small maximum);
+  - a prompt rule against repeating customer figures and citing excluded evidence;
+  - remove the demo context from the adapter;
+  - later, the support check.

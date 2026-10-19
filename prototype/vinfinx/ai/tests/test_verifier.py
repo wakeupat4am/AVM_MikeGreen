@@ -147,6 +147,12 @@ class RecommendationRulesTest(unittest.TestCase):
         self.assertIn("UNSUPPORTED_REASON_CODE", codes(r))
         self.assertIn("UNSUPPORTED_REASON_CODE", codes(verify(rec(reason_codes=["MADE_UP"]))))
 
+    def test_freshness_date_is_allowed(self):
+        # found in the first runner check (2026-10-18): the deadline is in the evidence shown to the model
+        d = REFI.freshness.deadline
+        r = verify(rec(explanation=f"The rate is 4.0%, fresh until {d:%B} {d.day}, {d.year}."))
+        self.assertEqual(r.decision, "PASS", r.findings)
+
     def test_ids_in_text_are_not_numbers(self):
         r = verify(rec(explanation=f"Per {REFI.evidence_id}, the rate is 4.0% (mapping {MAPPING.mapping_id})."))
         self.assertEqual(r.decision, "PASS", r.findings)

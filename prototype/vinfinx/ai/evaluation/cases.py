@@ -204,6 +204,9 @@ class Invariance(StrictModel):
 class Case(StrictModel):
     case_id: str = Field(pattern=r"^ADV-\d{3}$")
     category: Category
+    # dev: looked at while developing. holdout: not looked at until a final measurement, so a fix that
+    # only works on the visible cases shows up as a gap between the two.
+    split: Literal["dev", "holdout"] = "dev"
     title: str
     language: Literal["vi", "en"]
     handoff_refs: list[str] = Field(min_length=1)  # e.g. "§3 Q4"

@@ -2,7 +2,60 @@
 
 Working plans and progress for the AI engineering scope. Background, decisions and daily notes live in [`../../AI_ENGINEER_FINDINGS.md`](../../AI_ENGINEER_FINDINGS.md); the requirements are in [`../AI_ENGINEERING_HANDOFF.md`](../AI_ENGINEERING_HANDOFF.md).
 
-*Progress tracker last updated 2026-10-18 (evening).*
+*Progress tracker last updated 2026-10-19.*
+
+## Where we stand
+
+### The handoff's philosophy
+
+The LLM must never be the sole authority. Every fact it uses comes from validated evidence, every output is checked by deterministic code, and anything uncertain goes to a human. The handoff asks how to control hallucination (§3, §4, §5) and answers with a stack of independent controls (§6), not a better prompt, then requires measuring whether those controls work (§7).
+
+[`PIPELINE.md`](PIPELINE.md) turns this into a concrete system for macro decisions:
+- **Offline:** an agent reads real research documents and proposes how each macro change affects a target. Every proposal cites an exact quote, is verified, and is stored as a versioned mapping.
+- **Online, per case:** a synthetic macro document is read by OCR into trusted evidence. Deterministic code applies the mapping. Qwen only writes the recommendation, a verifier checks it, and a human reviews what is routed.
+
+### Against the handoff's controls (§6)
+
+| §6 control | What it means | What we have | Status |
+|---|---|---|---|
+| Constrained inputs | Validated evidence objects, not free text | `EvidenceItem`, signed `EvidenceBundle`, metric catalogue | **Built** |
+| Structured outputs | Strict schema, enumerated actions | `Recommendation` and `MappingProposal`; per-request output schemas built from the bundle, so Qwen cannot cite evidence that does not exist | **Built, tested on Qwen** |
+| Citation enforcement | Every claim maps to evidence | Verifier: citations in the bundle; quotes word for word; numbers traced to evidence | **Built** (verifier v0) |
+| Deterministic verification | Units, policy and arithmetic checked outside the LLM | Verifier v0 checks units, freshness, trust, allowed actions, magnitude cap | **Built**; the policy engine itself is not |
+| Abstention | Explicit outcomes for missing, conflicting or stale data | Conflict forces abstention; abstaining routes to a human | **Built** in schemas and verifier |
+| Human review | Mandatory for high impact and low confidence | `ROUTE_TO_HUMAN` decisions exist; the review screen is only a UI mock-up | **Partly** |
+| Model separation | Generator, verifier and policy engine are distinct | Qwen generates, rules verify, OpenAI support check planned | **Partly**: the support check is a placeholder |
+| Adversarial evaluation | Test injection, forgery, stale data, contradictions | 42 frozen cases (11 held out) and an evaluation runner | **Built** |
+| Auditability | Log versions, hashes, outputs, verifier results | Everything is hashed and versioned; the audit log is not built | **Partly** |
+| Monitoring | Track unsupported claims, overrides, cost | Requirements written (handoff §9) | **Not started** |
+
+### Against the pipeline
+
+| Component | Status |
+|---|---|
+| Qwen on our server | **Running**, pinned versions, ~20 tokens/s |
+| Contracts (schemas, catalogue, document spec, source criteria) | **Done** |
+| Verifiers (rules) | **Done** (v0, approved) |
+| Adversarial test set and runner | **Frozen** (v0.1.0); runner built |
+| Synthetic document generator, OCR service | Designed, not built |
+| Research corpus, RAG, mapping agent, support check | Designed, not built |
+| Policy engine | Schema only (`PolicyResult`); logic not built |
+| Decision engine | Proven in live checks; not wired into a service |
+| Audit log, Authenticator review flow, cost logging | Not started |
+
+**In short:** we have built the safety framework the handoff asks for: the contracts, the constraints on the model, and the checker. We have not built the parts that *produce* evidence (document, OCR, research corpus, mapping agent, policy engine), and we have not *measured* anything yet.
+
+### Why the adversarial test set exists
+
+The handoff's question is "how can we control hallucination?". Everything built so far is a proposed answer; the adversarial set is how we prove it, or find where it fails.
+
+1. **The handoff requires it.** §6 lists adversarial evaluation as a control. §7 says no model update ships without a frozen evaluation set, and its gates are all rates (unsupported claims, citation precision, abstention accuracy, false acceptance of tampered documents). A rate needs a fixed set of cases to be computed over.
+2. **Ordinary inputs do not test the controls.** On a normal question Qwen usually behaves, so the verifier has nothing to catch. Hallucinations appear under pressure: conflicting signals, missing data, injected instructions, forged history. The cases apply that pressure on purpose. The verifier is the security guard; the adversarial set is the break-in test.
+3. **We have already seen why.** In the 2026-10-18 live check, Qwen reversed a mapping direction, copied "VND 3.20B" from the demo context, gave reason codes for metrics not in the evidence, and said the rate rose when it fell, all in valid JSON that no schema could reject. The first three are now cases ADV-034, ADV-010 and ADV-021, so they are measured every time something changes instead of remaining anecdotes; the fourth is covered by a verifier unit test and is a candidate case to add.
+4. **It makes progress comparable.** The Qwen baseline, every verifier change, another model, vLLM, and the cost comparison (handoff §9: cheaper *at equal quality*) are all measured on the same frozen set. Without it, "better" is an impression.
+5. **It must be independent of the builder.** The verifier was written by the same hand that drafted the cases, so the AI engineer reviews and freezes the set before the verifier is tuned; otherwise the tests quietly fit the code.
+
+**What the freeze unlocks:** the Qwen baseline on the frozen set gives the first *measured* answer to the handoff's macro question (how often the current system makes unsupported claims, abstains correctly, resists injection). After that, the evidence-producing components are built and each is measured on the same set as it is added.
 
 ## Documents
 
@@ -13,6 +66,7 @@ Working plans and progress for the AI engineering scope. Background, decisions a
 | [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) | Build steps 1–2: metric catalogue, document spec, source criteria, schemas; decisions D1–D10 | Approved 2026-10-17; built 2026-10-18 |
 | [`MACRO_DOCUMENT_SPEC.md`](MACRO_DOCUMENT_SPEC.md) | The synthetic macro-status document: layout, variants, ground truth, traceability to handoff §3 and §5 | Approved 2026-10-17; generator not built |
 | [`CORPUS_SOURCE_CRITERIA.md`](CORPUS_SOURCE_CRITERIA.md) | What may enter the research corpus, source records, deliberately bad documents | Approved 2026-10-17 |
+| [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md) | Results of the adversarial set over time: baseline and every later run, with causes of failure | Baseline recorded 2026-10-18 |
 
 ## Build order progress
 
@@ -22,9 +76,9 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 |---|---|---|---|
 | 1 | Specs: synthetic macro-status document, research-corpus source criteria | **Done** 2026-10-17 | Plus the metric catalogue (`ai/catalog/metrics.yaml`): 14 metric IDs, 19 reason codes, provisional freshness |
 | 2 | Schemas | **Done** 2026-10-18 | `ai/schemas/`; live checks on Qwen passed for all three generation schemas |
-| 3 | Verifiers v0 (rules) | **Built** 2026-10-18, awaiting review | `ai/verifier/`: recommendation and mapping verifiers; 24 tests including the four worked cases. Support check is a placeholder |
-| 4 | Frozen adversarial test set | **Draft ready** 2026-10-18; **AI engineer to edit and freeze** | `ai/evaluation/`: case format and 42 draft cases across 16 categories ([README](../ai/evaluation/README.md)) |
-| 5 | Qwen on our server; baseline | Serving **done** 2026-10-16; baseline **waiting** on step 4 | Generation slowdown under investigation |
+| 3 | Verifiers v0 (rules) | **Done**, approved 2026-10-18 | `ai/verifier/`: recommendation and mapping verifiers; 24 tests including the four worked cases. Support check is a placeholder |
+| 4 | Frozen adversarial test set | **Done**: frozen 2026-10-18 by jimmytrn154 (v0.1.0) | `ai/evaluation/`: 42 cases, 16 categories, 11 held out; evaluation runner built ([README](../ai/evaluation/README.md)) |
+| 5 | Qwen on our server; baseline | **Done**: serving 2026-10-16; baseline 2026-10-18 (15/35 passed; see [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md)) | Speed partly explained (see [Other workstreams](#other-workstreams)) |
 | 6 | Document generator, OCR service, RAG, mapping agent, policy engine, decision engine | Not started | |
 
 ## Done so far
@@ -42,23 +96,23 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-17 | Server questions settled: any free GPU may be used; NetBird works from the Mac; `backup_user` storage is not purged | `SERVER_SETUP_PLAN.md` |
 | 2026-10-18 | Remaining schemas built (`RelationshipEvidence`, `MappingProposal`/`MappingSet`, `PolicyResult`, `EvidenceBundle` with HMAC signing, `Recommendation` with per-request generation schema, `VerifierResult`); live checks on Qwen; two adapter fixes | `SPECS_AND_SCHEMAS_PLAN.md`, findings log |
 | 2026-10-18 | Verifier v0 built (recommendation and mapping); adversarial case format and 42 draft cases; live checks passed after adapter fixes; speed test traced the direct-load slowness to `device_map` | `ai/verifier/`, `ai/evaluation/`, `SERVER_SETUP_PLAN.md` |
+| 2026-10-18 | Adversarial set and verifier v0 approved; held-out split proposed (11 cases); evaluation runner built and checked on three cases through Qwen; verifier false positive on freshness dates fixed; `AGENTS.md` updated | `ai/evaluation/`, findings log |
+| 2026-10-18 | Adversarial set frozen (v0.1.0, by jimmytrn154); baseline run: 15/35 passed; main cause: reason codes for metrics not in the evidence (13 of 20 model-run decisions), sometimes looping until the token limit | `EVALUATION_RESULTS.md`, findings log |
 
 ## Other workstreams
 
 | Workstream | Status |
 |---|---|
 | Qwen serving | Running on demand (`tmux`, any free GPU). The full prototype check from the Mac through the bridge has not been run yet |
-| Generation speed | **Partly explained.** Loading with an explicit device (`device_map={"": 0}`) runs at ~3.2 tokens/s; `device_map="auto"` (the adapter's setting) at ~21 on the same GPU (2026-10-18). The adapter's slow run on GPU 2 on 2026-10-17 is still unexplained. All measurements: [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md#generation-speed-log) |
+| Generation speed | **Explained enough.** Loading with an explicit device (`device_map={"": 0}`) runs at ~3.2 tokens/s; `device_map="auto"` (the adapter's setting) at ~21 on the same GPU (2026-10-18). The adapter on GPU 2 ran at 15–20 tokens/s on 2026-10-18, so its slow run on 2026-10-17 was transient. All measurements: [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md#generation-speed-log) |
 | Cost accounting (handoff §9) | Requirements written; per-call logging not built; parked until the pipeline exists |
 | vLLM | Deferred until measurements show plain `transformers` is too slow |
 | Conversational AI, customer-document OCR | Not started; they reuse the contracts built here |
 
 ## Next steps
 
-1. **AI engineer: edit and freeze the adversarial set** (`ai/evaluation/cases/adversarial_v0.yaml`), including the five points listed in its [README](../ai/evaluation/README.md#points-to-decide-while-editing).
-2. **AI engineer: review verifier v0** (`ai/verifier/`), especially the provisional limits (minimum quote length 20 characters, maximum source age 10 years) and the rule that one conflicting target forces abstention.
-3. **After the freeze:** an evaluation runner that scores the pipeline on the set, then the Qwen baseline (build step 5).
-4. **Speed:** check the adapter on GPU 2 or 3 again (still unexplained slowness on 2026-10-17).
+1. **First fixes, measured on the dev split** (see [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md#planned-fixes-each-re-measured-on-the-dev-split-holdout-only-for-the-final-measurement)): constrain reason codes in the generation schema (only metrics in the bundle, unique, few); tell the model not to repeat customer figures or cite excluded evidence; remove the demo context from the adapter. Then one holdout run for the final number.
+2. **Then build step 6:** document generator and OCR; research corpus, mapping agent and support check (also fixes reversed mapping directions); policy engine.
 
 ## Open items
 
@@ -78,8 +132,8 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | `../ai/catalog/` | Metric catalogue (`metrics.yaml`) and its loader |
 | `../ai/schemas/` | `common`, `evidence`, `mapping`, `policy`, `bundle`, `recommendation`, `verifier` |
 | `../ai/verifier/` | Verifier v0: `recommendation`, `mapping`, `numbers` |
-| `../ai/evaluation/` | Adversarial case format (`cases.py`) and the draft set (`cases/adversarial_v0.yaml`) |
-| `../ai/tests/` | Tests and shared fixtures (worked-case bundles X and Y); 69 passing |
+| `../ai/evaluation/` | Case format (`cases.py`), the case set (`cases/adversarial_v0.yaml`), the runner (`runner.py`) |
+| `../ai/tests/` | Tests and shared fixtures (worked-case bundles X and Y); 75 passing |
 | `../qwen_api.py`, `../serve-qwen.sh`, `../start-qwen-bridge.sh` | Qwen adapter, server launcher, Mac bridge |
 
 Run the tests from `prototype/vinfinx` on the server:

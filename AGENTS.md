@@ -17,7 +17,10 @@ Read before doing anything:
 3. `prototype/vinfinx/docs/SERVER_SETUP_PLAN.md`: serving Qwen on this server
 4. `prototype/AI_ENGINEER_FINDINGS.md`: background and dated decision log
 
-Status: design only. Nothing in `docs/PIPELINE.md` is built yet.
+Status: being built in the build order of `docs/PIPELINE.md`. Built so far: Qwen serving on our
+server, the contracts (`ai/catalog/`, `ai/schemas/`), verifier v0 (`ai/verifier/`), the adversarial
+test set and its runner (`ai/evaluation/`). Not built: document generator, OCR, research corpus,
+mapping agent, policy engine. Current progress: `prototype/vinfinx/docs/README.md`.
 
 ## Hard rules
 - Customer data, identity documents and bank records never go to OpenAI or any
@@ -45,8 +48,11 @@ Status: design only. Nothing in `docs/PIPELINE.md` is built yet.
 - Phase outputs are raw model output, not macro data.
 
 ## Known issues
-- `serve-qwen.sh` runs `vinfinx_qwen_api:app`, but the file is `qwen_api.py`.
-- `qwen_api.py` hardcodes a 21 GiB per-GPU limit and the demo context in its system prompt.
+- `qwen_api.py` still carries the synthetic demo context in its system prompt; Qwen leaks numbers
+  from it (e.g. "VND 3.20B") into answers.
+- Load Qwen with `device_map="auto"`: an explicit single device (`{"": 0}`) runs ~7× slower.
+- Run Python from the VinFinx environment (`/mnt/disk1/backup_user/24chuong.ta/vinfinx/env`); tests run
+  from `prototype/vinfinx` with `python -m unittest discover -s ai/tests -t .`.
 - Phase 1 processed data and the `final_scorer.joblib` model are gitignored, so Phase 1
   scripts will not run from a fresh clone.
 
@@ -55,3 +61,5 @@ Status: design only. Nothing in `docs/PIPELINE.md` is built yet.
 - New AI-layer code goes under `prototype/vinfinx/`; new plans go in `prototype/vinfinx/docs/`.
 - Record decisions as a dated entry in `prototype/AI_ENGINEER_FINDINGS.md`.
 - Ask before choosing anything listed under "Open" in `docs/PIPELINE.md`.
+- Never tune the verifier or prompts on the adversarial set's `holdout` cases, and never edit a frozen
+  case set; changes go into a new version.

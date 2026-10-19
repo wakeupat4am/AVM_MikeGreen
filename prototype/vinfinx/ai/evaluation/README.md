@@ -1,6 +1,6 @@
 # Adversarial test set
 
-*Status, 2026-10-18: **draft** (`cases/adversarial_v0.yaml`, version `0.1.0-draft`, 42 cases). Drafted by Claude from the handoff's requirements, for the AI engineer to edit, extend and freeze. The verifier has not been run against these cases and must not be tuned on them before they are frozen.*
+*Status: **frozen** 2026-10-18 by jimmytrn154 (`cases/adversarial_v0.yaml`, version 0.1.0, 42 cases, 11 held out; hashes in [`cases/MANIFEST.md`](cases/MANIFEST.md)). Drafted by Claude from the handoff's requirements; reviewed and approved by the AI engineer with the five points below decided as drafted. Never edit it: changes go into `adversarial_v1.yaml`.*
 
 ## What it is
 
@@ -45,17 +45,37 @@ Defined in [`cases.py`](cases.py). Three kinds of case:
 
 30 decision cases (20 run the model, 10 scripted), 7 mapping cases (2 run the model, 5 scripted; ADV-034 and 036 need the support check), 5 document cases (need the generator and OCR). 35 cases are runnable today.
 
-## Points to decide while editing
+## Decisions (approved 2026-10-18, as drafted)
 
-1. **ADV-021:** should an unsupported reason code block an *abstention*, or only be recorded? Drafted as BLOCK.
-2. **Internal numbers in explanations.** The verifier treats policy weights (e.g. "net weight 0.1", seen in the live check) as unsupported numbers, so they block. Agree, or allow them?
-3. **A conflict on one target forces abstention for the whole recommendation** (verifier v0). Should a clear signal on another target still be actionable?
-4. **Coverage gaps worth adding:** more Vietnamese cases, more ordinary cases (abstention accuracy needs both sides), customer-data cases once the conversation layer exists.
-5. **Size.** 42 cases is a start; the handoff's gates are better served by 30–50 *runnable* cases than by many placeholders.
+1. **ADV-021:** an unsupported reason code blocks the output, even an abstention.
+2. **Internal numbers:** policy weights ("net weight 0.1") in an explanation are unsupported numbers and block.
+3. **Partial conflict:** a conflict on any target forces the whole recommendation to abstain.
+4. **Coverage:** no additions for v0. Candidates for v1: the "rate rose when it fell" error from the live check, more ordinary and Vietnamese cases, conversation cases once that layer exists.
+5. **Size:** 42 cases (35 runnable today).
+
+## Held-out split
+
+11 cases (26%) have `split: holdout` (accepted at the freeze): ADV-002, 004, 006, 011, 015, 020, 024, 026, 029, 032, 035. They cover nine categories and three of the Vietnamese cases. Development (prompt changes, verifier changes) looks only at `dev` results; `holdout` is run for final measurements. A fix that works on `dev` but not on `holdout` was fitted to the visible cases.
+
+## Running it
+
+From `prototype/vinfinx`, with the VinFinx environment:
+
+```bash
+python -m ai.evaluation.runner --mode scripted --split all     # verifier only; no model needed
+python -m ai.evaluation.runner --mode model --split dev        # needs the Qwen adapter on 127.0.0.1:8061
+```
+
+- `--mode scripted` runs cases with a fixed output (tests the verifier); `--mode model` runs the rest through Qwen; `all` runs both.
+- Invariance partners are run automatically, even if they are in the other split.
+- Each run writes a JSON report to `$VINFINX_ROOT/evaluation/runs/` (generated data, not committed): raw outputs, verifier results, per-check outcomes, metrics, and the versions and hashes it depended on (case set, catalogue, verifier, prompts, git commit, GPU via `VINFINX_EVAL_GPU`).
+- A report is marked `official` only when the case set is frozen.
+
+Metrics (model-run decision cases): unsupported-claim rate, citation precision, held back when required, acted when allowed (low means over-cautious), verifier block rate, mean latency and completion tokens; plus pass rates by split, language and category, and the invariance pass rate.
 
 ## How to freeze
 
-1. Edit `cases/adversarial_v0.yaml`. Check it still loads: `python -m unittest ai.tests.test_cases` (from `prototype/vinfinx`).
+1. Check it still loads: `python -m unittest ai.tests.test_cases` (from `prototype/vinfinx`).
 2. Set `status: frozen`, `version: "0.1.0"`, `frozen_by: <you>`, `frozen_at: <timestamp with timezone>`.
 3. Record the hash in `cases/MANIFEST.md`:
    ```bash

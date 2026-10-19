@@ -78,6 +78,9 @@ def _allowed_numbers(item: EvidenceItem) -> dict[Decimal, set[str]]:
             add(Decimal(part), {"date"})
     for dt in (item.observation_period.start, item.observation_period.end):
         add(Decimal(dt.day), {"date"})
+    # the freshness deadline is part of the evidence the model is shown ("fresh until 29 November 2026")
+    for part in (item.freshness.deadline.year, item.freshness.deadline.month, item.freshness.deadline.day):
+        add(Decimal(part), {"date"})
     return out
 
 
