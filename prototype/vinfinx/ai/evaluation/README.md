@@ -64,7 +64,10 @@ From `prototype/vinfinx`, with the VinFinx environment:
 ```bash
 python -m ai.evaluation.runner --mode scripted --split all     # verifier only; no model needed
 python -m ai.evaluation.runner --mode model --split dev        # needs the Qwen adapter on 127.0.0.1:8061
+python -m ai.evaluation.runner --mode all --split dev --policy engine   # policy results from the policy engine
 ```
+
+- `--policy engine` replaces each decision case's hand-written policy result with the policy engine's (provisional config `ai/policy/policy_v0.yaml`, synthetic provisional mapping, customer district Đống Đa). The report records the policy version and hash and the mapping ID.
 
 - `--mode scripted` runs cases with a fixed output (tests the verifier); `--mode model` runs the rest through Qwen; `all` runs both.
 - Invariance partners are run automatically, even if they are in the other split.

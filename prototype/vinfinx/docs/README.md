@@ -21,7 +21,7 @@ The LLM must never be the sole authority. Every fact it uses comes from validate
 | Constrained inputs | Validated evidence objects, not free text | `EvidenceItem`, signed `EvidenceBundle`, metric catalogue | **Built** |
 | Structured outputs | Strict schema, enumerated actions | `Recommendation` and `MappingProposal`; per-request output schemas built from the bundle, so Qwen cannot cite evidence that does not exist | **Built, tested on Qwen** |
 | Citation enforcement | Every claim maps to evidence | Verifier: citations in the bundle; quotes word for word; numbers traced to evidence | **Built** (verifier v0) |
-| Deterministic verification | Units, policy and arithmetic checked outside the LLM | Verifier v0 checks units, freshness, trust, allowed actions, magnitude cap | **Built**; the policy engine itself is not |
+| Deterministic verification | Units, policy and arithmetic checked outside the LLM | Verifier v0.1.1 checks units, freshness, trust, allowed actions, magnitude cap, reason codes; the policy engine applies weights and thresholds in code | **Built** (policy values provisional) |
 | Abstention | Explicit outcomes for missing, conflicting or stale data | Conflict forces abstention; abstaining routes to a human | **Built** in schemas and verifier |
 | Human review | Mandatory for high impact and low confidence | `ROUTE_TO_HUMAN` decisions exist; the review screen is only a UI mock-up | **Partly** |
 | Model separation | Generator, verifier and policy engine are distinct | Qwen generates, rules verify, OpenAI support check planned | **Partly**: the support check is a placeholder |
@@ -43,7 +43,7 @@ The LLM must never be the sole authority. Every fact it uses comes from validate
 | Decision engine | Proven in live checks; not wired into a service |
 | Audit log, Authenticator review flow, cost logging | Not started |
 
-**In short:** we have built the safety framework the handoff asks for: the contracts, the constraints on the model, and the checker. We have not built the parts that *produce* evidence (document, OCR, research corpus, mapping agent, policy engine), and we have not *measured* anything yet.
+**In short:** we have built the safety framework the handoff asks for: the contracts, the constraints on the model, and the checker. Since then: the baseline and two rounds of fixes are measured (dev 21/24), and the policy engine is built (2026-10-20). Still not built: the parts that *produce* evidence (document, OCR, research corpus, mapping agent).
 
 ### Why the adversarial test set exists
 
@@ -79,7 +79,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 3 | Verifiers v0 (rules) | **Done**, approved 2026-10-18 | `ai/verifier/`: recommendation and mapping verifiers; 24 tests including the four worked cases. Support check is a placeholder |
 | 4 | Frozen adversarial test set | **Done**: frozen 2026-10-18 by jimmytrn154 (v0.1.0) | `ai/evaluation/`: 42 cases, 16 categories, 11 held out; evaluation runner built ([README](../ai/evaluation/README.md)) |
 | 5 | Qwen on our server; baseline | **Done**: serving 2026-10-16; baseline 2026-10-18 (15/35 passed; see [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md)) | Speed partly explained (see [Other workstreams](#other-workstreams)) |
-| 6 | Document generator, OCR service, RAG, mapping agent, policy engine, decision engine | Not started | |
+| 6 | Document generator, OCR service, RAG, mapping agent, policy engine, decision engine | **In progress:** policy engine built 2026-10-20 (provisional values); the rest not started | `POLICY_ENGINE_PLAN.md` |
 
 ## Done so far
 
@@ -99,6 +99,9 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-18 | Adversarial set and verifier v0 approved; held-out split proposed (11 cases); evaluation runner built and checked on three cases through Qwen; verifier false positive on freshness dates fixed; `AGENTS.md` updated | `ai/evaluation/`, findings log |
 | 2026-10-18 | Adversarial set frozen (v0.1.0, by jimmytrn154); baseline run: 15/35 passed; main cause: reason codes for metrics not in the evidence (13 of 20 model-run decisions), sometimes looping until the token limit | `EVALUATION_RESULTS.md`, findings log |
 | 2026-10-19 | First fixes applied and run on the dev split: 18/24 passed (baseline 11/24), but 4 of those passes used `CONFLICTING_SIGNALS` without a conflict, which verifier v0 does not check (14/24 counting them as failures). No more invented metric codes or loops; Vietnamese 3/3. Run was slow (75 s per decision) because of server load | `EVALUATION_RESULTS.md`, findings log |
+| 2026-10-19 | Second fixes (verifier v0.1, citable evidence only, citation required unless abstaining) run on the dev split: 21/24 passed, all genuine; remaining: one real excluded-figure statement, one customer-figure echo, one verifier bug (evidence-ID digits counted as numbers in uncited abstentions). Generation still slow (~70 s per decision) | `EVALUATION_RESULTS.md`, findings log |
+| 2026-10-19 | Verifier v0.1.1 (evidence-ID digits no longer counted as numbers); decision-step tuning paused at dev 21/24; policy-engine plan drafted | `POLICY_ENGINE_PLAN.md`, findings log |
+| 2026-10-20 | P1–P5 approved as provisional; **policy engine built** (`ai/policy/`): reproduces all 30 frozen decision cases' policy results, runner `--policy engine`; schema `policy_result/0.2` | `POLICY_ENGINE_PLAN.md`, findings log |
 
 ## Other workstreams
 
@@ -112,8 +115,8 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 
 ## Next steps
 
-1. **Second fixes, pending approval** (see [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md#proposed-next-fixes-not-applied-they-change-the-verifier)): verifier v0.1 checks the general reason codes; excluded evidence removed from the generation schema; a citation required for non-abstain actions. Measured on dev, then one holdout run for the final number. (First fixes done 2026-10-19.)
-2. **Then build step 6:** document generator and OCR; research corpus, mapping agent and support check (also fixes reversed mapping directions); policy engine.
+1. Decision-step tuning is paused (dev 21/24 with the second fixes; verifier v0.1.1 fixes the evidence-ID bug). The holdout run waits until step 6 changes the system again. Re-measure generation speed separately.
+2. **Step 6 continues:** policy engine built 2026-10-20 ([`POLICY_ENGINE_PLAN.md`](POLICY_ENGINE_PLAN.md); provisional values awaiting a domain owner). Next: document generator and OCR; then research corpus, mapping agent and support check (also fixes reversed mapping directions).
 
 ## Open items
 

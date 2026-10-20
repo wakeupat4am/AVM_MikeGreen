@@ -23,8 +23,9 @@ def fake_model(answer_for):
     correct proposal."""
 
     def call(url, messages, schema, max_tokens=500):
-        if "mapping_id" in schema["properties"]:
-            mapping_id = schema["properties"]["mapping_id"]["enum"][0]
+        decision = schema.get("anyOf", [schema])[0]["properties"]
+        if "mapping_id" in decision:
+            mapping_id = decision["mapping_id"]["enum"][0]
             return runner.Generation(text=answer_for(messages[-1]["content"], mapping_id), prompt_tokens=300,
                                      completion_tokens=120, seconds=6.0)
         proposal = {"metric_key": "refi_rate", "target": "borrowing_capacity", "direction": "negative",

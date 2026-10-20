@@ -760,3 +760,36 @@ Applied the three approved fixes and ran the dev split (`20261019T012038Z-all-de
   - excluded items removed from the schema;
   - a citation required for non-abstain actions.
 
+## 2026-10-19 (continued) — second fixes, dev run
+
+The second fixes were applied (the abstain-only rule for bundles with nothing citable is approved) and the dev split was run (`20261019T015439Z-all-dev`, verifier v0.1, GPU 1).
+
+- **Changes:**
+  - Verifier v0.1 requires the bundle to support each general reason code; the generation schema uses the same function.
+  - The schema offers only citable evidence (trusted, fresh, not excluded).
+  - The schema is an `anyOf` that requires a citation for every action except abstain. xgrammar enforces `anyOf` and `maxItems` but not `uniqueItems`.
+- **Result:** 21/24 dev cases passed, all genuine. There were no unsupported general codes, citation precision was 100%, and invariance was 4/4.
+- **Remaining failures:**
+  - ADV-012 stated an excluded stale item's figures.
+  - ADV-018 echoed the customer's "5 billion".
+  - ADV-014 failed because of a verifier bug: number checking strips only cited evidence IDs, so an uncited abstention that names an ID is blocked for the ID's digits ("09"). This is the same kind of instrument bug as the freshness-date false positive on 2026-10-18.
+- **Speed:** about 70 s per decision (~3 tokens/s) on two different GPUs, against 15–20 tokens/s on 2026-10-18. The likely cause is CPU contention (load average 23–55), but it is unconfirmed. No latency figures are quoted until a speed test.
+
+## 2026-10-19 (continued) — verifier v0.1.1; priority moves to step 6
+
+- **Verifier v0.1.1:** every evidence ID in the bundle is removed before the explanation's numbers are read, not only the cited ones. Replaying the stored dev outputs shows ADV-014 now routes to a human, while ADV-012 is still blocked for the stale figures.
+- **Decision (AI engineer):** stop tuning the decision step at dev 21/24 and prioritise step 6 (the upstream components). The holdout run waits until the system changes again.
+
+## 2026-10-20 — policy engine built
+
+- **Approval:** the AI engineer approved P1–P5 (`vinfinx/docs/POLICY_ENGINE_PLAN.md`) as **provisional** values. They live in `ai/policy/policy_v0.yaml` as `status: provisional` with `signed_off_by: null`; a domain owner still has to sign them off (`PIPELINE.md` "Open").
+- **Built:** `ai/policy/`, the deterministic engine (`compute_policy`), the config loader with checks, and a hand-built synthetic mapping set with the P1 directions until the mapping agent exists.
+- **Design point:** the engine takes the **customer's property district** as input, and district-level metrics count only for that district. The frozen cases imply this (ADV-029: another district's inventory must not change the result).
+- **Schema change, `policy_result/0.2`:**
+  - `SignalUse.effect` may be empty for an excluded signal whose change cannot be computed. The case author had written `raises` for an unreadable value (ADV-014, 015), which the engine cannot know.
+  - `PolicyResult.policy_hash` records the config's content hash.
+- **Acceptance:**
+  - The engine reproduces all 30 frozen decision cases' hand-written policy results, the only difference being the effect above. So the hand-written inputs were consistent with one rule set.
+  - The runner has `--policy engine`; all 13 scripted cases pass with it.
+  - 92 tests pass.
+

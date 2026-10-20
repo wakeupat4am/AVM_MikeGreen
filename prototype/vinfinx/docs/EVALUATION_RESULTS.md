@@ -9,6 +9,7 @@ Results of the adversarial set ([`../ai/evaluation/`](../ai/evaluation/README.md
 | Baseline | 2026-10-18 | v0.1.0 | Qwen3.5-9B bf16, adapter with demo context, `eval_prompts/0.1`, verifier v0 | 15/35 (42.9%) | 45.8% | 36.4% | 75% | 95% | 100% | 76.9% | 4/6 |
 | Baseline, dev only (recomputed) | 2026-10-18 | v0.1.0 | as above | 11/24 (45.8%) | 45.8% | — | 83.3% | 91.7% | 100% | 87.5% | — |
 | First fixes, dev | 2026-10-19 | v0.1.0 | + reason codes restricted to the bundle (max 3), `eval_prompts/0.2`, adapter without demo context; verifier v0 | 18/24 (75.0%), **14/24 (58.3%) without the misused codes** | 75.0% | not run | 25.0% | 85.7% | 100% | 100% | 3/4 |
+| Second fixes, dev | 2026-10-19 | v0.1.0 | + general codes need support (verifier v0.1, same rule in the schema), excluded evidence not citable, citation required unless abstaining | **21/24 (87.5%)** | 87.5% | not run | 25.0% | 100% | 100% | 87.5% | 4/4 |
 
 ## Baseline (2026-10-18)
 
@@ -97,7 +98,43 @@ In 8 of 12 model-run decisions Qwen named `CONFLICTING_SIGNALS` although the pol
 ### Speed
 Completion length was about the same (230 vs 249 tokens), but each decision took about 75 s instead of 29 s. Other users' jobs started on GPUs 0–4 during the run, and the server's load average reached 55. Our generation loop and the grammar masking run on the CPU, so this is contention, not the fixes. Re-check speed on a quiet server before quoting it.
 
-### Proposed next fixes (not applied; they change the verifier)
+### Next fixes (applied 2026-10-19 as the second fixes, below)
 1. **Verifier v0.1:** a general code needs support. `CONFLICTING_SIGNALS` only if a target's outcome is `conflict`; `STALE_EVIDENCE` only if the bundle has a stale or STALE-excluded item; `INSUFFICIENT_EVIDENCE` only if a target's outcome is `none`, or an item is missing or untrusted. The generation schema offers only the supported ones.
 2. **Excluded evidence out of the schema:** items the policy result excludes are not offered as `evidence_ids`, and their metrics get no reason codes.
 3. **Citation required for non-abstain actions** in the generation schema (an `anyOf` with an abstain branch, if xgrammar supports it).
+
+## Second fixes, dev split (2026-10-19)
+
+**Run:** `20261019T015439Z-all-dev`, official set v0.1.0, commit `f06b1ea-dirty`, verifier v0.1, `eval_prompts/0.2` (unchanged), GPU 1, 08:54–09:10 +07:00. Dev cases only.
+
+**Changes from the first fixes:**
+1. **Verifier v0.1:** a general reason code needs the bundle to show it (`CONFLICTING_SIGNALS`: a target's outcome is `conflict`; `STALE_EVIDENCE`: a stale or STALE-excluded item; `INSUFFICIENT_EVIDENCE`: a target's outcome is `none`, an excluded signal, or a missing or untrusted item). One function (`supported_general_codes`) serves both the verifier and the generation schema.
+2. **Citable evidence only:** the schema offers only items that are trusted, fresh and not excluded by the policy result; excluded items get no metric reason codes.
+3. **Citation required unless abstaining:** the schema is an `anyOf` of an acting branch (at least one citation) and an abstain branch (xgrammar enforces `anyOf`). With nothing citable, abstain is the only action (approved 2026-10-19).
+
+### Compared with the earlier dev runs
+
+| | Baseline | First fixes | Second fixes |
+|---|---|---|---|
+| Passed | 11/24 | 18/24 (14 real) | **21/24** |
+| Model-run decisions blocked | 12/12 | 4/12 | 3/12 |
+| General codes used without support | not measured | 8/12 | 0/12 |
+| Citation precision | 91.7% | 85.7% | 100% |
+| Invariance | 2/4 | 3/4 | 4/4 |
+| Mean seconds per decision | 28.7 | 75.0 | 69.7 |
+
+All 21 passes are genuine: every reason code matches the evidence's direction, and no general code appears without support.
+
+### Remaining failures
+| Case | Cause | Real problem? |
+|---|---|---|
+| ADV-012 | Abstained correctly with no citation, but stated the stale item's figures ("from 4.5% to 4.0%") | Yes, by the rules: numbers from excluded evidence |
+| ADV-014 | Abstained correctly with no citation; blocked only for "09", read from the evidence ID `macro.vn.refi_rate.2026-09` written in the explanation | **No: verifier bug.** The verifier strips only *cited* evidence IDs before reading numbers; an abstention cites nothing, so the ID's digits count as numbers |
+| ADV-018 | Repeated the customer's "5 billion" (while saying it is not evidence) | Fail-closed by design; the prompt rule did not stop it |
+
+Also seen: duplicate reason codes in two outputs (`REFI_RATE_DROP` twice in ADV-008) because xgrammar ignores `uniqueItems`; harmless, not blocked.
+
+### Speed
+About 70 s per decision for about 200 tokens (~3 tokens/s), on GPU 1 this time. The server's load average was 23–30 during the run. On 2026-10-18 the adapter ran at 15–20 tokens/s. Two runs on two GPUs now show the slowdown, so it is not one bad GPU; CPU contention is the likely cause (our generation loop and grammar masks run on the CPU) but it is not confirmed. Needs a speed test (same prompt, with and without a grammar) before quoting any latency.
+
+**Follow-up (2026-10-19): verifier v0.1.1** removes every evidence ID in the bundle before reading numbers, cited or not. Replaying this run's stored outputs offline: ADV-014 now routes to a human (a correct abstention), and ADV-012 is still blocked for the stale figures. Not re-run through Qwen; the next official numbers come with step 6.

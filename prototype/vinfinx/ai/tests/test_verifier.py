@@ -84,6 +84,37 @@ class RecommendationRulesTest(unittest.TestCase):
         self.assertEqual(r.decision, "ROUTE_TO_HUMAN", r.findings)
         self.assertEqual(codes(r), {"ABSTAINED"})
 
+    def test_general_reason_codes_need_support(self):
+        """Verifier v0.1 (2026-10-19): Qwen used CONFLICTING_SIGNALS as filler where nothing conflicted."""
+        r = verify(rec(reason_codes=["CONFLICTING_SIGNALS"]))
+        self.assertEqual(r.decision, "BLOCK")
+        self.assertIn("UNSUPPORTED_REASON_CODE", codes(r))
+        self.assertIn("UNSUPPORTED_REASON_CODE", codes(verify(rec(reason_codes=["STALE_EVIDENCE"]))))
+        self.assertIn("UNSUPPORTED_REASON_CODE", codes(verify(rec(reason_codes=["INSUFFICIENT_EVIDENCE"]))))
+        # supported: a stale item in the bundle, an untrusted item
+        old = item("macro.vn.refi_rate", "2026-03", REFI.observation_period.start.replace(month=3),
+                   REFI.observation_period.end.replace(month=3, day=31), "4.0", "pct", "level")
+        r = verify(rec(reason_codes=["STALE_EVIDENCE"]), bundle=signed([REFI, old]))
+        self.assertNotIn("UNSUPPORTED_REASON_CODE", codes(r))
+        bad = updated(REFI, trust="untrusted", trust_reasons=["OCR_LOW_CONFIDENCE"])
+        r = verify(rec(recommended_action="abstain", magnitude="none", evidence_ids=[],
+                       reason_codes=["INSUFFICIENT_EVIDENCE"], explanation="The rate cannot be read."),
+                   bundle=signed([bad]))
+        self.assertEqual(codes(r), {"ABSTAINED"})
+
+    def test_uncited_evidence_id_is_not_a_number(self):
+        """v0.1.1: ADV-014 abstained, cited nothing and named the unreadable item's ID; "09" was blocked."""
+        bad = updated(REFI, trust="untrusted", trust_reasons=["OCR_LOW_CONFIDENCE"])
+        r = verify(rec(recommended_action="abstain", magnitude="none", evidence_ids=[], reason_codes=[],
+                       explanation=f"The entry {REFI.evidence_id} is unreadable, so no figure can be given."),
+                   bundle=signed([bad]))
+        self.assertEqual(codes(r), {"ABSTAINED"})
+        # its figures are still unsupported when it is not cited
+        r = verify(rec(recommended_action="abstain", magnitude="none", evidence_ids=[], reason_codes=[],
+                       explanation=f"The entry {REFI.evidence_id} showed 4.0%, but it is untrusted."),
+                   bundle=signed([bad]))
+        self.assertIn("UNSUPPORTED_NUMBER", codes(r))
+
     def test_bundle_must_be_signed_unchanged_and_fresh(self):
         self.assertIn("BUNDLE_SIGNATURE_INVALID", codes(verify(rec(), bundle=BUNDLE_X)))
         raw = SX.model_dump()

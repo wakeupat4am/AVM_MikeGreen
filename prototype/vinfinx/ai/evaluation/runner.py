@@ -2,6 +2,7 @@
 
     python -m ai.evaluation.runner --mode scripted              # verifier only, no model needed
     python -m ai.evaluation.runner --mode model --split dev     # needs the Qwen adapter on 127.0.0.1:8061
+    python -m ai.evaluation.runner --policy engine              # policy results from the policy engine
 
 Writes one JSON report per run (raw outputs, verifier results, per-check outcomes, metrics, and every version
 and hash the run depends on) under $VINFINX_ROOT/evaluation/runs/. Reports are generated data: never commit
@@ -22,7 +23,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from ..catalog import load_catalogue
+from ..catalog import Catalogue, load_catalogue
+from ..policy import compute_policy, load_policy_config
+from ..policy.provisional_mapping import provisional_mapping_set
 from ..schemas.bundle import EvidenceBundle, sign_bundle
 from ..schemas.common import Action, Magnitude
 from ..schemas.mapping import CorpusChunk, MappingProposal, proposal_generation_schema
@@ -34,6 +37,8 @@ from .cases import Case, CaseSet, DecisionInput, MappingInput, build_bundle, loa
 
 DEFAULT_CASES = Path(__file__).with_name("cases") / "adversarial_v0.yaml"
 DEFAULT_URL = "http://127.0.0.1:8061/vinfinx-api/v1/chat/completions"
+# The frozen cases' customer owns a property in Dong Da (ADV-005, 006 talk about Dong Da listings).
+CASE_CUSTOMER_DISTRICT = "hn-dong-da"
 PROMPT_VERSION = "eval_prompts/0.2"
 HOLD_BACK = {Action.ABSTAIN, Action.REQUEST_EVIDENCE, Action.NO_CHANGE}
 UNSUPPORTED_CODES = {"UNSUPPORTED_NUMBER", "UNSUPPORTED_REASON_CODE", "UNKNOWN_EVIDENCE", "UNIT_MISMATCH"}
@@ -167,7 +172,29 @@ def score_decision(case: Case, raw: str, verdict) -> dict[str, bool]:
     return checks
 
 
-def run_case(case: Case, mode: str, catalogue, keys: dict[str, bytes], url: str) -> CaseResult:
+class EnginePolicy:
+    """Computes each decision case's policy result with the policy engine, the provisional policy config and the
+    provisional (synthetic) mapping set, instead of using the result the case author wrote."""
+
+    def __init__(self, catalogue: Catalogue) -> None:
+        self.catalogue = catalogue
+        self.config = load_policy_config(catalogue=catalogue)
+        self.mapping = provisional_mapping_set()
+
+    def for_case(self, case: Case):
+        return lambda items: compute_policy(items, self.mapping, self.config, catalogue=self.catalogue,
+                                            customer_district=CASE_CUSTOMER_DISTRICT, case_id=case.case_id,
+                                            now=case.input.as_of)
+
+    def describe(self) -> dict[str, Any]:
+        return {"source": "engine", "policy_version": self.config.policy_version, "policy_hash": self.config.policy_hash,
+                "policy_status": self.config.status, "mapping_id": self.mapping.mapping_id,
+                "mapping_status": self.mapping.status, "mapping_corpus": self.mapping.corpus_version,
+                "customer_district": CASE_CUSTOMER_DISTRICT}
+
+
+def run_case(case: Case, mode: str, catalogue, keys: dict[str, bytes], url: str,
+             engine: EnginePolicy | None = None) -> CaseResult:
     result = CaseResult(case.case_id, case.category.value, case.split, case.language, case.input.kind,
                         "scripted" if case.scripted else "model")
     if case.requires:
@@ -179,9 +206,10 @@ def run_case(case: Case, mode: str, catalogue, keys: dict[str, bytes], url: str)
 
     if isinstance(case.input, DecisionInput):
         key_id, key = next(iter(keys.items()))
-        bundle = sign_bundle(build_bundle(case, catalogue), key, key_id)
+        policy_fn = engine.for_case(case) if engine is not None else None
+        bundle = sign_bundle(build_bundle(case, catalogue, policy_fn), key, key_id)
         if case.scripted:
-            gen = Generation(text=scripted_output(case))
+            gen = Generation(text=scripted_output(case, bundle.mapping_id))
         else:
             gen = call_model(url, decision_messages(case, bundle), generation_schema(bundle, catalogue))
         verdict = verify_recommendation(gen.text, bundle, now=case.input.as_of, keys=keys, catalogue=catalogue)
@@ -320,9 +348,10 @@ def git_commit() -> str | None:
 
 
 def run(cases_path: Path, mode: str, split: str, url: str, out_dir: Path | None,
-        only: set[str] | None = None) -> dict[str, Any]:
+        only: set[str] | None = None, policy: str = "case") -> dict[str, Any]:
     cases = load_case_set(cases_path)
     catalogue = load_catalogue()
+    engine = EnginePolicy(catalogue) if policy == "engine" else None
     keys = {"eval-run": secrets.token_bytes(32)}  # an ephemeral key per run; bundles are signed and verified
     selected = [c for c in cases.cases if (split == "all" or c.split == split) and (not only or c.case_id in only)]
     # invariance partners are run too, even if they are in the other split
@@ -331,18 +360,19 @@ def run(cases_path: Path, mode: str, split: str, url: str, out_dir: Path | None,
     results = {}
     for case in cases.cases:
         if case.case_id in wanted:
-            results[case.case_id] = run_case(case, mode, catalogue, keys, url)
+            results[case.case_id] = run_case(case, mode, catalogue, keys, url, engine)
             r = results[case.case_id]
             print(f"{case.case_id} {r.mode:8s} {'SKIP ' + r.skipped if r.skipped else ('pass' if r.passed else 'FAIL ' + str([k for k, v in r.checks.items() if not v]))}", flush=True)
     invariance_checks(cases, results)
     reported = [results[c.case_id] for c in selected if c.case_id in results]
     report = {
-        "run_id": started.strftime("%Y%m%dT%H%M%SZ") + "-" + mode + "-" + split,
+        "run_id": started.strftime("%Y%m%dT%H%M%SZ") + "-" + mode + "-" + split + ("-engine" if engine else ""),
         "started_at": started.isoformat(),
         "official": cases.status == "frozen",
         "case_set": {"path": str(cases_path), "version": cases.version, "status": cases.status, "hash": cases.set_hash},
         "catalogue": {"version": catalogue.version, "hash": catalogue.catalogue_hash},
         "verifier_version": VERIFIER_VERSION,
+        "policy": engine.describe() if engine else {"source": "case-authored"},
         "prompt_version": PROMPT_VERSION,
         "mode": mode,
         "split": split,
@@ -369,9 +399,11 @@ def main() -> None:
     p.add_argument("--url", default=DEFAULT_URL)
     p.add_argument("--out", type=Path, default=root / "evaluation" / "runs")
     p.add_argument("--only", help="comma-separated case IDs, for checking the runner itself")
+    p.add_argument("--policy", choices=["case", "engine"], default="case",
+                   help="policy results written by the case author (default) or computed by the policy engine")
     args = p.parse_args()
     only = set(args.only.split(",")) if args.only else None
-    report = run(args.cases, args.mode, args.split, args.url, args.out, only)
+    report = run(args.cases, args.mode, args.split, args.url, args.out, only, args.policy)
     if not report["official"]:
         print("NOTE: the case set is not frozen; these results are not a baseline.")
     print(json.dumps(report["metrics"], indent=2))

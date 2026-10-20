@@ -18,9 +18,9 @@ Read before doing anything:
 4. `prototype/AI_ENGINEER_FINDINGS.md`: background and dated decision log
 
 Status: being built in the build order of `docs/PIPELINE.md`. Built so far: Qwen serving on our
-server, the contracts (`ai/catalog/`, `ai/schemas/`), verifier v0 (`ai/verifier/`), the adversarial
-test set and its runner (`ai/evaluation/`). Not built: document generator, OCR, research corpus,
-mapping agent, policy engine. Current progress: `prototype/vinfinx/docs/README.md`.
+server, the contracts (`ai/catalog/`, `ai/schemas/`), verifier v0.1.1 (`ai/verifier/`), the adversarial
+test set and its runner (`ai/evaluation/`), the policy engine (`ai/policy/`, provisional weights and
+thresholds). Not built: document generator, OCR, research corpus, mapping agent. Current progress: `prototype/vinfinx/docs/README.md`.
 
 ## Hard rules
 - Customer data, identity documents and bank records never go to OpenAI or any
@@ -50,8 +50,8 @@ mapping agent, policy engine. Current progress: `prototype/vinfinx/docs/README.m
 ## Known issues
 - `qwen_api.py` no longer carries the demo context (removed 2026-10-19), so the web demo's chat no longer
   knows the demo customer's figures; the app must send them in the conversation if needed.
-- Verifier v0 does not check the general reason codes (`CONFLICTING_SIGNALS`, `STALE_EVIDENCE`,
-  `INSUFFICIENT_EVIDENCE`); Qwen uses `CONFLICTING_SIGNALS` as filler. Fix proposed, not applied.
+- Generation has run at ~3 tokens/s since 2026-10-19 (15–20 on 2026-10-18); cause not confirmed
+  (likely CPU contention). Do not quote latency until re-measured.
 - Load Qwen with `device_map="auto"`: an explicit single device (`{"": 0}`) runs ~7× slower.
 - Run Python from the VinFinx environment (`/mnt/disk1/backup_user/24chuong.ta/vinfinx/env`); tests run
   from `prototype/vinfinx` with `python -m unittest discover -s ai/tests -t .`.

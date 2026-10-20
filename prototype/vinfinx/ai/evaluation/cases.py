@@ -13,6 +13,7 @@ from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
 from enum import StrEnum
 from pathlib import Path
+from collections.abc import Callable
 from typing import Annotated, Literal
 
 import yaml
@@ -289,15 +290,18 @@ def case_mapping_id(case_id: str) -> str:
     return f"mapping.v1.{hashlib.sha256(case_id.encode()).hexdigest()[:12]}"
 
 
-def scripted_output(case: Case) -> str:
-    """A decision case's scripted output, with ${MAPPING_ID} replaced by the case's mapping ID."""
+def scripted_output(case: Case, mapping_id: str | None = None) -> str:
+    """A decision case's scripted output, with ${MAPPING_ID} replaced by the bundle's mapping ID (by default the
+    case's own; the policy engine's mapping when the runner uses the engine)."""
     if not isinstance(case.input, DecisionInput) or case.input.scripted_output is None:
         raise TypeError(f"{case.case_id} has no scripted decision output")
-    return case.input.scripted_output.replace("${MAPPING_ID}", case_mapping_id(case.case_id))
+    return case.input.scripted_output.replace("${MAPPING_ID}", mapping_id or case_mapping_id(case.case_id))
 
 
-def build_bundle(case: Case, catalogue: Catalogue) -> EvidenceBundle:
-    """Turn a decision case into an unsigned EvidenceBundle. The runner signs it."""
+def build_bundle(case: Case, catalogue: Catalogue, policy_fn: Callable[[list[EvidenceItem]], PolicyResult] | None = None
+                 ) -> EvidenceBundle:
+    """Turn a decision case into an unsigned EvidenceBundle. The runner signs it. The policy result is the case
+    author's, unless `policy_fn` computes one from the items (the policy engine)."""
     if not isinstance(case.input, DecisionInput):
         raise TypeError(f"{case.case_id} is not a decision case")
     inp = case.input
@@ -345,7 +349,7 @@ def build_bundle(case: Case, catalogue: Catalogue) -> EvidenceBundle:
             )
         )
     keys = {s.evidence_id: s.evidence_id.split(".")[2] for t in inp.policy.targets for s in t.signals}
-    policy = PolicyResult(
+    policy = policy_fn(items) if policy_fn is not None else PolicyResult(
         case_id=case.case_id,
         mapping_id=case_mapping_id(case.case_id),
         mapping_status=inp.policy.mapping_status,

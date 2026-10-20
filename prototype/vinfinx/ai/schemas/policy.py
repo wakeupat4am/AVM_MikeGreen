@@ -6,21 +6,25 @@ from typing import Literal
 
 from pydantic import AwareDatetime, Field, model_validator
 
-from .common import LOW_IMPACT_ACTIONS, Action, Magnitude, StrictModel, Target
+from .common import LOW_IMPACT_ACTIONS, Action, Magnitude, Sha256, StrictModel, Target
 
 
 class SignalUse(StrictModel):
     evidence_id: str
     metric_key: str
-    effect: Literal["raises", "lowers"]  # from the mapping, applied by code; never by the LLM
+    # From the mapping's direction and the observed change, applied by code; never by the LLM. None only for an
+    # excluded signal whose change cannot be computed (no value, no baseline, or no change).
+    effect: Literal["raises", "lowers"] | None
     weight: Decimal = Field(ge=0)
     material: bool
-    excluded_reason: str | None = None  # e.g. "STALE", "UNTRUSTED", "BELOW_MATERIALITY"
+    excluded_reason: str | None = None  # "STALE", "UNTRUSTED", "NO_BASELINE", "BELOW_MATERIALITY"
 
     @model_validator(mode="after")
     def _excluded(self) -> SignalUse:
         if self.material == (self.excluded_reason is not None):
             raise ValueError("a signal is either material or excluded with a reason")
+        if self.material and self.effect is None:
+            raise ValueError("a material signal needs an effect")
         return self
 
 
@@ -48,11 +52,12 @@ class TargetOutcome(StrictModel):
 
 
 class PolicyResult(StrictModel):
-    schema_version: Literal["policy_result/0.1"] = "policy_result/0.1"
+    schema_version: Literal["policy_result/0.2"] = "policy_result/0.2"
     case_id: str
     mapping_id: str
     mapping_status: Literal["unvalidated", "validated"]  # a rejected mapping is never applied
     policy_version: str
+    policy_hash: Sha256 | None = None  # the policy config's content hash; None only for case-authored results
     computed_at: AwareDatetime
     targets: list[TargetOutcome] = Field(min_length=1)
 

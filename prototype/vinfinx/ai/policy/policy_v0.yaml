@@ -1,0 +1,46 @@
+# Policy config for the deterministic policy engine (docs/POLICY_ENGINE_PLAN.md).
+# PROVISIONAL: values P1-P5 approved by the AI engineer (jimmytrn154) on 2026-10-20 so the engine can be
+# built and tested. Weights and thresholds are policy: a domain owner must sign them off (PIPELINE.md "Open").
+# Any change is a new policy_version; decisions record the version and this file's content hash.
+policy_version: policy.v0
+status: provisional
+approved: "2026-10-20, AI engineer (jimmytrn154), as provisional values P1-P5"
+signed_off_by: null  # the domain owner
+
+# P1. Weight of each metric for each target. A metric with no weight for a target is not used for it,
+# even if a mapping links them. District-level metrics count only for the customer's district.
+weights:
+  borrowing_capacity:
+    refi_rate: "1.0"
+    mortgage_rate_avg: "0.8"
+    listing_inventory: "0.9"
+
+# P2. Smallest change from the baseline that counts (in the metric's unit, or a share of the baseline).
+materiality:
+  refi_rate: {absolute: "0.25"}
+  mortgage_rate_avg: {absolute: "0.25"}
+  cpi: {absolute: "0.25"}
+  credit_growth: {absolute: "0.25"}
+  unemployment_rate: {absolute: "0.25"}
+  listing_inventory: {relative: "0.05"}
+  transaction_volume: {relative: "0.05"}
+  price_index: {absolute: "1"}
+
+# P3. Material signals that point both ways are a conflict (must abstain) if |net weight| is below this.
+conflict_threshold: "0.5"
+
+# P5. With a validated mapping, the magnitude cap is medium from this |net weight| (otherwise low).
+medium_cap_from_net: "1.5"
+
+# P4 (unvalidated) and P5 (validated): allowed actions per outcome. The cap is none for none/conflict.
+actions:
+  unvalidated:
+    raises: [offer_review, request_evidence, no_change]
+    lowers: [offer_review, request_evidence, no_change]
+    none: [request_evidence, no_change, abstain]
+    conflict: [abstain, request_evidence]
+  validated:
+    raises: [offer_review, request_evidence, no_change]
+    lowers: [offer_review, request_evidence, no_change, hold]
+    none: [request_evidence, no_change, abstain]
+    conflict: [abstain, request_evidence]

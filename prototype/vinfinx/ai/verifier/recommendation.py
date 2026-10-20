@@ -17,7 +17,7 @@ from ..catalog import Catalogue
 from ..schemas.bundle import EvidenceBundle, verify_bundle
 from ..schemas.common import Action
 from ..schemas.evidence import EvidenceItem, ValidationCheck
-from ..schemas.recommendation import Recommendation
+from ..schemas.recommendation import Recommendation, supported_general_codes
 from ..schemas.verifier import ROUTE_CODES, Finding, VerifierCode, VerifierResult
 from . import VERIFIER_VERSION
 from .numbers import find_numbers, normalize
@@ -105,7 +105,8 @@ def _check_numbers(explanation: str, cited: list[EvidenceItem], strip: list[str]
     return problems
 
 
-def _check_reason_codes(rec: Recommendation, cited: list[EvidenceItem], catalogue: Catalogue) -> list[tuple[VerifierCode, str]]:
+def _check_reason_codes(rec: Recommendation, cited: list[EvidenceItem], catalogue: Catalogue,
+                        general: list[str]) -> list[tuple[VerifierCode, str]]:
     known = set(catalogue.reason_codes())
     stems = {m.reason_code_stem: m.key for m in catalogue.metrics}
     cited_by_key: dict[str, list[EvidenceItem]] = {}
@@ -116,9 +117,13 @@ def _check_reason_codes(rec: Recommendation, cited: list[EvidenceItem], catalogu
         if code not in known:
             problems.append((C.UNSUPPORTED_REASON_CODE, f"{code}: not in the catalogue"))
             continue
+        if code in catalogue.extra_reason_codes:  # CONFLICTING_SIGNALS, STALE_EVIDENCE, INSUFFICIENT_EVIDENCE
+            if code not in general:
+                problems.append((C.UNSUPPORTED_REASON_CODE, f"{code}: the bundle does not support it"))
+            continue
         stem, _, direction = code.rpartition("_")
         if direction not in ("RISE", "DROP") or stem not in stems:
-            continue  # CONFLICTING_SIGNALS, STALE_EVIDENCE, INSUFFICIENT_EVIDENCE
+            continue
         items = cited_by_key.get(stems[stem], [])
         if not items:
             problems.append((C.UNSUPPORTED_REASON_CODE, f"{code}: no cited evidence for {stems[stem]}"))
@@ -180,11 +185,15 @@ def verify_recommendation(
             cited.append(item)
     out.check("citations", problems)
 
-    # 5. reason codes name metrics that were cited, in the direction the evidence shows
-    out.check("reason_codes", _check_reason_codes(rec, cited, catalogue))
+    # 5. reason codes name metrics that were cited, in the direction the evidence shows; a general code
+    #    (conflict, stale, insufficient) needs the bundle to show it
+    out.check("reason_codes", _check_reason_codes(rec, cited, catalogue, supported_general_codes(bundle, now)))
 
     # 6. every number in the explanation comes from cited, usable evidence, in the right unit
-    out.check("explanation_numbers", _check_numbers(rec.explanation, cited, list(rec.evidence_ids) + [rec.mapping_id]))
+    #    (every evidence ID in the bundle is removed first, cited or not: an uncited abstention may name the
+    #    item it could not use, and the ID's digits are not claims; v0.1.1, ADV-014)
+    out.check("explanation_numbers", _check_numbers(rec.explanation, cited,
+                                                    list(rec.evidence_ids) + bundle.evidence_ids + [rec.mapping_id]))
 
     # 7. what needs a human
     route = []
