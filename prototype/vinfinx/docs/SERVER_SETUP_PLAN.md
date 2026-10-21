@@ -598,6 +598,58 @@ rm -rf $VINFINX_ROOT/models/paddleocr $VINFINX_ROOT/cache/paddlex
 
 The env is now 760 MB (was 1.5 GB); the `tessdata_best` models in `$VINFINX_ROOT/models/tesseract/` are unchanged.
 
+## Research corpus storage (2026-10-21)
+
+`/mnt/disk1` was full (230 MB free on 2026-10-21, other users), so the research corpus goes on the second disk.
+
+| Item | Value |
+|---|---|
+| Disk | `/mnt/sdb` (`/dev/sdb`, ext4, 3.5 TB, **1.2 TB free**, 65% used) |
+| Layout | `/mnt/sdb/shared/` is world-writable (sticky bit) with one folder per user; `shared/chuong/` is ours and already holds ~219 GB of another project's data (`dataset`, `b`, `m01`–`m03`; not VinFinx, not touched). `/mnt/sdb/archive/` is root's per-user archive from September |
+| Corpus | `/mnt/sdb/shared/chuong/vinfinx/corpus/`; `vinfinx/` is mode `700` so other users cannot read or rename it |
+| Link | `$VINFINX_ROOT/corpus` is a symlink to it, so code and docs keep using `$VINFINX_ROOT/corpus` |
+| Not known | Whether `/mnt/sdb/shared` is ever cleaned up by the admin (the September archive suggests it is managed). Nothing there is the only copy of anything that cannot be re-downloaded: the corpus is rebuilt from its source list and hashes |
+
+```bash
+mkdir -p /mnt/sdb/shared/chuong/vinfinx/corpus
+chmod 700 /mnt/sdb/shared/chuong/vinfinx
+rmdir $VINFINX_ROOT/corpus                       # was empty
+ln -s /mnt/sdb/shared/chuong/vinfinx/corpus $VINFINX_ROOT/corpus
+```
+
+Environments, models, fixtures and evaluation reports stay on `/mnt/disk1`.
+
+## Source access check (2026-10-21)
+
+The AI engineer chose **free scholarly and institutional sources only** for the source agent: OpenAlex, the World Bank Documents & Reports API, and the publication lists of the IMF, ADB, BIS, the State Bank of Viet Nam (SBV) and the statistics office. Checked from the server with `curl` (User-Agent `VinFinx-research/0.1`):
+
+| Source | Endpoint | Result | Use |
+|---|---|---|---|
+| OpenAlex | `https://api.openalex.org/works?search=…&filter=is_oa:true` | 200 JSON, no key. Gives DOI, year, type, open-access status, **licence** and an open PDF URL. "monetary policy housing Vietnam", open access: 18,214 hits | Main discovery for papers, and the **metadata route for IMF, ADB and BIS** (DOI prefix `10.5089` IMF: 117 Viet Nam works; `10.22617` ADB: 93) |
+| World Bank | `https://search.worldbank.org/api/v3/wds?format=json&qterm=…` | 200 JSON, no key. Gives title, date, document type, country, language, `pdfurl`. "Vietnam housing credit": 488 | Discovery; filter by document type (many hits are project documents such as resettlement plans). PDF download works |
+| IMF | `www.imf.org`, `www.elibrary.imf.org` | **403 / 202 empty**: bot protection (Akamai, WAF challenge) | Not reachable by script. Discover via OpenAlex; a person downloads chosen PDFs in a browser into an inbox, then code hashes them |
+| ADB | `www.adb.org` pages | **403**: Cloudflare challenge | Discover via OpenAlex; **PDFs under `/sites/default/files/` download** (200, `application/pdf`) |
+| BIS | `https://www.bis.org/doclist/wppubls.rss` | 200 RSS (working papers); `robots.txt` allows | RSS feeds plus OpenAlex. No search API found |
+| SBV | `https://sbv.gov.vn/` | 200; `robots.txt` allows everything | Publication pages, mostly Vietnamese. Needs a small page reader |
+| Statistics office | `https://www.nso.gov.vn/en/` (the old `gso.gov.vn` no longer resolves) | 200; `robots.txt` blocks only bulk-copier user agents and `/wp-admin/` | Publication pages (WordPress) |
+
+- **Rules:** respect `robots.txt` and rate limits, never get around bot protection, and identify the client in the User-Agent. OpenAlex asks for a contact email (`mailto=`) for its faster pool; which address to use is the AI engineer's choice.
+- **Installed tools:** the main env has `requests` 2.34.2 and `httpx` 2.13.1. There was no PDF text library in either env.
+- **Contact for OpenAlex** (`mailto=`, and in the User-Agent): `jimmytrn154@gmail.com`, given by the AI engineer 2026-10-21.
+
+### PDF library (installed 2026-10-21)
+
+The AI engineer left the choice to me. **`pypdfium2==5.14.0`** (released 2026-10-04; PDFium 156.0.8076.0), in the main env:
+- BSD-3-Clause / Apache-2.0. PyMuPDF (2.0) was not chosen: it is AGPL-3.0, a problem for a bank product.
+- Text per page with character boxes (the chunker needs page and character offsets), and page rendering to images, so scanned PDFs can go to Tesseract.
+- Faster than the pure-Python options (`pypdf` 6.21.1, `pdfplumber` 0.11.10).
+
+```bash
+$VINFINX_ROOT/env/bin/python -m pip install --no-cache-dir "pypdfium2==5.14.0"   # no cache: /mnt/disk1 had 136 MB free
+$VINFINX_ROOT/env/bin/python -m pip check                                        # no broken requirements
+$VINFINX_ROOT/env/bin/python -m pip freeze > $VINFINX_ROOT/requirements.lock     # 95 packages
+```
+
 ## Future: vLLM (after experiments)
 
 vLLM stays the planned upgrade, adopted only when the measurements from [Steps](#steps) 6 and the first test-set runs show plain `transformers` is too slow.

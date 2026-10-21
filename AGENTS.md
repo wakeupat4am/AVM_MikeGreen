@@ -65,17 +65,23 @@ verifies, a human approves.** Code is under `prototype/vinfinx/ai/`.
 
 **Next (agreed direction, 2026-10-21):** the offline research half, in this order:
 1. **Source agent** (PIPELINE.md offline step 1): Qwen proposes sources against `docs/CORPUS_SOURCE_CRITERIA.md`
-   (C1–C7). Qwen has no web access, so it must be given search tools (scholarly/institutional APIs such as OpenAlex,
-   World Bank, IMF, ADB, BIS, SBV, GSO; optionally a web-search API). Qwen judges relevance and geography with quotes
-   checked verbatim; code checks URL, download, hash, licence, language and date; a human signs off.
-   **Do not hand-draft the source list yourself**: the agent finds it.
+   (C1–C7). Qwen has no web access, so code gives it search tools. **Decided 2026-10-21: free scholarly and
+   institutional sources only** (no paid web search): OpenAlex, World Bank Documents & Reports API, and IMF, ADB, BIS,
+   SBV and statistics-office (`nso.gov.vn`) publications. IMF and ADB web pages block scripts (403), so they are found
+   through OpenAlex (DOI prefixes `10.5089`, `10.22617`); IMF PDFs need a person to download them; ADB PDFs download.
+   Access facts: `SERVER_SETUP_PLAN.md`, "Source access check". Qwen judges relevance and geography with quotes
+   checked verbatim; code checks URL, download, hash, licence, language and date; **jimmytrn154 signs off the source
+   list** (decided 2026-10-21). **Do not hand-draft the source list yourself**: the agent finds it. Respect
+   `robots.txt`; never get around bot protection. Contact address for OpenAlex `mailto=` and the User-Agent:
+   `jimmytrn154@gmail.com` (given by the user); send no other personal data. PDF library: `pypdfium2` 5.14.0
+   (installed; not PyMuPDF, AGPL). **Plan: `docs/SOURCE_AGENT_PLAN.md` (S1–S7), awaiting approval; build after it.**
 2. Ingestion (fetch, hash, store original, extract text; OCR for scanned PDFs) → chunker (page + character offsets)
    → indexer (OpenAI embeddings + keyword index) → freeze with version ID and hash → retrieval evaluation (recall@k on gold passages).
 3. Mapping agent → mapping verifier with the OpenAI support check → mapping registry replacing the provisional mapping
    → online pipeline runner (document → evidence → policy → decision → verifier).
 
-**Waiting on the user:** search backend for the source agent (free APIs only, or add a paid web search); an
-`OPENAI_API_KEY` on the server (not set); who signs off the source list; embedding model and index storage;
+**Waiting on the user:** approval of `SOURCE_AGENT_PLAN.md` (S1–S7); an `OPENAI_API_KEY` on the server (not set);
+embedding model and index storage;
 risk-owner answer on the OCR threshold. **Later:** Qwen second reading, freeze a document set, holdout run of the
 adversarial set, re-measure generation speed, cost accounting (handoff §9).
 
@@ -83,9 +89,11 @@ adversarial set, re-measure generation speed, cost accounting (handoff §9).
 - Host `vishc-server-1`: 8 × RTX 3090 24 GiB, shared with other users, 64 CPU threads. Use any GPU with ~19 GiB free
   and record its index with each run. CPU contention from other users slows both Qwen and OCR.
 - `VINFINX_ROOT=/mnt/disk1/backup_user/24chuong.ta/vinfinx`: `env/` (main), `env-ocr/` (Tesseract), `models/`,
-  `fixtures/`, `evaluation/{runs,ocr,extraction}/`, `corpus/` (empty), `logs/`, `cache/`, lock files. Nothing there is committed.
+  `fixtures/`, `evaluation/{runs,ocr,extraction}/`, `logs/`, `cache/`, lock files. Nothing there is committed.
+- **Research corpus:** `/mnt/sdb/shared/chuong/vinfinx/corpus/` (second disk, 1.2 TB free; `vinfinx/` is mode 700),
+  reached as `$VINFINX_ROOT/corpus` through a symlink. The rest of `/mnt/sdb/shared/chuong/` is another project's data: don't touch it.
 - **Disk:** our allowance on `/mnt/disk1` is 400 GB, but the shared disk is often almost full (230 MB free on
-  2026-10-21). Check `df -h /mnt/disk1` before writing anything large.
+  2026-10-21). Check `df -h` before writing anything large; put large new data on `/mnt/sdb`.
 - Record every install command and pinned version in `docs/SERVER_SETUP_PLAN.md`.
 - Run long jobs in tmux (`vinfinx-qwen`, `vinfinx-eval`, `vinfinx-ocr`) with logs under `$VINFINX_ROOT/logs/`: the
   user may close the window.

@@ -877,3 +877,29 @@ PaddleOCR 3.7.0 was installed on CPU in `env-ocr` (2026-10-20; details in `SERVE
   - The held-out set's totals had been seen once before these extractor fixes. The fixes were found on the draft set, and the value classification is unchanged (579 ok, 0 wrong and trusted).
 - **Found:** Tesseract always reads "±" as "+", so uncertainty intervals are never extracted (they are dropped, not misread).
 
+
+## 2026-10-21 (continued) — source agent direction; corpus storage; source access
+
+- **Correction:** I had offered to hand-draft the candidate source list. `PIPELINE.md` assigns that to the source agent (Qwen), with code checking and a human signing off; the plan follows the design.
+- **Decision (AI engineer): free scholarly and institutional sources only**, no paid web search: OpenAlex, the World Bank Documents & Reports API, and IMF, ADB, BIS, SBV and statistics-office publications.
+- **Access checked from the server** (details: `vinfinx/docs/SERVER_SETUP_PLAN.md`, "Source access check"):
+  - OpenAlex and the World Bank API work without a key and return licence or document type, language and PDF links.
+  - IMF and ADB web pages block scripts (403, bot protection). Both are found through OpenAlex by DOI prefix. ADB PDFs download; IMF PDFs do not, so a person downloads chosen IMF reports into an inbox. Bot protection is not to be circumvented.
+  - BIS has RSS feeds; SBV and the statistics office (now `nso.gov.vn`) allow crawling in `robots.txt`.
+  - No PDF text library is installed yet.
+- **Corpus storage:** `/mnt/disk1` had 230 MB free (other users), so the corpus goes to `/mnt/sdb/shared/chuong/vinfinx/corpus/` (1.2 TB free, folder mode 700), linked from `$VINFINX_ROOT/corpus`. Whether the admin ever cleans `/mnt/sdb/shared` is unknown; the corpus can be rebuilt from its source list and hashes.
+- **Slip:** one probe sent the user's email address in the User-Agent header to OpenAlex, BIS, IMF, ADB, SBV and NSO without permission. Later requests use no personal data; which contact address to give OpenAlex is the AI engineer's choice.
+- **Context:** `AGENTS.md` now has a "Current state" section updated at the end of each step, so the work survives context resets.
+
+## 2026-10-21 (continued) — source agent: decisions and plan
+
+- **Decisions (AI engineer):**
+  - The source list is signed off by jimmytrn154.
+  - `jimmytrn154@gmail.com` is the contact address for OpenAlex (`mailto=`) and the User-Agent.
+  - The PDF library was left to me: **pypdfium2 5.14.0** (BSD/Apache; text per page with character boxes, and page rendering for scanned PDFs). PyMuPDF was not chosen because it is AGPL. Installed in the main env with the pip cache off, because `/mnt/disk1` had 136 MB free.
+- **Plan:** `vinfinx/docs/SOURCE_AGENT_PLAN.md`, choices S1–S7, awaiting approval. In short:
+  - candidates come only from real indexes (OpenAlex, World Bank API, BIS feeds, SBV and statistics-office pages; IMF and ADB via OpenAlex), so the model cannot invent a source;
+  - code checks the mechanical criteria;
+  - Qwen judges relevance and geography with quotes checked word for word;
+  - a fixed rule decides, and the AI engineer reviews every record.
+  - Journals count as peer-reviewed only if they are in DOAJ or are an OpenAlex core source.

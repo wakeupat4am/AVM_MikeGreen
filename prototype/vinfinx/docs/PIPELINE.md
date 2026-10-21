@@ -270,6 +270,6 @@ Gold passages: OpenAI drafts the labels; a human reviews a random ~20% and recor
 
 - Server details for Qwen (see [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md)).
 - ~~Final OCR engine per document type~~: Tesseract chosen 2026-10-21 for the macro document (see [OCR service](#ocr-service-pluggable)); customer documents still need their own measurement.
-- Source validity criteria: draft approved 2026-10-17 (see [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) Part C; to be written up as `CORPUS_SOURCE_CRITERIA.md`). Who signs off each source list is still open.
-- Who reviews the gold-label sample and signs off the source list.
+- Source validity criteria: approved 2026-10-17 ([`CORPUS_SOURCE_CRITERIA.md`](CORPUS_SOURCE_CRITERIA.md)); the source list is signed off by jimmytrn154 (2026-10-21).
+- Who reviews the gold-label sample. (The source list is signed off by the AI engineer, jimmytrn154, decided 2026-10-21.)
 - Weights and thresholds in the policy engine need a domain owner's sign-off.

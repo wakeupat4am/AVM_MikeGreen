@@ -67,6 +67,7 @@ The handoff's question is "how can we control hallucination?". Everything built 
 | [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) | Build steps 1–2: metric catalogue, document spec, source criteria, schemas; decisions D1–D10 | Approved 2026-10-17; built 2026-10-18 |
 | [`MACRO_DOCUMENT_SPEC.md`](MACRO_DOCUMENT_SPEC.md) | The synthetic macro-status document: layout, variants, ground truth, traceability to handoff §3 and §5 | Approved 2026-10-17; generator not built |
 | [`CORPUS_SOURCE_CRITERIA.md`](CORPUS_SOURCE_CRITERIA.md) | What may enter the research corpus, source records, deliberately bad documents | Approved 2026-10-17 |
+| [`SOURCE_AGENT_PLAN.md`](SOURCE_AGENT_PLAN.md) | How the source agent finds, checks and screens candidate sources for sign-off (S1–S7) | Proposal 2026-10-21 |
 | [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md) | Results of the adversarial set over time: baseline and every later run, with causes of failure | Baseline recorded 2026-10-18 |
 
 ## Build order progress
@@ -107,6 +108,8 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-21 | OCR: PaddleOCR (CPU) installed but cannot read Vietnamese (recognizer lacks 44 of 67 letters) and takes ~200 s per page; Tesseract 5.5.3 added: reads Vietnamese, 4–6 s per page, accurate on clean and mildly degraded pages, fails on strong blur, 100 dpi and 90° rotation. OCR adapter and evaluation built (`ai/ocr/`); document-ID collision in the generator fixed | `OCR_RESULTS.md`, `SERVER_SETUP_PLAN.md`, findings log |
 | 2026-10-21 | **Tesseract chosen, PaddleOCR removed.** Orientation detection, field extraction and validation built (`ai/extraction/`). End to end: **0 wrong-and-trusted items** of 868 on the draft set and 868 on a held-out set (seed 7); 67–68% of items trusted and correct; a confidence threshold only loses coverage. Qwen second reading not wired in yet | `OCR_RESULTS.md`, findings log |
 | 2026-10-21 | Confidence-threshold analysis: no misreading survives the other checks in any field, so a threshold only adds review work; Tesseract is overconfident on degraded pages (95% right at 0.90–0.95). Proposal for the risk owner: no minimum for bulletin values. Also fixed: page 2 had lost its Source column (generator), Vietnamese page 2 was not read (extractor) | `OCR_CONFIDENCE_THRESHOLD.md`, findings log |
+| 2026-10-21 | Source agent direction: free scholarly and institutional sources only (OpenAlex, World Bank API, IMF, ADB, BIS, SBV, statistics office); access checked from the server (IMF and ADB pages block scripts, found via OpenAlex). Corpus storage moved to `/mnt/sdb` (`/mnt/disk1` full) | `SERVER_SETUP_PLAN.md`, findings log |
+| 2026-10-21 | Source list signed off by jimmytrn154; pypdfium2 installed; source agent plan (S1–S7) drafted for approval | `SOURCE_AGENT_PLAN.md`, findings log |
 
 ## Other workstreams
 
@@ -127,7 +130,8 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 
 | Item | Owner | Status |
 |---|---|---|
-| Who signs off the source list and reviews the gold-label sample | Not assigned | Open |
+| Who signs off the source list | jimmytrn154 | Decided 2026-10-21 |
+| Who reviews the gold-label sample | Not assigned | Open |
 | Policy-engine weights and thresholds | Domain owner, not assigned | Open |
 | Freshness defaults in the catalogue | Risk owner | Provisional |
 | Cost baseline model(s) and the hourly GPU rate | | Parked |

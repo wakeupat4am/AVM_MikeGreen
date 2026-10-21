@@ -68,4 +68,5 @@ Real documents are used where they exist (wrong-country, conflicting, outdated, 
 
 ## Open
 
-- Who signs off the source list (and reviews the gold-label sample).
+- ~~Who signs off the source list~~: the AI engineer, jimmytrn154 (2026-10-21). Who reviews the gold-label sample is still open.
+- How the source agent works: [`SOURCE_AGENT_PLAN.md`](SOURCE_AGENT_PLAN.md) (proposal, 2026-10-21).
