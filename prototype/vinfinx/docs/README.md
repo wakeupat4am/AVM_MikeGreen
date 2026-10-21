@@ -2,7 +2,7 @@
 
 Working plans and progress for the AI engineering scope. Background, decisions and daily notes live in [`../../AI_ENGINEER_FINDINGS.md`](../../AI_ENGINEER_FINDINGS.md); the requirements are in [`../AI_ENGINEERING_HANDOFF.md`](../AI_ENGINEERING_HANDOFF.md).
 
-*Progress tracker last updated 2026-10-19.*
+*Progress tracker last updated 2026-10-21.*
 
 ## Where we stand
 
@@ -37,9 +37,10 @@ The LLM must never be the sole authority. Every fact it uses comes from validate
 | Contracts (schemas, catalogue, document spec, source criteria) | **Done** |
 | Verifiers (rules) | **Done** (v0, approved) |
 | Adversarial test set and runner | **Frozen** (v0.1.0); runner built |
-| Synthetic document generator, OCR service | Designed, not built |
-| Research corpus, RAG, mapping agent, support check | Designed, not built |
-| Policy engine | Schema only (`PolicyResult`); logic not built |
+| Synthetic document generator | **Built** 2026-10-20 (v0.1.0); draft and held-out sets on the server |
+| OCR service, extraction and validation | **Built** 2026-10-21 (Tesseract); 0 wrong-and-trusted items; Qwen second reading not wired in |
+| Source agent, research corpus, RAG, mapping agent, support check | Designed, not built (next) |
+| Policy engine | **Built** 2026-10-20; weights and thresholds provisional |
 | Decision engine | Proven in live checks; not wired into a service |
 | Audit log, Authenticator review flow, cost logging | Not started |
 
@@ -105,6 +106,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-20 | **Document generator built** (`ai/documents/`, v0.1.0): every spec variant in English and Vietnamese, image-only pages and PDF, exact ground truth; draft set `docs-v0.1-draft` (62 documents) on the server | `MACRO_DOCUMENT_SPEC.md`, findings log |
 | 2026-10-21 | OCR: PaddleOCR (CPU) installed but cannot read Vietnamese (recognizer lacks 44 of 67 letters) and takes ~200 s per page; Tesseract 5.5.3 added: reads Vietnamese, 4–6 s per page, accurate on clean and mildly degraded pages, fails on strong blur, 100 dpi and 90° rotation. OCR adapter and evaluation built (`ai/ocr/`); document-ID collision in the generator fixed | `OCR_RESULTS.md`, `SERVER_SETUP_PLAN.md`, findings log |
 | 2026-10-21 | **Tesseract chosen, PaddleOCR removed.** Orientation detection, field extraction and validation built (`ai/extraction/`). End to end: **0 wrong-and-trusted items** of 868 on the draft set and 868 on a held-out set (seed 7); 67–68% of items trusted and correct; a confidence threshold only loses coverage. Qwen second reading not wired in yet | `OCR_RESULTS.md`, findings log |
+| 2026-10-21 | Confidence-threshold analysis: no misreading survives the other checks in any field, so a threshold only adds review work; Tesseract is overconfident on degraded pages (95% right at 0.90–0.95). Proposal for the risk owner: no minimum for bulletin values. Also fixed: page 2 had lost its Source column (generator), Vietnamese page 2 was not read (extractor) | `OCR_CONFIDENCE_THRESHOLD.md`, findings log |
 
 ## Other workstreams
 
@@ -119,7 +121,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 ## Next steps
 
 1. Decision-step tuning is paused (dev 21/24 with the second fixes; verifier v0.1.1 fixes the evidence-ID bug). The holdout run waits until step 6 changes the system again. Re-measure generation speed separately.
-2. **Step 6 continues:** the document chain works end to end without wrong-and-trusted items ([`OCR_RESULTS.md`](OCR_RESULTS.md)). Open: the OCR confidence threshold (handoff §5 Q1), wiring in the Qwen second reading, freezing a document set. Then research corpus, mapping agent and support check.
+2. **Step 6 continues:** the document chain works end to end without wrong-and-trusted items ([`OCR_RESULTS.md`](OCR_RESULTS.md)). Open: the OCR confidence threshold (proposal in [`OCR_CONFIDENCE_THRESHOLD.md`](OCR_CONFIDENCE_THRESHOLD.md), awaiting the risk owner), wiring in the Qwen second reading, freezing a document set. Then research corpus, mapping agent and support check.
 
 ## Open items
 
@@ -140,7 +142,11 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | `../ai/schemas/` | `common`, `evidence`, `mapping`, `policy`, `bundle`, `recommendation`, `verifier` |
 | `../ai/verifier/` | Verifier v0: `recommendation`, `mapping`, `numbers` |
 | `../ai/evaluation/` | Case format (`cases.py`), the case set (`cases/adversarial_v0.yaml`), the runner (`runner.py`) |
-| `../ai/tests/` | Tests and shared fixtures (worked-case bundles X and Y); 75 passing |
+| `../ai/policy/` | Policy engine (`engine.py`), config (`policy_v0.yaml`), provisional synthetic mapping |
+| `../ai/documents/` | Synthetic macro-document generator (content, render, degrade, ground truth) |
+| `../ai/ocr/` | OCR interface, Tesseract adapter, field scoring, OCR evaluation (run in `env-ocr`) |
+| `../ai/extraction/` | Parsers, layout reader, bulletin extractor, end-to-end and confidence evaluation |
+| `../ai/tests/` | Tests and shared fixtures (worked-case bundles X and Y); 114 passing, 2 skipped in the main env |
 | `../qwen_api.py`, `../serve-qwen.sh`, `../start-qwen-bridge.sh` | Qwen adapter, server launcher, Mac bridge |
 
 Run the tests from `prototype/vinfinx` on the server:

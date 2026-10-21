@@ -161,6 +161,7 @@ def extract(pages: dict[int, OcrPage], *, lang: str, catalogue: Catalogue, docum
         # page 2: metadata for the same metric
         meta = (t2.rows.get(metric_id) if t2 else None) or {}
         source = meta["source"].text if "source" in meta else PUBLISHER
+        caveats = [] if "source" in meta else ["SOURCE_DESK_NOT_READ: source is the publisher, not the desk printed on page 2"]
         revision = parse.REVISION.get(parse.clean(meta["revision_status"].text).lower()) if "revision_status" in meta else None
         quality = parse.QUALITY.get(parse.clean(meta["data_quality"].text).lower(), "unknown") if "data_quality" in meta else "unknown"
         previous = parse.number(meta["previous_value"].text, lang) if "previous_value" in meta else None
@@ -208,7 +209,7 @@ def extract(pages: dict[int, OcrPage], *, lang: str, catalogue: Catalogue, docum
             "data_quality": quality, "quality_flags": flags, "uncertainty": unc,
             "freshness": {"deadline": catalogue.freshness_deadline(metric_id, end),
                           "catalogue_version": catalogue.version, "catalogue_hash": catalogue.catalogue_hash},
-            "presence": presence, "trust": "trusted", "trust_reasons": [], "synthetic": synthetic,
+            "presence": presence, "trust": "trusted", "trust_reasons": [], "synthetic": synthetic, "caveats": caveats,
             "provenance": OcrProvenance(document_id=document_id, document_hash=document_hash, page_hashes=page_hashes,
                                         fields=fields),
         }

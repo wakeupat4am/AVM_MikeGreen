@@ -23,7 +23,8 @@ TABLE1 = [("Metric", "Chỉ tiêu", None, 540), ("Metric ID", "Mã chỉ tiêu",
           ("Value", "Giá trị", "value", 140), ("Unit", "Đơn vị", "unit", 170),
           ("Baseline", "Kỳ gốc", "baseline_value", 140), ("Baseline period", "Kỳ so sánh", "baseline_period", 218),
           ("Change", "Thay đổi", "change_vs_baseline", 200)]
-TABLE2 = [("Metric ID", "Mã chỉ tiêu", None, 800),  # the join key to Table 1; drawn, not a separate field ("Source", "Nguồn", "source", 600),
+# The page-2 Metric ID column is the join key to Table 1: drawn, not a separate ground-truth field.
+TABLE2 = [("Metric ID", "Mã chỉ tiêu", None, 800), ("Source", "Nguồn", "source", 600),
           ("Revision status", "Tình trạng điều chỉnh", "revision_status", 350),
           ("Previous value", "Giá trị trước", "previous_value", 330),
           ("Data quality", "Chất lượng dữ liệu", "data_quality", 300),

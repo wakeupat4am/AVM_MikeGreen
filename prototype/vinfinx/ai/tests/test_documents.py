@@ -70,6 +70,16 @@ class DocumentTest(unittest.TestCase):
         change = printed["macro.vn.refi_rate/change_vs_baseline"]
         self.assertTrue(change.startswith(("\u2212", "+")) and change.endswith("đpt"))
 
+    def test_every_spec_column_is_printed(self):
+        """2026-10-21: an edit commented out page 2's Source column. Every Table 1 and Table 2 attribute of the spec
+        must reach the ground truth for every metric."""
+        truth = self.docs[("clean", "en")]
+        attributes = {f.attribute for f in truth.fields if f.metric_id == "macro.vn.refi_rate"}
+        spec = {"metric_id", "geography", "segment", "transformation", "observation_period", "value", "unit",
+                "baseline_value", "baseline_period", "change_vs_baseline", "source", "revision_status",
+                "previous_value", "data_quality", "uncertainty", "next_update"}
+        self.assertEqual(attributes, spec)
+
     def test_every_setting_has_its_own_document_id(self):
         """2026-10-21: rotations of -1 and 1 degrees got the same ID and overwrote each other."""
         from ai.documents.generate import ALL_VARIANTS, document_id

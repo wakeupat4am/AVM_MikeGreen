@@ -233,7 +233,7 @@ Choose by measurement: run the candidate engines on the synthetic macro document
 |---|---|---|
 | Source agent, mapping agent | Qwen3.5-9B | No |
 | Embeddings, support check, gold-label drafts | OpenAI | No |
-| OCR (macro document, scanned research PDFs) | OCR service: PaddleOCR by default, engine configurable; Qwen second reading | No |
+| OCR (macro document, scanned research PDFs) | OCR service: Tesseract (chosen 2026-10-21), engine configurable; Qwen second reading | No |
 | Customer-document OCR (later) | OCR service, local engines only | Yes |
 | Policy engine, verifiers, bundle builder | Deterministic code | Yes |
 | Decision engine | Qwen3.5-9B on our own server ([`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md)) | Yes |
@@ -269,7 +269,7 @@ Gold passages: OpenAI drafts the labels; a human reviews a random ~20% and recor
 ## Open
 
 - Server details for Qwen (see [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md)).
-- Final OCR engine per document type: PaddleOCR is the default; confirm by the measured comparison in [OCR service](#ocr-service-pluggable).
+- ~~Final OCR engine per document type~~: Tesseract chosen 2026-10-21 for the macro document (see [OCR service](#ocr-service-pluggable)); customer documents still need their own measurement.
 - Source validity criteria: draft approved 2026-10-17 (see [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) Part C; to be written up as `CORPUS_SOURCE_CRITERIA.md`). Who signs off each source list is still open.
 - Who reviews the gold-label sample and signs off the source list.
 - Weights and thresholds in the policy engine need a domain owner's sign-off.

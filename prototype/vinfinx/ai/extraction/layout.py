@@ -120,7 +120,8 @@ def _anchors(tokens: list[Token], known: set[str]):
         parts = [t]
         while True:
             nxt = min((j for j, u in enumerate(tokens) if j not in used and j != i and u not in parts
-                       and abs(u.cy - t.cy) < 0.5 * t.h and 0 <= u.x0 - parts[-1].x1 < 1.2 * t.h
+                       and abs(u.cy - t.cy) < 0.5 * t.h and u.x0 > parts[-1].x0 and u.x0 - parts[-1].x1 < 2.0 * t.h
+                       # a lost underscore leaves a gap; OCR boxes of the two halves may also overlap
                        and re.fullmatch(r"[a-z0-9_.-]+", clean(u.text))), key=lambda j: tokens[j].x0, default=None)
             if nxt is None:
                 break
@@ -215,7 +216,9 @@ def read_table(page: OcrPage, template: list[Column], lang: str, known_ids: set[
     row_h = median(b - a for a, b in zip(ys, ys[1:])) if len(ys) > 1 else 4 * anchors[0][1][0].h
     anchor_ids = {id(t) for _, parts in anchors for t in parts}
     rest = [t for t in tokens if id(t) not in anchor_ids]
-    header = [t for t in rest if ys[0] - 1.6 * row_h <= t.cy <= ys[0] - 0.4 * row_h]
+    # the header is searched in a band above the first row found, not exactly one row up: if OCR missed the first
+    # row's metric ID, the row just above the first anchor is a data row, not the header
+    header = [t for t in rest if ys[0] - 3.5 * row_h <= t.cy <= ys[0] - 0.4 * row_h]
     points = _header_points(header, template, lang)
     # the metric-ID column's left edge is a calibration point too
     id_index = next(i for i, c in enumerate(template) if c.attribute == "metric_id")
