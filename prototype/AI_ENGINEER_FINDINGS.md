@@ -793,3 +793,66 @@ The second fixes were applied (the abstain-only rule for bundles with nothing ci
   - The runner has `--policy engine`; all 13 scripted cases pass with it.
   - 92 tests pass.
 
+## 2026-10-20 (continued) — document generator built
+
+- **Built:** generator `vinfinx-macro-doc` 0.1.0 (`ai/documents/`), implementing the approved `MACRO_DOCUMENT_SPEC.md`.
+  - It renders the three image-only pages with Pillow, so every field's box is known exactly, including after rotation and crop.
+  - It produces every variant in the spec, in English and Vietnamese, with ground truth (`macro_doc_ground_truth/0.1`).
+  - Output is reproducible: the same seed gives byte-identical pages and PDF.
+  - Nothing new was installed.
+- **Draft set:** `docs-v0.1-draft` on the server, 62 documents, about 140 MB. It is not frozen; freezing (manifest committed) comes when OCR evaluation starts.
+- **Disk:** `/mnt/disk1` is at 100% with about 9.6 GB free (shared). Keep fixture sets small and delete drafts that are not needed.
+- **Choices made while building:** listed under "As built" in the spec. In short:
+  - every variant is generated in both languages;
+  - `absent` also blanks the Change cell;
+  - a partly cropped field is `unreadable` and a fully cropped one is `absent`;
+  - the page-2 metric ID is a label, not a field;
+  - count units are printed per metric.
+- **Next in step 6:** the OCR service, measured against this ground truth.
+
+## 2026-10-21 — PaddleOCR smoke test: cannot read Vietnamese
+
+PaddleOCR 3.7.0 was installed on CPU in `env-ocr` (2026-10-20; details in `SERVER_SETUP_PLAN.md`, "OCR environment") and run on page 1 of the clean synthetic documents.
+
+- **English:** 134/145 fields found exactly. 10 misses are the Unicode minus read as a hyphen (normalization fixes that), and 1 is an underscore read as a space. Every value is right.
+- **Vietnamese: 94/145.** The recognizer's dictionary lacks 44 of the 67 Vietnamese lowercase letters (all with a dot below, a hook above or stacked marks). This holds for both PP-OCRv6 and the older Latin PP-OCRv5 model, so no PaddleOCR recognizer reads Vietnamese words correctly. PaddleOCR maps `lang="vi"` to these models anyway; its language list says nothing of the gap. Numbers, periods and `đpt` are read correctly.
+- **Speed:** ~200 s per page on CPU. The oneDNN acceleration crashes with these models in Paddle 3.3.1, so it runs without it.
+- **Consequence:** PaddleOCR as the only engine fails the requirement for Vietnamese customer documents (names, addresses). The engine choice is "Open" in `PIPELINE.md` and goes back to the AI engineer.
+
+## 2026-10-21 (continued) — Tesseract measured on the full draft set
+
+- **Approved:** the AI engineer approved trying Tesseract after PaddleOCR failed on Vietnamese. Tesseract 5.5.3 comes from conda-forge into `env-ocr` (no root needed), with `tessdata_best` pinned at commit `e12c65a`.
+- **Built:**
+  - `ai/ocr/`: the common `OcrPage` interface, the Tesseract adapter, field scoring against ground truth (`match.py`) and the set evaluator (`evaluate.py`);
+  - tests in `ai/tests/test_ocr.py`.
+- **Results** (`docs/OCR_RESULTS.md`):
+  - Clean pages: 97% of all fields in both languages, and every value field correct except one Vietnamese minus sign.
+  - Robust to JPEG, noise, cropping and rotation up to 3°.
+  - Fails on blur σ 3, 100 dpi and 90° rotation.
+  - Speed: 4–6 s per page on one core.
+- **Lesson:** OCR confidence does not protect against wrong values. On degraded pages Tesseract reads lost or swapped decimal separators with confidence ≥ 0.9 (`4.8` → `48`). Extraction must parse numbers strictly for the document's language and check ranges, Change = Value − Baseline and the Qwen second reading. "Wrong and trusted" can only be measured after that step.
+- **Generator bug found and fixed:** document IDs dropped the minus sign from parameters, so rotations of −1° and 1° (and −3° and 3°) overwrote each other; the set had 58 documents, not 62. A minus is now written "neg", generation refuses duplicate IDs, and a test covers it. The set was regenerated, and two leftover folders from the old naming were deleted.
+- **Open (`PIPELINE.md`):** the engine choice is not final. PaddleOCR is still installed, pending the AI engineer's decision.
+
+## 2026-10-21 (continued) — Tesseract chosen; extraction and validation; "wrong and trusted" measured
+
+- **Decision (AI engineer):** Tesseract is the OCR engine, and PaddleOCR is removed. `env-ocr` was rebuilt with Tesseract only, at the main environment's package versions.
+- **Built:**
+  - Orientation detection: Tesseract OSD turns 90, 180 and 270 degree pages upright, and boxes are mapped back onto the page as received.
+  - `ai/extraction/`:
+    - strict parsers per language;
+    - a template-based layout reader. Rows are anchored on metric IDs, a small skew is removed, and the template's columns are placed using whichever header labels were read, because a single missed header label used to lose a whole column;
+    - the bulletin extractor, which builds `EvidenceItem`s with OCR provenance (box, text, confidence and validations per field). An item is trusted only if every check passes;
+    - the end-to-end evaluator.
+  - Tests in `ai/tests/test_extraction.py`. The Tesseract-dependent ones run in `env-ocr`.
+- **Result:** **0 wrong-and-trusted items** and 0 items trusted although they had to be flagged.
+  - On the draft set (868 items) and on a held-out set generated after the code was written (seed 7, published 2026-11-06, 868 items).
+  - 67–68% of items are trusted and correct.
+  - The checks that did the work: strict number grammar per language, Change = Value − Baseline, ranges, units and labels against the catalogue.
+- **The confidence threshold is the AI engineer's call:** a minimum OCR confidence caught nothing extra and only lost good items (579 → 305 trusted at 0.9 on the held-out set). The threshold is open (handoff §5 Q1).
+- **Known limits:**
+  - A consistent tampering (value and change both altered) passes, as the spec expects.
+  - Cropped pages give no trusted items, because the Change column is cut.
+  - The Qwen second reading is not wired in yet.
+  - The documents come from one template generated by the same team, so a real second publisher's layout would need its own template.
+

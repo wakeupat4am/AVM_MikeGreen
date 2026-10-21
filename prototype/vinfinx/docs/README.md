@@ -79,7 +79,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 3 | Verifiers v0 (rules) | **Done**, approved 2026-10-18 | `ai/verifier/`: recommendation and mapping verifiers; 24 tests including the four worked cases. Support check is a placeholder |
 | 4 | Frozen adversarial test set | **Done**: frozen 2026-10-18 by jimmytrn154 (v0.1.0) | `ai/evaluation/`: 42 cases, 16 categories, 11 held out; evaluation runner built ([README](../ai/evaluation/README.md)) |
 | 5 | Qwen on our server; baseline | **Done**: serving 2026-10-16; baseline 2026-10-18 (15/35 passed; see [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md)) | Speed partly explained (see [Other workstreams](#other-workstreams)) |
-| 6 | Document generator, OCR service, RAG, mapping agent, policy engine, decision engine | **In progress:** policy engine built 2026-10-20 (provisional values); the rest not started | `POLICY_ENGINE_PLAN.md` |
+| 6 | Document generator, OCR service, RAG, mapping agent, policy engine, decision engine | **In progress:** policy engine and document generator built 2026-10-20; OCR (Tesseract), extraction and validation 2026-10-21; Qwen second reading, RAG, mapping agent not started | `POLICY_ENGINE_PLAN.md` |
 
 ## Done so far
 
@@ -102,6 +102,9 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-19 | Second fixes (verifier v0.1, citable evidence only, citation required unless abstaining) run on the dev split: 21/24 passed, all genuine; remaining: one real excluded-figure statement, one customer-figure echo, one verifier bug (evidence-ID digits counted as numbers in uncited abstentions). Generation still slow (~70 s per decision) | `EVALUATION_RESULTS.md`, findings log |
 | 2026-10-19 | Verifier v0.1.1 (evidence-ID digits no longer counted as numbers); decision-step tuning paused at dev 21/24; policy-engine plan drafted | `POLICY_ENGINE_PLAN.md`, findings log |
 | 2026-10-20 | P1–P5 approved as provisional; **policy engine built** (`ai/policy/`): reproduces all 30 frozen decision cases' policy results, runner `--policy engine`; schema `policy_result/0.2` | `POLICY_ENGINE_PLAN.md`, findings log |
+| 2026-10-20 | **Document generator built** (`ai/documents/`, v0.1.0): every spec variant in English and Vietnamese, image-only pages and PDF, exact ground truth; draft set `docs-v0.1-draft` (62 documents) on the server | `MACRO_DOCUMENT_SPEC.md`, findings log |
+| 2026-10-21 | OCR: PaddleOCR (CPU) installed but cannot read Vietnamese (recognizer lacks 44 of 67 letters) and takes ~200 s per page; Tesseract 5.5.3 added: reads Vietnamese, 4–6 s per page, accurate on clean and mildly degraded pages, fails on strong blur, 100 dpi and 90° rotation. OCR adapter and evaluation built (`ai/ocr/`); document-ID collision in the generator fixed | `OCR_RESULTS.md`, `SERVER_SETUP_PLAN.md`, findings log |
+| 2026-10-21 | **Tesseract chosen, PaddleOCR removed.** Orientation detection, field extraction and validation built (`ai/extraction/`). End to end: **0 wrong-and-trusted items** of 868 on the draft set and 868 on a held-out set (seed 7); 67–68% of items trusted and correct; a confidence threshold only loses coverage. Qwen second reading not wired in yet | `OCR_RESULTS.md`, findings log |
 
 ## Other workstreams
 
@@ -116,7 +119,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 ## Next steps
 
 1. Decision-step tuning is paused (dev 21/24 with the second fixes; verifier v0.1.1 fixes the evidence-ID bug). The holdout run waits until step 6 changes the system again. Re-measure generation speed separately.
-2. **Step 6 continues:** policy engine built 2026-10-20 ([`POLICY_ENGINE_PLAN.md`](POLICY_ENGINE_PLAN.md); provisional values awaiting a domain owner). Next: document generator and OCR; then research corpus, mapping agent and support check (also fixes reversed mapping directions).
+2. **Step 6 continues:** the document chain works end to end without wrong-and-trusted items ([`OCR_RESULTS.md`](OCR_RESULTS.md)). Open: the OCR confidence threshold (handoff §5 Q1), wiring in the Qwen second reading, freezing a document set. Then research corpus, mapping agent and support check.
 
 ## Open items
 

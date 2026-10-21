@@ -20,7 +20,9 @@ Read before doing anything:
 Status: being built in the build order of `docs/PIPELINE.md`. Built so far: Qwen serving on our
 server, the contracts (`ai/catalog/`, `ai/schemas/`), verifier v0.1.1 (`ai/verifier/`), the adversarial
 test set and its runner (`ai/evaluation/`), the policy engine (`ai/policy/`, provisional weights and
-thresholds). Not built: document generator, OCR, research corpus, mapping agent. Current progress: `prototype/vinfinx/docs/README.md`.
+thresholds), the synthetic document generator (`ai/documents/`), the OCR adapter (`ai/ocr/`, Tesseract with orientation
+detection), field extraction and validation (`ai/extraction/`; results in `docs/OCR_RESULTS.md`). Not built: Qwen
+second reading, research corpus, mapping agent. Current progress: `prototype/vinfinx/docs/README.md`.
 
 ## Hard rules
 - Customer data, identity documents and bank records never go to OpenAI or any
@@ -33,8 +35,9 @@ thresholds). Not built: document generator, OCR, research corpus, mapping agent.
   "SYNTHETIC, TEST DATA" watermark and a fictional publisher).
 - Generation (mapping agent, decision engine) runs on Qwen3.5-9B on this server.
   OpenAI is used for embeddings, the verifier's support check and gold-label drafts.
-  OCR is a pluggable service (PaddleOCR by default, Qwen as second reading; see
-  "OCR service" in `docs/PIPELINE.md`). Customer documents use local engines only.
+  OCR is a pluggable service: Tesseract 5.5.3 (chosen 2026-10-21; PaddleOCR removed, it cannot read Vietnamese),
+  Qwen as second reading (not wired in yet); see "OCR service" in `docs/PIPELINE.md`. Customer documents use local
+  engines only.
 - The LLM never decides what a macro signal means at decision time. That comes from a
   versioned mapping applied by deterministic code.
 - Version and hash everything a decision depends on (corpus, index, mapping, prompt,
@@ -52,6 +55,8 @@ thresholds). Not built: document generator, OCR, research corpus, mapping agent.
   knows the demo customer's figures; the app must send them in the conversation if needed.
 - Generation has run at ~3 tokens/s since 2026-10-19 (15–20 on 2026-10-18); cause not confirmed
   (likely CPU contention). Do not quote latency until re-measured.
+- OCR runs in its own environment (`$VINFINX_ROOT/env-ocr`: Tesseract); run `ai.ocr.*` and `ai.extraction.evaluate`
+  with `env-ocr/bin/python`. Tests that need Tesseract are skipped in the main env; run them in `env-ocr`.
 - Load Qwen with `device_map="auto"`: an explicit single device (`{"": 0}`) runs ~7× slower.
 - Run Python from the VinFinx environment (`/mnt/disk1/backup_user/24chuong.ta/vinfinx/env`); tests run
   from `prototype/vinfinx` with `python -m unittest discover -s ai/tests -t .`.

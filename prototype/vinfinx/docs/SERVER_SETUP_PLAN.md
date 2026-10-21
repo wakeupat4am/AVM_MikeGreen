@@ -474,6 +474,130 @@ Software pinned 2026-10-16. The GPU index is chosen per run from whatever is fre
 | Sampling | Greedy (`do_sample=False`), seed 7, `enable_thinking=False` |
 | Hub access at run time | Off (`HF_HUB_OFFLINE=1`) |
 
+## OCR environment (installed 2026-10-20, CPU)
+
+For the OCR service (`PIPELINE.md`, "OCR service"; build step 6). The AI engineer chose PaddleOCR on CPU only (no Tesseract baseline). The install and the outcome are recorded under [Installed](#installed-2026-10-20) below.
+
+### Facts gathered (2026-10-20)
+
+| Item | Finding |
+|---|---|
+| PaddleOCR | `paddleocr` 3.7.0 (current on PyPI), with `paddlex` 3.7.2 |
+| Vietnamese | PaddleOCR 3.7.0 maps `vi` (and `en`) to **PP-OCRv6** (`PP-OCRv6_medium_det` + `PP-OCRv6_medium_rec`), one multilingual model pair (read from the package source, `_pipelines/ocr.py`) |
+| Models | Hosted by the PaddlePaddle organisation on Hugging Face (PaddleX's default model source): detector 62 MB, recognizer 77 MB |
+| CPU framework | `paddlepaddle` 3.3.1 on PyPI (195 MB wheel). Resolving `paddleocr==3.7.0 paddlepaddle==3.3.1` (dry run, nothing installed): 70 packages, **344 MB download** |
+| GPU framework | Not on PyPI beyond 2.6.2. Paddle's own index (paddlepaddle.org.cn) has `paddlepaddle-gpu` 3.4.0 for CUDA 13.0: the wheel alone is **1.84 GB**, the download kept failing (SSL EOF, resumed 3 times; stopped), and its CUDA library dependencies were not resolved |
+| Conflicts with the Qwen env | The resolution pulls `numpy` 2.3.5 (env has 2.5.4), `pillow` 13.0.0 (12.3.0), `huggingface_hub` 2.2.0 and `protobuf`, `opencv-contrib-python` 4.10.0.84. It must not go into `$VINFINX_ROOT/env` |
+| Other engines | Tesseract is not installed (needs `apt`, no root). EasyOCR and VietOCR depend on PyTorch; not assessed yet |
+| Disk | Each user may store up to **400 GB** on `/mnt/disk1` (per the AI engineer, 2026-10-20); we use 36 GB. But the disk itself is **100% full, ~8.4 GB free** (was 1.3 TB free on 2026-10-16; other users), so a large install can still fail until space is freed. Home: 100 GB soft quota, ~90 GB used. `$VINFINX_ROOT/cache/pip` holds **2.9 GB** of downloaded wheels (the PyTorch stack and the aborted GPU wheel) that can be cleared |
+| PaddleX cache | Defaults to `~/.paddlex` (the home quota); must be redirected |
+
+### Proposal
+
+| | Choice | Why |
+|---|---|---|
+| Framework | **CPU** `paddlepaddle==3.3.1` from PyPI | ~0.35 GB download vs several GB for GPU, which does not fit the free disk, and the GPU wheel's host is unreliable from here. The evaluation load is small (62 documents × 3 pages). 64 cores, 660 GB RAM. Revisit GPU if CPU speed is not enough, or when disk frees up |
+| Environment | New conda prefix env `$VINFINX_ROOT/env-ocr`, Python 3.12 (conda-forge), like the Qwen env | Its pins conflict with the Qwen env. Estimated ~1.5 GB installed |
+| Packages | `paddlepaddle==3.3.1`, `paddleocr==3.7.0` (pulls `paddlex==3.7.2`); exact versions frozen to `$VINFINX_ROOT/requirements-ocr.lock` after install | Same pinning as the Qwen env |
+| Models | `PaddlePaddle/PP-OCRv6_medium_det` and `PP-OCRv6_medium_rec` downloaded once to `$VINFINX_ROOT/models/paddleocr/` at a pinned revision, with SHA-256 hashes; loaded by `model_dir`, so runs need no network | Replay: the engine, version and model are recorded with every field |
+| Caches | `PADDLE_PDX_CACHE_HOME=$VINFINX_ROOT/cache/paddlex`, `PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True`, `PIP_CACHE_DIR=$VINFINX_ROOT/cache/pip` | Keep off the home quota; no connectivity check at start |
+| Disk | Clear `$VINFINX_ROOT/cache/pip` first (`pip cache purge`, frees ~2.9 GB) | Leaves room on a 9 GB margin |
+| Code | The OCR adapter (`ai/ocr/`) and OCR evaluation run in `env-ocr` (it has `pydantic` and `PyYAML`); the Qwen second reading is called over HTTP on the adapter as today | No process imports both stacks |
+
+### Commands (to run after approval)
+
+```bash
+export VINFINX_ROOT=/mnt/disk1/backup_user/24chuong.ta/vinfinx
+export PIP_CACHE_DIR=$VINFINX_ROOT/cache/pip PADDLE_PDX_CACHE_HOME=$VINFINX_ROOT/cache/paddlex
+$VINFINX_ROOT/env/bin/pip cache purge                                  # ~2.9 GB back
+df -h /mnt/disk1                                                       # check before installing
+conda create -y -p $VINFINX_ROOT/env-ocr --override-channels -c conda-forge python=3.12
+O=$VINFINX_ROOT/env-ocr/bin/python
+$O -m pip install "paddlepaddle==3.3.1" "paddleocr==3.7.0"
+$O -m pip freeze > $VINFINX_ROOT/requirements-ocr.lock
+$O -c "import paddle; paddle.utils.run_check()"                         # CPU check
+# models, pinned (revision recorded here after download)
+$VINFINX_ROOT/env/bin/hf download PaddlePaddle/PP-OCRv6_medium_det --local-dir $VINFINX_ROOT/models/paddleocr/PP-OCRv6_medium_det
+$VINFINX_ROOT/env/bin/hf download PaddlePaddle/PP-OCRv6_medium_rec --local-dir $VINFINX_ROOT/models/paddleocr/PP-OCRv6_medium_rec
+```
+
+Then a smoke test: OCR page 1 of `docs-v0.1-draft/LBEO-BUL-2026-10-clean-en-s42` and `...-clean-vi-s42`, and report time per page and a first look at accuracy.
+
+### Installed (2026-10-20)
+
+- **Done:**
+  - Ran `pip cache purge` (1003 directories; `/mnt/disk1` went from 8.4 to 12 GB free).
+  - Created `env-ocr` (Python 3.12.15).
+  - Installed `paddlepaddle==3.3.1` (CPU) and `paddleocr==3.7.0` in 3.5 min: 1.5 GB, 71 packages, frozen in `$VINFINX_ROOT/requirements-ocr.lock`.
+  - `paddle.utils.run_check()` passed (CPU).
+- **Key pins:** `paddlepaddle==3.3.1`, `paddleocr==3.7.0`, `paddlex==3.7.2`, `numpy==2.3.5`, `pillow==13.0.0`, `pydantic==2.14.1`, `PyYAML==6.0.2`.
+- **Models:** in `$VINFINX_ROOT/models/paddleocr/` (133 MB), with SHA-256 hashes in `PADDLEOCR.sha256`.
+  - `PaddlePaddle/PP-OCRv6_medium_det` revision `8e0f56fb2ef86b461d99cfc7ac5c137738985f61`.
+  - `PaddlePaddle/PP-OCRv6_medium_rec` revision `e5a92bcbc5cc1b494628e458d267778f0704fd7c`.
+- **Smoke test (page 1 of the clean EN and VI documents):**
+  - **Fails with oneDNN on:** `NotImplementedError: ConvertPirAttribute2RuntimeAttribute not support [pir::ArrayAttribute<pir::DoubleAttribute>]` (`onednn_instruction.cc`). This is Paddle 3.3.1's CPU oneDNN path with these models.
+  - **With `enable_mkldnn=False`** it ran, but had not finished two full-resolution pages after more than 10 minutes. The server's load average was ~140 on 64 cores (other users' jobs: one user ~3,160% CPU), and our process got ~6 cores.
+  - **Stopped** at the AI engineer's request (2026-10-20 21:21). No accuracy result yet.
+- **Smoke test rerun 2026-10-21 07:16–07:27** (load ~20 on 64 cores, 16 threads, oneDNN off; script `$VINFINX_ROOT/logs/ocr_smoke.py`, log `logs/ocr-smoke-20261021.log`). A field counts as found when the OCR line at the field's box contains the printed text exactly:
+
+  | Page 1 | Detection | Time | Fields found |
+  |---|---|---|---|
+  | clean EN | full resolution | 205 s | 134/145 |
+  | clean VI | full resolution | 204 s | 94/145 |
+  | clean EN | max side 2000 px | 130 s | 125/145 |
+  | clean VI | max side 2000 px | 126 s | 90/145 |
+
+  - **English:**
+    - 10 of the 11 misses are the Unicode minus read as an ASCII hyphen (`−0.5 pp` → `-0.5 pp`); normalization handles that.
+    - 1 miss is an underscore read as a space (`price_index` → `price index`).
+    - All values, baselines, periods and units were read correctly.
+  - **Vietnamese: the recognizer cannot output most Vietnamese letters.**
+    - The character dictionary of `PP-OCRv6_medium_rec` (18,708 characters) lacks **44 of the 67** Vietnamese lowercase letters: every letter with a dot below, a hook above or stacked marks (`ảạắằẳẵặấầẩẫậẻẽẹếềểễệỉịỏọốổỗộớờởỡợủụứừửữựỳỷỹỵ`).
+    - `latin_PP-OCRv5_mobile_rec` lacks 45.
+    - So "Việt Nam" is read "Vit Nam", "Mức" is read "Múc", and the title loses its marks.
+    - Numbers, `đpt`, periods and ASCII metric IDs are read correctly.
+  - **Speed:** about 200 s per page at full resolution, 130 s downscaled, without oneDNN. That is about 10 hours for the 186 pages of the draft set. Too slow.
+- **Next options, when the server is quieter:**
+  1. Detect text on a downscaled page (`text_det_limit_type="max"`, `text_det_limit_side_len` ≈ 1600–2000); recognition still reads crops at full resolution.
+  2. Try a Paddle 3.x release whose oneDNN path works with PP-OCRv6.
+  3. Cap our threads (`cpu_threads`) so we do not add to the contention.
+  4. If CPU stays too slow, the GPU build (CUDA 13.0, ~1.84 GB wheel) now that the allowance (400 GB per user) is known, once `/mnt/disk1` has physical space.
+
+### Tesseract added (2026-10-21)
+
+PaddleOCR cannot read Vietnamese (above), so the AI engineer approved trying Tesseract in the same environment.
+
+```bash
+conda install -y -p $VINFINX_ROOT/env-ocr --override-channels -c conda-forge "tesseract=5.5.3"   # leptonica 1.87.0
+$VINFINX_ROOT/env-ocr/bin/python -m pip install "pytesseract==0.3.13"
+D=$VINFINX_ROOT/models/tesseract/tessdata_best-e12c65a          # pinned tessdata_best commit
+for l in eng vie; do curl -sSL -o $D/$l.traineddata \
+  https://github.com/tesseract-ocr/tessdata_best/raw/e12c65a915945e4c28e237a9b52bc4a8f39a0cec/$l.traineddata; done
+cp $VINFINX_ROOT/env-ocr/share/tessdata/osd.traineddata $D/    # orientation detection, from the conda package
+(cd $D && sha256sum *.traineddata > TESSDATA.sha256)
+```
+
+- **Language data:** the conda package bundles 128 languages from the small "fast" set (`vie` is 0.5 MB). We use `tessdata_best` instead (`vie` 12.4 MB, `eng` 15.4 MB).
+- **Hashes:** `eng` `8280aed0…`, `vie` `b6b49293…`, `osd` `9cf5d576…`.
+- **Results:** about 4–6 s per page on one core, Vietnamese read correctly. Full numbers: [`OCR_RESULTS.md`](OCR_RESULTS.md).
+- **Paths:** the adapter (`ai/ocr/tesseract.py`) points `pytesseract` at `env-ocr/bin/tesseract` and at the pinned `tessdata` directory, so the env does not need activating.
+
+### PaddleOCR removed (2026-10-21)
+
+The AI engineer chose Tesseract and asked to remove PaddleOCR. `env-ocr` was rebuilt rather than uninstalling Paddle's 70 dependencies.
+
+```bash
+cp $VINFINX_ROOT/requirements-ocr.lock $VINFINX_ROOT/logs/requirements-ocr-paddle-20261020.lock   # kept for the record
+conda env remove -y -p $VINFINX_ROOT/env-ocr
+conda create -y -p $VINFINX_ROOT/env-ocr --override-channels -c conda-forge python=3.12 "tesseract=5.5.3"
+$VINFINX_ROOT/env-ocr/bin/python -m pip install "pytesseract==0.3.13" "pillow==12.3.0" "pydantic==2.14.1" \
+  "PyYAML==6.0.3" "numpy==2.5.4"          # the main environment's versions, so ai/ code behaves the same in both
+$VINFINX_ROOT/env-ocr/bin/python -m pip freeze > $VINFINX_ROOT/requirements-ocr.lock
+rm -rf $VINFINX_ROOT/models/paddleocr $VINFINX_ROOT/cache/paddlex
+```
+
+The env is now 760 MB (was 1.5 GB); the `tessdata_best` models in `$VINFINX_ROOT/models/tesseract/` are unchanged.
+
 ## Future: vLLM (after experiments)
 
 vLLM stays the planned upgrade, adopted only when the measurements from [Steps](#steps) 6 and the first test-set runs show plain `transformers` is too slow.

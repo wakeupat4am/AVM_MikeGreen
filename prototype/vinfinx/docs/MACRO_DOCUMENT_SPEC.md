@@ -1,6 +1,6 @@
 # Synthetic macro-status document spec
 
-*Status: approved 2026-10-17, including the four points under [Points to review](#points-to-review). Implements Part B of [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) (decisions D2, D3, D10). Metric IDs, units and freshness come from [`ai/catalog/metrics.yaml`](../ai/catalog/metrics.yaml); extracted fields land in `EvidenceItem` ([`ai/schemas/evidence.py`](../ai/schemas/evidence.py)). The generator is not built yet.*
+*Status: approved 2026-10-17, including the four points under [Points to review](#points-to-review). Implements Part B of [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) (decisions D2, D3, D10). Metric IDs, units and freshness come from [`ai/catalog/metrics.yaml`](../ai/catalog/metrics.yaml); extracted fields land in `EvidenceItem` ([`ai/schemas/evidence.py`](../ai/schemas/evidence.py)). **Generator v0.1.0 built 2026-10-20** (`ai/documents/`); see [As built](#as-built-2026-10-20).*
 
 ## Purpose
 
@@ -214,3 +214,32 @@ Also printed and extracted for validation only: Change (`change_vs_baseline`). N
 2. **Segment** for market rows is "Landed houses" (the Phase 3 population); macro rows are "All".
 3. **Stale variant**: dates moved back 6 months and the document evaluated at the original date. This makes every monthly metric stale under the catalogue's 45–60-day defaults.
 4. **AVM evidence IDs.** Phase 3 bands are per property, so their evidence IDs need a property segment, for example `avm.hn-dong-da.p50_price.<property_id>.<date>`. `EvidenceItem` already accepts system provenance, but the ID scheme for per-property evidence is not decided. It belongs to the later Phase 3 evidence adapter, not to this document.
+
+## As built (2026-10-20)
+
+Generator `vinfinx-macro-doc` 0.1.0 in `ai/documents/`:
+- **Modules:** `content.py` (values, formatting, content model), `variants.py`, `render.py`, `degrade.py`, `ground_truth.py` (the Pydantic model) and `generate.py` (the CLI).
+- **Tests:** `ai/tests/test_documents.py`.
+
+**Running it:**
+```bash
+python -m ai.documents.generate --set-version docs-v0.1-draft      # every variant, en and vi, seed 42, as_of 2026-10-05
+```
+
+**Output:** per document, `page-<n>.png` (or `.jpg` for the JPEG variant), an image-only `document.pdf` and `ground_truth.json`, plus a `MANIFEST.json` with every file's SHA-256. It goes under `$VINFINX_ROOT/fixtures/<set-version>/` and is not committed. The draft set has 62 documents (31 variant settings × 2 languages), about 140 MB.
+
+**Choices made while building** (none changes an approved point):
+- **Rendering:** greyscale pages, drawn with Pillow in DejaVu Sans (full Vietnamese diacritics). The font files' hashes are recorded in the ground truth, because rendering depends on them. The PDF has no fonts and no text layer: it contains only the page images, and the test checks that. Its metadata (title, subject, keywords, producer) says synthetic test data. Creation dates are fixed, so the same seed gives byte-identical files.
+- **Languages:** `lang_en` and `lang_vi` are not separate variants. Every variant is generated in both languages, and the two clean documents carry identical true values.
+- **Units and labels:**
+  - Count units are printed per metric: "listings" or "tin" for inventory, "transactions" or "giao dịch" for transaction volume. The true unit stays `count`.
+  - The page-2 Metric ID column joins the tables and is drawn as a label, not a separate ground-truth field (otherwise each metric ID would be two fields with one ID).
+- **Variant details:**
+  - `absent` blanks the Change cell as well as the Value cell. A printed change would reveal the value.
+  - `degraded_crop`: a field entirely beyond the cut is `absent`; a field partly cut is `unreadable`, with its box clipped at the edge. Both are listed in `changed_fields`.
+  - `unit_conflict` prints the refinancing rate in bps (true unit `bps`) or inventory in thousand listings (true unit `thousand_count`).
+  - `revised` prints Revised, with a previous value 0.3 pp off.
+  - `stale` prints dates 6 months earlier, and the ground truth's `evaluate_at` is the original date. Every metric is then past its freshness deadline (tested).
+- **Ground-truth additions:** `evaluate_at`, page pixel sizes, the PDF's hash, and `Expected` entries for the commentary (`document/commentary`: injection flagged, causal claim never evidence). Degraded variants expect "correct or untrusted" for every field.
+- **Checked visually:** boxes after a 3° rotation and after a 15% crop, the Vietnamese number formats, the smudged value, and the 4-pt hidden injection.
+

@@ -196,7 +196,7 @@ An engine that cannot return word or line boxes and a confidence score cannot be
 
 | Engine | Role | Notes |
 |---|---|---|
-| **PaddleOCR** | Default primary | Detection plus recognition with boxes and confidence; Vietnamese-capable models |
+| PaddleOCR | ~~Default primary~~ Removed 2026-10-21: its recognizers lack most Vietnamese letters | Detection plus recognition with boxes and confidence; Vietnamese-capable models |
 | Tesseract (`vie`) | Baseline / fallback | Mature, word boxes and confidence; weaker on degraded scans |
 | VietOCR | Vietnamese recognizer | Recognition only; pair with a detector (for example PaddleOCR's) |
 | EasyOCR | Alternative primary | Vietnamese support, boxes and confidence |
@@ -222,6 +222,10 @@ When the primary engine and the second reading disagree on a field, or the prima
 
 ### Choosing the engine
 Choose by measurement: run the candidate engines on the synthetic macro document's clean and degraded variants and compare field precision/recall and false acceptance of altered documents against its ground truth. Record the comparison and the chosen configuration here.
+
+**2026-10-21:** PaddleOCR 3.7.0's recognizers lack most Vietnamese letters (44 of 67 lowercase), so it cannot be the primary engine for Vietnamese documents. Tesseract 5.5.3 (`tessdata_best`, `vie+eng`) reads both languages; it is accurate on clean, JPEG, noisy, cropped and slightly rotated pages, but fails on strong blur, 100 dpi and 90° rotation, and makes some confident value errors on degraded pages. Results: [`OCR_RESULTS.md`](OCR_RESULTS.md).
+
+**Decision (2026-10-21, AI engineer): Tesseract 5.5.3 is the OCR engine** (`tessdata_best` at `e12c65a`, `vie+eng` for Vietnamese documents, `eng` for English; page segmentation mode 3; orientation detection before reading). PaddleOCR was removed. With extraction and validation, the chain produced **no wrong-and-trusted evidence item** on 868 items of the draft set and 868 of a held-out set.
 
 ## Model split and data boundary
 
