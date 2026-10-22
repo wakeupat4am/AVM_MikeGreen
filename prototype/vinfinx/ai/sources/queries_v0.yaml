@@ -1,0 +1,68 @@
+# Source agent queries (docs/SOURCE_AGENT_PLAN.md, S1). One group per catalogue metric, with the targets the
+# policy uses or close proxies. Written by the AI engineer's assistant, not by the model; a change is a new version.
+version: "0.1.0"
+groups:
+  - id: refi_rate
+    metrics: [refi_rate]
+    targets: [borrowing_capacity, valuation_range]
+    en:
+      - monetary policy transmission lending rates Vietnam
+      - policy rate house prices emerging markets
+    vi:
+      - lãi suất điều hành truyền dẫn chính sách tiền tệ
+  - id: mortgage_rate_avg
+    metrics: [mortgage_rate_avg]
+    targets: [borrowing_capacity]
+    en:
+      - mortgage interest rate housing affordability Vietnam
+      - mortgage rates housing demand emerging markets
+    vi:
+      - lãi suất cho vay mua nhà
+  - id: credit_growth
+    metrics: [credit_growth]
+    targets: [borrowing_capacity, valuation_range]
+    en:
+      - credit growth real estate Vietnam
+      - bank credit house prices emerging markets
+    vi:
+      - tăng trưởng tín dụng bất động sản
+  - id: cpi
+    metrics: [cpi]
+    targets: [valuation_range, borrowing_capacity]
+    en:
+      - inflation house prices Vietnam
+      - inflation housing prices emerging economies
+    vi:
+      - lạm phát giá nhà
+  - id: unemployment_rate
+    metrics: [unemployment_rate]
+    targets: [borrowing_capacity]
+    en:
+      - unemployment mortgage default household debt Vietnam
+      - unemployment household borrowing emerging markets
+    vi:
+      - thất nghiệp nợ hộ gia đình
+  - id: listing_inventory
+    metrics: [listing_inventory]
+    targets: [valuation_range, borrowing_capacity]
+    en:
+      - housing supply inventory prices Vietnam
+      - housing inventory time on market prices
+    vi:
+      - nguồn cung nhà ở giá nhà
+  - id: transaction_volume
+    metrics: [transaction_volume]
+    targets: [valuation_range]
+    en:
+      - housing transactions liquidity prices Vietnam
+      - housing market transaction volume prices
+    vi:
+      - giao dịch bất động sản thanh khoản
+  - id: price_index
+    metrics: [price_index]
+    targets: [valuation_range]
+    en:
+      - house price index Vietnam
+      - house price dynamics emerging markets
+    vi:
+      - chỉ số giá nhà ở

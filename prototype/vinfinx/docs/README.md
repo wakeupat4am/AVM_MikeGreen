@@ -110,6 +110,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-21 | Confidence-threshold analysis: no misreading survives the other checks in any field, so a threshold only adds review work; Tesseract is overconfident on degraded pages (95% right at 0.90–0.95). Proposal for the risk owner: no minimum for bulletin values. Also fixed: page 2 had lost its Source column (generator), Vietnamese page 2 was not read (extractor) | `OCR_CONFIDENCE_THRESHOLD.md`, findings log |
 | 2026-10-21 | Source agent direction: free scholarly and institutional sources only (OpenAlex, World Bank API, IMF, ADB, BIS, SBV, statistics office); access checked from the server (IMF and ADB pages block scripts, found via OpenAlex). Corpus storage moved to `/mnt/sdb` (`/mnt/disk1` full) | `SERVER_SETUP_PLAN.md`, findings log |
 | 2026-10-21 | Source list signed off by jimmytrn154; pypdfium2 installed; source agent plan (S1–S7) drafted for approval | `SOURCE_AGENT_PLAN.md`, findings log |
+| 2026-10-22 | S1–S7 approved; **source agent built** (`ai/sources/`); first run: 342 candidates, 110 screened by Qwen, 2 accepted, 21 unclear (13 wait only for a publisher-terms check), 294 rejected; Qwen back at ~22 tokens/s | `SOURCE_AGENT_PLAN.md`, findings log |
 
 ## Other workstreams
 

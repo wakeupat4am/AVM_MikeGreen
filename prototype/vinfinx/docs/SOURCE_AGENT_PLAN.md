@@ -1,6 +1,6 @@
 # Source agent plan
 
-*Status: **proposal for the AI engineer** (2026-10-21). First component of the offline research half (`PIPELINE.md`, "Offline research", step 1). Criteria: [`CORPUS_SOURCE_CRITERIA.md`](CORPUS_SOURCE_CRITERIA.md) (approved 2026-10-17). Decided already: free scholarly and institutional sources only (2026-10-21); the source list is signed off by jimmytrn154; access facts in [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md), "Source access check".*
+*Status: **S1–S7 approved 2026-10-22** (AI engineer, jimmytrn154); being built. First component of the offline research half (`PIPELINE.md`, "Offline research", step 1). Criteria: [`CORPUS_SOURCE_CRITERIA.md`](CORPUS_SOURCE_CRITERIA.md) (approved 2026-10-17). Decided already: free scholarly and institutional sources only (2026-10-21); the source list is signed off by jimmytrn154; access facts in [`SERVER_SETUP_PLAN.md`](SERVER_SETUP_PLAN.md), "Source access check".*
 
 ## What it does
 
@@ -63,3 +63,25 @@ Runs in the main environment (`requests`, `pypdfium2`, `pydantic`), calling Qwen
 - Ingestion of the signed-off list: full-text extraction (OCR for scanned PDFs), chunking, embeddings and index. That is the next step.
 - The deliberately bad documents (criteria, "Deliberately bad documents"). They are a separate, labelled set, built after the real list.
 - Qwen-written queries.
+
+## As built (2026-10-22)
+
+Code: `ai/schemas/source.py` (`source_record/0.1`, `source_list/0.1`), `ai/sources/` (`http.py`, `discover.py` as one module, `checks.py`, `screen.py`, `run.py`, `review.py`, `queries_v0.yaml`, `publishers_v0.yaml`), tests `ai/tests/test_sources.py` (27). Choices made while building:
+
+- **OpenAlex costs money per request:** without a key, every client on this server's IP shares **$0.10 a day** ($0.001 per list request). A run uses 48 requests ($0.048) and stops at a budget (`--openalex-budget`, default $0.08). A free key (`OPENALEX_API_KEY`, $1/day) would need the AI engineer's account.
+- **Routes as found:** BIS working papers through OpenAlex by author affiliation, and the BIS RSS feeds filtered to housing-finance topics (the feeds list only the latest papers on any topic; the BIS site sometimes serves a bot challenge). SBV: the annual-report list. Statistics office: the English publication list (the Vietnamese one redirects to it). PDFs are found on landing pages by `citation_pdf_url` or a same-host PDF link.
+- **Prompt:** the adapter caps each message at 4,000 characters, so the document is split over several messages (prompt 0.2). Prompt 0.3 spells out the target proxies and judges relevance apart from geography, after 0.2 rejected a Viet Nam credit → house-price study as "not valuation range". The earlier screenings are kept in the run folder.
+- **Review table:** rows rejected by a failed check come pre-filled `reject` (change to overrule, with a note); accepted and unclear rows are blank and must be filled in.
+
+### First run: `20261022-sources-1` (prompt 0.3)
+
+| Stage | Result |
+|---|---|
+| Discovery | 454 found, 342 after de-duplication; OpenAlex $0.048 |
+| C1, C2, C3, C7 | 147 failed C1 (mostly journals neither in DOAJ nor OpenAlex core), 60 failed C2 (no licence) |
+| Selected (caps S6) | 110; downloads 79 stored, 10 failed, 23 need a person (IMF, or a site blocking scripts) |
+| Screening | 100 Qwen calls, 0 errors, 622 s (~22 tokens/s); 158 quotes verified, 36 given but not found in the text (never used as evidence) |
+| Decisions | **2 accepted, 21 unclear, 294 rejected** (C4 71, C5 6, C6 10) |
+
+- **Why so few accepted:** 13 of the 21 unclear are relevant public-body documents (World Bank, IMF, BIS, SBV) waiting only for their publisher's terms to be checked once by a person (S4); 7 need a manual download. Most rejections are off-topic search results.
+- **Coverage:** accepted sources support only credit growth → valuation range and CPI → valuation range. The rate → borrowing-capacity pairs the policy relies on have none yet.

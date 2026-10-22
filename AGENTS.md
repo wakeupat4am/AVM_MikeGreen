@@ -61,7 +61,8 @@ verifies, a human approves.** Code is under `prototype/vinfinx/ai/`.
 | OCR | `ocr/` | Tesseract 5.5.3, `tessdata_best@e12c65a`, `vie+eng`, psm 3, OSD orientation. Runs in `env-ocr` |
 | Extraction + validation | `extraction/` | `macro_doc_extractor/0.1`. Trusted only if every check passes (strict per-language numbers, Change = Value − Baseline, ranges, units/labels vs catalogue). **0 wrong-and-trusted** on both sets (868 items each; 590/579 trusted and correct). Results: `docs/OCR_RESULTS.md` |
 | OCR confidence threshold | `docs/OCR_CONFIDENCE_THRESHOLD.md` | Proposal (no minimum for bulletin values) **awaiting the risk owner** |
-| Qwen second reading, research corpus, chunker, indexer, mapping agent, support check, mapping registry, online pipeline runner, audit log, cost logging | | **Not built** |
+| Source agent | `sources/`, `schemas/source.py` | Built 2026-10-22 (S1–S7 approved). First run `20261022-sources-1` (prompt `source_agent_prompts/0.3`): 3 accepted, 20 unclear, 294 rejected (after one open copy was fetched); draft list `corpus/source_lists/20261022-sources-1-draft.json`, review table `corpus/runs/20261022-sources-1/review.csv`. Terms read 2026-10-22: BIS and World Bank allow **non-commercial** use only (findings log); IMF and SBV terms not reachable. **Awaiting the user:** whether VinFinx counts as non-commercial (then set `terms_checked_by`), 6 browser downloads (IMF ×3, SSRN, TU/e, Duke/PMC), review and sign-off (`python -m ai.sources.review`) |
+| Qwen second reading, research corpus ingestion, chunker, indexer, mapping agent, support check, mapping registry, online pipeline runner, audit log, cost logging | | **Not built** |
 
 **Next (agreed direction, 2026-10-21):** the offline research half, in this order:
 1. **Source agent** (PIPELINE.md offline step 1): Qwen proposes sources against `docs/CORPUS_SOURCE_CRITERIA.md`
@@ -80,8 +81,9 @@ verifies, a human approves.** Code is under `prototype/vinfinx/ai/`.
 3. Mapping agent → mapping verifier with the OpenAI support check → mapping registry replacing the provisional mapping
    → online pipeline runner (document → evidence → policy → decision → verifier).
 
-**Waiting on the user:** approval of `SOURCE_AGENT_PLAN.md` (S1–S7); an `OPENAI_API_KEY` on the server (not set);
-embedding model and index storage;
+**Waiting on the user:** publisher terms check and review of the first source list (see the table); an
+`OPENAI_API_KEY` on the server (not set); optionally an `OPENALEX_API_KEY` (without one, OpenAlex allows $0.10/day
+shared by the whole server IP; a run costs ~$0.05); embedding model and index storage;
 risk-owner answer on the OCR threshold. **Later:** Qwen second reading, freeze a document set, holdout run of the
 adversarial set, re-measure generation speed, cost accounting (handoff §9).
 
@@ -92,8 +94,9 @@ adversarial set, re-measure generation speed, cost accounting (handoff §9).
   `fixtures/`, `evaluation/{runs,ocr,extraction}/`, `logs/`, `cache/`, lock files. Nothing there is committed.
 - **Research corpus:** `/mnt/sdb/shared/chuong/vinfinx/corpus/` (second disk, 1.2 TB free; `vinfinx/` is mode 700),
   reached as `$VINFINX_ROOT/corpus` through a symlink. The rest of `/mnt/sdb/shared/chuong/` is another project's data: don't touch it.
-- **Disk:** our allowance on `/mnt/disk1` is 400 GB, but the shared disk is often almost full (230 MB free on
-  2026-10-21). Check `df -h` before writing anything large; put large new data on `/mnt/sdb`.
+- **Disk:** our allowance on `/mnt/disk1` is 400 GB, but the shared disk filled up completely (0 bytes free on
+  2026-10-22). Check `df -h` before writing; put new data and **logs** on `/mnt/sdb/shared/chuong/vinfinx/`
+  (`logs/` there).
 - Record every install command and pinned version in `docs/SERVER_SETUP_PLAN.md`.
 - Run long jobs in tmux (`vinfinx-qwen`, `vinfinx-eval`, `vinfinx-ocr`) with logs under `$VINFINX_ROOT/logs/`: the
   user may close the window.
@@ -103,8 +106,8 @@ adversarial set, re-measure generation speed, cost accounting (handoff §9).
 ## Known issues
 - `qwen_api.py` no longer carries the demo context (removed 2026-10-19), so the web demo's chat no longer
   knows the demo customer's figures; the app must send them in the conversation if needed.
-- Generation has run at ~3 tokens/s since 2026-10-19 (15–20 on 2026-10-18); cause not confirmed
-  (likely CPU contention). Do not quote latency until re-measured.
+- Generation speed depends on server load: ~3 tokens/s 2026-10-19 to 10-21 under heavy CPU contention, ~22 on
+  2026-10-22 at load ~11 (GPU 0). Quote latency only with the load and date it was measured at.
 - OCR runs in its own environment (`$VINFINX_ROOT/env-ocr`: Tesseract); run `ai.ocr.*` and `ai.extraction.evaluate`
   with `env-ocr/bin/python`. Tests that need Tesseract are skipped in the main env; run them in `env-ocr`.
 - Tesseract always reads "±" as "+", so uncertainty intervals are dropped (flagged), never extracted.

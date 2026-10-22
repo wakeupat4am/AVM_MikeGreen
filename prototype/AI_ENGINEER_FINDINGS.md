@@ -903,3 +903,36 @@ PaddleOCR 3.7.0 was installed on CPU in `env-ocr` (2026-10-20; details in `SERVE
   - Qwen judges relevance and geography with quotes checked word for word;
   - a fixed rule decides, and the AI engineer reviews every record.
   - Journals count as peer-reviewed only if they are in DOAJ or are an OpenAlex core source.
+
+## 2026-10-22 — source agent built; first run
+
+- **Approval:** S1–S7 approved by the AI engineer. Built `ai/sources/` and `ai/schemas/source.py`; 27 new tests, 141 in all.
+- **First run** (`20261022-sources-1`, details in `vinfinx/docs/SOURCE_AGENT_PLAN.md`, "As built"): 342 candidates, 110 screened by Qwen, **2 accepted, 21 unclear, 294 rejected**. The draft list and review table are in `corpus/source_lists/` and `corpus/runs/20261022-sources-1/`.
+- **What held:** no candidate came from the model; 36 quotes Qwen gave were not in the text and were kept out of the evidence; every accepted record passed C1–C7 with a stored, hashed PDF.
+- **Found while running, fixed:**
+  - the adapter's 4,000-character message limit (prompt split across messages);
+  - prompt 0.2 rejected a Viet Nam credit → house-price study as "not valuation range" (0.3 spells out target proxies and separates relevance from geography);
+  - BIS feed links needed the PDF found on the page;
+  - one document found twice (DOI and no DOI).
+- **Facts:**
+  - OpenAlex now charges against a shared free budget of $0.10/day per IP without a key;
+  - `/mnt/disk1` reached 0 bytes free, so logs now go to `/mnt/sdb`;
+  - generation ran at ~22 tokens/s at load ~11, so the slow runs of 10-19 to 10-21 were server load.
+- **Yield is low:** 13 unclear documents wait only for a person to check four publishers' terms (World Bank, IMF, BIS, SBV); the rate → borrowing-capacity pairs have no accepted source yet.
+
+## 2026-10-22 (continued) — publisher terms and manual downloads (delegated to the assistant)
+
+The AI engineer asked me to check the publishers' terms and do the manual downloads.
+
+- **Terms read** (quoted in the conversation; `terms_checked_by` left empty, because the answer depends on a decision that is not mine):
+  - **BIS** (bis.org/about/terms-conditions): download and redistribution for non-commercial purposes. Limited extracts may be reproduced "in other publications or products free of charge, provided the BIS is cited as the source".
+  - **World Bank** (worldbank.org/ext/en/legal/terms-conditions): non-commercial use with attribution; no commercial use without consent. None of the 13 stored World Bank PDFs carries its own Creative Commons licence in its first 6 pages, so these terms apply.
+  - **IMF:** the terms page is behind the same bot protection as the rest of the site.
+  - **SBV:** no terms-of-use page found on the portal.
+  - **Open question for the AI engineer or the project lead:** does VinFinx (a bank prototype) count as non-commercial use? If yes, BIS and World Bank pass C2. IMF and SBV need a person in a browser either way.
+- **Manual downloads:** only 7 of the 22 listed matter (the rest were already rejected as off-topic).
+  - src-0004 came from an open copy in Cambridge's repository (CC BY), found through OpenAlex's other locations. The inbox now takes a `.source.json` note, so a copy fetched by code is recorded as `retrieved_by: code`, not as a person's download.
+  - PubMed Central (src-0012) answered with a bot check, and DukeSpace (src-0010) needs JavaScript; neither was worked around.
+  - The remaining 6 (3 IMF, 1 SSRN, 1 TU/e, plus those two) need a browser.
+  - src-0004 was screened on its title and abstract only (the file arrived after screening).
+- **Decisions recomputed without Qwen:** 3 accepted, 20 unclear, 294 rejected.

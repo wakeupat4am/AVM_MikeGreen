@@ -1,0 +1,77 @@
+# Publisher allowlist for C1 (publisher type) and C2 (licence) (docs/SOURCE_AGENT_PLAN.md, S3 and S4).
+# A publisher is recognised by its OpenAlex publisher or institution ID, DOI prefix or web domain.
+# Public bodies pass C2 through their terms of use, which a person checks once: until `terms_checked_by` is
+# filled in, C2 is "unclear" for their documents and the reviewer decides.
+version: "0.1.0"
+publishers:
+  - id: imf
+    name: International Monetary Fund
+    publisher_type: international_organisation
+    country: null
+    openalex_publishers: [P4310316166]
+    openalex_institutions: [I1310145890]
+    doi_prefixes: ["10.5089"]
+    domains: [imf.org, elibrary.imf.org]
+    terms_url: https://www.imf.org/external/terms.htm
+    terms_checked_by: null
+    manual_download: true  # the site blocks scripts (SERVER_SETUP_PLAN.md, "Source access check")
+  - id: world_bank
+    name: World Bank
+    publisher_type: international_organisation
+    country: null
+    openalex_publishers: [P4310315885]
+    openalex_institutions: [I1334329717, I55633929]
+    doi_prefixes: ["10.1596"]
+    domains: [worldbank.org, documents.worldbank.org, openknowledge.worldbank.org, documents1.worldbank.org]
+    terms_url: https://www.worldbank.org/en/about/legal/terms-and-conditions
+    terms_checked_by: null
+  - id: adb
+    name: Asian Development Bank
+    publisher_type: international_organisation
+    country: null
+    openalex_publishers: []
+    openalex_institutions: [I4210129130, I184220567]
+    doi_prefixes: ["10.22617"]
+    domains: [adb.org]
+    terms_url: https://www.adb.org/terms-use
+    terms_checked_by: null
+  - id: bis
+    name: Bank for International Settlements
+    publisher_type: international_organisation
+    country: null
+    openalex_publishers: []
+    openalex_institutions: [I52989892]
+    doi_prefixes: []
+    domains: [bis.org]
+    terms_url: https://www.bis.org/terms_conditions.htm
+    terms_checked_by: null
+  - id: oecd
+    name: OECD
+    publisher_type: international_organisation
+    country: null
+    openalex_publishers: [P4310320232, P4404677094]
+    openalex_institutions: []
+    doi_prefixes: ["10.1787"]
+    domains: [oecd.org, oecd-ilibrary.org]
+    terms_url: https://www.oecd.org/en/about/terms-conditions.html
+    terms_checked_by: null
+  - id: sbv
+    name: State Bank of Viet Nam
+    publisher_type: central_bank
+    country: VN
+    openalex_publishers: []
+    openalex_institutions: [I4210139642]
+    doi_prefixes: []
+    domains: [sbv.gov.vn]
+    terms_url: https://sbv.gov.vn/
+    terms_checked_by: null
+  - id: nso
+    name: National Statistics Office of Viet Nam
+    publisher_type: statistics_office
+    country: VN
+    openalex_publishers: []
+    openalex_institutions: [I4405283839]
+    doi_prefixes: []
+    domains: [nso.gov.vn, gso.gov.vn]
+    terms_url: https://www.nso.gov.vn/en/
+    terms_checked_by: null

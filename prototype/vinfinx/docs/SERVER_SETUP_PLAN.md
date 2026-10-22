@@ -415,6 +415,13 @@ First check of the evaluation runner (`device_map="auto"`):
 | ADV-005 recommendation | 256 | 12.5 s | 20.5 |
 | ADV-033 mapping proposal | 113 | 5.7 s | 19.8 |
 
+### 2026-10-22: GPU 0, through the adapter, ~22 tokens/s
+
+Source agent screening (run `20261022-sources-1`, prompt `source_agent_prompts/0.2`): 102 calls, 127,543 prompt
+tokens and 14,527 completion tokens in 663.6 s, so **~22 completion tokens/s including prompt processing**,
+5–9 s per call. Server load average ~11; most GPUs idle. The ~3 tokens/s seen 2026-10-19 to 10-21 was not a fault
+in our setup: under normal load the adapter is as fast as on 2026-10-16/18 (consistent with CPU contention).
+
 ### Speed investigation
 
 - **2026-10-18 finding: model placement.** On the same GPU and load, loading with `device_map="auto"` gives ~21 tokens/s and loading onto one explicit device (`{"": 0}` or `"cuda:0"`) gives ~3.2 tokens/s. The 2026-10-17 speed tests used explicit placement, so their slowness is explained. The cause inside `transformers`/`accelerate` is not yet understood. **Always load with `device_map="auto"`** (the adapter already does).
@@ -618,6 +625,10 @@ ln -s /mnt/sdb/shared/chuong/vinfinx/corpus $VINFINX_ROOT/corpus
 ```
 
 Environments, models, fixtures and evaluation reports stay on `/mnt/disk1`.
+
+**2026-10-22: `/mnt/disk1` reached 0 bytes free** (other users), and a `tee` log there stayed empty. Logs of new
+runs now go to `/mnt/sdb/shared/chuong/vinfinx/logs/`. Anything written to `$VINFINX_ROOT` outside `corpus/` (the
+Qwen log, evaluation reports, `pip` installs) can fail until space is freed.
 
 ## Source access check (2026-10-21)
 
