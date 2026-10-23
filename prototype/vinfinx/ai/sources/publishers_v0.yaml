@@ -23,8 +23,10 @@ publishers:
     openalex_institutions: [I1334329717, I55633929]
     doi_prefixes: ["10.1596"]
     domains: [worldbank.org, documents.worldbank.org, openknowledge.worldbank.org, documents1.worldbank.org]
-    terms_url: https://www.worldbank.org/en/about/legal/terms-and-conditions
-    terms_checked_by: null
+    # Non-commercial use with attribution; no commercial use without consent. Passes C2 only while VinFinx is
+    # non-commercial (decided by jimmytrn154 2026-10-22); revisit if that changes.
+    terms_url: https://www.worldbank.org/ext/en/legal/terms-conditions
+    terms_checked_by: "jimmytrn154, 2026-10-22: VinFinx is non-commercial use (terms read by the assistant)"
   - id: adb
     name: Asian Development Bank
     publisher_type: international_organisation
@@ -43,8 +45,10 @@ publishers:
     openalex_institutions: [I52989892]
     doi_prefixes: []
     domains: [bis.org]
-    terms_url: https://www.bis.org/terms_conditions.htm
-    terms_checked_by: null
+    # Download and redistribution for non-commercial purposes; limited extracts may be reproduced with the BIS cited.
+    # Passes C2 only while VinFinx is non-commercial (decided by jimmytrn154 2026-10-22); revisit if that changes.
+    terms_url: https://www.bis.org/about/terms-conditions
+    terms_checked_by: "jimmytrn154, 2026-10-22: VinFinx is non-commercial use (terms read by the assistant)"
   - id: oecd
     name: OECD
     publisher_type: international_organisation

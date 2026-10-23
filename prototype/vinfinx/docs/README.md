@@ -67,7 +67,9 @@ The handoff's question is "how can we control hallucination?". Everything built 
 | [`SPECS_AND_SCHEMAS_PLAN.md`](SPECS_AND_SCHEMAS_PLAN.md) | Build steps 1–2: metric catalogue, document spec, source criteria, schemas; decisions D1–D10 | Approved 2026-10-17; built 2026-10-18 |
 | [`MACRO_DOCUMENT_SPEC.md`](MACRO_DOCUMENT_SPEC.md) | The synthetic macro-status document: layout, variants, ground truth, traceability to handoff §3 and §5 | Approved 2026-10-17; generator not built |
 | [`CORPUS_SOURCE_CRITERIA.md`](CORPUS_SOURCE_CRITERIA.md) | What may enter the research corpus, source records, deliberately bad documents | Approved 2026-10-17 |
-| [`SOURCE_AGENT_PLAN.md`](SOURCE_AGENT_PLAN.md) | How the source agent finds, checks and screens candidate sources for sign-off (S1–S7) | Proposal 2026-10-21 |
+| [`SOURCE_AGENT_PLAN.md`](SOURCE_AGENT_PLAN.md) | How the source agent finds, checks and screens candidate sources for sign-off (S1–S7) | Approved 2026-10-22; built, first run done |
+| [`CORPUS_INDEX_PLAN.md`](CORPUS_INDEX_PLAN.md) | Ingestion, chunking, OpenAI embeddings + SQLite keyword index, freeze, retrieval evaluation (I1–I7) | Approved 2026-10-22; dev build done |
+| [`PIPELINE_API_PLAN.md`](PIPELINE_API_PLAN.md) | Loopback pipeline API + Evidence sources view: source-list sign-off and gold review in the site (A1–A7) | Proposal 2026-10-23 |
 | [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md) | Results of the adversarial set over time: baseline and every later run, with causes of failure | Baseline recorded 2026-10-18 |
 
 ## Build order progress
@@ -111,6 +113,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-21 | Source agent direction: free scholarly and institutional sources only (OpenAlex, World Bank API, IMF, ADB, BIS, SBV, statistics office); access checked from the server (IMF and ADB pages block scripts, found via OpenAlex). Corpus storage moved to `/mnt/sdb` (`/mnt/disk1` full) | `SERVER_SETUP_PLAN.md`, findings log |
 | 2026-10-21 | Source list signed off by jimmytrn154; pypdfium2 installed; source agent plan (S1–S7) drafted for approval | `SOURCE_AGENT_PLAN.md`, findings log |
 | 2026-10-22 | S1–S7 approved; **source agent built** (`ai/sources/`); first run: 342 candidates, 110 screened by Qwen, 2 accepted, 21 unclear (13 wait only for a publisher-terms check), 294 rejected; Qwen back at ~22 tokens/s | `SOURCE_AGENT_PLAN.md`, findings log |
+| 2026-10-23 | A1–A7 approved (A6: search by meaning, with a personal-data guard); **pipeline API and Evidence sources view built** (`pipeline_api.py`, `ai/api/`, `evidence.js`): source-list review and sign-off, gold-label review, corpus metrics and search in the site, same checks as the CLI; checked in headless Chromium on a scratch copy | `PIPELINE_API_PLAN.md`, findings log |
 
 ## Other workstreams
 

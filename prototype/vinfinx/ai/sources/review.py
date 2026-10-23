@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -61,6 +62,21 @@ def apply_review(draft: SourceList, rows: list[dict[str, str]], reviewer: str, v
                       signed_off_by=reviewer, signed_off_at=at)
 
 
+VERSION_PATTERN = r"^source_list/v\d+\.\d+$"
+
+
+def signed_path(lists: Path, version: str) -> Path:
+    return lists / (version.replace("/", "-") + ".json")
+
+
+def summary(signed: SourceList, out: Path) -> dict:
+    return {"version": signed.version, "list_hash": signed.list_hash, "records": len(signed.records),
+            "accepted": len(signed.accepted()),
+            "agent_overruled": sum(1 for r in signed.records if overruled(r)),
+            "unclear_decided": sum(1 for r in signed.records if r.decision is Decision.UNCLEAR),
+            "signed_off_by": signed.signed_off_by, "file": str(out)}
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--run-id", required=True)
@@ -68,8 +84,10 @@ def main() -> None:
     p.add_argument("--version", required=True, help="e.g. source_list/v0.1")
     p.add_argument("--csv", type=Path, help="default: corpus/runs/<run-id>/review.csv")
     a = p.parse_args()
+    if not re.match(VERSION_PATTERN, a.version):
+        sys.exit(f"--version must look like source_list/v0.1, got {a.version!r}")
     lists = CORPUS / "source_lists"
-    out = lists / (a.version.replace("/", "-") + ".json")
+    out = signed_path(lists, a.version)
     if out.exists():
         sys.exit(f"{out} exists; a signed-off version is never overwritten")
     draft = SourceList.model_validate_json((lists / f"{a.run_id}-draft.json").read_text(encoding="utf-8"))
@@ -80,13 +98,7 @@ def main() -> None:
     except ReviewError as exc:
         sys.exit(f"review not applied:\n{exc}")
     out.write_text(signed.model_dump_json(indent=1), encoding="utf-8")
-    accepted = signed.accepted()
-    print(json.dumps({"version": signed.version, "list_hash": signed.list_hash, "records": len(signed.records),
-                      "accepted": len(accepted),
-                      "agent_overruled": sum(1 for r in signed.records if overruled(r)),
-                      "unclear_decided": sum(1 for r in signed.records if r.decision is Decision.UNCLEAR),
-                      "file": str(out)},
-                     indent=1))
+    print(json.dumps(summary(signed, out), indent=1))
 
 
 if __name__ == "__main__":

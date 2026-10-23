@@ -29,6 +29,11 @@ class CorpusChunk(StrictModel):
     language: Literal["vi", "en"]
     corpus_version: str
     synthetic: bool = False
+    # Set by the corpus builder (docs/CORPUS_INDEX_PLAN.md, I2); optional so hand-written test chunks stay valid.
+    page_char_start: int | None = Field(default=None, ge=0)  # the chunk is page_text[page_char_start:page_char_end]
+    page_char_end: int | None = None
+    text_hash: Sha256 | None = None
+    title: str | None = None
 
 
 class RelationshipEvidence(StrictModel):

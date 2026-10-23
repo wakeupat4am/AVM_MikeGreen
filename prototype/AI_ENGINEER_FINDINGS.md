@@ -936,3 +936,83 @@ The AI engineer asked me to check the publishers' terms and do the manual downlo
   - The remaining 6 (3 IMF, 1 SSRN, 1 TU/e, plus those two) need a browser.
   - src-0004 was screened on its title and abstract only (the file arrived after screening).
 - **Decisions recomputed without Qwen:** 3 accepted, 20 unclear, 294 rejected.
+
+## 2026-10-22 (continued) — OpenAI key validated
+
+- **Key:** the AI engineer put it in `~/.config/vinfinx/openai.env` (mode 600, folder 700). It is read by code and never printed or logged.
+- **Validated:**
+  - `GET /v1/models` returns 200, listing 129 models, among them `text-embedding-3-large`, `text-embedding-3-small` and `text-embedding-ada-002`.
+  - One embedding call (two public phrases, 19 tokens) on `text-embedding-3-large` returned 3,072-dimension vectors in 1.6 s.
+- **Client lesson:** the first call, with plain JSON output, stalled while reading the response and hit a 60 s read timeout. The retry with `encoding_format: base64` (half the size) succeeded. The corpus client will use base64, a separate connect/read timeout, and retries.
+
+## 2026-10-22 (continued) — the demo is the website
+
+- **Decision (AI engineer):** the demo is the website `prototype/vinfinx/index.html`, and every pipeline step is built with that in mind. The source-list sign-off is to be shown live in the demo (as a new version; v0.1 is signed before).
+- **Fit with the page:** its Authenticator workspace already lists Review queue, Market signals, Evidence sources and Audit log. These receive the routed decisions, the bulletin evidence, the source list (review, sign-off, corpus, mappings with quotes) and the versions and hashes. The Customer view will show the recommendation with source labels instead of hardcoded figures.
+- **Consequence for the build:**
+  - every component writes JSON with versions and hashes that a loopback API can serve;
+  - writes from the site carry the reviewer's name and run the same checks as the command line;
+  - nothing gets a public port.
+- **Recorded in `AGENTS.md`** ("Demo website"). Also noted: the page still names `cecs-server1`.
+
+## 2026-10-22 (continued) — index plan approved; non-commercial; AVM evidence in the runner
+
+- **Decisions (AI engineer):**
+  - **I1–I7 approved** (`vinfinx/docs/CORPUS_INDEX_PLAN.md`): pypdfium2 plus Tesseract for scanned pages; page-bounded chunks of about 1,200 characters with exact offsets; OpenAI `text-embedding-3-large`; SQLite FTS5 plus a NumPy vector file; hybrid retrieval; `vn`/`em` geography; frozen versions.
+  - **VinFinx counts as non-commercial use.** The World Bank and BIS terms therefore pass C2, recorded in `publishers_v0.yaml` with the note to revisit if VinFinx becomes commercial. IMF and SBV terms remain unread, so their documents stay unclear.
+  - **The end-to-end runner takes the Phase 3 AVM evidence** (valuation band and flag for the customer's property), next to the synthetic bulletin, so the Customer view can explain the recommendation against the property's band.
+- **Source list after recomputing** (no Qwen, no OpenAlex cost): **14 accepted, 9 unclear, 294 rejected**. The 11 new accepted are World Bank Viet Nam reports (Taking Stock, Macro Monitoring and the Vietnamese "Cập Nhật Kinh Tế Vĩ Mô", financial sector review and assessment) and one BIS paper. Still unclear: three IMF papers (terms and download), the SBV annual report (terms), three documents behind bot protection, one World Bank report with no verified quote, and one where the agent's "yes" lacks a passing check.
+- **Next:** build the corpus and index on the development corpus, then the pipeline API and the Evidence sources view for the sign-off in the site.
+
+## 2026-10-22 (continued) — corpus and index built (development)
+
+- **Built** `ai/corpus/` per I1–I7; 11 new tests, 152 in all. The development corpus `corpus-dev` holds 17 documents, 527 pages and 1,633 chunks, embedded with `text-embedding-3-large` (537k tokens). Details: `vinfinx/docs/CORPUS_INDEX_PLAN.md`, "As built".
+- **Found:** one World Bank Vietnamese PDF has a broken text layer (legacy font, no Unicode map), so its letters come out as symbols. Pages that look like that are now read by Tesseract instead.
+- **Retrieval works on spot checks** in both languages. The refinancing-rate → lending evidence is old (a 1995 review), so the rate pairs need source run 2.
+- **Next in this step:** the gold-label retrieval evaluation, which needs the labelling model chosen. The key can use many models, including dated snapshots; a dated one keeps the labels reproducible.
+
+## 2026-10-22 (continued) — gold labels: the cheapest model is not good enough
+
+- **Choice (AI engineer): the cheapest model for gold labels.** From OpenAI's pricing page (read 2026-10-22; standard rates per 1M tokens, input / output): gpt-5-nano $0.05 / $0.40, gpt-4.1-nano $0.10 / $0.40, gpt-5-mini $0.25 / $2.00, gpt-4.1-mini $0.40 / $1.60, text-embedding-3-large $0.13. That price table is now versioned in the OpenAI client, and every logged call carries its cost.
+- **gpt-5-nano (`gpt-5-nano-2025-08-07`, minimal reasoning), two runs over 24 questions × about 40 pooled passages, $0.022 each:**
+  - Prompt 0.1: 2 `supports` labels, both doubtful, and 43 passages skipped (the array output allowed it).
+  - Prompt 0.2: one required label per passage. 0 `supports` labels out of 943.
+  - Both runs missed passages that plainly state an effect, such as src-0002's "The estimation results prove that bank credit positively affects the housing market".
+- **Conclusion:** a gold set with no gold passages cannot measure retrieval. The labelling model needs to be stronger; the next cheapest capable options are gpt-5-mini or gpt-4.1-mini (estimated $0.15–0.20 per run). Asked the AI engineer, since this departs from "cheapest". Both nano drafts are kept in `corpus-dev/gold/` for the record.
+
+## 2026-10-22 (continued) — gold labels with gpt-5-mini; first retrieval numbers
+
+- **Labelling model:** `gpt-5-mini-2025-08-07`, chosen by the AI engineer after gpt-5-nano failed. Prompt `gold_label_prompts/0.2`, one required label per passage, minimal reasoning. One run cost $0.121 for 24 questions.
+- **Labels:**
+  - 943 in all: 98 `supports`, 698 `related`, 147 `irrelevant`.
+  - 91 of the 98 have a quote verified word for word; the 7 without are not gold.
+  - 22 of 24 questions have gold (median 3, max 9). No gold for listing inventory → borrowing capacity (VI) or unemployment → borrowing capacity (EN).
+  - Spot check: most are right (for example "an increase in interest rates tends to make a decrease in real estate prices"); a few are lenient (a formula definition marked as rate → valuation evidence). Review sample: 189 rows (20 supports, 140 related, 29 irrelevant), not yet reviewed.
+- **Retrieval on the drafted (unreviewed) labels:**
+
+  | Search mode | recall@5 | recall@8 | MRR | recall@8 EN / VI |
+  |---|---|---|---|---|
+  | keyword | 0.13 | 0.25 | 0.22 | 0.27 / 0.22 |
+  | vector | 0.31 | 0.40 | 0.42 | 0.29 / 0.50 |
+  | hybrid | 0.28 | 0.34 | 0.41 | 0.24 / 0.45 |
+
+  - Keyword search is weak: the query ORs every word of a natural-language question, stopwords included, and it pulls hybrid below vector.
+  - Fixes to try: stopword removal, and fusion weighted toward vector.
+  - These are made **after** the review, so they are measured against reviewed labels, not drafts. Tuning and measuring on the same small gold set overfits, so a final number needs fresh questions.
+- **Caveat:** the gold comes from a pool of the three methods' top 20 results, so recall is relative to what some method found.
+
+## 2026-10-23 — pipeline API and Evidence sources view (step 2)
+
+- **Approved:** `PIPELINE_API_PLAN.md` A1–A7. A6 (the user's choice): the corpus search box may search by meaning, which sends the
+  typed question to OpenAI for its embedding. Guard: queries over 200 characters or containing a 9+ digit number, an email address
+  or an amount in đồng are refused on the server before anything is sent; sent queries are logged.
+- **Built:** a CPU-only loopback API (`pipeline_api.py`, port 8062, tmux `vinfinx-api`) and the Authenticator's Evidence sources
+  view (`evidence.js`) with three tabs: source list (review, bulk decisions, sign-off), gold labels (one card per sampled row,
+  keys 1–3), corpus (versions, hashes, metrics, documents, search). Signing and gold submit call the CLI's functions, so the site
+  refuses what the CLI refuses; signed lists and reviewed gold sets are never overwritten; every write is logged with the reviewer.
+- **Found:** the source agent pre-fills `reject` in `review.csv` for every row it rejected. Read as decisions, those 294 rows
+  would have counted as decided without anyone confirming them. The site ignores that default; the reviewer confirms them in one
+  bulk action under their name.
+- **Checked:** 170 tests pass; headless Chromium (new `env-webtest`, Playwright 1.55.0) drove the whole flow against a scratch
+  copy of the corpus. The real draft list and gold set were not written to. Still to check: the site from the Mac through the
+  tunnel.

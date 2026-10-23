@@ -457,6 +457,38 @@ tmux kill-session -t vinfinx-qwen
 
 Two GPUs (once agreed): `CUDA_VISIBLE_DEVICES=4,5 VINFINX_GPU_MAX_MEMORY=11GiB`; `device_map="auto"` then splits the layers across both.
 
+### Pipeline API (2026-10-23, CPU only; `docs/PIPELINE_API_PLAN.md`)
+
+```bash
+# start (on the server; no GPU)
+tmux new-session -d -s vinfinx-api \
+  "bash ~/chun/AVM_MikeGreen/prototype/vinfinx/serve-pipeline.sh 2>&1 | tee -a /mnt/sdb/shared/chuong/vinfinx/logs/pipeline_api.log"
+curl -s http://127.0.0.1:8062/vinfinx-pipeline/health      # {"status":"ready",...}
+tmux kill-session -t vinfinx-api                            # stop
+
+# on the Mac: forward both ports, then serve the site on 4173 (an allowed origin)
+./start-qwen-bridge.sh
+python3 -m http.server 4173 --bind 127.0.0.1                # open http://127.0.0.1:4173/index.html → Authenticator → Evidence sources
+```
+
+Reviewers allowed to write: `VINFINX_REVIEWERS` (default `jimmytrn154`). Writes are logged in `logs/review_actions.jsonl`; search
+queries sent to OpenAI in `logs/search_queries.jsonl`.
+
+### Browser test environment (installed 2026-10-23)
+
+For checking the website headlessly on the server (no Node.js or browser was installed). Separate from the main env.
+
+```bash
+R=/mnt/disk1/backup_user/24chuong.ta/vinfinx
+$R/env/bin/python -m venv $R/env-webtest
+$R/env-webtest/bin/pip install playwright==1.55.0
+PLAYWRIGHT_BROWSERS_PATH=$R/cache/ms-playwright $R/env-webtest/bin/python -m playwright install chromium-headless-shell
+```
+
+Installed: Playwright 1.55.0, `chromium_headless_shell-1187` and `ffmpeg-1011` in `$R/cache/ms-playwright` (326 MB); env 149 MB.
+Run scripts with `PLAYWRIGHT_BROWSERS_PATH=$R/cache/ms-playwright`. Test the site against a scratch copy of the corpus
+(`VINFINX_ROOT=<copy> VINFINX_LOG_DIR=<copy>/logs ./serve-pipeline.sh`), never against the real one.
+
 ## Pinned reference setup
 
 Software pinned 2026-10-16. The GPU index is chosen per run from whatever is free and recorded with each run; the per-GPU memory limit stays at 21 GiB on a single GPU. Every baseline and frozen-test-set result is reported on this configuration.
