@@ -4,7 +4,7 @@ set -euo pipefail
 # Run this on the Mac. The SSH host alias must reach the server over NetBird or the LAN,
 # never through a public relay (VinSoc policy). Forwards the Qwen API (8061) and the
 # pipeline API (8062); a port that is already listening is left alone.
-HOST="${VINFINX_SSH_HOST:-vishc-1}"
+HOST="${VINFINX_SSH_HOST:-vishc-server-1}"
 PORTS=("${VINFINX_QWEN_PORT:-8061}" "${VINFINX_PIPELINE_PORT:-8062}")
 
 FORWARDS=()

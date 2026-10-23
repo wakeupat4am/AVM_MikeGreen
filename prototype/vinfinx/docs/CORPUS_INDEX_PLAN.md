@@ -112,3 +112,11 @@ Code: `ai/corpus/` (`extract.py`, `ocr_images.py` run in env-ocr, `chunk.py`, `o
 Spot checks: a Vietnamese query on home loans returns the World Bank's Vietnamese passages on mortgage lending; "credit growth house prices Vietnam" returns the VECM study (src-0002). A refinancing-rate query finds only the 1995 World Bank review: the corpus lacks recent rate-transmission evidence (a corpus gap, to address in source run 2).
 
 **Still to do in this step:** the gold-label retrieval evaluation (needs the labelling model chosen) and, after sign-off, the frozen `corpus-v0.1`.
+
+### Frozen build `corpus-v0.1` (2026-10-23)
+
+From `source_list/v0.1` (signed by jimmytrn154 2026-10-23, hash `sha256:f8d97c9f…`): **14 documents, 452 pages (30 read by
+Tesseract), 1,452 chunks**; `index-v0.1` with `text-embedding-3-large` (3,072 dimensions), every embedding from the cache
+(0 new tokens, $0). Both manifests `frozen: true`; 24 MB under `corpus/versions/corpus-v0.1/`. Log
+`logs/build-corpus-v0.1.log`. Gold labels exist only for `corpus-dev` so far; the 14 documents are also in `corpus-dev` with the
+same chunk IDs, so the reviewed labels can be carried over and re-measured on v0.1 after the review.

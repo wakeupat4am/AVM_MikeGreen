@@ -2,7 +2,7 @@
 // through the SSH tunnel; every write names the reviewer and runs the same checks as the command line.
 const PIPELINE_BASE = 'http://127.0.0.1:8062/vinfinx-pipeline';
 const ev = {loaded: false, tab: 'sources', reviewers: [], run: null, filter: 'all', open: null, gold: null, goldAt: 0,
-            corpus: null, version: 'corpus-dev'};
+            corpus: null, version: 'corpus-dev', versions: null, corpusVersion: null};  // version: the one with gold labels
 
 function esc(s) {
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
@@ -144,7 +144,7 @@ async function saveSourceRows(rows) {
     rows.forEach(row => { const r = ev.run.records.find(x => x.source_id === row.source_id); r.progress = row.decision ? {decision: row.decision, note: row.note || null, reviewer: reviewer(), at} : null; });
     renderSources();
     return true;
-  } catch (e) { showProblems(e); return false; }
+  } catch (e) { showProblems(e); await loadSources(); return false; }
 }
 
 async function decide(id, decision) {
@@ -169,7 +169,7 @@ async function signList() {
     const out = await evApi(`/source-runs/${encodeURIComponent(ev.run.run_id)}/sign`, {reviewer: reviewer(), version});
     showToast(`Signed ${out.version} · ${out.accepted} sources`);
     await loadSources();
-  } catch (e) { showProblems(e); }
+  } catch (e) { showProblems(e); await loadSources(); }  // show what the server holds, not what the page assumed
 }
 
 // ---------------------------------------------------------------- gold labels
@@ -233,7 +233,7 @@ async function goldLabel(label) {
     await evApi(`/corpus/${ev.version}/gold/progress`, {reviewer: reviewer(), rows: [{question_id: r.question_id, chunk_id: r.chunk_id, label, note}]});
     r.progress = {label, note, reviewer: reviewer()};
     goldNextOpen();
-  } catch (e) { showProblems(e); }
+  } catch (e) { showProblems(e); ev.gold = null; await loadGold(); }
 }
 
 async function submitGold() {
@@ -242,9 +242,9 @@ async function submitGold() {
   try {
     const out = await evApi(`/corpus/${ev.version}/gold/submit`, {reviewer: reviewer()});
     showToast(`Gold set frozen · agreement ${Math.round(out.review.agreement * 100)}%`);
-    ev.gold = null; ev.corpus = null;
+    ev.gold = null; ev.corpus = null; ev.versions = null;
     await loadGold();
-  } catch (e) { showProblems(e); }
+  } catch (e) { showProblems(e); ev.gold = null; await loadGold(); }
 }
 
 document.addEventListener('keydown', e => {
@@ -259,12 +259,19 @@ document.addEventListener('keydown', e => {
 // ---------------------------------------------------------------- corpus and search
 
 async function loadCorpus() {
-  try { ev.corpus = await evApi(`/corpus/${ev.version}`); }
+  try {
+    if (!ev.versions) {
+      ev.versions = await evApi('/corpus');
+      const frozen = ev.versions.filter(v => v.frozen);
+      ev.corpusVersion = (frozen[frozen.length - 1] || ev.versions[ev.versions.length - 1]).corpus_version;
+    }
+    ev.corpus = await evApi(`/corpus/${ev.corpusVersion}`);
+  }
   catch (e) { showProblems(e); return; }
   const c = ev.corpus, m = c.manifest, ix = c.index, mt = c.metrics;
   const chunks = m.documents.reduce((a, d) => a + d.chunks, 0);
   document.getElementById('evCorpusHead').innerHTML = `
-    <div class="card-title"><div><h2>Corpus · ${esc(m.corpus_version)}</h2><span class="tiny">From ${esc(m.source_list_version)} · built ${esc(new Date(m.built_at).toLocaleString())}</span></div>
+    <div class="card-title"><div><h2>Corpus · <select aria-label="Corpus version" onchange="ev.corpusVersion=this.value;document.getElementById('evHits').innerHTML='';loadCorpus()">${ev.versions.map(v => `<option ${v.corpus_version === ev.corpusVersion ? 'selected' : ''}>${esc(v.corpus_version)}</option>`).join('')}</select></h2><span class="tiny">From ${esc(m.source_list_version)} · built ${esc(new Date(m.built_at).toLocaleString())}</span></div>
       ${m.frozen ? '<span class="pill">Frozen</span>' : '<span class="pill ev-amber">Development build · never cited</span>'}</div>
     <div class="ev-stats"><div><small>Documents</small><b>${m.documents.length}</b></div><div><small>Passages</small><b>${chunks}</b></div>
       <div><small>Embedding model</small><b class="ev-small">${esc(ix?.embedding_model || '—')}</b></div><div><small>Keyword index</small><b class="ev-small">SQLite FTS5</b></div></div>
@@ -286,7 +293,7 @@ async function evSearch(e) {
   out.innerHTML = '<p class="tiny">Searching…</p>';
   clearProblems();
   try {
-    const d = await evApi(`/corpus/${ev.version}/search?q=${encodeURIComponent(q)}&mode=${mode}`);
+    const d = await evApi(`/corpus/${ev.corpusVersion}/search?q=${encodeURIComponent(q)}&mode=${mode}`);
     out.innerHTML = d.hits.map((h, i) => `<div class="ev-hit"><div class="card-title"><b>${i + 1}. ${esc(h.title)}</b>${pdfLink(h.original_sha256, h.page, 'Page ' + h.page)}</div>
       <div class="ev-passage">${esc(h.text)}</div>
       <p class="tiny">${esc(h.chunk_id)} · ${esc(h.publisher)} · ${esc(h.publication_date)} · ${esc(h.language)} · keyword rank ${h.keyword_rank ?? '—'} · meaning rank ${h.vector_rank ?? '—'}</p></div>`).join('') || '<p class="tiny">No passages found.</p>';

@@ -12,6 +12,7 @@ import io
 import json
 import os
 import re
+import threading
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -30,6 +31,17 @@ QUERY_CHARS = 200
 SEARCH_MODES = ("hybrid", "vector", "keyword")
 GOLD_LABELS = ("supports", "related", "irrelevant")
 NAME = re.compile(r"^[A-Za-z0-9._-]+$")  # run IDs and corpus versions: no path separators
+# Writes read, change and rewrite a progress file; the API serves requests in parallel threads, so two saves at once
+# could drop one of them (a decision was lost this way on 2026-10-23). One write at a time.
+_WRITE = threading.RLock()
+
+
+def _serialised(fn):
+    def run(*args, **kwargs):
+        with _WRITE:
+            return fn(*args, **kwargs)
+    run.__name__, run.__doc__ = fn.__name__, fn.__doc__
+    return run
 
 
 class ApiError(Exception):
@@ -175,6 +187,7 @@ def source_run(store: Store, run_id: str) -> dict:
             "decided": len(progress), "signed": signed}
 
 
+@_serialised
 def save_source_progress(store: Store, run_id: str, reviewer: str, rows: list[dict]) -> dict:
     """rows: [{source_id, decision: accept|reject|null (clears), note}]. The sign-off rules run at signing; here
     only the shape is checked, so a reviewer can save a decision and add its note later."""
@@ -203,6 +216,7 @@ def save_source_progress(store: Store, run_id: str, reviewer: str, rows: list[di
     return {"decided": len(progress), "records": len(draft.records)}
 
 
+@_serialised
 def sign_source_list(store: Store, run_id: str, reviewer: str, version: str) -> dict:
     check_reviewer(reviewer)
     if not re.match(VERSION_PATTERN, version or ""):
@@ -350,6 +364,7 @@ def gold_review(store: Store, version: str) -> dict:
             "rows": rows, "decided": sum(1 for r in rows if r["progress"])}
 
 
+@_serialised
 def save_gold_progress(store: Store, version: str, reviewer: str, rows: list[dict]) -> dict:
     check_reviewer(reviewer)
     gold = store.version_dir(version) / "gold"
@@ -375,6 +390,7 @@ def save_gold_progress(store: Store, version: str, reviewer: str, rows: list[dic
     return {"decided": len(progress), "rows": len(keys)}
 
 
+@_serialised
 def submit_gold_review(store: Store, version: str, reviewer: str, index_factory) -> dict:
     """Freeze the reviewed gold set (gold.json, never overwritten) and re-measure retrieval on it."""
     check_reviewer(reviewer)

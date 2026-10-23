@@ -38,7 +38,7 @@ tmux new-session -d -s vinfinx-qwen \
   "CUDA_VISIBLE_DEVICES=<gpu> bash prototype/vinfinx/serve-qwen.sh 2>&1 | tee -a $VINFINX_ROOT/logs/qwen-api.log"
 ```
 
-On a Mac that reaches the server over NetBird or the LAN (SSH alias `vishc-1`; never a public relay):
+On a Mac that reaches the server over NetBird or the LAN (SSH alias `vishc-server-1`; never a public relay):
 
 ```bash
 ./start-qwen-bridge.sh

@@ -89,7 +89,7 @@ Which path ran changes the numerics slightly, so it is recorded in the [pinned s
 Mac (browser, prototype UI)
    │  http://127.0.0.1:8061/vinfinx-api/...
    ▼
-SSH tunnel over NetBird VPN  (start-qwen-bridge.sh: -L 8061:127.0.0.1:8061 via host alias vishc-1)
+SSH tunnel over NetBird VPN  (start-qwen-bridge.sh: -L 8061:127.0.0.1:8061 via host alias vishc-server-1)
    ▼
 Server, loopback only
    └─ qwen_api.py   127.0.0.1:8061   origin check, message limits, system prompt
@@ -119,7 +119,7 @@ So **no public relays** (Pinggy, cloudflared, ngrok or similar) for this project
 Proposed alias in the Mac's `~/.ssh/config` (key path is the user's own):
 
 ```
-Host vishc-1
+Host vishc-server-1
     HostName vishc-server-1.netbird.cloud
     User 24chuong.ta
     IdentityFile ~/.ssh/<your key>
@@ -138,7 +138,7 @@ Host vishc-1
 |---|---|---|
 | [`serve-qwen.sh`](../serve-qwen.sh) | Root `/home/ubuntu/llms-conformity-rq1`, venv at `server_experiments/.venv`, `.deps-qwen35` on `PYTHONPATH`, GPUs `0,1` | All paths, GPUs and ports from environment variables (`VINFINX_ROOT`, `VINFINX_PYTHON`, `VINFINX_QWEN_PATH`, `CUDA_VISIBLE_DEVICES`, `VINFINX_QWEN_PORT`); no `PYTHONPATH` hack |
 | [`qwen_api.py`](../qwen_api.py) | `pipeline("image-text-to-text")`; model path under `multimodal_rq1/`; hardcoded 21 GiB per GPU; demo context in the system prompt | `InferenceBackend` interface with a `TransformersBackend` (`AutoModelForImageTextToText` + `AutoProcessor` + `generate()`); per-GPU memory limit from an environment variable; optional JSON schema per request via `xgrammar`; keep origin check, limits, greedy decoding, fixed seed and `enable_thinking=False`. Moving the demo context out of the system prompt is separate work |
-| [`start-qwen-bridge.sh`](../start-qwen-bridge.sh) | SSH host alias `cecs-server1` | `VINFINX_SSH_HOST`, default `vishc-1` (NetBird); add `-o ControlPath=none` |
+| [`start-qwen-bridge.sh`](../start-qwen-bridge.sh) | SSH host alias `cecs-server1` | `VINFINX_SSH_HOST`, default `vishc-server-1` (NetBird); add `-o ControlPath=none` |
 | Launch command | Runs `vinfinx_qwen_api:app`, but the file is `qwen_api.py` | Run `qwen_api:app` |
 
 All four changes were made on 2026-10-16. In addition, `qwen_api.py` stops on both `<|im_end|>` and `<|endoftext|>` (see [Test results](#test-results-2026-10-16)), returns token `usage`, answers `503` while loading and `400` for a schema it cannot compile, and `serve-qwen.sh` sets `HF_HUB_OFFLINE=1` so the running service never contacts the Hub.

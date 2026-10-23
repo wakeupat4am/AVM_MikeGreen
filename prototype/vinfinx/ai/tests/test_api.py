@@ -86,6 +86,26 @@ class ApiTest(CorpusBuildTest):
         signed = apply_review(self.draft, exported, "jimmytrn154", "source_list/v0.1", AT)  # what the CLI does
         self.assertEqual(len(signed.accepted()), 1)
 
+    def test_parallel_saves_keep_every_decision(self):
+        import threading
+
+        errors = []
+
+        def save(row):
+            try:
+                sv.save_source_progress(self.store, "r", "jimmytrn154", [row])
+            except Exception as exc:  # a thread's exception would otherwise not reach the test
+                errors.append(exc)
+
+        rows = [{"source_id": sid, "decision": "accept"} for sid in ("src-0001", "src-0002")] * 10
+        threads = [threading.Thread(target=save, args=(row,)) for row in rows]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        self.assertEqual(errors, [])
+        self.assertEqual(set(sv._source_progress(self.store, "r")), {"src-0001", "src-0002"})
+
     def test_only_known_originals_are_served(self):
         sha = self.draft.records[0].sha256.split(":")[1]
         self.assertTrue(sv.original_path(self.store, sha).exists())

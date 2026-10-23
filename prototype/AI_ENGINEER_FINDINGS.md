@@ -1016,3 +1016,14 @@ The AI engineer asked me to check the publishers' terms and do the manual downlo
 - **Checked:** 170 tests pass; headless Chromium (new `env-webtest`, Playwright 1.55.0) drove the whole flow against a scratch
   copy of the corpus. The real draft list and gold set were not written to. Still to check: the site from the Mac through the
   tunnel.
+
+## 2026-10-23 (continued) — source list v0.1 signed in the site; corpus-v0.1 frozen
+
+- **Signed:** `source_list/v0.1` by jimmytrn154 in the Evidence sources view: 14 accepted (exactly the agent's 14), 303 rejected
+  (the 294 the agent rejected and all 9 unclear), no overrules. Hash `sha256:f8d97c9f…`.
+- **Bug found in use and fixed:** the API runs requests in parallel threads, and two saves arriving together both read the
+  progress file before writing it, so one decision (src-0008) was lost. The page showed every row decided; the server's sign
+  check counted 316 and refused, writing nothing, which is the intended fail-closed behaviour. Writes are now serialised and
+  the page reloads the server's state after any failed write. The reviewer re-entered the decision and signed.
+- **Frozen `corpus-v0.1`/`index-v0.1`:** 14 documents, 452 pages, 1,452 chunks; all embeddings came from the cache ($0).
+- **SSH alias** for the bridge is `vishc-server-1` (the user's `~/.ssh/config`), not `vishc-1`; script default and docs changed.

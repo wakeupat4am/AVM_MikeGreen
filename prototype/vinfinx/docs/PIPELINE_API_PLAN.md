@@ -130,3 +130,8 @@ All under `/vinfinx-pipeline`; every response carries the versions and hashes it
   scratch copy of the corpus: bulk decisions, an unclear row decided with a note, sign-off (button disabled until every row is
   decided), gold labelling with keys, corpus metrics, search (8 hits) and a refused query, navigation back to Review queue, and
   no horizontal overflow at 390 px. The real corpus was not written to. Not yet checked: the site from the Mac through the tunnel.
+- **Fixed 2026-10-23 (first real use):** two saves arriving together both read the progress file before either wrote it, so
+  one decision (src-0008) was lost; the page still showed 317/317, the server counted 316 decided, refused to sign and
+  wrote nothing. Writes are now serialised (`_WRITE` lock in `service.py`, test `test_parallel_saves_keep_every_decision`, which
+  fails without the lock), and the page reloads from the server after any failed write. The list was then signed.
+- **Corpus tab** has a version picker, defaulting to the newest frozen version.

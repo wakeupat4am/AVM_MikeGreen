@@ -114,6 +114,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-21 | Source list signed off by jimmytrn154; pypdfium2 installed; source agent plan (S1–S7) drafted for approval | `SOURCE_AGENT_PLAN.md`, findings log |
 | 2026-10-22 | S1–S7 approved; **source agent built** (`ai/sources/`); first run: 342 candidates, 110 screened by Qwen, 2 accepted, 21 unclear (13 wait only for a publisher-terms check), 294 rejected; Qwen back at ~22 tokens/s | `SOURCE_AGENT_PLAN.md`, findings log |
 | 2026-10-23 | A1–A7 approved (A6: search by meaning, with a personal-data guard); **pipeline API and Evidence sources view built** (`pipeline_api.py`, `ai/api/`, `evidence.js`): source-list review and sign-off, gold-label review, corpus metrics and search in the site, same checks as the CLI; checked in headless Chromium on a scratch copy | `PIPELINE_API_PLAN.md`, findings log |
+| 2026-10-23 | **Source list v0.1 signed** in the site by jimmytrn154 (14 accepted, 303 rejected, 0 overruled); **`corpus-v0.1` frozen** (14 documents, 1,452 chunks, embeddings from cache). Fixed: parallel saves could drop a review decision (now serialised) | `PIPELINE_API_PLAN.md`, `CORPUS_INDEX_PLAN.md`, findings log |
 
 ## Other workstreams
 
