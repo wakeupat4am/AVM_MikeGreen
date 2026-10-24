@@ -1106,3 +1106,31 @@ The AI engineer asked me to check the publishers' terms and do the manual downlo
 - **Proposal (awaiting the user):** `runner_prompts/0.4`: replace (d) with "do not state AVM figures; the band is shown to the
   customer separately", keep (e), re-measure. Until then the live pipeline uses 0.3.
 
+## 2026-10-24 (continued) — mapping agent built; first run: 0 accepted
+
+- **Approved:** MAPPING_AGENT_PLAN.md M1–M8; the user asked whether the support check could be skipped for now and, after the
+  reasons (it is the one guard against a reversed direction, ADV-010; < $0.05 a run), kept it (`gpt-4.1-mini`).
+- **Live prompt reverted** to `runner_prompts/0.2` (user, 2026-10-24); evidence-list caps kept.
+- **Built:** `ai/mapping/`, registry under `corpus/mappings/`, runner choice M7, Mappings tab. Per-quote support verdicts live in
+  `SupportCheck.quotes` so the provisional mapping keeps its ID. 191 tests pass (2 skipped).
+- **First run on `corpus-v0.1`:** 12 pairs in 2 min 23 s; **0 accepted, 9 no mapping, 3 rejected by rules**; no set written, the
+  runner keeps the provisional mapping. Details in the plan's "As built". Two avoidable losses: (1) the agent refused credit growth →
+  house prices although a passage states a positive effect of *bank credit* (a proxy it would not accept); (2) a correct
+  refinancing-rate → house-price proposal was rejected because two extra quotes were paraphrases.
+- **Proposals (awaiting the user):** (f) one quote per proposal (`maxItems` 1): the best sentence only, so a weaker extra quote
+  cannot sink a proposal; (g) `mapping_agent_prompts/0.2` and `support_check_prompts/0.2` name the accepted close proxies per
+  metric (bank or domestic credit for credit growth; policy or lending interest rates for the rate metrics; house price index or
+  property prices for the valuation range; household or mortgage credit for borrowing capacity), so the agent and the support
+  check judge proxies the same way. Re-run: ~3 min of Qwen. Still to do (M8): the dev-split mapping cases with the support check.
+
+## 2026-10-24 (continued) — mapping agent prompts 0.2: first mapping set
+
+- (f) one quote per proposal and (g) named close proxies in the agent's and the support check's prompts (user approved; a
+  modelling choice), `mapping_agent_prompts/0.2`, `support_check_prompts/0.2`. 192 tests pass.
+- **Run:** 2 accepted, 3 no mapping, 3 rejected by rules (2014 sources), 4 rejected by the support check; $0.002. First set
+  `mapping.v1.a8086a001d3f`, unvalidated, awaiting the user's review in Evidence sources → Mappings. The runner keeps the
+  provisional mapping (the three weighted pairs are not covered).
+- **Lessons:** loosening the agent (one quote, proxies) made it propose more, including on quotes that state nothing; the support
+  check caught all four of those. The lag and size of a mapping are Qwen's guess and are unchecked; they stay unused.
+- **Open:** credit growth → valuation range is still refused although its evidence is in the corpus; the dev-split mapping cases
+  with the support check (M8); the offline demo additions (OFFLINE_DEMO_PLAN.md).

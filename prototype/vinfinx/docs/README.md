@@ -71,7 +71,8 @@ The handoff's question is "how can we control hallucination?". Everything built 
 | [`CORPUS_INDEX_PLAN.md`](CORPUS_INDEX_PLAN.md) | Ingestion, chunking, OpenAI embeddings + SQLite keyword index, freeze, retrieval evaluation (I1–I7) | Approved 2026-10-22; dev build done |
 | [`PIPELINE_API_PLAN.md`](PIPELINE_API_PLAN.md) | Loopback pipeline API + Evidence sources view: source-list sign-off and gold review in the site (A1–A7) | Approved and built 2026-10-23 |
 | [`RUNNER_PLAN.md`](RUNNER_PLAN.md) | End-to-end runner: bulletin → OCR → evidence + Phase 3 AVM → policy → Qwen → verifier, shown in Market signals, Review queue, Audit log and Customer views (R1–R8) | Approved and built 2026-10-23 |
-| [`MAPPING_AGENT_PLAN.md`](MAPPING_AGENT_PLAN.md) | Mapping agent (Qwen) → rules → OpenAI support check → versioned mapping registry, reviewed in Evidence sources (M1–M8) | Proposal 2026-10-24 |
+| [`MAPPING_AGENT_PLAN.md`](MAPPING_AGENT_PLAN.md) | Mapping agent (Qwen) → rules → OpenAI support check → versioned mapping registry, reviewed in Evidence sources (M1–M8) | Approved and built 2026-10-24 |
+| [`OFFLINE_DEMO_PLAN.md`](OFFLINE_DEMO_PLAN.md) | Showing the offline half live: "Run mapping agent" button, pipeline overview page; source agent stays pre-run | Noted 2026-10-24, not started |
 | [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md) | Results of the adversarial set over time: baseline and every later run, with causes of failure | Baseline recorded 2026-10-18 |
 
 ## Build order progress
@@ -119,6 +120,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-23 | **Source list v0.1 signed** in the site by jimmytrn154 (14 accepted, 303 rejected, 0 overruled); **`corpus-v0.1` frozen** (14 documents, 1,452 chunks, embeddings from cache). Fixed: parallel saves could drop a review decision (now serialised) | `PIPELINE_API_PLAN.md`, `CORPUS_INDEX_PLAN.md`, findings log |
 | 2026-10-23 | R1–R8 approved; **end-to-end runner built** (`ai/runner/`, `ai/avm/`, catalogue v0.2.0 with AVM context metrics, demo customer in Đống Đa, demo bulletins dated 2026-10-23); Market signals, Review queue, Audit log and the Customer card are live. Found: the verifier does not check the meaning of sentences | `RUNNER_PLAN.md`, findings log |
 | 2026-10-23 | Measured on 62 demo bulletins: 55 blocked, 5 passed, 2 routed. Fixes approved and built: `runner_prompts/0.2` (uncitable values withheld) and **verifier v0.2.0** (percentile labels; direction and staleness claims checked); no new blocks on past real outputs. Re-measurement pending | `RUNNER_PLAN.md`, findings log |
+| 2026-10-24 | Re-measured: (a)–(c) 39 blocked / 6 passed / 17 routed; (d) backfired and was reverted, (e) kept. M1–M8 approved; **mapping agent, support check (`gpt-4.1-mini`) and registry built**; first run on `corpus-v0.1`: 0 accepted (9 no mapping, 3 rejected by rules), runner keeps the provisional mapping | `MAPPING_AGENT_PLAN.md`, findings log |
 
 ## Other workstreams
 

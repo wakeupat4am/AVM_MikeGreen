@@ -49,6 +49,7 @@ function evTab(tab) {
   clearProblems();
   if (tab === 'gold' && !ev.gold) loadGold();
   if (tab === 'corpus' && !ev.corpus) loadCorpus();
+  if (tab === 'mappings' && !ev.maps) loadMappings();
 }
 
 async function evLoad(force) {
@@ -301,4 +302,55 @@ async function evSearch(e) {
       <div class="ev-passage">${esc(h.text)}</div>
       <p class="tiny">${esc(h.chunk_id)} · ${esc(h.publisher)} · ${esc(h.publication_date)} · ${esc(h.language)} · keyword rank ${h.keyword_rank ?? '—'} · meaning rank ${h.vector_rank ?? '—'}</p></div>`).join('') || '<p class="tiny">No passages found.</p>';
   } catch (err) { out.innerHTML = ''; showProblems(err); }
+}
+
+// ---------------------------------------------------------------- mappings (docs/MAPPING_AGENT_PLAN.md)
+
+const OUTCOME = {accepted: ['pill', 'accepted'], no_mapping: ['pill ev-amber', 'no mapping'],
+                 rejected_by_rules: ['pill ev-off', 'rejected: rules'], rejected_by_support: ['pill ev-off', 'rejected: support check'],
+                 error: ['pill ev-off', 'error']};
+
+async function loadMappings() {
+  try { ev.maps = await evApi('/mappings'); } catch (e) { showProblems(e); return; }
+  const m = ev.maps, run = m.runs[0];
+  const rr = m.runner;
+  document.getElementById('evMapHead').innerHTML = `
+    <div class="card-title"><div><h2>Mappings</h2><span class="tiny">What each macro signal means for a target, proposed by Qwen from the frozen corpus, quotes checked word for word and by a second model (support check)</span></div></div>
+    <p class="${rr.source === 'registry' ? 'ev-signed' : 'ev-problems'}" style="margin:0 0 14px">The runner uses <b>${esc(rr.mapping_id)}</b> (${esc(rr.source)}, ${esc(rr.status)}): ${esc(rr.reason)}.${rr.source === 'provisional' ? ' The provisional mapping is hand-built and synthetic; it stays until a registry set covers every pair the policy weights.' : ''}</p>
+    ${m.sets.length ? `<div class="table-wrap"><table class="client-table"><thead><tr><th>Set</th><th>Corpus</th><th>Entries</th><th>Status</th><th></th></tr></thead><tbody>
+      ${m.sets.map(s => `<tr><td><b>${esc(s.mapping_id)}</b><div class="tiny">${esc(new Date(s.created_at).toLocaleString())}</div></td><td>${esc(s.corpus_version)}</td><td>${s.entries}</td>
+        <td>${esc(s.status)}${s.reviewed_by ? ' by ' + esc(s.reviewed_by) : ''}</td>
+        <td>${s.status === 'unvalidated' ? `<button class="secondary" onclick="reviewMapping(${s.version},'reject')">Reject</button> <button class="primary" onclick="reviewMapping(${s.version},'validate')">Validate</button>` : ''}</td></tr>`).join('')}
+    </tbody></table></div>` : '<p class="tiny">No mapping set yet: no proposal has been accepted.</p>'}
+    ${run ? `<p class="tiny">Latest run ${esc(run.run_id)} on ${esc(run.corpus_version)}: ${Object.entries(run.counts).filter(([, n]) => n).map(([k, n]) => n + ' ' + k.replaceAll('_', ' ')).join(', ')} · support check $${esc(run.support_cost_usd)}</p>` : ''}`;
+  document.getElementById('evMapPairs').innerHTML = run ? '<p class="tiny">Loading the run…</p>' : '<p class="tiny">The mapping agent has not run yet.</p>';
+  if (run) renderMapRun(await evApi('/mappings/runs/' + encodeURIComponent(run.run_id)));
+}
+
+function renderMapRun(r) {
+  document.getElementById('evMapPairs').innerHTML = `<div class="card-title"><h2>Pairs in run ${esc(r.run_id)}</h2><span class="tiny">${esc(r.agent)} · ${esc(r.prompt_version)} · support ${esc(r.support_model)}</span></div>` +
+    r.pairs.map(p => {
+      const [cls, label] = OUTCOME[p.outcome] || ['pill', p.outcome];
+      const prop = p.proposal, sup = p.support;
+      const quotes = (p.verified_quotes || []).map(q => {
+        const v = sup ? sup.quotes.find(x => x.chunk_id === q.chunk_id) : null;
+        return `<blockquote class="ev-quote">${esc(q.quote)}<small>${esc(q.publisher)}, ${esc(q.publication_date)} · page ${q.page} ${pdfLink(q.document_hash, q.page, 'Open the page')}${v ? ` · support check: <b>${esc(v.verdict)}</b>, ${esc(v.rationale)}` : ''}</small></blockquote>`;
+      }).join('');
+      const why = p.outcome === 'no_mapping' ? `<p class="tiny">Agent: ${esc(p.reason)}</p>`
+        : p.outcome === 'rejected_by_rules' ? `<p class="tiny">Rules: ${esc((p.rules.findings || []).map(f => f.code + ' ' + (f.detail || '')).join('; '))}</p>`
+        : p.outcome === 'error' ? `<p class="tiny">${esc(p.error)}</p>` : '';
+      return `<div class="ev-row"><div class="ev-row-head" style="cursor:default"><span class="ev-id">${esc(p.metric)}</span>
+          <div class="ev-title"><b>${esc(p.metric.replaceAll('_', ' '))} → ${esc(p.target.replaceAll('_', ' '))}</b>
+          <span class="tiny">${prop ? `direction ${esc(prop.direction)} · lag ${prop.lag_months.join('–')} months · size ${esc(prop.size_range)} · ` : ''}${p.retrieval.chosen.length} passages retrieved · ${p.seconds} s</span></div>
+          <span class="${cls}">${label}</span></div><div class="ev-detail">${why}${quotes}</div></div>`;
+    }).join('');
+}
+
+async function reviewMapping(version, action) {
+  let note = null;
+  if (action === 'reject') { note = prompt('Why reject this mapping set? (required)'); if (!note) return; }
+  else if (!confirm('Validate this mapping set? Validated mappings allow the policy\'s full set of actions.')) return;
+  clearProblems();
+  try { await evApi(`/mappings/sets/${version}/review`, {reviewer: reviewer(), action, note}); showToast('Mapping set ' + action + 'd'); ev.maps = null; await loadMappings(); }
+  catch (e) { showProblems(e); }
 }

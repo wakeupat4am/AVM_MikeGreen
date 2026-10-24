@@ -97,9 +97,27 @@ class MappingProposal(StrictModel):
         return self
 
 
-def proposal_generation_schema(metric_keys: list[str], chunk_ids: list[str], geographies: list[str]) -> dict:
+class NoMapping(StrictModel):
+    """The mapping agent's other answer (MAPPING_AGENT_PLAN.md, M2): the passages do not establish a direction."""
+
+    no_mapping: Literal[True]
+    reason: str
+
+
+def proposal_generation_schema(metric_keys: list[str], chunk_ids: list[str], geographies: list[str],
+                               allow_no_mapping: bool = False) -> dict:
     """JSON Schema for one mapping-agent request: it can only cite chunks that were retrieved for it.
-    Whether each quote is verbatim is checked afterwards by the mapping verifier."""
+    Whether each quote is verbatim is checked afterwards by the mapping verifier. With `allow_no_mapping` the agent
+    may instead say the passages establish nothing (the frozen evaluation keeps the proposal-only schema)."""
+    proposal = _proposal_schema(metric_keys, chunk_ids, geographies)
+    if not allow_no_mapping:
+        return proposal
+    no_mapping = {"type": "object", "properties": {"no_mapping": {"enum": [True]}, "reason": {"type": "string"}},
+                  "required": ["no_mapping", "reason"], "additionalProperties": False}
+    return {"anyOf": [proposal, no_mapping]}
+
+
+def _proposal_schema(metric_keys: list[str], chunk_ids: list[str], geographies: list[str]) -> dict:
     return {
         "type": "object",
         "properties": {
@@ -138,13 +156,27 @@ class ProposalRecord(StrictModel):
     index_version: str
 
 
+class QuoteSupport(StrictModel):
+    """The support model's verdict on one verified quote."""
+
+    chunk_id: str
+    quote: str
+    verdict: Literal["supports", "contradicts", "insufficient"]
+    rationale: str
+
+
 class SupportCheck(StrictModel):
-    """Does the quote back the stated direction? A different model from the mapping agent (handoff §6)."""
+    """Does the quote back the stated direction? A different model from the mapping agent (handoff §6).
+    `quotes` holds one verdict per verified quote (MAPPING_AGENT_PLAN.md, M5); `verdict` is the overall one: supports
+    if at least one quote supports and none contradicts. Kept here, not on MappingVerification, so that mapping sets
+    without a support check (the provisional one) keep their content-derived IDs."""
 
     model: str
     verdict: Literal["supports", "contradicts", "insufficient"]
     rationale: str
     checked_at: AwareDatetime
+    prompt_version: str | None = None
+    quotes: list[QuoteSupport] = []
 
 
 class MappingVerification(StrictModel):

@@ -28,7 +28,6 @@ from ..evaluation.runner import DECISION_INSTRUCTIONS, Generation, call_model, g
 from ..extraction.macro_document import EXTRACTOR_VERSION, PUBLISHER, extract
 from ..ocr import OcrPage
 from ..policy import compute_policy, load_policy_config
-from ..policy.provisional_mapping import provisional_mapping_set
 from ..schemas.bundle import EvidenceBundle, sign_bundle
 from ..schemas.recommendation import citable_evidence_ids, generation_schema
 from ..sources.checks import detect_language
@@ -114,7 +113,7 @@ def ocr_tesseract(images: list[Path], lang: str = "vie+eng") -> list[OcrPage]:
     return [OcrPage.model_validate(p) for p in json.loads(out.stdout)]
 
 
-def qwen_model(messages: list[dict], schema: dict) -> Generation:
+def qwen_model(messages: list[dict], schema: dict, max_tokens: int = 500) -> Generation:
     try:
         with urllib.request.urlopen(f"{QWEN}/health", timeout=5) as r:
             health = json.load(r)
@@ -122,7 +121,7 @@ def qwen_model(messages: list[dict], schema: dict) -> Generation:
         return Generation(text="", error=f"Qwen is not reachable ({type(exc).__name__}); start it (vinfinx-qwen)")
     if health.get("status") != "ready":
         return Generation(text="", error=f"Qwen is {health.get('status')}")
-    return call_model(f"{QWEN}/v1/chat/completions", messages, schema)
+    return call_model(f"{QWEN}/v1/chat/completions", messages, schema, max_tokens=max_tokens)
 
 
 def render_bundle(bundle: EvidenceBundle, catalogue: Catalogue) -> str:
@@ -182,9 +181,13 @@ def run_pipeline(document_id: str, customer_id: str, *, set_name: str = DEMO_SET
                  runs_dir: Path = RUNS, ocr_fn: Callable = ocr_tesseract, model_fn: Callable = qwen_model,
                  keys: dict[str, bytes] | None = None, catalogue: Catalogue | None = None,
                  avm_path: Path = PHASE3_INTERVALS, now: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
+                 mapping_fn: Callable | None = None,
                  on_update: Callable[[dict], None] | None = None) -> dict:
     catalogue = catalogue or load_catalogue()
     keys = keys or load_keys()
+    if mapping_fn is None:
+        from ..mapping import select_mapping
+        mapping_fn = select_mapping
     customers = load_customers()
     if customer_id not in customers:
         raise RunError(f"unknown customer {customer_id}")
@@ -271,14 +274,16 @@ def run_pipeline(document_id: str, customer_id: str, *, set_name: str = DEMO_SET
         stage("avm", avm)
 
         def policy():
-            mapping = provisional_mapping_set()
             config = load_policy_config(catalogue=catalogue)
+            mapping, source, why = mapping_fn(config)  # MAPPING_AGENT_PLAN.md, M7
             s["policy"] = compute_policy(s["items"] + s["avm"], mapping, config, catalogue=catalogue,
                                          customer_district=customer["district"], case_id=run_id, now=now())
             record["versions"].update(policy=config.policy_version, policy_hash=config.policy_hash,
                                       policy_status=config.status, mapping_id=mapping.mapping_id,
-                                      mapping_status=mapping.status, mapping_corpus=mapping.corpus_version)
-            return {"result": s["policy"].model_dump(mode="json"), "mapping_provisional": True}
+                                      mapping_status=mapping.status, mapping_corpus=mapping.corpus_version,
+                                      mapping_source=source)
+            return {"result": s["policy"].model_dump(mode="json"), "mapping_provisional": source == "provisional",
+                    "mapping_source": source, "mapping_reason": why}
         stage("policy", policy)
 
         def bundle():

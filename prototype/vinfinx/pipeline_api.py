@@ -16,7 +16,7 @@ from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from pydantic import BaseModel, Field
 
 from ai import runner
-from ai.api import runs, service
+from ai.api import mappings, runs, service
 from ai.api.service import ApiError, Store
 from ai.corpus.index import Index
 
@@ -102,6 +102,12 @@ class RunRequest(BaseModel):
     reviewer: str
     document_id: str
     customer_id: str
+
+
+class MappingReview(BaseModel):
+    reviewer: str
+    action: str  # validate | reject
+    note: str | None = None
 
 
 class RunReview(BaseModel):
@@ -240,4 +246,22 @@ def customer_latest(customer_id: str) -> dict:
 @app.get(f"{P}/pipeline/audit")
 def audit() -> dict:
     return runs.audit(store, runner.RUNS) if runner.RUNS.exists() else {"runs": [], "actions": []}
+
+
+# ---------------------------------------------------------------- mapping registry (MAPPING_AGENT_PLAN.md)
+
+
+@app.get(f"{P}/mappings")
+def mapping_overview() -> dict:
+    return mappings.overview()
+
+
+@app.get(f"{P}/mappings/runs/{{run_id}}")
+def mapping_run(run_id: str) -> dict:
+    return mappings.get_run(run_id)
+
+
+@app.post(f"{P}/mappings/sets/{{version}}/review")
+def mapping_review(version: int, body: MappingReview) -> dict:
+    return mappings.review(store, version, body.reviewer, body.action, body.note)
 

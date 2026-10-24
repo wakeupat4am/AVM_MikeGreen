@@ -16,6 +16,7 @@ from ai.avm import avm_items
 from ai.evaluation.runner import Generation
 from ai.extraction.macro_document import Extraction
 from ai.ocr import OcrPage
+from ai.policy.provisional_mapping import provisional_mapping_set
 from ai.tests.fixtures import CAT, NOW, REFI
 
 PROPERTY = "7b99d5ef-3f40-fb25-4a5a-d984c54c5b41"  # demo-minh's property (customers_v0.yaml)
@@ -71,7 +72,8 @@ class RunnerTest(unittest.TestCase):
 
     def run_one(self, **kw):
         args = dict(set_name="docs-demo", fixtures=self.fixtures, runs_dir=self.runs_dir, ocr_fn=fake_ocr,
-                    model_fn=model_that(), keys=KEYS, catalogue=CAT, avm_path=self.avm, now=lambda: NOW)
+                    model_fn=model_that(), keys=KEYS, catalogue=CAT, avm_path=self.avm, now=lambda: NOW,
+                    mapping_fn=lambda config: (provisional_mapping_set(), "provisional", "test"))
         return rn.run_pipeline("DOC-1", "demo-minh", **{**args, **kw})
 
     def test_avm_items_are_context_only(self):
