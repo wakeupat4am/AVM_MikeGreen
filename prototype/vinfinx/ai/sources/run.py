@@ -24,7 +24,8 @@ from ..catalog import load_catalogue
 from ..evaluation.runner import DEFAULT_URL, call_model, git_commit
 from ..schemas.source import (Check, Criterion, Decision, FoundBy, Outcome, ProposedBy, Screening, SourceList,
                               SourceRecord)
-from . import (AGENT_VERSION, CORPUS, Candidate, PublisherFile, QueryFile, load_publishers, load_queries)
+from . import (AGENT_VERSION, CORPUS, QUERIES_PATH, Candidate, PublisherFile, QueryFile, load_publishers,
+               load_queries)
 from .checks import check_c1, check_c2, check_c3, check_c7, decide, screening_checks
 from .discover import (BIS_FEEDS, NSO_PAGES, SBV_PAGES, OpenAlexBudget, bis_candidates, nso_candidates,
                        nso_pdf_link, openalex_group, sbv_candidates, worldbank_group)
@@ -76,6 +77,39 @@ def discover(client: Client, queries: QueryFile, publishers: PublisherFile, budg
 def _title_key(c: Candidate) -> str:
     year = c.publication_date.year if c.publication_date else ""
     return "title:" + re.sub(r"[^\w]+", " ", c.title.lower()).strip() + f"|{year}"
+
+
+def candidate_keys(c: Candidate) -> set[str]:
+    return {c.key, _title_key(c)}
+
+
+def record_keys(r: SourceRecord) -> set[str]:
+    """The keys a candidate for the same document would have: its DOI, its landing URL, its title and year."""
+    year = r.publication_date.year if r.publication_date else ""
+    keys = {"title:" + re.sub(r"[^\w]+", " ", r.title.lower()).strip() + f"|{year}", f"url:{r.url}"}
+    if r.doi:
+        keys.add(f"doi:{r.doi}")
+    if r.pdf_url:
+        keys.add(f"url:{r.pdf_url}")
+    return keys
+
+
+def signed_keys(lists: Path) -> set[str]:
+    """Every document already decided in a signed source list (SOURCE_RUN_2_PLAN.md, V2)."""
+    keys: set[str] = set()
+    for p in lists.glob("source_list-v*.json"):
+        for r in SourceList.model_validate_json(p.read_text(encoding="utf-8")).records:
+            keys |= record_keys(r)
+    return keys
+
+
+def over_cap_from(run_ids: list[str], groups: set[str]) -> list[Candidate]:
+    """Candidates an earlier run passed through the checks but left out over the cap, for these query groups only."""
+    out = []
+    for rid in run_ids:
+        data = _load_json(CORPUS / "runs" / rid / "candidates.json", {})
+        out += [c for c in (Candidate.model_validate(x) for x in data.get("candidates", [])) if set(c.groups) & groups]
+    return out
 
 
 def dedupe(found: list[Candidate]) -> list[Candidate]:
@@ -243,8 +277,9 @@ def build_record(c: Candidate, m: dict, dl: dict | None, text: str | None, s: Sc
 
 
 def number(records: list[SourceRecord], keys: list[str], ids_path: Path) -> list[SourceRecord]:
-    """A document keeps its source_id for the life of the run (ids.json), so a review table filled in before a
-    re-run still points at the same documents. New documents get the next free number. Listed accepted first."""
+    """A document keeps its source_id for good (one numbering shared by every run, SOURCE_RUN_2_PLAN.md V3), so a
+    review table filled in before a re-run still points at the same documents and two runs never reuse an ID. New
+    documents get the next free number. Listed accepted first."""
     ids: dict[str, str] = json.loads(ids_path.read_text(encoding="utf-8")) if ids_path.exists() else {}
     order = {Decision.ACCEPTED: 0, Decision.UNCLEAR: 1, Decision.REJECTED: 2, Decision.BAD_DOCUMENT: 3}
     ranked = sorted(zip(records, keys), key=lambda rk: (order[rk[0].decision], rk[0].title.lower()))
@@ -303,7 +338,26 @@ def _load_json(path: Path, default):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
 
 
-def run(run_id: str, use_model: bool, max_screen: int, per_group: int, budget_usd: float, url: str) -> Path:
+SHARED_IDS = CORPUS / "source_ids.json"
+
+
+def shared_ids_path() -> Path:
+    """One numbering for all runs; seeded once from run 1's per-run ids.json, without changing any ID."""
+    if not SHARED_IDS.exists():
+        merged: dict[str, str] = {}
+        for p in sorted((CORPUS / "runs").glob("*/ids.json")):
+            for k, v in json.loads(p.read_text(encoding="utf-8")).items():
+                if k in merged and merged[k] != v:
+                    raise SystemExit(f"{k} has two source IDs ({merged[k]}, {v}); fix before numbering across runs")
+                merged.setdefault(k, v)
+        if len(set(merged.values())) != len(merged):
+            raise SystemExit("two documents share a source ID across runs; fix before numbering across runs")
+        SHARED_IDS.write_text(json.dumps(merged, indent=1), encoding="utf-8")
+    return SHARED_IDS
+
+
+def run(run_id: str, use_model: bool, max_screen: int, per_group: int, budget_usd: float, url: str,
+        queries_path: Path = QUERIES_PATH, include_over_cap: list[str] | None = None) -> Path:
     run_dir = CORPUS / "runs" / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
     logf = open(run_dir / "run.log", "a", encoding="utf-8")
@@ -314,7 +368,7 @@ def run(run_id: str, use_model: bool, max_screen: int, per_group: int, budget_us
         logf.write(line + "\n")
         logf.flush()
 
-    queries, publishers, catalogue = load_queries(), load_publishers(), load_catalogue()
+    queries, publishers, catalogue = load_queries(queries_path), load_publishers(), load_catalogue()
     client = Client(run_dir / "raw")
 
     cand_path = run_dir / "candidates.json"
@@ -331,6 +385,14 @@ def run(run_id: str, use_model: bool, max_screen: int, per_group: int, budget_us
         log(f"discovery: {notes['found']} found, {len(cands)} after de-duplication; blocked {len(notes['blocked'])}, "
             f"errors {len(notes['errors'])}")
 
+    if include_over_cap:
+        cands = dedupe(cands + over_cap_from(include_over_cap, {g.id for g in queries.groups}))
+    known = signed_keys(CORPUS / "source_lists")
+    skipped = [c for c in cands if candidate_keys(c) & known]
+    cands = [c for c in cands if not candidate_keys(c) & known]
+    notes["skipped_signed"] = len(skipped)
+    if skipped:
+        log(f"skipped {len(skipped)} candidates already decided in a signed source list")
     meta = {c.key: metadata_checks(c, publishers) for c in cands}
     passed = [c for c in cands if prescreen_ok(meta[c.key])]
     selected = rank(passed, max_screen, per_group)
@@ -397,7 +459,7 @@ def run(run_id: str, use_model: bool, max_screen: int, per_group: int, budget_us
             records.append(build_record(c, m, None, None, None, None, proposed))
             keys.append(c.key)
         # passed the checks but over the cap: kept in candidates.json for a later run, not on this list
-    records = number(records, keys, run_dir / "ids.json")
+    records = number(records, keys, shared_ids_path())
     source_list = SourceList(version=f"{run_id}-draft", status="draft", run_id=run_id, created_at=now(),
                              records=records)
     lists = CORPUS / "source_lists"
@@ -446,10 +508,13 @@ def main() -> None:
     p.add_argument("--per-group", type=int, default=15)
     p.add_argument("--openalex-budget", type=float, default=0.08, help="USD per run (shared free tier: $0.10/day)")
     p.add_argument("--url", default=DEFAULT_URL)
+    p.add_argument("--queries", type=Path, default=QUERIES_PATH, help="query file (default queries_v0.yaml)")
+    p.add_argument("--include-over-cap", nargs="*", default=[], metavar="RUN_ID",
+                   help="earlier runs whose over-cap candidates in these query groups are eligible again")
     a = p.parse_args()
     if shutil.disk_usage(CORPUS.resolve()).free < 2_000_000_000:
         sys.exit(f"less than 2 GB free under {CORPUS.resolve()}")
-    run(a.run_id, not a.no_model, a.max_screen, a.per_group, a.openalex_budget, a.url)
+    run(a.run_id, not a.no_model, a.max_screen, a.per_group, a.openalex_budget, a.url, a.queries, a.include_over_cap)
 
 
 if __name__ == "__main__":

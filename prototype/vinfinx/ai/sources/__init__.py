@@ -17,8 +17,7 @@ AGENT_VERSION = "source_agent/0.1.0"
 HERE = Path(__file__).parent
 QUERIES_PATH = HERE / "queries_v0.yaml"
 PUBLISHERS_PATH = HERE / "publishers_v0.yaml"
-ROOT = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
-CORPUS = ROOT / "corpus"  # a symlink to /mnt/sdb/shared/chuong/vinfinx/corpus (SERVER_SETUP_PLAN.md)
+from ..paths import CORPUS, ROOT  # noqa: E402  (one place for server paths: ai/paths.py)
 CONTACT = "jimmytrn154@gmail.com"  # given by the AI engineer for OpenAlex and the User-Agent (2026-10-21)
 USER_AGENT = f"VinFinx-research/0.1 (mailto:{CONTACT})"
 

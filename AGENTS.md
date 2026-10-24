@@ -97,7 +97,12 @@ verifies, a human approves.** Code is under `prototype/vinfinx/ai/`.
 
 **Waiting on the user:** the 189-row gold review (Authenticator → Evidence sources → Gold labels; then the keyword-search
 fix and gold for `corpus-v0.1`). Source list v0.1 is signed and `corpus-v0.1` frozen (2026-10-23). **Step 3 built 2026-10-23** (runner, see the table). **Step 4 built 2026-10-24** (mapping agent, see the table); next: proposals (f)+(g) and a re-run, the
-dev-split mapping cases (M8), then **step 5** (second source run for the weighted pairs).
+dev-split mapping cases (M8), then **step 5** (second source run for the weighted pairs):
+plan `docs/SOURCE_RUN_2_PLAN.md` (V1–V7) approved and built 2026-10-24; run `20261024-sources-2`: **3 weak accepted, 0 Viet Nam
+evidence for the three weighted pairs** (findings log); v0.2 **not signed**; IMF terms reading and next options **awaiting the user**.
+**Handoff (2026-10-24):** another AI engineer rebuilds everything from scratch on another server (user chose a clean start,
+no data transfer): `docs/HANDOFF_2026-10.md`. All server paths now come from `ai/paths.py` (environment or the private
+`~/.config/vinfinx/paths.env`; this server's file keeps its paths); package locks and model hashes in `prototype/vinfinx/requirements/`.
 **Noted for later (user, 2026-10-24):** the offline half is shown in the site but its agents cannot be started there; a
 "Run mapping agent" button and a pipeline overview page are noted in `docs/OFFLINE_DEMO_PLAN.md` (not started). The site works from the Mac through
 the tunnel (SSH alias `vishc-server-1`, over NetBird). The OpenAI key is in `~/.config/vinfinx/openai.env` (mode 600), validated 2026-10-22:
@@ -172,6 +177,9 @@ its results can be shown there**:
   arithmetic cross-checks do.
 - After generating a set, check that the document count matches the manifest (a document-ID collision once
   silently overwrote documents).
+- Never hard-code a GPU index in a script: GPUs are shared and change hands within hours. Pick a GPU with < 1 GB in use
+  at start (`nvidia-smi --query-gpu=index,memory.used --format=csv,noheader,nounits`) and refuse to start if none is free
+  (2026-10-24: a script reused GPU 1 after another user took it; stopped before loading, no harm).
 
 ## Working style
 - The user commits the work themselves; do not commit.

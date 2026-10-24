@@ -1,0 +1,12 @@
+annotated-types==0.8.0
+numpy==2.5.4
+packaging==26.3
+pillow==12.3.0
+pydantic==2.14.1
+pydantic_core==2.50.1
+pytesseract==0.3.13
+PyYAML==6.0.3
+setuptools==84.2.0
+typing-inspection==0.4.4
+typing_extensions==4.16.0
+wheel==0.48.0

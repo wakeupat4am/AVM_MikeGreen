@@ -29,7 +29,7 @@ from ..documents.ground_truth import GroundTruth
 from ..ocr import OcrPage
 from .macro_document import extract
 
-ROOT = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
+from ..paths import ROOT  # noqa: E402  (one place for server paths: ai/paths.py)
 THRESHOLDS = (0.0, 0.5, 0.7, 0.8, 0.9)
 CLASSES = ("ok", "WRONG_TRUSTED", "MISSED_FLAG", "caught", "lost", "not_extracted")
 

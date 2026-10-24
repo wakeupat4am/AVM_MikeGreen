@@ -1134,3 +1134,47 @@ The AI engineer asked me to check the publishers' terms and do the manual downlo
   check caught all four of those. The lag and size of a mapping are Qwen's guess and are unchecked; they stay unused.
 - **Open:** credit growth → valuation range is still refused although its evidence is in the corpus; the dev-split mapping cases
   with the support check (M8); the offline demo additions (OFFLINE_DEMO_PLAN.md).
+
+## 2026-10-24 (continued) — source run 2: little evidence for the three weighted pairs
+
+- **Approved:** SOURCE_RUN_2_PLAN.md V1–V7. **Built:** `queries_v1.yaml` (three pairs), `--queries`, skip of documents in a
+  signed list (148 skipped), run 1's on-target over-cap candidates, one shared ID numbering (`corpus/source_ids.json`, seeded
+  from run 1; run 2 starts at `src-0318`), signing on top of a base list (CLI `--base`, site "Sign list on top of v0.1"), and a
+  fix: a stall while reading a body (urllib3 `ReadTimeoutError` from bis.org) crashed the run; now a fetch error, retried. 197
+  tests pass.
+- **GPU mistake:** the run script hard-coded GPU 1 after another user had taken it (20 GB). Stopped within two minutes, before
+  Qwen loaded; the other job was unaffected. Scripts now pick a GPU with < 1 GB in use and refuse otherwise (AGENTS.md lesson).
+- **IMF terms read** (imf.org copyright and terms): non-systematic personal non-commercial downloading and fair use for research
+  (≤ 1,000 words or a quarter, with citation) are allowed; systematic copying, automated bulk download and LLM training are not.
+  Proposed conditions (person downloads, short attributed quotes, internal use, no training): **awaiting the user**.
+- **Run `20261024-sources-2`** (Qwen GPU 0, 3 min of screening; OpenAlex $0.026): 93 found, 48 new after skipping signed ones,
+  20 passed the checks, **3 accepted, 1 unclear, 44 rejected**. Coverage of the three pairs: refi rate 0, mortgage rate 2
+  (both weak and not about Viet Nam), listing inventory 0. No IMF candidate.
+- **Why:** the mapping agent needs Viet Nam evidence (M3), and the free indexes surface little Viet Nam research on rates and
+  household borrowing. The one strong candidate, a 2016 Viet Nam retail-rate pass-through paper (JABES,
+  doi:10.24311/jabes/2016.27.8.1189), failed to download (dead DOI: HTTP 404); a person may get it from the journal's site.
+  15 relevant-looking titles failed C1/C2 (RePEc, MPRA, SSRN, NBER, closed journals), mostly not about Viet Nam.
+- **Not signed:** v0.2 would add three weak sources. Options and recommendation to the user (same day).
+
+## 2026-10-24 (continued) — handoff: clean rebuild on another server
+
+- **Decision (user):** the remaining work goes to another AI engineer on another server, starting from scratch (option A: no data
+  bundle, to avoid conflicts). Their sources, sign-offs and measurements will differ from ours where live sources are involved.
+- **Prepared:** every server path now comes from `ai/paths.py` (`VINFINX_ROOT`, `VINFINX_DATA`, `VINFINX_LOG_DIR`,
+  `VINFINX_PIPELINE_RUNS`; environment or the private `~/.config/vinfinx/paths.env`, which on this server keeps the old paths);
+  the serve scripts read the same file; no `/mnt/...` path is left in the code. Package locks of the three environments and the
+  model and Tesseract data hashes are in `prototype/vinfinx/requirements/`. 197 tests pass; the API runs unchanged.
+- **Handoff guide:** `prototype/vinfinx/docs/HANDOFF_2026-10.md` (setup, rebuild order with time and cost, remaining tasks,
+  decision owners, rules, code map). Two names to change on the new server: the source agent's contact e-mail (`CONTACT`) and
+  `VINFINX_REVIEWERS`.
+
+## 2026-10-24 (continued) — browser-test Chromium upgraded (security)
+
+- The server admin reported that `cache/ms-playwright/chromium_headless_shell-1187` (Chromium 140, Playwright 1.55.0) has known
+  vulnerabilities and asked to upgrade Playwright and delete it. Upgraded `env-webtest` to Playwright 1.64.1 and installed
+  Chrome for Testing / Headless Shell 156.0.8078.4 (build 1248); the install removed build 1187 and ffmpeg 1011. A headless
+  page loads. No browser was running at the time.
+- Mishap: the first pip upgrade timed out, and the following browser install fetched Chromium 140 again (full build,
+  `chromium-1187`); deleted immediately, never launched. Lock and runbook updated (`requirements/webtest.lock`,
+  `SERVER_SETUP_PLAN.md`, the handoff guide).
+

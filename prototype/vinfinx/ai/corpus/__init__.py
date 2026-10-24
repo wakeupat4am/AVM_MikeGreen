@@ -5,8 +5,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-ROOT = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
-CORPUS = ROOT / "corpus"  # symlink to /mnt/sdb/shared/chuong/vinfinx/corpus
+from ..paths import CORPUS, LOGS, ROOT  # one place for server paths: ai/paths.py
+
 VERSIONS = CORPUS / "versions"
-LOGS = Path(os.environ.get("VINFINX_LOG_DIR", "/mnt/sdb/shared/chuong/vinfinx/logs"))
 OCR_PYTHON = ROOT / "env-ocr" / "bin" / "python"

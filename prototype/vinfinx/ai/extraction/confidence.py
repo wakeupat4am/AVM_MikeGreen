@@ -27,7 +27,7 @@ from ..ocr.match import VALUE_ATTRIBUTES, score_document
 from .layout import read_table
 from .macro_document import TABLE2, extract
 
-ROOT = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
+from ..paths import ROOT  # noqa: E402  (one place for server paths: ai/paths.py)
 BANDS = [(0.0, 0.5), (0.5, 0.7), (0.7, 0.8), (0.8, 0.9), (0.9, 0.95), (0.95, 1.01)]
 THRESHOLDS = (0.5, 0.7, 0.8, 0.9, 0.95)
 CONTENT_VARIANTS_PREFIX = "degraded_"

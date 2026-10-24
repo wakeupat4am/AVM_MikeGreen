@@ -99,7 +99,7 @@ function renderSources() {
       <button class="secondary" onclick="bulkDecide('accepted','accept')">Accept all the agent accepted (${s.decisions.accepted})</button>
       <button class="secondary" onclick="bulkDecide('rejected','reject')">Reject all the agent rejected (${s.decisions.rejected})</button>
       <a class="opp-action" href="${PIPELINE_BASE}/source-runs/${encodeURIComponent(run.run_id)}/review.csv" download>Download review.csv</a>
-      <span class="ev-sign"><input id="evVersion" value="source_list/v0.1" aria-label="Version to sign"><button class="primary" ${decided < recs.length ? 'disabled' : ''} onclick="signList()">Sign list</button></span>
+      <span class="ev-sign"><input id="evVersion" value="${esc(run.next_version)}" aria-label="Version to sign"><button class="primary" ${decided < recs.length ? 'disabled' : ''} onclick="signList()">Sign list${run.base ? ' on top of ' + esc(run.base.version.split('/')[1]) : ''}</button></span>
     </div>`}`;
   const counts = {all: recs.length, undecided: recs.length - decided, accepted: s.decisions.accepted, unclear: s.decisions.unclear, rejected: s.decisions.rejected};
   document.getElementById('evFilters').innerHTML = Object.entries(counts).map(([k, n]) =>
@@ -167,7 +167,8 @@ async function bulkDecide(agentDecision, decision) {
 async function signList() {
   const version = document.getElementById('evVersion').value.trim(), recs = ev.run.records;
   const acc = recs.filter(r => decisionOf(r) === 'accept').length;
-  if (!confirm(`Sign ${version} as ${reviewer()}?\n\n${acc} accepted, ${recs.length - acc} rejected.\nA signed version is never changed or overwritten.`)) return;
+  const base = ev.run.base ? `\n\nIt keeps all ${ev.run.base.records} records of ${ev.run.base.version} (${ev.run.base.accepted} accepted), unchanged.` : '';
+  if (!confirm(`Sign ${version} as ${reviewer()}?\n\nThis run: ${acc} accepted, ${recs.length - acc} rejected.${base}\nA signed version is never changed or overwritten.`)) return;
   clearProblems();
   try {
     const out = await evApi(`/source-runs/${encodeURIComponent(ev.run.run_id)}/sign`, {reviewer: reviewer(), version});

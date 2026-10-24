@@ -21,7 +21,7 @@ from ..documents.ground_truth import GroundTruth
 from . import OcrPage
 from .match import score_document, summarize
 
-ROOT = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
+from ..paths import ROOT  # noqa: E402  (one place for server paths: ai/paths.py)
 LANGUAGES = {"en": "eng", "vi": "vie+eng"}  # the document's language is known for the synthetic set
 
 

@@ -18,7 +18,7 @@ from PIL import Image
 
 from . import OcrPage, OcrWord
 
-ROOT = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
+from ..paths import ROOT  # noqa: E402  (one place for server paths: ai/paths.py)
 TESSDATA_DIR = Path(os.environ.get("VINFINX_TESSDATA", ROOT / "models" / "tesseract" / "tessdata_best-e12c65a"))
 MODEL = "tessdata_best@e12c65a"
 MIN_OSD_CONFIDENCE = 2.0  # below this, Tesseract's orientation guess is not acted on

@@ -3,7 +3,9 @@ set -euo pipefail
 
 # Run this on the GPU server (vishc-server-1), in tmux `vinfinx-api`. CPU only. Binds to loopback only; reach it
 # through SSH -L (start-qwen-bridge.sh forwards this port too). docs/PIPELINE_API_PLAN.md.
-ROOT="${VINFINX_ROOT:-/mnt/disk1/backup_user/24chuong.ta/vinfinx}"
+# Paths come from the environment or ~/.config/vinfinx/paths.env (see ai/paths.py), never from this file.
+if [[ -f "$HOME/.config/vinfinx/paths.env" ]]; then set -a; . "$HOME/.config/vinfinx/paths.env"; set +a; fi
+ROOT="${VINFINX_ROOT:-$HOME/vinfinx}"
 PYTHON="${VINFINX_PYTHON:-$ROOT/env/bin/python}"
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 

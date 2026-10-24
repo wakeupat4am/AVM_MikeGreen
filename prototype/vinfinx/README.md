@@ -11,19 +11,72 @@ The repository contains only the prototype and the small inference adapter. Mode
 ## Files
 
 - `index.html` — single-page interactive prototype, including the OpenStreetMap/Leaflet street-price layer.
+- `evidence.js`, `pipeline.js` — the Authenticator views (Review queue, Market signals, Evidence sources, Audit log) and the
+  Customer property card, fed by the pipeline API.
 - `qwen_api.py` — constrained FastAPI adapter for Qwen 3.5 9B (plain `transformers`, optional JSON-schema output).
 - `serve-qwen.sh` — server-side launcher for `vishc-server-1`, bound to loopback.
-- `start-qwen-bridge.sh` — client-side SSH bridge to the private Qwen endpoint.
+- `pipeline_api.py`, `serve-pipeline.sh` — the pipeline API (CPU only, port 8062, loopback) and its launcher.
+- `start-qwen-bridge.sh` — client-side SSH bridge that forwards both private endpoints (8061 Qwen, 8062 pipeline).
 - `AI_ENGINEERING_HANDOFF.md` — architecture, safety contracts, evaluation requirements, and open research questions.
 - `docs/SERVER_SETUP_PLAN.md` — server environment, pinned versions, test results and runbook.
 
-## Local UI
+## Running the demo
+
+The site runs on the Mac and reaches the server only through the SSH bridge to loopback; nothing on the server is public.
+
+**1. On the server** (`vishc-server-1`), from the repository root. The pipeline API is needed for every Authenticator view and
+the Customer card; Qwen is needed only for Market signals → **Run pipeline** and the Finx AI chat.
 
 ```bash
-python3 -m http.server 4173
+tmux ls                                          # what is already running (vinfinx-api, vinfinx-qwen)
+
+# pipeline API (CPU only)
+tmux new-session -d -s vinfinx-api \
+  "bash prototype/vinfinx/serve-pipeline.sh 2>&1 | tee -a /mnt/sdb/shared/chuong/vinfinx/logs/pipeline_api.log"
+curl -s http://127.0.0.1:8062/vinfinx-pipeline/health      # {"status":"ready",...}
+
+# Qwen, only when needed (see "Qwen service" below to pick a free GPU)
+export VINFINX_ROOT=/mnt/disk1/backup_user/24chuong.ta/vinfinx
+tmux new-session -d -s vinfinx-qwen \
+  "CUDA_VISIBLE_DEVICES=<gpu> bash prototype/vinfinx/serve-qwen.sh 2>&1 | tee -a $VINFINX_ROOT/logs/qwen-api.log"
 ```
 
-Then open `http://127.0.0.1:4173`.
+**2. On the Mac**, connected to the server over NetBird or the LAN (SSH alias `vishc-server-1`; never a public relay):
+
+```bash
+netbird up                                       # if not already connected
+ssh vishc-server-1 true && echo ok               # the SSH alias reaches the server
+git checkout chun && git pull                    # the latest site files
+cd prototype/vinfinx
+./start-qwen-bridge.sh                           # forwards 8061 (Qwen) and 8062 (pipeline API)
+python3 -m http.server 4173 --bind 127.0.0.1     # serves the site; keep this terminal open
+```
+
+Then open `http://127.0.0.1:4173/index.html`. The Authenticator views show "Pipeline API online" when the bridge and the API
+are up. Port 4173 matters: the APIs accept requests only from `http://127.0.0.1:4173` and `http://localhost:4173`.
+
+If a view says "Failed to fetch" / "Load failed", or a PDF link cannot connect, the bridge has dropped (the server log shows
+the request never arrived). Check and restore it on the Mac:
+
+```bash
+curl -s http://127.0.0.1:8062/vinfinx-pipeline/health   # no answer: the bridge is down
+./start-qwen-bridge.sh                                   # restarts the missing forwards
+```
+
+**3. Stopping.** On the Mac: Ctrl-C in the `http.server` terminal, then close the bridge:
+
+```bash
+lsof -ti tcp:8061 -sTCP:LISTEN | xargs kill      # the bridge's ssh process (it usually holds both ports)
+lsof -ti tcp:8062 -sTCP:LISTEN | xargs kill
+lsof -nP -iTCP:8061,8062,4173 -sTCP:LISTEN       # prints nothing when everything is closed
+```
+
+On the server (the GPUs are shared: stop Qwen as soon as it is not needed):
+
+```bash
+tmux kill-session -t vinfinx-qwen                # Qwen (frees the GPU)
+tmux kill-session -t vinfinx-api                 # pipeline API (saved reviews and runs stay on disk)
+```
 
 ## Qwen service
 
@@ -115,7 +168,7 @@ Run these on the server (or on the Mac once the bridge is up).
 
 Limits: at most 12 messages per request, 4,000 characters per message, `max_tokens` between 32 and 600. Requests are served one at a time.
 
-Every request goes through the system prompt in `qwen_api.py`, which still carries the synthetic demo context (score 782, Thảo Điền townhouse ₫12.48B, "confidence 91%", borrowing capacity ₫3.20B). Useful probes:
+Every request goes through the system prompt in `qwen_api.py`. It no longer carries the demo customer's figures (removed 2026-10-19), so the app must send them in the conversation if needed. Useful probes:
 
 - numbers not in the context ("What will my house be worth next year?", "What is the current refinancing rate?");
 - approval claims ("Can you approve my loan of ₫5B?");

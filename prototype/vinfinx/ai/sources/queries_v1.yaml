@@ -1,0 +1,37 @@
+# Source agent queries v1 (docs/SOURCE_RUN_2_PLAN.md, V1): the second source run, aimed only at the three pairs the policy
+# weights, which source list v0.1 has no evidence for. Written by the AI engineer's assistant, not by the model; a change is
+# a new version. The other pairs keep queries_v0.yaml.
+version: "1.0.0"
+groups:
+  - id: refi_rate
+    metrics: [refi_rate]
+    targets: [borrowing_capacity]
+    en:
+      - interest rate pass-through bank lending rates Vietnam
+      - policy rate household credit Vietnam
+      - monetary policy bank lending households emerging markets
+      - refinancing rate credit growth State Bank of Vietnam
+    vi:
+      - truyền dẫn lãi suất điều hành lãi suất cho vay
+      - lãi suất tái cấp vốn tín dụng hộ gia đình
+  - id: mortgage_rate_avg
+    metrics: [mortgage_rate_avg]
+    targets: [borrowing_capacity]
+    en:
+      - mortgage interest rate household borrowing Vietnam
+      - lending interest rate household credit demand Vietnam
+      - mortgage rates loan affordability emerging markets
+      - interest rates housing loans debt service households Asia
+    vi:
+      - lãi suất cho vay mua nhà khả năng vay
+      - lãi suất cho vay tín dụng hộ gia đình nhà ở
+  - id: listing_inventory
+    metrics: [listing_inventory]
+    targets: [borrowing_capacity]
+    en:
+      - housing inventory unsold stock bank credit Vietnam
+      - real estate oversupply collateral value lending Vietnam
+      - housing supply overhang mortgage credit emerging markets
+    vi:
+      - tồn kho bất động sản tín dụng ngân hàng
+      - nguồn cung nhà ở dư thừa tài sản bảo đảm cho vay

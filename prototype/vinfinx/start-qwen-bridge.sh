@@ -20,6 +20,9 @@ if [[ ${#FORWARDS[@]} -eq 0 ]]; then
 fi
 
 # ControlPath=none: a dedicated connection, independent of any shared ControlMaster session.
-ssh -o BatchMode=yes -o ExitOnForwardFailure=yes -o ControlPath=none -f -N "${FORWARDS[@]}" "$HOST"
+# ServerAlive*: a keep-alive every 30 s, so an idle tunnel over NetBird is not dropped silently; after 3 missed replies ssh
+# exits and frees the ports, and running this script again restores the bridge.
+ssh -o BatchMode=yes -o ExitOnForwardFailure=yes -o ControlPath=none \
+  -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -f -N "${FORWARDS[@]}" "$HOST"
 
 echo "VinFinx bridge started (${FORWARDS[*]}) via $HOST"

@@ -16,7 +16,7 @@ from ai.sources import Candidate, load_publishers, load_queries
 from ai.sources import checks
 from ai.sources.discover import (abstract_from_index, bis_candidates, nso_candidates, nso_pdf_link,
                                  openalex_candidate, sbv_candidates, worldbank_candidates)
-from ai.sources.http import Blocked, Client, redact
+from ai.sources.http import Blocked, Client, FetchError, redact
 from ai.sources.review import ReviewError, apply_review
 from ai.sources.run import dedupe, number, pdf_link_on_page, rank
 from ai.sources.screen import extract_text, messages, screen, screening_text, verify_quote
@@ -299,6 +299,18 @@ class ClientTest(unittest.TestCase):
         with self.assertRaises(Blocked):
             c.get("https://b.org/doc")
         self.assertEqual(s.calls.count("https://b.org/doc"), 1)
+
+    def test_a_stall_while_reading_the_body_is_a_fetch_error(self):
+        import urllib3
+
+        class Stalling(FakeRaw):
+            def read(self, n, decode_content=True):
+                raise urllib3.exceptions.ReadTimeoutError(None, None, "Read timed out.")
+
+        c = self.client({"https://x.org/a.pdf": [FakeResp(200, b"")]})
+        c.session.routes["https://x.org/a.pdf"][0].raw = Stalling(b"")
+        with self.assertRaises(FetchError):
+            c.get("https://x.org/a.pdf", retries=0)
 
     def test_transient_errors_are_retried(self):
         c = self.client({"https://c.org/robots.txt": [FakeResp(404)],

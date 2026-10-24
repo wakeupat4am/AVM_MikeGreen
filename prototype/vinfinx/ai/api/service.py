@@ -183,8 +183,11 @@ def source_run(store: Store, run_id: str) -> dict:
         records.append(d)
     signed = [{"version": s.version, "list_hash": s.list_hash, "signed_off_by": s.signed_off_by,
                "signed_off_at": s.signed_off_at} for s in _signed_lists(store) if s.run_id == run_id]
+    base = base_list(store, run_id)
     return {"run_id": run_id, "list_hash": draft.list_hash, "created_at": draft.created_at, "records": records,
-            "decided": len(progress), "signed": signed}
+            "decided": len(progress), "signed": signed, "next_version": next_version(store),
+            "base": {"version": base.version, "records": len(base.records), "accepted": len(base.accepted()),
+                     "list_hash": base.list_hash} if base else None}
 
 
 @_serialised
@@ -225,19 +228,36 @@ def sign_source_list(store: Store, run_id: str, reviewer: str, version: str) -> 
     if out.exists():
         raise ApiError(409, f"{version} exists; a signed-off version is never overwritten")
     draft = _draft(store, run_id)
+    base = base_list(store, run_id)
     progress = _source_progress(store, run_id)
     rows = [{"source_id": r.source_id, "reviewer_decision": (progress.get(r.source_id) or {}).get("decision", ""),
              "reviewer_note": (progress.get(r.source_id) or {}).get("note") or ""} for r in draft.records]
     try:
-        signed = apply_review(draft, rows, reviewer, version, store.now())
+        signed = apply_review(draft, rows, reviewer, version, store.now(), base)
     except ReviewError as exc:
         problems = str(exc).splitlines()
         raise ApiError(422, f"not signed: {len(problems)} problem(s)", problems) from None
     _write_new(out, signed.model_dump_json(indent=1))
     result = summary(signed, out)
     store.log("source_list_signed", reviewer, run_id=run_id, draft_list_hash=draft.list_hash,
-              version=version, list_hash=signed.list_hash)
+              version=version, list_hash=signed.list_hash, base=base.version if base else None,
+              base_hash=base.list_hash if base else None)
     return result
+
+
+def base_list(store: Store, run_id: str) -> SourceList | None:
+    """The list a new run is signed on top of: the newest signed list from another run (SOURCE_RUN_2_PLAN.md, V5)."""
+    others = [s for s in _signed_lists(store) if s.run_id != run_id]
+    key = lambda s: tuple(int(x) for x in s.version.split("/v")[1].split("."))
+    return max(others, key=key) if others else None
+
+
+def next_version(store: Store) -> str:
+    signed = _signed_lists(store)
+    if not signed:
+        return "source_list/v0.1"
+    major, minor = max(tuple(int(x) for x in s.version.split("/v")[1].split(".")) for s in signed)
+    return f"source_list/v{major}.{minor + 1}"
 
 
 def source_review_csv(store: Store, run_id: str) -> str:

@@ -13,6 +13,7 @@ from pathlib import Path
 from urllib.parse import urlencode, urlsplit, urlunsplit, parse_qsl
 
 import requests
+import urllib3
 
 from . import USER_AGENT
 
@@ -119,7 +120,9 @@ class Client:
             try:
                 r = self.session.get(url, timeout=60, stream=True)
                 content = r.raw.read(MAX_BYTES + 1, decode_content=True)
-            except requests.RequestException as exc:
+            # urllib3 errors come from reading the streamed body (a server that stalls mid-file: BIS, 2026-10-24); they
+            # are not wrapped in requests' exceptions, so both are caught
+            except (requests.RequestException, urllib3.exceptions.HTTPError) as exc:
                 if attempt == retries:
                     raise FetchError(f"{redact(url)}: {type(exc).__name__}: {exc}") from None
                 self.sleep(delay)

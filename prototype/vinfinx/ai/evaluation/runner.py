@@ -391,7 +391,7 @@ def run(cases_path: Path, mode: str, split: str, url: str, out_dir: Path | None,
 
 
 def main() -> None:
-    root = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
+    from ..paths import ROOT as root
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--cases", type=Path, default=DEFAULT_CASES)
     p.add_argument("--mode", choices=["scripted", "model", "all"], default="scripted")

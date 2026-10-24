@@ -153,7 +153,7 @@ def generate_set(out_root: Path, *, as_of: datetime, seed: int, languages: list[
 
 
 def main() -> None:
-    root = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
+    from ..paths import ROOT as root
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--set-version", default="docs-v0.1-draft")
     p.add_argument("--out", type=Path, help="default: $VINFINX_ROOT/fixtures/<set-version>")

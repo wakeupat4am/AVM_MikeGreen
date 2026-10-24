@@ -2,6 +2,7 @@
 sign-off").
 
     python -m ai.sources.review --run-id <id> --reviewer jimmytrn154 --version source_list/v0.1
+    python -m ai.sources.review --run-id <run 2> --reviewer jimmytrn154 --version source_list/v0.2 --base source_list/v0.1
 
 Every row needs `accept` or `reject`; overruling the agent needs a note; a source can only be accepted if its
 original file is stored and hashed. A version is never overwritten.
@@ -31,7 +32,10 @@ def overruled(rec: SourceRecord) -> bool:
 
 
 def apply_review(draft: SourceList, rows: list[dict[str, str]], reviewer: str, version: str,
-                 at: datetime) -> SourceList:
+                 at: datetime, base: SourceList | None = None) -> SourceList:
+    """The signed list: the draft's records with the reviewer's decisions; with `base` (a signed list), every base
+    record first, unchanged, then the draft's (SOURCE_RUN_2_PLAN.md, V5): nothing signed before is dropped or
+    re-decided."""
     by_id = {r["source_id"]: r for r in rows}
     problems, records = [], []
     for rec in draft.records:
@@ -55,10 +59,19 @@ def apply_review(draft: SourceList, rows: list[dict[str, str]], reviewer: str, v
                                                                reviewed_at=at)}))
     extra = set(by_id) - {r.source_id for r in draft.records}
     problems += [f"{sid}: not in the draft list" for sid in sorted(extra)]
+    kept = []
+    if base is not None:
+        if base.status != "signed_off":
+            problems.append(f"{base.version}: a base list must be signed off")
+        if base.version == version:
+            problems.append(f"{version}: the new version must differ from its base")
+        clash = {r.source_id for r in base.records} & {r.source_id for r in draft.records}
+        problems += [f"{sid}: already in {base.version}" for sid in sorted(clash)]
+        kept = list(base.records)
     if problems:
         raise ReviewError("\n".join(problems))
     return SourceList(version=version, status="signed_off", run_id=draft.run_id, created_at=draft.created_at,
-                      records=[SourceRecord.model_validate(r.model_dump()) for r in records],
+                      records=kept + [SourceRecord.model_validate(r.model_dump()) for r in records],
                       signed_off_by=reviewer, signed_off_at=at)
 
 
@@ -83,6 +96,7 @@ def main() -> None:
     p.add_argument("--reviewer", required=True)
     p.add_argument("--version", required=True, help="e.g. source_list/v0.1")
     p.add_argument("--csv", type=Path, help="default: corpus/runs/<run-id>/review.csv")
+    p.add_argument("--base", help="a signed list to build on, e.g. source_list/v0.1 (its records are kept unchanged)")
     a = p.parse_args()
     if not re.match(VERSION_PATTERN, a.version):
         sys.exit(f"--version must look like source_list/v0.1, got {a.version!r}")
@@ -93,8 +107,11 @@ def main() -> None:
     draft = SourceList.model_validate_json((lists / f"{a.run_id}-draft.json").read_text(encoding="utf-8"))
     with open(a.csv or CORPUS / "runs" / a.run_id / "review.csv", newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
+    base = None
+    if a.base:
+        base = SourceList.model_validate_json(signed_path(lists, a.base).read_text(encoding="utf-8"))
     try:
-        signed = apply_review(draft, rows, a.reviewer, a.version, datetime.now(timezone.utc))
+        signed = apply_review(draft, rows, a.reviewer, a.version, datetime.now(timezone.utc), base)
     except ReviewError as exc:
         sys.exit(f"review not applied:\n{exc}")
     out.write_text(signed.model_dump_json(indent=1), encoding="utf-8")

@@ -46,11 +46,11 @@ RUNNER_NOTES = ("Items whose value is 'withheld' cannot be cited: do not state, 
                 "they are context, not market signals.")
 CUSTOMER_REQUEST = ("Given the latest market bulletin, should the valuation range of my property or my borrowing "
                     "capacity be reviewed?")
-ROOT = Path(os.environ.get("VINFINX_ROOT", "/mnt/disk1/backup_user/24chuong.ta/vinfinx"))
+from ..paths import PIPELINE_RUNS, ROOT  # noqa: E402
 FIXTURES = ROOT / "fixtures"
 DEMO_SET = os.environ.get("VINFINX_DEMO_SET", "docs-v0.1-demo-20261023")
 HELD_OUT = {"docs-v0.1-holdout-s7"}  # never run, never shown (AGENTS.md)
-RUNS = Path(os.environ.get("VINFINX_PIPELINE_RUNS", "/mnt/sdb/shared/chuong/vinfinx/pipeline_runs"))
+RUNS = PIPELINE_RUNS
 OCR_PYTHON = ROOT / "env-ocr" / "bin" / "python"
 QWEN = os.environ.get("VINFINX_QWEN_BASE", "http://127.0.0.1:8061/vinfinx-api")
 QWEN_PRECISION = "bf16"

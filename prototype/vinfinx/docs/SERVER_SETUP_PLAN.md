@@ -506,6 +506,21 @@ PLAYWRIGHT_BROWSERS_PATH=$R/cache/ms-playwright $R/env-webtest/bin/python -m pla
 ```
 
 Installed: Playwright 1.55.0, `chromium_headless_shell-1187` and `ffmpeg-1011` in `$R/cache/ms-playwright` (326 MB); env 149 MB.
+
+**Updated 2026-10-24 (security):** the server admin reported that Chromium 140 (Playwright build 1187, from Playwright 1.55.0)
+has known vulnerabilities and asked to upgrade and delete `chromium_headless_shell-1187`. Done:
+
+```bash
+R=/mnt/disk1/backup_user/24chuong.ta/vinfinx
+$R/env-webtest/bin/pip install --timeout 120 --retries 5 -U playwright          # -> 1.64.1 (a first try timed out)
+PLAYWRIGHT_BROWSERS_PATH=$R/cache/ms-playwright $R/env-webtest/bin/python -m playwright install chromium
+```
+
+Now: Playwright **1.64.1**, Chrome for Testing / Headless Shell **156.0.8078.4** (build 1248) and ffmpeg 1013 in
+`$R/cache/ms-playwright` (681 MB). The install removed the unused builds `chromium_headless_shell-1187` and `ffmpeg-1011`
+itself. Mishap: the first upgrade timed out unnoticed, so `playwright install chromium` fetched the old Chromium 140 again
+(`chromium-1187`); it was deleted at once, before any use. Check that a pip upgrade succeeded before installing browsers.
+Lock: `prototype/vinfinx/requirements/webtest.lock`.
 Run scripts with `PLAYWRIGHT_BROWSERS_PATH=$R/cache/ms-playwright`. Test the site against a scratch copy of the corpus
 (`VINFINX_ROOT=<copy> VINFINX_LOG_DIR=<copy>/logs ./serve-pipeline.sh`), never against the real one.
 

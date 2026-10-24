@@ -73,6 +73,8 @@ The handoff's question is "how can we control hallucination?". Everything built 
 | [`RUNNER_PLAN.md`](RUNNER_PLAN.md) | End-to-end runner: bulletin → OCR → evidence + Phase 3 AVM → policy → Qwen → verifier, shown in Market signals, Review queue, Audit log and Customer views (R1–R8) | Approved and built 2026-10-23 |
 | [`MAPPING_AGENT_PLAN.md`](MAPPING_AGENT_PLAN.md) | Mapping agent (Qwen) → rules → OpenAI support check → versioned mapping registry, reviewed in Evidence sources (M1–M8) | Approved and built 2026-10-24 |
 | [`OFFLINE_DEMO_PLAN.md`](OFFLINE_DEMO_PLAN.md) | Showing the offline half live: "Run mapping agent" button, pipeline overview page; source agent stays pre-run | Noted 2026-10-24, not started |
+| [`SOURCE_RUN_2_PLAN.md`](SOURCE_RUN_2_PLAN.md) | Second source run for the three weighted pairs; source list v0.2 on top of v0.1; corpus-v0.2 and a new mapping run (V1–V7) | Proposal 2026-10-24 |
+| [`HANDOFF_2026-10.md`](HANDOFF_2026-10.md) | Handoff to the next AI engineer: rebuild from scratch on a new server (setup, rebuild order, remaining tasks, decision owners, rules) | Written 2026-10-24 |
 | [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md) | Results of the adversarial set over time: baseline and every later run, with causes of failure | Baseline recorded 2026-10-18 |
 
 ## Build order progress
