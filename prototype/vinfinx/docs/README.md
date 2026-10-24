@@ -69,7 +69,9 @@ The handoff's question is "how can we control hallucination?". Everything built 
 | [`CORPUS_SOURCE_CRITERIA.md`](CORPUS_SOURCE_CRITERIA.md) | What may enter the research corpus, source records, deliberately bad documents | Approved 2026-10-17 |
 | [`SOURCE_AGENT_PLAN.md`](SOURCE_AGENT_PLAN.md) | How the source agent finds, checks and screens candidate sources for sign-off (S1–S7) | Approved 2026-10-22; built, first run done |
 | [`CORPUS_INDEX_PLAN.md`](CORPUS_INDEX_PLAN.md) | Ingestion, chunking, OpenAI embeddings + SQLite keyword index, freeze, retrieval evaluation (I1–I7) | Approved 2026-10-22; dev build done |
-| [`PIPELINE_API_PLAN.md`](PIPELINE_API_PLAN.md) | Loopback pipeline API + Evidence sources view: source-list sign-off and gold review in the site (A1–A7) | Proposal 2026-10-23 |
+| [`PIPELINE_API_PLAN.md`](PIPELINE_API_PLAN.md) | Loopback pipeline API + Evidence sources view: source-list sign-off and gold review in the site (A1–A7) | Approved and built 2026-10-23 |
+| [`RUNNER_PLAN.md`](RUNNER_PLAN.md) | End-to-end runner: bulletin → OCR → evidence + Phase 3 AVM → policy → Qwen → verifier, shown in Market signals, Review queue, Audit log and Customer views (R1–R8) | Approved and built 2026-10-23 |
+| [`MAPPING_AGENT_PLAN.md`](MAPPING_AGENT_PLAN.md) | Mapping agent (Qwen) → rules → OpenAI support check → versioned mapping registry, reviewed in Evidence sources (M1–M8) | Proposal 2026-10-24 |
 | [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md) | Results of the adversarial set over time: baseline and every later run, with causes of failure | Baseline recorded 2026-10-18 |
 
 ## Build order progress
@@ -83,7 +85,7 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 3 | Verifiers v0 (rules) | **Done**, approved 2026-10-18 | `ai/verifier/`: recommendation and mapping verifiers; 24 tests including the four worked cases. Support check is a placeholder |
 | 4 | Frozen adversarial test set | **Done**: frozen 2026-10-18 by jimmytrn154 (v0.1.0) | `ai/evaluation/`: 42 cases, 16 categories, 11 held out; evaluation runner built ([README](../ai/evaluation/README.md)) |
 | 5 | Qwen on our server; baseline | **Done**: serving 2026-10-16; baseline 2026-10-18 (15/35 passed; see [`EVALUATION_RESULTS.md`](EVALUATION_RESULTS.md)) | Speed partly explained (see [Other workstreams](#other-workstreams)) |
-| 6 | Document generator, OCR service, RAG, mapping agent, policy engine, decision engine | **In progress:** policy engine and document generator built 2026-10-20; OCR (Tesseract), extraction and validation 2026-10-21; Qwen second reading, RAG, mapping agent not started | `POLICY_ENGINE_PLAN.md` |
+| 6 | Document generator, OCR service, RAG, mapping agent, policy engine, decision engine | **In progress:** policy engine and document generator 2026-10-20; OCR (Tesseract), extraction and validation 2026-10-21; source agent 2026-10-22, source list v0.1 signed and `corpus-v0.1` frozen 2026-10-23 (RAG); pipeline API, site views and end-to-end runner (decision engine on the provisional mapping, verifier v0.2.0) 2026-10-23. **Not started:** mapping agent, support check, mapping registry, Qwen second reading | `POLICY_ENGINE_PLAN.md`, `SOURCE_AGENT_PLAN.md`, `CORPUS_INDEX_PLAN.md`, `PIPELINE_API_PLAN.md`, `RUNNER_PLAN.md` |
 
 ## Done so far
 
@@ -115,6 +117,8 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | 2026-10-22 | S1–S7 approved; **source agent built** (`ai/sources/`); first run: 342 candidates, 110 screened by Qwen, 2 accepted, 21 unclear (13 wait only for a publisher-terms check), 294 rejected; Qwen back at ~22 tokens/s | `SOURCE_AGENT_PLAN.md`, findings log |
 | 2026-10-23 | A1–A7 approved (A6: search by meaning, with a personal-data guard); **pipeline API and Evidence sources view built** (`pipeline_api.py`, `ai/api/`, `evidence.js`): source-list review and sign-off, gold-label review, corpus metrics and search in the site, same checks as the CLI; checked in headless Chromium on a scratch copy | `PIPELINE_API_PLAN.md`, findings log |
 | 2026-10-23 | **Source list v0.1 signed** in the site by jimmytrn154 (14 accepted, 303 rejected, 0 overruled); **`corpus-v0.1` frozen** (14 documents, 1,452 chunks, embeddings from cache). Fixed: parallel saves could drop a review decision (now serialised) | `PIPELINE_API_PLAN.md`, `CORPUS_INDEX_PLAN.md`, findings log |
+| 2026-10-23 | R1–R8 approved; **end-to-end runner built** (`ai/runner/`, `ai/avm/`, catalogue v0.2.0 with AVM context metrics, demo customer in Đống Đa, demo bulletins dated 2026-10-23); Market signals, Review queue, Audit log and the Customer card are live. Found: the verifier does not check the meaning of sentences | `RUNNER_PLAN.md`, findings log |
+| 2026-10-23 | Measured on 62 demo bulletins: 55 blocked, 5 passed, 2 routed. Fixes approved and built: `runner_prompts/0.2` (uncitable values withheld) and **verifier v0.2.0** (percentile labels; direction and staleness claims checked); no new blocks on past real outputs. Re-measurement pending | `RUNNER_PLAN.md`, findings log |
 
 ## Other workstreams
 

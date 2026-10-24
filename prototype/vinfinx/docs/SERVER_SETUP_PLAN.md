@@ -474,6 +474,26 @@ python3 -m http.server 4173 --bind 127.0.0.1                # open http://127.0.
 Reviewers allowed to write: `VINFINX_REVIEWERS` (default `jimmytrn154`). Writes are logged in `logs/review_actions.jsonl`; search
 queries sent to OpenAI in `logs/search_queries.jsonl`.
 
+### End-to-end runner (2026-10-23; `docs/RUNNER_PLAN.md`)
+
+```bash
+# Qwen must be running for the decision stage (any GPU with ~19 GiB free; GPU 1 on 2026-10-23)
+tmux new-session -d -s vinfinx-qwen \
+  "CUDA_VISIBLE_DEVICES=1 bash ~/chun/AVM_MikeGreen/prototype/vinfinx/serve-qwen.sh 2>&1 | tee -a $VINFINX_ROOT/logs/qwen-api.log"
+# one run from the command line (the site's Market signals → Run pipeline does the same through the pipeline API)
+cd ~/chun/AVM_MikeGreen/prototype/vinfinx
+$VINFINX_ROOT/env/bin/python -m ai.runner run --document LBEO-BUL-2026-10-clean-en-s42 --customer demo-minh
+```
+
+- Demo bulletins: `$VINFINX_ROOT/fixtures/docs-v0.1-demo-20261023`, generated 2026-10-23 with
+  `python -m ai.documents.generate --set-version docs-v0.1-demo-20261023 --as-of 2026-10-23 --seed 42` (62 documents,
+  ~21 s per 8 documents). Their 14-day figures (listing inventory) go stale on 2026-11-02 and the monthly ones in
+  mid-November; generate a new dated set before a later demo.
+- Bundle signing key: `~/.config/vinfinx/bundle.env` (mode 600), created 2026-10-23 with Python `secrets.token_hex(32)`; key ID
+  `vinfinx-demo-2026-10`. Never printed or committed.
+- Runs: `/mnt/sdb/shared/chuong/vinfinx/pipeline_runs/` (the site's); measurement runs go elsewhere
+  (`pipeline_runs_eval/<name>/`, via `VINFINX_PIPELINE_RUNS`) so they do not fill the demo's queue.
+
 ### Browser test environment (installed 2026-10-23)
 
 For checking the website headlessly on the server (no Node.js or browser was installed). Separate from the main env.

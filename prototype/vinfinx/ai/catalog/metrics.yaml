@@ -9,7 +9,7 @@
 # is computed by code as the end of the observation period + freshness_days. It is never read
 # from a document.
 
-version: "0.1.0"
+version: "0.2.0"  # 0.2.0 (2026-10-23): AVM band metrics, context only (RUNNER_PLAN.md, R3)
 status: provisional
 
 geographies:
@@ -133,7 +133,56 @@ metrics:
     valid_range: ["10", "1000"]
     reason_code_stem: PRICE_INDEX
 
-# Reason codes are <reason_code_stem>_RISE / _DROP for every metric, plus these (decision D4).
+# AVM evidence (RUNNER_PLAN.md, R3; approved 2026-10-23): the Phase 3 band and asking price for the customer's own
+# property, in billion VND. Model output from asking prices, Hà Nội only, a triage band, not an appraisal. Context
+# only: no reason codes and no policy weight, so they never move a decision; a recommendation may cite them for the
+# valuation range. Period = the listing's last-modified date. freshness_days 180 is PROVISIONAL.
+context_metrics:
+  - key: value_p10
+    scope: avm
+    geography_level: district
+    name_en: AVM band, lower edge (P10)
+    name_vi: Khoảng định giá AVM, cận dưới (P10)
+    unit: vnd_bn
+    transformation: level
+    frequency: snapshot
+    freshness_days: 180
+    valid_range: ["0", "1000"]
+
+  - key: value_p50
+    scope: avm
+    geography_level: district
+    name_en: AVM central estimate (P50)
+    name_vi: Ước tính trung tâm AVM (P50)
+    unit: vnd_bn
+    transformation: level
+    frequency: snapshot
+    freshness_days: 180
+    valid_range: ["0", "1000"]
+
+  - key: value_p90
+    scope: avm
+    geography_level: district
+    name_en: AVM band, upper edge (P90)
+    name_vi: Khoảng định giá AVM, cận trên (P90)
+    unit: vnd_bn
+    transformation: level
+    frequency: snapshot
+    freshness_days: 180
+    valid_range: ["0", "1000"]
+
+  - key: asking_price
+    scope: avm
+    geography_level: district
+    name_en: Listing asking price
+    name_vi: Giá chào bán
+    unit: vnd_bn
+    transformation: level
+    frequency: snapshot
+    freshness_days: 180
+    valid_range: ["0", "1000"]
+
+# Reason codes are <reason_code_stem>_RISE / _DROP for every signal metric, plus these (decision D4).
 extra_reason_codes:
   - CONFLICTING_SIGNALS
   - STALE_EVIDENCE

@@ -1,0 +1,12 @@
+# Demo customers for the end-to-end runner (RUNNER_PLAN.md, R4). SYNTHETIC: fictional people. Each one stands in for
+# a customer whose home is a real Phase 3 listing (Phase 3/data/phase3_available_intervals_v2.csv), so the AVM band is
+# real model output while the person is not. This file stays on the server and never goes to OpenAI.
+version: "0.1.0"
+synthetic: true
+customers:
+  - customer_id: demo-minh
+    display_name: Minh (demo customer)
+    # Q. Đống Đa, P. Quang Trung, 52.3 m², 5 floors; listed 2026-07-06 (chosen 2026-10-23 as the most recent Đống Đa
+    # row, so its band stays fresh longest: until 2027-01-02 with the provisional 180 days).
+    property_id: 7b99d5ef-3f40-fb25-4a5a-d984c54c5b41
+    district: hn-dong-da

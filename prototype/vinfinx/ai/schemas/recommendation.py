@@ -36,6 +36,9 @@ class Recommendation(StrictModel):
 # Caps the reason-code array. xgrammar enforces maxItems but ignores uniqueItems, so this bound is what stops
 # the model repeating one code until max_tokens (baseline 2026-10-18: 4 of 20 cases).
 MAX_REASON_CODES = 3
+# xgrammar enforces maxItems but not uniqueItems: without a cap Qwen once repeated evidence IDs until max_tokens and never
+# closed the JSON (8 of 62 runner outputs, 2026-10-23). Lists are capped at the number of distinct values, at most 8.
+MAX_EVIDENCE_IDS = 8
 
 
 class RecommendationRecord(StrictModel):
@@ -107,6 +110,7 @@ def generation_schema(bundle: EvidenceBundle, catalogue: Catalogue) -> dict[str,
     a citation. If nothing is citable, only abstain is possible. The verifier still checks everything."""
     cap = bundle.policy.magnitude_cap
     citable = citable_evidence_ids(bundle)
+    targets = [t.target.value for t in bundle.policy.targets]
 
     def branch(actions: list[str], min_citations: int) -> dict[str, Any]:
         return {
@@ -115,9 +119,10 @@ def generation_schema(bundle: EvidenceBundle, catalogue: Catalogue) -> dict[str,
                 "recommended_action": {"enum": actions},
                 "magnitude": {"enum": [m.value for m in Magnitude if m.rank <= cap.rank]},
                 "reason_codes": _array(supported_reason_codes(bundle, catalogue), max_items=MAX_REASON_CODES),
-                "evidence_ids": _array(citable, min_items=min_citations),
+                "evidence_ids": _array(citable, min_items=min_citations,
+                                       max_items=min(len(citable), MAX_EVIDENCE_IDS)),
                 "mapping_id": {"enum": [bundle.mapping_id]},
-                "customer_impacts": _array([t.target.value for t in bundle.policy.targets]),
+                "customer_impacts": _array(targets, max_items=len(targets)),
                 "uncertainty": {"type": "number", "minimum": 0, "maximum": 1},
                 "requires_human_review": {"type": "boolean"},
                 "explanation": {"type": "string"},  # no maxLength: it cuts text mid-word; bounded by max_tokens

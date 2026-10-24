@@ -3,6 +3,11 @@
 Fails closed: anything it cannot confirm blocks. Abstaining is always safe, so an abstention routes to a
 human instead of being pushed to bluff. Checks form, not reasoning: a causal story that uses only cited
 numbers passes here, and the adversarial set measures how often that happens.
+
+v0.2.0 (2026-10-23, findings log): two sentence checks, both deliberately narrow so that they block only a clear
+contradiction: a sentence that says a cited metric rose or fell must match how its value moved from its baseline, and
+a sentence that calls evidence stale must refer to at least one item that is stale. Percentile labels (P10, P50, P90)
+are no longer read as numbers.
 """
 from __future__ import annotations
 
@@ -24,6 +29,26 @@ from .numbers import find_numbers, normalize
 
 C = VerifierCode
 UNIT_OF_HINT = {"pct": "pct", "bps": "bps", "pp": "pp"}
+PERCENTILE_LABEL = re.compile(r"\b[Pp](?:10|50|90)\b")  # names of the AVM band's edges, not quantities
+SENTENCE_END = re.compile(r"(?<=[.!?;])\s+|\n+")  # a decimal point is not followed by a space
+# Words for how a metric itself moved. Effect words ("may increase borrowing capacity", "lower rates") are left out on
+# purpose: they describe the target or are adjectives, and would block correct explanations.
+RISE_WORDS = re.compile(r"\b(?:rose|risen|rising|rises|increased|grew|grown|climbed|went up|up from|higher than|"
+                        r"above(?: the| its)? baseline)\b|\btăng\b", re.IGNORECASE)
+DROP_WORDS = re.compile(r"\b(?:fell|fallen|falling|falls|dropped|declined|decreased|went down|down from|lower than|"
+                        r"below(?: the| its)? baseline)\b|\bgiảm\b", re.IGNORECASE)
+STALE_WORDS = re.compile(r"\b(?:stale|outdated|out[- ]of[- ]date|expired|no longer (?:current|valid))\b|lỗi thời|hết hạn",
+                         re.IGNORECASE)
+NEGATED_STALE = re.compile(r"\b(?:not|n't|never)\s+(?:\w+\s+)?(?:stale|outdated|expired)\b", re.IGNORECASE)
+# How a sentence names a metric without its number (for the staleness check only).
+METRIC_WORDS = {
+    "refi_rate": ("refinanc", "tái cấp vốn"), "mortgage_rate_avg": ("mortgage", "lending rate", "lãi suất cho vay"),
+    "cpi": ("cpi", "inflation", "consumer price", "lạm phát", "giá tiêu dùng"), "credit_growth": ("credit", "tín dụng"),
+    "unemployment_rate": ("unemployment", "thất nghiệp"), "listing_inventory": ("inventory", "listing", "tin rao"),
+    "transaction_volume": ("transaction", "giao dịch"), "price_index": ("price index", "chỉ số giá"),
+    "value_p10": ("avm", "valuation", "band", "định giá"), "value_p50": ("avm", "valuation", "estimate", "định giá"),
+    "value_p90": ("avm", "valuation", "band", "định giá"), "asking_price": ("asking price", "giá chào"),
+}
 
 
 class _Collector:
@@ -85,9 +110,7 @@ def _allowed_numbers(item: EvidenceItem) -> dict[Decimal, set[str]]:
 
 
 def _check_numbers(explanation: str, cited: list[EvidenceItem], strip: list[str]) -> list[tuple[VerifierCode, str]]:
-    text = explanation
-    for s in sorted(strip, key=len, reverse=True):  # IDs contain digits ("...2026-09"); remove them first
-        text = text.replace(s, " ")
+    text = _without_ids(explanation, strip)
     allowed: dict[Decimal, set[str]] = {}
     for item in cited:
         for value, units in _allowed_numbers(item).items():
@@ -102,6 +125,57 @@ def _check_numbers(explanation: str, cited: list[EvidenceItem], strip: list[str]
             units = set().union(*matches)
             if UNIT_OF_HINT[mention.unit_hint] not in units:
                 problems.append((C.UNIT_MISMATCH, f"{mention.raw} stated in {mention.unit_hint}, evidence in {sorted(units - {'date'})}"))
+    return problems
+
+
+def _without_ids(text: str, strip: list[str]) -> str:
+    for s in sorted(strip, key=len, reverse=True):  # IDs contain digits ("...2026-09"); remove them first
+        text = text.replace(s, " ")
+    return PERCENTILE_LABEL.sub(" ", text)
+
+
+def _sentences(text: str) -> list[str]:
+    return [s.strip() for s in SENTENCE_END.split(text) if s.strip()]
+
+
+def _mentions_value(sentence: str, values: list[Decimal]) -> bool:
+    wanted = {normalize(v) for v in values}
+    return any(m.readings & wanted for m in find_numbers(sentence))
+
+
+def _check_directions(explanation: str, cited: list[EvidenceItem], strip: list[str]) -> list[tuple[VerifierCode, str]]:
+    """A sentence with a cited item's value or baseline and movement words of one direction only must match how the
+    item moved. Sentences with both directions are ambiguous and skipped (v0.2)."""
+    moved = [i for i in cited if i.value is not None and i.baseline is not None and i.value != i.baseline.value]
+    problems = []
+    for sentence in _sentences(_without_ids(explanation, strip)):
+        rise, drop = bool(RISE_WORDS.search(sentence)), bool(DROP_WORDS.search(sentence))
+        if rise == drop:
+            continue
+        said = "rose" if rise else "fell"
+        for item in moved:
+            if _mentions_value(sentence, [item.value, item.baseline.value]):
+                if (item.value > item.baseline.value) != rise:
+                    problems.append((C.DIRECTION_MISMATCH, f"says {said}: {item.evidence_id} went from "
+                                                           f"{item.baseline.value} to {item.value}"))
+    return problems
+
+
+def _check_staleness_claims(explanation: str, items: list[EvidenceItem], now: datetime,
+                            strip: list[str]) -> list[tuple[VerifierCode, str]]:
+    """A sentence that calls evidence stale must refer to at least one stale item. It refers to an item by its
+    evidence ID, its value or its metric's name (v0.2)."""
+    problems = []
+    for sentence in _sentences(explanation):
+        if not STALE_WORDS.search(sentence) or NEGATED_STALE.search(sentence):
+            continue
+        lowered, numbers = sentence.lower(), _without_ids(sentence, strip)
+        referred = [i for i in items if i.evidence_id in sentence
+                    or (i.value is not None and _mentions_value(numbers, [i.value]))
+                    or any(w in lowered for w in METRIC_WORDS.get(i.metric_id.split(".")[2], ()))]
+        if referred and all(i.freshness.deadline >= now for i in referred):
+            problems.append((C.STALENESS_MISMATCH, f"calls fresh evidence stale: "
+                                                   f"{', '.join(sorted({i.evidence_id for i in referred}))[:200]}"))
     return problems
 
 
@@ -195,7 +269,12 @@ def verify_recommendation(
     out.check("explanation_numbers", _check_numbers(rec.explanation, cited,
                                                     list(rec.evidence_ids) + bundle.evidence_ids + [rec.mapping_id]))
 
-    # 7. what needs a human
+    # 7. what sentences claim (v0.2): movement directions of cited items, and staleness
+    strip = list(rec.evidence_ids) + bundle.evidence_ids + [rec.mapping_id]
+    out.check("explanation_directions", _check_directions(rec.explanation, cited, strip))
+    out.check("staleness_claims", _check_staleness_claims(rec.explanation, list(bundle.items), now, strip))
+
+    # 8. what needs a human
     route = []
     if rec.magnitude.rank > policy.magnitude_cap.rank:
         route.append((C.MAGNITUDE_ABOVE_CAP, f"{rec.magnitude.value} > {policy.magnitude_cap.value}"))

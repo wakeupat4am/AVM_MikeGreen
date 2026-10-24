@@ -1027,3 +1027,82 @@ The AI engineer asked me to check the publishers' terms and do the manual downlo
   the page reloads the server's state after any failed write. The reviewer re-entered the decision and signed.
 - **Frozen `corpus-v0.1`/`index-v0.1`:** 14 documents, 452 pages, 1,452 chunks; all embeddings came from the cache ($0).
 - **SSH alias** for the bridge is `vishc-server-1` (the user's `~/.ssh/config`), not `vishc-1`; script default and docs changed.
+
+## 2026-10-23 (continued) — end-to-end runner built and measured on 62 bulletins
+
+- **Approved and built:** RUNNER_PLAN.md R1–R8 (user: AVM band metrics as catalogue v0.2.0 context metrics; demo customer
+  Minh's home is Phase 3 property `7b99d5ef…` in Đống Đa). Demo bulletins regenerated dated 2026-10-23
+  (`docs-v0.1-demo-20261023`); the draft set's pages and PDFs are byte-identical under catalogue v0.2.0.
+- **Measurement** (all 62 demo bulletins, demo-minh, Qwen on GPU 1, load ~10–11; runs in
+  `pipeline_runs_eval/20261023-demo-set/`): 62/62 completed; OCR median 10.4 s, Qwen median 11.8 s (max 22.8), ~25 s per run.
+  Verdicts: **55 BLOCK, 5 PASS, 2 ROUTE_TO_HUMAN**. No wrong recommendation was released, but the demo mostly shows "Blocked".
+- **Why blocked:**
+  1. **Đống Đa listing inventory**, the customer's own district, is untrusted on almost every bulletin: Tesseract reads the
+     printed minus in "−57" as "=57" (and "19 Jul 2026" as "19Jul2026" in English), so the change and baseline period do not
+     parse. The extractor fails closed as designed. Qwen may not cite the row (schema) but still quotes its figures (477, 534:
+     27 of 68 unsupported numbers) and uses `INVENTORY_DROP` (39 of 46 unsupported reason codes).
+  2. **"P10 / P50 / P90" read as numbers:** the verifier finds "10", "50" and "90" in no evidence (19 findings). A clash between
+     the AVM metric names and the verifier's number check, not a hallucination.
+  3. The rest: values of items Qwen did not cite (47 numbers in all were in some bundle item, uncited), 3 invalid outputs.
+- **Wrong sentences that pass:** the verifier checks numbers, citations, codes and actions, not what a sentence claims.
+  Seen: "AVM data … is considered stale" (fresh until 2027-01-02); "transaction volume fell to 255 (from 217)"; a PASS that
+  calls "18.41–38.54" (P50 to P90) the valuation range. Every number is in the evidence, so each passes.
+- **Proposals (awaiting the user):** (a) the decision prompt withholds the values of items the model may not cite (untrusted,
+  stale, excluded: shown as "value withheld"), `runner_prompts/0.2`; (b) the verifier ignores percentile labels (`P10`, `P50`,
+  `P90`), as it already ignores evidence IDs (an instrument fix, verifier v0.1.2); (c) a deterministic **direction check**: a
+  number in the explanation next to "rose/fell/increased/dropped/above/below/from" must match the direction of the cited item's
+  value against its baseline, plus a staleness-claim check (verifier v0.2, with tests). Measure again on the demo set after
+  (a)+(b), then after (c). The frozen adversarial set and the held-out documents are not used for tuning.
+
+## 2026-10-23 (continued) — fixes (a)–(c) approved and built
+
+- **Qwen stopped** at the user's request (GPU 1 freed); the pipeline API keeps running (CPU only).
+- **(a) `runner_prompts/0.2`:** the runner renders the bundle itself (the frozen evaluation's `eval_prompts/0.2` rendering is
+  unchanged): an item the decision may not cite (untrusted, stale, excluded) shows "withheld (<reason>)" instead of its value
+  and baseline; every item carries its catalogue name; AVM items are marked "context: the customer's property"; one added
+  instruction says withheld values must not be stated or described. Test: the untrusted 477 never reaches the prompt.
+- **(b)+(c) verifier v0.2.0:** percentile labels are not numbers; new BLOCK codes `DIRECTION_MISMATCH` and
+  `STALENESS_MISMATCH`, both narrow on purpose (movement verbs only, not effect words such as "may increase"; sentences with
+  both directions skipped; negated staleness skipped). Unit tests use the sentences Qwen wrote in the measurement.
+- **Checks:** 183 tests pass; scripted adversarial cases 13/13; re-verifying the 21 real Qwen outputs of the 2026-10-19 dev run
+  with v0.2.0 adds **no new block** (the one changed verdict, ADV-014, comes from the v0.1.1 fix that run predates). Holdout
+  cases and held-out documents not used.
+- **Not yet measured:** the 62-bulletin re-run needs Qwen (~30 min on one GPU).
+
+## 2026-10-23 (continued) — re-measurement after fixes (a)–(c)
+
+- **Run:** the same 62 demo bulletins, `runner_prompts/0.2`, verifier v0.2.0, Qwen on GPU 1 (load ~12), 23:17–23:42;
+  Qwen stopped right after, as the user asked. Runs in `pipeline_runs_eval/20261023-demo-set-fixes/`.
+- **Verdicts:** before → after: PASS 5 → 6, ROUTE_TO_HUMAN 2 → **17**, BLOCK 55 → **39**. Usable after a person's review:
+  7 → 23 of 62. Qwen median 12.2 s.
+- **What changed:** the untrusted Đống Đa inventory figures (477, 534) no longer appear in any explanation; unsupported reason
+  codes 46 → 12. `DIRECTION_MISMATCH` fired 7 times, every time on a real error (mostly "transaction volume fell to 255"
+  when it rose from 217); none false in the inspected runs. The routed explanations read correctly ("the average mortgage rate
+  fell to 10.7% and the refinancing rate dropped to 4.9%").
+- **Why the 39 are blocked now:**
+  1. **AVM band stated but not cited** (in 29 blocked runs, alone in 18): Qwen writes "P10: 8.36 … P90: 38.54" but cites only
+     the macro items, and the verifier accepts numbers only from cited evidence. The rule is right; the prompt does not say it.
+  2. **Output cut off** (8): Qwen repeats evidence IDs until the 500-token limit; xgrammar ignores `uniqueItems` (known), so the
+     JSON is never closed (`SCHEMA_INVALID`).
+  3. Real errors caught: direction (7), unsupported reason codes (12).
+- **Still unchecked:** claims without numbers (for example "a drop in transaction volumes … across Hanoi districts" in an
+  abstention, which goes to a person anyway).
+- **Proposals (awaiting the user):** (d) one prompt line: cite the AVM evidence IDs whenever the band is stated
+  (`runner_prompts/0.3`); (e) cap `evidence_ids` with `maxItems` (enforced by xgrammar) at the number of citable items, up to 8,
+  so a repeated list cannot run past the token limit. (e) changes the shared generation schema, so it also applies to the
+  adversarial evaluation (measured, not tuned on holdout).
+
+## 2026-10-24 — fixes (d) and (e) measured: (e) works, (d) backfires
+
+- **Run:** 62 demo bulletins, `runner_prompts/0.3` + evidence-list caps, verifier v0.2.0, Qwen on GPU 1 08:11–08:36 (load ~12),
+  stopped right after. Runs in `pipeline_runs_eval/20261024-demo-set-fixes-de/`.
+- **Verdicts across the three measurements:** 55/5/2 → 39/6/17 → **53 BLOCK / 6 PASS / 3 ROUTE** (BLOCK/PASS/ROUTE).
+- **(e) works:** no cut-off output (`SCHEMA_INVALID` 8 → 0).
+- **(d) backfires:** the line "if you state any AVM figure, cite that AVM item" made Qwen state the band in more explanations
+  (AVM figures unsupported in 50 of 53 blocks) while it still cited only the macro items (33 runs cite exactly the two rate
+  items). Abstentions rose 8 → 17. Telling the model about a figure invites it to repeat the figure.
+- **Lesson:** a figure that deterministic code can show (the AVM band, from the run record) should not be restated by the model.
+  The Customer card already shows the band from the AVM stage, with its source and caveats.
+- **Proposal (awaiting the user):** `runner_prompts/0.4`: replace (d) with "do not state AVM figures; the band is shown to the
+  customer separately", keep (e), re-measure. Until then the live pipeline uses 0.3.
+

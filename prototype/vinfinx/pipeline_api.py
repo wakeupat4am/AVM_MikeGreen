@@ -15,7 +15,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from pydantic import BaseModel, Field
 
-from ai.api import service
+from ai import runner
+from ai.api import runs, service
 from ai.api.service import ApiError, Store
 from ai.corpus.index import Index
 
@@ -95,6 +96,18 @@ class GoldProgress(BaseModel):
 
 class GoldSubmit(BaseModel):
     reviewer: str
+
+
+class RunRequest(BaseModel):
+    reviewer: str
+    document_id: str
+    customer_id: str
+
+
+class RunReview(BaseModel):
+    reviewer: str
+    action: str
+    note: str | None = None
 
 
 P = f"/{API_PATH}"
@@ -184,3 +197,47 @@ def search(version: str, q: str, mode: str = "hybrid") -> dict:
         raise
     except Exception as exc:  # e.g. OpenAI unreachable: say so instead of a bare 500
         raise HTTPException(status_code=502, detail=f"search failed: {type(exc).__name__}") from exc
+
+
+# ---------------------------------------------------------------- pipeline runs (RUNNER_PLAN.md)
+
+
+@app.get(f"{P}/pipeline/inputs")
+def pipeline_inputs() -> dict:
+    return runs.pipeline_inputs()
+
+
+@app.post(f"{P}/pipeline/runs")
+def start_run(body: RunRequest) -> dict:
+    return runs.start_run(store, body.reviewer, body.document_id, body.customer_id)
+
+
+@app.get(f"{P}/pipeline/runs")
+def list_runs() -> list[dict]:
+    return runs.list_runs(runner.RUNS) if runner.RUNS.exists() else []
+
+
+@app.get(f"{P}/pipeline/runs/{{run_id}}")
+def get_run(run_id: str) -> dict:
+    return runs.get_run(runner.RUNS, run_id)
+
+
+@app.get(f"{P}/pipeline/runs/{{run_id}}/pages/{{page}}")
+def page(run_id: str, page: int) -> FileResponse:
+    return FileResponse(runs.page_image(runner.RUNS, run_id, page), media_type="image/png")
+
+
+@app.post(f"{P}/pipeline/runs/{{run_id}}/review")
+def review_run(run_id: str, body: RunReview) -> dict:
+    return runs.review_run(store, runner.RUNS, run_id, body.reviewer, body.action, body.note)
+
+
+@app.get(f"{P}/pipeline/customers/{{customer_id}}/latest")
+def customer_latest(customer_id: str) -> dict:
+    return {"latest": runs.customer_latest(runner.RUNS, customer_id) if runner.RUNS.exists() else None}
+
+
+@app.get(f"{P}/pipeline/audit")
+def audit() -> dict:
+    return runs.audit(store, runner.RUNS) if runner.RUNS.exists() else {"runs": [], "actions": []}
+

@@ -269,3 +269,60 @@ class MappingVerifierTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SentenceChecksTest(unittest.TestCase):
+    """Verifier v0.2: the sentences Qwen wrote in the 2026-10-23 runner measurement (findings log)."""
+
+    def setUp(self):
+        from datetime import datetime, timezone
+        sep = (datetime(2026, 9, 1, tzinfo=timezone.utc), datetime(2026, 9, 30, 23, 59, 59, tzinfo=timezone.utc))
+        self.volume = updated(item("market.hn-dong-da.transaction_volume", "2026-09", *sep, "255", "count", "level"),
+                              baseline={"value": "217", "unit": "count", "period_label": "2026-06"})
+        self.refi = updated(REFI, baseline={"value": "4.5", "unit": "pct", "period_label": "2026-06"})
+        day = (datetime(2026, 7, 6, tzinfo=timezone.utc), datetime(2026, 7, 6, 23, 59, 59, tzinfo=timezone.utc))
+        self.p50 = item("avm.hn-dong-da.value_p50", "2026-07-06", *day, "18.41", "vnd_bn", "level")
+        self.bundle = signed([self.refi, self.volume, self.p50])
+
+    def run_rec(self, explanation, cited=None):
+        cited = cited or [self.refi.evidence_id, self.volume.evidence_id]
+        return verify(rec(evidence_ids=cited, explanation=explanation), self.bundle)
+
+    def test_wrong_direction_blocks(self):
+        r = self.run_rec("However, transaction volume in your area (Dong Da) fell to 255 units (from 217), "
+                         "indicating slower market activity.")
+        self.assertEqual(r.decision, "BLOCK")
+        self.assertIn("DIRECTION_MISMATCH", codes(r))
+        # Vietnamese movement words are covered too
+        self.assertIn("DIRECTION_MISMATCH", codes(self.run_rec("Số giao dịch giảm xuống 255.")))
+
+    def test_right_direction_and_effect_words_pass(self):
+        for text in ("Transaction volume rose to 255 from 217, and the refinancing rate fell to 4.0%.",
+                     "Lower refinancing rates (4.0%) may increase borrowing capacity.",
+                     "The refinancing rate dropped to 4.0% while transaction volume rose to 255."):
+            r = self.run_rec(text)
+            self.assertNotIn("DIRECTION_MISMATCH", codes(r), text)
+            self.assertEqual(r.decision, "PASS", (text, r.findings))
+
+    def test_calling_fresh_evidence_stale_blocks(self):
+        r = self.run_rec("Property valuation review is not recommended as the only available AVM data for your "
+                         "property location (Dong Da) is from July 2026, which is considered stale.")
+        self.assertIn("STALENESS_MISMATCH", codes(r))
+        self.assertEqual(r.decision, "BLOCK")
+
+    def test_true_or_negated_staleness_passes(self):
+        stale_refi = updated(self.refi, freshness={**self.refi.freshness.model_dump(),
+                                                   "deadline": NOW - timedelta(days=1)})
+        bundle = signed([stale_refi, self.volume, self.p50])
+        r = verify(rec(evidence_ids=[self.volume.evidence_id], reason_codes=[],
+                       explanation="The refinancing rate figure is stale, so it was not used."), bundle)
+        self.assertNotIn("STALENESS_MISMATCH", codes(r))
+        r = self.run_rec("The AVM band is not stale.")
+        self.assertNotIn("STALENESS_MISMATCH", codes(r))
+
+    def test_percentile_labels_are_not_numbers(self):
+        r = self.run_rec("The P50 estimate is 18.41 billion VND.", cited=[self.refi.evidence_id, self.p50.evidence_id])
+        self.assertNotIn("UNSUPPORTED_NUMBER", codes(r))
+        r = self.run_rec("The estimate is 50 billion VND.", cited=[self.refi.evidence_id, self.p50.evidence_id])
+        self.assertIn("UNSUPPORTED_NUMBER", codes(r))  # a bare 50 is still a number
+

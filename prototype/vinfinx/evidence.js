@@ -30,10 +30,13 @@ function clearProblems() { document.getElementById('evProblems').hidden = true; 
 
 // ---------------------------------------------------------------- navigation
 
+const AUTH_VIEWS = [['authenticatorView', () => rqLoad()], ['signalsView', () => msLoad()], ['evidenceView', () => evLoad()],
+                    ['auditView', () => auditLoad()]];  // the Authenticator navigation, in order (pipeline.js has the loaders)
 function showAuthView(i) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById(i === 2 ? 'evidenceView' : 'authenticatorView').classList.add('active');
-  if (i === 2) evLoad();
+  document.getElementById(AUTH_VIEWS[i][0]).classList.add('active');
+  document.querySelectorAll('#nav button').forEach((x, j) => x.classList.toggle('active', i === j));
+  AUTH_VIEWS[i][1]();
 }
 document.querySelectorAll('#nav button').forEach((b, i) => b.addEventListener('click', () => {
   document.querySelectorAll('#nav button').forEach((x, j) => x.classList.toggle('active', i === j));
