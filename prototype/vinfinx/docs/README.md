@@ -6,6 +6,14 @@ Working plans and progress for the AI engineering scope. Background, decisions a
 
 ## Where we stand
 
+Internal pilot (2026-11-02): **VinFinx x Vietcombank**,6 Customer /2 Advisor /2 Authenticator accounts, isolated CPU inference service on cecs-server1:127.0.0.1:4175 through VPN+SSH. Live preview/save AVM + research residual calibration, artifact/input traces, Tesseract/PDF extraction, human income approval, SQLite WAL/idempotency, supervision and verified backup/restore. [Runbook](PILOT10_RUNBOOK.md), [acceptance results](PILOT10_RESULTS.md). Qwen blocked by NVML; macro research/structural hierarchy not promoted into customer decisions. No new public exposure, bank integration or Phase1–3 edits. Owner requested scoped commit/push; private assets stay ignored.
+
+iPhone preview (2026-10-30): `http://127.0.0.1:4173/?demo=ios` reuses local_app's real routes in an adaptive phone presentation with system/rounded typography, role-aware bottom tabs, text size and contained dialogs.16 UI +9 isolated backend/OCR/model checks pass; browser checked393×852 and desktop/narrow layouts. No native iOS package, physical-device verification, backend/model change or public exposure. See [`../LOCAL_DEMO.md`](../LOCAL_DEMO.md).
+
+Local service recovery (2026-10-30): approved restart restored homepage HTTP200 and authentication responses; runtime logs now go to ignored `.local-demo/server.log` in a retained execution session. Existing demo state preserved; Qwen availability unchanged.
+
+Local UI update (2026-10-30): Light/Dark/System, workspace tabs, account/customer-partitioned session drafts, non-modal Finx panel and background activity tracking are implemented in `../local_app/`. Ten UI unit checks and nine isolated backend/model/OCR checks pass. Navigation and logout race guards added; model/AI policy and server state unchanged. Persistence/privacy boundaries are in [`../LOCAL_DEMO.md`](../LOCAL_DEMO.md).
+
 ### The handoff's philosophy
 
 The LLM must never be the sole authority. Every fact it uses comes from validated evidence, every output is checked by deterministic code, and anything uncertain goes to a human. The handoff asks how to control hallucination (§3, §4, §5) and answers with a stack of independent controls (§6), not a better prompt, then requires measuring whether those controls work (§7).
@@ -152,6 +160,12 @@ The six steps from [`PIPELINE.md`](PIPELINE.md#build-order):
 | Demo property scope (Thảo Điền vs Hà Nội) | Project lead | Hà Nội districts used for market metrics (D3); the prototype UI still shows Thảo Điền |
 
 ## Code map
+
+Local app release (2026-10-30): see `../LOCAL_DEMO.md` and `../start-local.sh`. New local sessions/RBAC and synthetic Customer→OCR→Authenticator→updated health/report workflow are implemented;9 isolated tests pass, including20-row AVM parity and real scan OCR. Current Qwen is **Evidence mode** because the server GPU/service is unavailable; legacy research services remain separate. Credentials/runtime data are ignored, not tracked. Map uses labelled district centers, not fetched street geometry. No public deployment or production promotion.
+
+AVM research update (2026-10-30, not a deployed AI-pipeline change): the owner-requested combined Phase1–3 hierarchy/GBM benchmark is complete; see `../../../Phase 4/combined_20261030/RESULTS_VI.md`. Six tests and artifact/metric checks passed. No model promotion or website integration; the Phase3 CSV evidence adapter remains unchanged.
+
+Hybrid follow-up (2026-10-30): `../../../Phase 4/combined_20261030/hybrid_calibration/RESULTS_VI.md` is **older Phase1 local fallback only**, not pooled/company results. SSH refused the pooled run. Local calibration/blending improves point MedAPE but temporal coverage is insufficient; 8 tests pass, no production/web change. Pooled hybrid remains pending.
 
 | Path | Contents |
 |---|---|

@@ -1,5 +1,15 @@
 # Qwen server setup plan
 
+## 2026-11-02 — separate cecs-server1 CPU web pilot
+
+This does **not** move/rebuild the vishc-server-1 research/Qwen installation described below. Owner approved a separate10-person synthetic web pilot at `/home/ubuntu/vinfinx-pilot`, mode700, loopback4175, VPN+SSH only. NVML still fails; no GPU driver repair or Qwen model start was attempted.
+
+Install command used: `bash prototype/vinfinx/pilot-setup.sh /home/ubuntu/vinfinx-pilot` (script copied into the dedicated root on the server). It runs `/home/ubuntu/miniconda3/bin/conda create -y --override-channels -c conda-forge --prefix /home/ubuntu/vinfinx-pilot/env python=3.12 tesseract=5.5.3 pip` with caches confined to the pilot, then the exact pip install list in that script. Initial conda HTTP000 was transient; retry succeeded without disabling TLS or changing shared environments. Installed Python3.12.16; pip check passes. Direct pins: [`../requirements/pilot.txt`](../requirements/pilot.txt); all observed Python distributions: [`../requirements/pilot-server.lock`](../requirements/pilot-server.lock). Conda packaging's build-local URL is normalized to installed version26.3 in the lockfile.
+
+OCR install: `env/bin/python prepare_tessdata.py /home/ubuntu/vinfinx-pilot/tessdata_best-e12c65a /home/ubuntu/vinfinx-pilot/tessdata_best-e12c65a.sha256`. Downloads official eng/vie/osd at the existing approved commit, verifies every committed hash; no model/data files enter Git. Customer pilot salary schema uses `eng`, psm3, local only; not a claim that Vietnamese customer documents or Qwen second reading are ready.
+
+Scoped tmux `vinfinx-pilot` runs `bash /home/ubuntu/vinfinx-pilot/run-pilot-server.sh`:16-thread Waitress + SQLite WAL, actual CPU LightGBM/residual-calibration artifacts checked by manifest, mandatory AVM/sample-image OCR warm-up, supervised/restart-limited child and bounded private logs. Credentials and data are private state. No boot service, public port or recurring backup automation was installed. Read [runbook](PILOT10_RUNBOOK.md) and [measured acceptance/remaining Qwen gates](PILOT10_RESULTS.md) before using this pilot; historical paths/instructions below belong to the different research host.
+
 *Status, 2026-10-16: environment installed and the flow tested on the server (see [Test results](#test-results-2026-10-16)). Target: our own shared GPU server `vishc-server-1` (not `cecs-server1`) serving Qwen3.5-9B with plain `transformers`; vLLM is deferred until after the first experiments (see [Future: vLLM](#future-vllm-after-experiments)). Not yet done: the GPU agreement with other users, and the connection from the Mac.*
 
 ## Goal

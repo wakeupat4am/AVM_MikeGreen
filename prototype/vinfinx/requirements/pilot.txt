@@ -1,0 +1,16 @@
+# Pilot runtime, installed in an isolated Python 3.12 environment.
+lightgbm==4.6.0
+scikit-learn==1.9.1
+numpy==2.3.5
+pandas==2.2.3
+scipy==1.18.1
+joblib==1.6.0
+threadpoolctl==3.7.0
+pyarrow==21.0.0
+reportlab==4.4.9
+pdfplumber==0.11.9
+pypdf==6.10.0
+pypdfium2==5.14.0
+pillow==13.0.0
+waitress==3.0.2
+pytesseract==0.3.13

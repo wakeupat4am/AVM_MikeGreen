@@ -1,5 +1,15 @@
 # AI engineer findings — context review and next step
 
+## 2026-11-02 — internal10-user pilot and live inference
+
+- Owner requested cecs-server1, internal VPN/SSH, all three roles, live model inference and then scoped GitHub push. Built an isolated `/home/ubuntu/vinfinx-pilot` service, loopback4175;6 Customer/2 Advisor/2 Authenticator accounts, distinct synthetic profiles/advisor assignments and per-person sample PDF/PNG. No existing local DB reset or Phase1–3 source/data modification.
+- **VinFinx x Vietcombank** uses real frozen LightGBM CPU + native SHAP, optional existing Phase1 research residual calibration, separate preview/save routes and version/input/artifact hashes. This does not promote the pooled structural hierarchy. Added bounded Waitress/concurrency, WAL/closed connections, transactional idempotency, duplicate upload/review protection, PID-validated supervision and rotating private logs.
+- Tesseract5.5.3 installed in a separate Python3.12.16 conda environment with hash-pinned official tessdata_best.12/12 personal PDF/PNG samples extract correctly; matching income changes only after human review. No external customer-document API, unchosen confidence threshold or Qwen second-reading claim.
+-16 UI checks +9 isolated Mac backend/model/OCR checks (including20 frozen-row parity) +5 actual server pilot checks pass. Final server concurrency:10 clients,182 calls,64 real inferences,0 unexpected failures,16 expected denials,34.04s; inference HTTPp95 4,133.30ms. Separate running-service acceptance:10 accounts,74 calls/12 previews,12/12 extractions, inferencep95 3,127.35ms. These are server-local short tests, not VPN latency or an SLA.
+- Cross-process restore caught a transient SQLite WAL-manifest bug missed by same-process checking. Fixed explicit commit/checkpoint/close and added a subprocess regression. Live backup/new-directory restore verifies14 files; sessions invalidated. Final supervised child recovery6.27s with records/credentials unchanged. No overwrite of live state or unrelated process stop.
+- **Remaining:** GPU NVML still fails and no8061 service is available; Qwen remains visibly Evidence mode. No shared-driver repair/model substitution. Macro research services/corpus/mappings and pooled structural hierarchy are separate, not live customer decision engines. Bank/production/risk-owner gates, semantic conversation verification and Qwen OCR second reading remain open.
+- Runbook/results: `vinfinx/docs/PILOT10_RUNBOOK.md`, `PILOT10_RESULTS.md`; direct/complete dependency pins and model hashes under `requirements/`. Credentials, model weights, generated data/documents, private release/test outputs and screenshots stay outside Git. Current explicit owner push request overrides the usual no-commit preference only for this scoped delivery; unrelated working files are preserved.
+
 *Written 2026-10-11 from a read-through of the project README, the VinFinx prototype README and handoff, the Phase 3 model card, and the prototype code. Nothing has been implemented yet.*
 
 Sources read: [`../README.md`](../README.md), [`vinfinx/README.md`](vinfinx/README.md), [`vinfinx/AI_ENGINEERING_HANDOFF.md`](vinfinx/AI_ENGINEERING_HANDOFF.md), [`../Phase 3/MODEL_CARD.md`](../Phase%203/MODEL_CARD.md), [`vinfinx/qwen_api.py`](vinfinx/qwen_api.py), [`vinfinx/index.html`](vinfinx/index.html), [`vinfinx/serve-qwen.sh`](vinfinx/serve-qwen.sh), [`vinfinx/start-qwen-bridge.sh`](vinfinx/start-qwen-bridge.sh), [`../Phase 1/Rule-based Scene/src/score_listing.py`](../Phase%201/Rule-based%20Scene/src/score_listing.py).
@@ -1178,3 +1188,46 @@ The AI engineer asked me to check the publishers' terms and do the manual downlo
   `chromium-1187`); deleted immediately, never launched. Lock and runbook updated (`requirements/webtest.lock`,
   `SERVER_SETUP_PLAN.md`, the handoff guide).
 
+## 2026-10-30 — owner-requested combined AVM research benchmark (separate from the AI pipeline)
+
+- Tested Phase4 structural hierarchy against LightGBM on the union of Phase1–3 observed asking/reference prices. Phase3 is largely a merge: union 715,136 before filtering, 671,669 exact-proxy unique eligible observations; all 273 Phase3-only IDs failed common eligibility.
+- Matched common features; group train/calibration/test 470,863/67,193/133,613; temporal 48,449/17,126/29,983. Grounded SVI 100 epochs, seeds42/43; 6 regression tests and independent metric/artifact checks pass. CPU on `cecs-server1` because NVML/driver is unavailable; no service/GPU configuration changed.
+- Primary seed42 MedAPE, hierarchy vs GBM: group24.60% vs24.57%; temporal35.73% vs37.81%. Phase2 cohort: group24.87% vs23.26% (n2,041), temporal45.49% vs45.26% (n295). No general company-data superiority or causal data-size improvement established.
+- Local report `Phase 4/combined_20261030/RESULTS_VI.md`; full artifacts `/home/ubuntu/avm-combined-20261030/results/`. No original Phase1–3 code/data edits, no production promotion, no website integration, no commit/push. The website continues to use the Phase3 CSV adapter.
+
+## 2026-10-30 — hybrid calibration, local Phase1 fallback; pooled test blocked by SSH
+
+- User requested GBM + hierarchy calibration. Prepared robust hierarchical residual calibration and a geometric blend using frozen hierarchy predictions; calibration is group-split into fit/selection/interval-only subsets; no test-based weight choice.
+- `cecs-server1` returned Connection refused in three attempts. Ran only the older full-Phase1 artifacts available locally, clearly labelled `older_full_phase1_NOT_combined`. Pooled Phase1–3 hybrid has **not** run; no company-data hybrid claim, server job or monitoring automation.
+- Local group n132,534: GBM19.91%, residual-calibration19.75%, blend19.53%. Temporal n29,499:31.21%,28.97%,28.93%. Selection chose hierarchy blend weights25% group and50% temporal in log-space; 8 tests and independent recomputation pass.
+- Temporal blend coverage81.12% nominal90% is a deployment limitation. No promotion, web update, original-data modification or commit/push. Report: `Phase 4/combined_20261030/hybrid_calibration/RESULTS_VI.md`.
+
+## 2026-10-30 — iPhone web presentation demo
+
+- User approved an iOS-style simulated screen with neat, friendly app typography. Added `/?demo=ios` plus standard-web entry links. `assets/ios.js` wraps the existing authenticated DOM, not an iframe or duplicate backend; `ios.css` scopes the presentation and leaves normal web layout intact.
+- Adaptive frame, illustrative status bar/Dynamic Island, accessible role-aware SVG bottom tabs, rounded system display font with sans-serif body, Default/Larger text, Light/Dark/System, scroll-contained pages, menu close, phone-positioned dialogs, reduced-motion-aware transitions and numeric input modes. No external font downloads, security-header relaxation, data reset, bank-policy/model changes or Qwen availability claim.
+-16 UI unit checks pass (10 existing +6 shell contracts);9 isolated backend/OCR/model checks pass. Browser verified default desktop and narrow rendering plus393×852, larger/dark type, property draft round-trip without saving, menu, assistant and simulator. DOM measurements show no horizontal overflow and simulator entirely within screen bounds. Test input restored to52.3; no owner income/evidence approvals or model state changed.
+- This is an interactive web prototype, not a native build/Xcode simulator. Physical-iPhone Safari/software keyboard and full accessibility audit unverified. Localhost remains Mac-only; no new LAN/public listener, bank connection, cloud publication, commit or push. Standard-web service was reused, not restarted.
+
+## 2026-10-30 — local service restart
+
+- Owner approved restarting the nonresponsive local app. Port4173 was listening under validated VinFinx PID46708, but HTTP requests received empty replies. Process was orphaned with stdout/stderr pipes; logging failure is suspected, not confirmed by traceback.
+- Stopped only that process and restarted `start-local.sh`, retaining the execution session and redirecting runtime logs to ignored `.local-demo/server.log`. Initial detached nohup attempt did not produce a listener; retained foreground execution succeeded. Homepage HTTP200; `/api/me` signed-out JSON; protected status endpoint requires sign-in as expected. No account reset, DB/upload removal, source/model change or server/GPU action.
+
+## 2026-10-30 — local UI polish and multitasking
+
+- User requested cleaner UI/copy, appropriate capitalization, multitasking and light/dark customization. Added Light/Dark/System with pre-paint local preference and live OS following; explicit dark surfaces preserve the authorized official partner logo unchanged.
+- Workspace tabs retain property/profile drafts, area search and reviewer notes per account/role/customer in session storage; logout/session expiry clears them. Files are retained in memory across navigation only. Chat is a non-modal panel with per-customer in-memory transcripts; Activity tracks requests, not a durable worker queue. No persistence of passwords, documents or chat in appearance storage.
+- Guarded navigation and late task results against switching views/customers and logout; matching pending submit buttons stay disabled. Existing model/OCR/financial rules unchanged. No new Qwen capability claimed: browser chat correctly returns labelled Evidence mode.
+- Ten dependency-free UI unit checks pass (theme, task states, logout invalidation, draft partitioning, navigation race and copy). Nine isolated backend/model/OCR checks also pass. Browser verified narrow layout, dark persistence after reload, form draft round-trip, AI response while switching pages and Activity completion. This is not a full desktop/cross-browser audit; no writes to the owner's financial profile or evidence approval during UI checks.
+- Local-only skill workflow; no publication, commit/push, Phase1–3 edits or external customer-data transmission. Details in `prototype/vinfinx/LOCAL_DEMO.md`.
+
+## 2026-10-30 — functional local webapp, synthetic end-to-end workflow
+
+- User approved local-only, cecs-server1, one test account per role, synthetic customer records/payslip and Vietcombank partner logo. New `prototype/vinfinx/local_app/` served by `start-local.sh` on127.0.0.1:4173. Existing research code preserved, not replaced; research UI is available behind Authenticator-only routing and still needs its own server API.
+- SQLite sessions/RBAC, assigned-customer isolation, real frozen GBM inference, optional research hierarchical residual offsets, actual native SHAP, deterministic demo health/loan-budget rules,100 synthetic peers, documents, human approval, audit, appointments and printable report export work locally. Passwords generated in ignored owner-only state, never tracked. No bank API or official lending-policy claim.
+- Watermarked fictional payslip PDF and PNG:42M base+3M allowance+5M bonus=50M gross, minus3M insurance and4M tax=43M net. Native PDF extraction and actual macOS Vision image OCR work locally with page/field evidence; no external OCR API. Salary changes only after Authenticator approval. No change to the server Tesseract implementation.
+-9 isolated tests pass, including CSRF/RBAC/privacy, invalid uploads, single-review rules, income verification, model sensitivity and exact parity with20 frozen benchmark rows. Main demo DB is kept fresh for the owner's upload/review walkthrough. Browser verified Customer, Advisor selection and Authenticator/status views; PDF rendered and visually inspected.
+- SSH now succeeds, but NVML still fails;8061/8050 health probes unavailable. Forwarding prepared without starting/stopping a shared model or repairing drivers. Chat clearly falls back to Evidence mode; no fabricated Qwen success. Numeric/citation checks are narrow, not proof of complete semantic safety.
+-363 historical street aggregates,12 Hanoi districts. Both public OSM geometry fetches timed out; map fallback is explicitly approximate district-center markers plus searchable statistics, not exact road/parcel geolocation. Official Vietcombank logo downloaded from its website with owner authorization; sample payslip explicitly says not bank-issued.
+- No public deployment, model promotion, original Phase1–3 edits, commit or push. Runbook and limitations: `prototype/vinfinx/LOCAL_DEMO.md`.

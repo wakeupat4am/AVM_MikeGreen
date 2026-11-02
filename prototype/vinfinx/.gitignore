@@ -1,0 +1,10 @@
+.local-demo/
+.venv-local/
+.venv-pilot/
+.pilot-local/
+pilot-private/
+local_app/pilot-results/
+__pycache__/
+local_app/__pycache__/
+local_app/assets/market.json
+local_app/test-results/

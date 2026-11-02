@@ -1,4 +1,4 @@
-# VinFinx prototype
+# VinFinx x Vietcombank — prototype
 
 VinFinx is a browser prototype for three roles:
 
@@ -7,6 +7,16 @@ VinFinx is a browser prototype for three roles:
 - authenticators reviewing suspicious valuation updates and market evidence.
 
 The repository contains only the prototype and the small inference adapter. Model weights, credentials, bank data, identity documents, deployment IDs, and generated datasets are intentionally excluded.
+
+## Internal pilot (2026-11-02)
+
+The current authenticated application is `local_app/`, not the legacy static page below. The10-account pilot runs on **cecs-server1**, loopback4175, reached with `bash prototype/vinfinx/connect-pilot.sh` from the repo root. Open `http://127.0.0.1:4175/` (or `/?demo=ios`). See [pilot runbook](docs/PILOT10_RUNBOOK.md) and [measured results / AI blockers](docs/PILOT10_RESULTS.md).
+
+Actual live LightGBM inference, optional research hierarchy residual calibration, native SHAP, local Tesseract5.5.3/PDF extraction, role-isolated synthetic profiles, human review, reports and backup/restore are integrated. **Qwen remains offline because NVML fails; macro research is not deployed into pilot decisions.** Evidence mode is explicitly labelled. This is a synthetic internal pilot, not a production/bank decision system. Credentials and model artifacts are private and are not in Git.
+
+## Local application (2026-10-30)
+
+For the functional three-account local app, run `bash start-local.sh` and read [LOCAL_DEMO.md](LOCAL_DEMO.md). The original research prototype below is preserved. The new local app has its own SQLite authentication, authorized customer records, actual AVM inference and a synthetic payslip-review workflow. Current Qwen availability and map/financial-demo limitations are explicitly documented.
 
 ## Files
 
@@ -20,7 +30,7 @@ The repository contains only the prototype and the small inference adapter. Mode
 - `AI_ENGINEERING_HANDOFF.md` — architecture, safety contracts, evaluation requirements, and open research questions.
 - `docs/SERVER_SETUP_PLAN.md` — server environment, pinned versions, test results and runbook.
 
-## Running the demo
+## Running the legacy research demo (vishc-server-1, not the cecs pilot)
 
 The site runs on the Mac and reaches the server only through the SSH bridge to loopback; nothing on the server is public.
 
@@ -66,9 +76,9 @@ curl -s http://127.0.0.1:8062/vinfinx-pipeline/health   # no answer: the bridge 
 **3. Stopping.** On the Mac: Ctrl-C in the `http.server` terminal, then close the bridge:
 
 ```bash
-lsof -ti tcp:8061 -sTCP:LISTEN | xargs kill      # the bridge's ssh process (it usually holds both ports)
-lsof -ti tcp:8062 -sTCP:LISTEN | xargs kill
-lsof -nP -iTCP:8061,8062,4173 -sTCP:LISTEN       # prints nothing when everything is closed
+lsof -nP -iTCP:8061,8062,4173 -sTCP:LISTEN
+# Inspect the PID's command/ownership, then stop only the verified SSH bridge.
+# Do not pipe every listener into kill; unrelated services may own these ports.
 ```
 
 On the server (the GPUs are shared: stop Qwen as soon as it is not needed):
@@ -181,4 +191,4 @@ This is exploration, not the baseline: record what breaks as candidate adversari
 
 ## Current data boundary
 
-All customer, percentile, eligibility, property-price and street-price values in the interface are synthetic demonstration data. OpenStreetMap supplies only the basemap. A production implementation must replace the demo layer with versioned VinFinx estimates and display their observation count, confidence interval, timestamp and provenance.
+For the **legacy static interface** above, customer/percentile/eligibility/price illustrations are synthetic unless supplied by its research pipeline. For the authenticated **local_app pilot**, customer records, payslips and peers are synthetic, while AVM outputs are actual inference from the frozen asking-price model and area statistics are historical Phase1 aggregates. OpenStreetMap supplies only the basemap, never prices. Neither interface is a production appraisal/credit platform; see the pilot runbook for provenance, privacy and availability boundaries.

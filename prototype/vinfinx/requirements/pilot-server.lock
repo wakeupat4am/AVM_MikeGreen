@@ -1,0 +1,30 @@
+# Observed cecs-server1 pilot, 2026-11-02. Python 3.12.16, Linux x86_64.
+# Conda packaging's build-local URL normalized to its installed distribution version.
+cffi==2.1.1
+charset-normalizer==3.5.2
+cloudpickle==3.1.2
+cryptography==50.0.2
+joblib==1.6.0
+lightgbm==4.6.0
+narwhals==2.28.0
+numpy==2.3.5
+packaging==26.3
+pandas==2.2.3
+pdfminer.six==20251230
+pdfplumber==0.11.9
+pillow==13.0.0
+pyarrow==21.0.0
+pycparser==3.12
+pypdf==6.10.0
+pypdfium2==5.14.0
+pytesseract==0.3.13
+python-dateutil==4.0.0
+pytz==2026.6
+reportlab==4.4.9
+scikit-learn==1.9.1
+scipy==1.18.1
+setuptools==84.2.1
+threadpoolctl==3.7.0
+tzdata==2026.6
+waitress==3.0.2
+wheel==0.48.0
